@@ -1,0 +1,13 @@
+[submodule "_vim/vundle.git"]
+    path = _vim/vundle.git
+    url = http://github.com/gmarik/vundle.git
+    ignore = untracked
+[submodule "neobundle.vim"]
+	path = neobundle.vim
+	url = git://github.com/Shougo/neobundle.vim.git
+[submodule "_vim/neobundle.vim"]
+	path = _vim/neobundle.vim
+	url = git://github.com/Shougo/neobundle.vim.git
+[submodule "_zsh/auto-fu.zsh"]
+	path = _zsh/auto-fu.zsh
+	url = git://github.com/hchbaw/auto-fu.zsh.git
