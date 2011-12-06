@@ -1,0 +1,58 @@
+"-----------------------------------------------------------------------------
+" Common
+"-----------------------------------------------------------------------------
+"{{{
+"カラースキーム
+colorscheme molokai
+"フォント
+if has ('gui_macvim')
+    set guifont=Ricty\ Regular:h14
+elseif has('win32') || has('win64')
+    set guifont=Ricty:h13:b:cSHIFTJIS
+else 
+    set guifont=Ricty\ Bold\ 12
+endif
+"ベルを停止
+set visualbell t_vb=
+set errorbells t_vb=
+"初期化
+set guioptions&
+"ツールバーを非表示
+set guioptions-=T
+"スクロールバーを非表示
+set guioptions-=L
+set guioptions-=r
+"非GUIのタブを用いる
+set guioptions-=e
+"}}}
+"-----------------------------------------------------------------------------
+" Windows
+"-----------------------------------------------------------------------------
+"{{{
+if has('win32') || has('win64')
+endif
+"}}}
+"-----------------------------------------------------------------------------
+" Mac
+"-----------------------------------------------------------------------------
+"{{{
+if has ('gui_macvim')
+    set iminsert=2
+    set transparency=10
+    set fuoptions=maxvert,maxhorz
+endif
+"}}}
+"-----------------------------------------------------------------------------
+" autocmd
+"-----------------------------------------------------------------------------
+"{{{
+augroup MyAutoCmdGUI
+    "ウィンドウを最大化して起動
+    " Windows
+    if has('win32') || has('win64')
+        autocmd GUIEnter * simalt ~x
+    elseif has('gui_macvim')
+        autocmd GUIEnter * set fullscreen
+    endif
+augroup END
+"}}}

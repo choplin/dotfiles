@@ -1,0 +1,64 @@
+autodetach on
+bell_msg "^G"
+defkanji utf-8
+defencoding utf-8
+encoding utf-8 utf-8
+defscrollback 10000
+startup_message off
+vbell off
+
+shell -${SHELL}
+
+escape ^Jj
+
+hardstatus  alwayslastline " %-Lw%{=ub bw}%n %t%{-}%+Lw %=%{=b} %H %l %{-}"
+caption     always         "%?%F%{= bW}%:%{= Kk}%?%2n%f%07=%t"
+
+bind l windowlist
+
+
+# switch window encoding
+bind ^E eval 'command -c sencoding' 'echo "switch encoding to: [u]tf8 [e]ucjp [s]jis / with LANG env [U]tf8 [E]ucjp [S]jis"'
+bind -c sencoding u eval 'encoding utf8'  'info'
+bind -c sencoding e eval 'encoding eucjp' 'info'
+bind -c sencoding s eval 'encoding sjis'  'info'
+bind -c sencoding U eval 'encoding utf8'  '!!!echo "LANG=ja_JP.utf8; export LANG"'  'info'
+bind -c sencoding E eval 'encoding eucjp' '!!!echo "LANG=ja_JP.eucJP; export LANG"' 'info'
+bind -c sencoding S eval 'encoding sjis'  '!!!echo "LANG=ja_JP.sjis; export LANG"'  'info'
+
+# switch terminal
+bind                ^n eval next   'command -c term_region' 'echo "term"'
+bind                ^p eval prev   'command -c term_region' 'echo "term"'
+bind -c term_region ^n eval next   'command -c term_region' 'echo "term"'
+bind -c term_region ^p eval prev   'command -c term_region' 'echo "term"'
+#
+bind -c term_region  q eval remove 'command -c term_region' 'echo "term"'
+bind -c term_region ^i eval next   'command -c term_region' 'echo "term"'
+
+
+# continuous switch focus to other region(like vi)
+#bind ^J           eval 'focus down'   'command -c cfocus' 'echo "focus mode"'
+#bind ^K           eval 'focus up'     'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^J eval 'focus down'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus  j eval 'focus down'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^K eval 'focus up'     'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus  k eval 'focus up'     'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^T eval 'focus top'    'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus  t eval 'focus top'    'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^B eval 'focus bottom' 'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus  b eval 'focus bottom' 'command -c cfocus' 'echo "focus mode"'
+
+bind -c cfocus  q eval remove         'command -c cfocus' 'echo "focus mode"'
+bind           ^i eval focus          'command -c cfocus' 'echo "focus mode"'
+bind -c cfocus ^i eval focus          'command -c cfocus' 'echo "focus mode"'
+
+# add continuous switch focus definition
+#bind ^L           eval 'focus right'  'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^N eval 'focus next'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus n  eval 'focus next'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^P eval 'focus prev'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus p  eval 'focus prev'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^H eval 'focus left'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus h  eval 'focus left'   'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus ^L eval 'focus right'  'command -c cfocus' 'echo "focus mode"'
+#bind -c cfocus l  eval 'focus right'  'command -c cfocus' 'echo "focus mode"'
