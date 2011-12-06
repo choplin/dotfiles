@@ -1,0 +1,71 @@
+# prompt
+function hg_ps1() {
+    hg prompt "({branch}{bookmark}}{status}{update})" 2> /dev/null
+}
+#PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[046m\]\u\[\033[0m\]@\[\033[036m\]\h\[\033[0m\]:\w\$ "
+PS1="\[\033[0m\][\t] "
+PS1+="\[\033[036m\]\u"
+PS1+="\[\033[0m\]@"
+PS1+="\[\033[036m\]\h"
+PS1+="\[\033[0m\]:"
+PS1+="\[\033[031m\][\w]"
+PS1+="\[\033[033m\]"
+PS1+='$(hg_ps1)'
+PS1+="\[\033[033m\]\n\$"
+PS1+="\[\033[0m\] "
+
+export PS1
+
+# for bash_completion
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    source `brew --prefix`/etc/bash_completion
+fi
+
+# for perlbrew
+if [ -d ~/perl5/perlbrew ]; then
+    source ~/perl5/perlbrew/etc/bashrc
+fi
+
+# for pythonbrew
+if [ -d $HOME/.pythonbrew ]; then
+    source $HOME/.pythonbrew/etc/bashrc
+fi
+
+# for nvm
+if [ -d ~/.nvm ]; then
+    source ~/.nvm/nvm.sh
+    nvm use default > /dev/null
+fi
+
+# alias to MacVim
+case "${OSTYPE}" in
+darwin*)
+    alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+    alias gvim='env LANG=ja_JP.UTF-8 open -a /Applications/MacVim.app "$@"'
+    #alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
+;;
+esac
+
+# set environment variable
+export PATH=$PATH:~/bin
+export MANPATH=/usr/local/man:$MANPATH
+
+# set alias
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    alias ls="ls -F -G -w"
+    ;;
+linux*)
+    alias ls="ls --color"
+    ;;
+esac
+
+# function
+function cd() {
+    builtin cd $1
+    ls
+}
+
+# load user .bashrc configuration file
+[ -f ~/.bashrc.mine ] && source ~/.bashrc.mine
