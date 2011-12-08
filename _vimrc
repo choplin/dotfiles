@@ -717,6 +717,18 @@ command!
 \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
 \   | Restart
 " }}}
+" vim-ft_fold.vim {{{
+augroup foldmethod-expr
+  autocmd!
+  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+  \                   |   setlocal foldmethod=manual foldexpr=0
+  \                   | endif
+  autocmd InsertLeave * if exists('b:foldinfo')
+  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+  \                   | endif
+augroup END
+" }}}
 " }}}
 "-----------------------------------------------------------------------------
 " GUI
