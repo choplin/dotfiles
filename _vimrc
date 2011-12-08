@@ -454,6 +454,7 @@ nnoremap <silent> <SID>[unite]g :<C-u>Unite grep:.:-nHR:
 nnoremap <silent> <SID>[unite]l :<C-u>Unite -no-quit line<CR>
 nnoremap <silent> <SID>[unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
+nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
