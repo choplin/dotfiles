@@ -1,4 +1,4 @@
-﻿if has("win32") || has("win64")
+if has("win32") || has("win64")
   set encoding=cp932
 endif
 scriptencoding utf-8
