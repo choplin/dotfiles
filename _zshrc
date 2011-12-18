@@ -240,6 +240,28 @@ function chpwd { #{{{
 }
 # }}}
 
+function psg() { #{{{
+    ps a | head -n 1		 # ラベルを表示
+    ps a | grep $* | grep -v "ps -auxww" | grep -v grep # grep プロセスを除外
+}
+# }}}
+
+function google() { #{{{
+  local str opt 
+  if [ $# != 0 ]; then # 引数が存在すれば
+    for i in $*; do
+      str="$str+$i"
+    done    
+    str=`echo $str | sed 's/^\+//'` #先頭の「+」を削除
+    opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
+    opt="${opt}&q=${str}"
+  fi
+  w3m http://www.google.co.jp/$opt #引数がなければ $opt は空になる
+  # mozilla -remote openURL\(http::/www.google.co.jp/$opt\) # 未テスト
+}
+alias ggl=google
+# }}}
+
 # for screen {{{
 if [ "$TERM" = "screen" ]; then
     local -a shorthost
