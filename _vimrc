@@ -1,4 +1,4 @@
-﻿if has("win32") || has("win64")
+if has("win32") || has("win64")
   set encoding=cp932
 endif
 scriptencoding utf-8
@@ -72,6 +72,8 @@ NeoBundle 'git://github.com/mattn/webapi-vim.git'
 NeoBundle 'git://github.com/mattn/googletasks-vim.git'
 NeoBundle 'git://github.com/mattn/learn-vimscript.git'
 NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
+NeoBundle 'git://github.com/mattn/unite-advent_calendar.git'
+NeoBundle 'git://github.com/mattn/vimplenote-vim.git'
 
 NeoBundle 'git://github.com/t9md/vim-textmanip.git'
 NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
@@ -93,6 +95,7 @@ NeoBundle 'git://github.com/kana/vim-submode.git'
 "NeoBundle 'git://github.com/fuenor/qfixhowm.git'
 NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
 NeoBundle 'git://github.com/choplin/unite-vim_hacks.git'
+NeoBundle 'git://github.com/sorah/metarw-simplenote.vim.git'
 
 NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
