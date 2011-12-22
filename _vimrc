@@ -52,6 +52,7 @@ NeoBundle 'git://github.com/ujihisa/neco-look.git'
 NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
 NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
 NeoBundle 'git://github.com/ujihisa/tabpagecolorscheme.git'
+NeoBundle 'git://github.com/ujihisa/unite-haskellimport.git'
 
 NeoBundle 'git://github.com/thinca/vim-ref.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
