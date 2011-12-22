@@ -54,5 +54,9 @@ augroup MyAutoCmdGUI
     elseif has('gui_macvim')
         autocmd GUIEnter * set fullscreen
     endif
+
+    "入力モード時、ステータスラインのカラーを変更
+    autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
+    autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 "}}}

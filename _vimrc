@@ -73,6 +73,8 @@ NeoBundle 'git://github.com/mattn/webapi-vim.git'
 NeoBundle 'git://github.com/mattn/googletasks-vim.git'
 NeoBundle 'git://github.com/mattn/learn-vimscript.git'
 NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
+NeoBundle 'git://github.com/mattn/unite-advent_calendar.git'
+NeoBundle 'git://github.com/mattn/vimplenote-vim.git'
 
 NeoBundle 'git://github.com/t9md/vim-textmanip.git'
 NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
@@ -94,6 +96,7 @@ NeoBundle 'git://github.com/kana/vim-submode.git'
 "NeoBundle 'git://github.com/fuenor/qfixhowm.git'
 NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
 NeoBundle 'git://github.com/choplin/unite-vim_hacks.git'
+NeoBundle 'git://github.com/sorah/metarw-simplenote.vim.git'
 
 NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
@@ -276,15 +279,6 @@ map , <Leader>
 " {{{
 augroup MyAutoCmd
   autocmd!
-  "日本語入力をリセット
-  autocmd BufNewFile,BufRead * set iminsert=0
-  "タブ幅をリセット
-  autocmd BufNewFile,BufRead * set tabstop=4 shiftwidth=4
-
-  "入力モード時、ステータスラインのカラーを変更
-  autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340
-  autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
-
   " Command Window
   autocmd CmdwinEnter * nnoremap <buffer><silent> <Esc> :quit<CR>
   autocmd CmdwinEnter * inoremap <buffer> <Leader><Leader> ~
@@ -292,34 +286,16 @@ augroup MyAutoCmd
   " help
   autocmd FileType help nnoremap <buffer><silent> q :quit<CR>
 
-  " Windowを移動した時にファイルを読みなおす(更新がある場合)
-  autocmd WinEnter * checktime
-
   " filetypeに合わせた辞書ファイルを読み込み
   autocmd FileType *  execute printf("setlocal dict=$HOME/.vim/dict/%s.dict", &filetype)
-augroup END
 
-"全角スペースを視覚化
-if has('syntax')
-  syntax enable
-  function! ActivateInvisibleIndicator()
-    highlight ZenkakuSpace cterm=underline ctermfg=darkgrey gui=underline guifg=#FF0000
-    match ZenkakuSpace /　/
-  endfunction
-  augroup InvisibleIndicator
-    autocmd!
-    autocmd BufEnter * call ActivateInvisibleIndicator()
-  augroup END
-endif
-
-"IME自動制御
-augroup InsModeAu
-  autocmd!
+  " IME自動制御
   autocmd InsertEnter,CmdwinEnter * set noimdisable
   autocmd InsertLeave,CmdwinLeave * set imdisable
+
+  autocmd CmdwinEnter * call s:init_cmdwin()
 augroup END
 
-autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
 function! s:init_cmdwin()
   nnoremap <buffer> q :<C-u>quit<CR>
   "nnoremap <buffer> <TAB> :<C-u>quit<CR>
@@ -457,6 +433,7 @@ nnoremap <silent> <SID>[unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
+nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
@@ -717,6 +694,18 @@ command!
 \   RestartWithSession
 \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
 \   | Restart
+" }}}
+" ft-vim_fold {{{
+augroup foldmethod-expr
+  autocmd!
+  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+  \                   |   setlocal foldmethod=manual foldexpr=0
+  \                   | endif
+  autocmd InsertLeave * if exists('b:foldinfo')
+  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+  \                   | endif
+augroup END
 " }}}
 " }}}
 "-----------------------------------------------------------------------------
