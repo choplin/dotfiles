@@ -433,7 +433,6 @@ nnoremap <silent> <SID>[unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
-nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
