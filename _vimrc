@@ -294,6 +294,7 @@ augroup MyAutoCmd
   autocmd InsertLeave,CmdwinLeave * set imdisable
 
   autocmd CmdwinEnter * call s:init_cmdwin()
+  autocmd BufEnter * call s:init_diff()
 augroup END
 
 function! s:init_cmdwin()
@@ -307,6 +308,13 @@ function! s:init_cmdwin()
   "inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
   startinsert!
+endfunction
+
+function! s:init_diff()
+  if &diff
+    nnoremap <buffer><silent> J ]c
+    nnoremap <buffer><silent> K [c
+  endif
 endfunction
 " }}}
 "-----------------------------------------------------------------------------
