@@ -818,5 +818,17 @@ endfunction
 
 set tabline=%!MakeTabLine()
 "}}}
+" numberとrelativenumberを切り替え {{{
+if version >= 703
+  nnoremap  <silent><expr> ,n s:ToggleNumberOption()
+  function! s:ToggleNumberOption()
+    if &number
+      set relativenumber
+    else
+      set number
+    endif
+  endfunction
+endif
+" }}}
 
 " vim:ts=2 st=2 sw=2
