@@ -173,7 +173,7 @@ set laststatus=2
 "ステータスのところにファイル情報表示
 set statusline=%<
 set statusline+=[%n]%F\ 
-set statusline+=%{fugitive#statusline()}
+set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
 set statusline+=%=
 set statusline+=\ %m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
