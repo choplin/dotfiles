@@ -1,6 +1,6 @@
 [user]
-	name = choplin
-	email = choplin.public@gmail.com
+  name = choplin
+  email = choplin.public@gmail.com
 [color]
   # colorの設定(以下のコマンドは自動で色つける)
   status = auto
@@ -11,7 +11,7 @@
 [push]
   default = tracking       # defaultのpush先はtrackingしているリポジトリ
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
   autocrlf = input                 # CRLFを自動変換
   pager = lv -c
   editor = /usr/bin/vim
@@ -61,8 +61,8 @@
   gr = grep
   gn = grep -n
 [difftool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+  path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+  trustExitCode = true
