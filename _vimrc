@@ -53,6 +53,7 @@ NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
 NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
 "NeoBundle 'git://github.com/ujihisa/tabpagecolorscheme.git'
 NeoBundle 'git://github.com/ujihisa/unite-haskellimport.git'
+NeoBundle 'git://github.com/ujihisa/quicklearn.git'
 
 NeoBundle 'git://github.com/thinca/vim-ref.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
@@ -112,6 +113,8 @@ NeoBundle 'git://github.com/basyura/twibill.vim.git'
 NeoBundle 'git://github.com/kien/ctrlp.vim.git'
 NeoBundle 'git://github.com/pekepeke/titanium-vim.git'
 NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
+NeoBundle 'git://github.com/kevinw/pyflakes-vim.git'
+NeoBundle 'git://github.com/tangledhelix/vim-octopress.git'
 
 "NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
 "NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
@@ -456,6 +459,7 @@ nnoremap <silent> <SID>[unite]o :<C-u>Unite outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
+nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
@@ -521,6 +525,10 @@ let g:quickrun_config = {
       \     'cmdopt': '--template postgres',
       \     'exec': '%c %o s',
       \     'outputter': 'browser',
+      \ },
+      \ 'coffee':{
+      \     'command' : 'coffee',
+      \     'exec' : ['%c -cbp %s']
       \ },
       \}
 
@@ -833,8 +841,8 @@ set tabline=%!MakeTabLine()
 "}}}
 " numberとrelativenumberを切り替え {{{
 if version >= 703
-  nnoremap  <silent><expr> ,n s:ToggleNumberOption()
-  function! s:ToggleNumberOption()
+  nnoremap  <silent><expr> ,n ToggleNumberOption()
+  function! ToggleNumberOption()
     if &number
       set relativenumber
     else
