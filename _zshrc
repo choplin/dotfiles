@@ -1,5 +1,10 @@
-source ~/.zsh.d/zshrc
-source ~/.zsh.d/config/packages.zsh
+if [ -f ~/.zsh.d/zshrc ]; then
+    source ~/.zsh.d/zshrc
+fi
+
+if [ -f ~/.zsh.d/config/packages.zsh ]; then
+    source ~/.zsh.d/config/packages.zsh
+fi
 
 ## Environment variable configuration {{{
 # LANG
