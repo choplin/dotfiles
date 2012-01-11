@@ -34,6 +34,7 @@ NeoBundle 'git://github.com/thinca/vim-unite-history.git'
 NeoBundle 'git://github.com/basyura/unite-rails.git'
 NeoBundle 'git://github.com/hakobe/unite-script.git'
 NeoBundle 'git://github.com/tacroe/unite-alias.git'
+NeoBundle 'git://github.com/Shougo/unite-build.git'
 
 NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/Shougo/vimproc.git'
