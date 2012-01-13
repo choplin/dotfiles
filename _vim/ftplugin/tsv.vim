@@ -3,5 +3,5 @@ if exists("g:loaded_ftplugin_tsv")
 endif
 let g:loaded_ftplugin_tsv = 1
 
-set ts=32
-set nowrap
+setlocal ts=32
+setlocal nowrap
