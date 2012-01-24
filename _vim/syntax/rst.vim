@@ -30,3 +30,30 @@ syn cluster rstCruft                contains=rstEmphasis,rstStrongEmphasis,
       \ rstInterpretedText,rstInlineLiteral,rstSubstitutionReference,
       \ rstInlineInternalTargets,rstFootnoteReference,rstHyperlinkReference,
       \ rstNbsp,rstEmDash,rstUnicode
+
+" use another syntax inside sourcecode directive
+let s:sourcecode_syntaxes = [
+      \ ['vim', 'vim'],
+      \ ['sh', '\(ba\)\?sh'],
+      \ ['python', 'python'],
+      \ ['haskell', 'haskell'],
+      \ ['perl', 'perl'],
+\ ]
+let b:orig_current_syntax = b:current_syntax
+
+for [s:syn_name, s:syn_pattern] in s:sourcecode_syntaxes
+  unlet! b:current_syntax
+
+  let s:source_name = 'rstSource' . substitute(s:syn_name, '^.', '\u&', '')
+  let s:inc_name = s:syn_name . 'Syntax'
+
+  execute 'syn include @' . s:inc_name . ' syntax/' . s:syn_name . '.vim'
+  execute 'syn region ' . s:source_name . ' contained matchgroup=rstDirective'
+      \ . ' start=/sourcecode::\s*' . s:syn_pattern . '/'
+      \ . ' skip=/^$/'
+      \ . ' end=/^\s\@!/ contains=@' . s:inc_name
+  execute 'syn cluster rstDirectives add=' . s:source_name
+endfor
+
+let b:current_syntax = b:orig_current_syntax
+unlet b:orig_current_syntax
