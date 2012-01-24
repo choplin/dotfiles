@@ -1,0 +1,153 @@
+" map {{{
+nnoremap ,sv :<C-u>so ~/.vimperatorrc<CR>
+
+nnoremap ; :
+nnoremap : ;
+nnoremap j 5j
+nnoremap k 5k
+nnoremap h <C-p>
+nnoremap l <C-n>
+nnoremap ,g :<C-u>tabopen google 
+nnoremap ,G :<C-u>open google 
+
+nmap <F7> <F8>
+imap <F7> <F8>
+
+cnoremap <C-n> <Tab>
+cnoremap <C-p> <S-Tab>
+
+inoremap <C-f> <right>
+inoremap <C-b> <left>
+inoremap <C-n> <down>
+inoremap <C-p> <up>
+
+"vnoremap <silent> G y<Esc><Esc>:os<space>google<space><M-v><CR>
+" ブックマーク・検索プラグインから開く{{{
+" http://memo.officebrook.net/20090325.html
+com! -complete=bookmark -nargs=+ tabopenbookmark :t <args>
+com! -complete=search -nargs=+ tabopensearch :t <args>
+noremap ,b :tabopenbookmark<space>
+noremap ,se :tabopensearch<space>
+"}}}
+" qmarks{{{
+" gom,gorのようにgoに続けて入力・新規タブで開くにはgn
+" qmarks追加キーMを無効化
+noremap M <Nop>
+" 任意設定
+qmark m https://mail.google.com/
+qmark r https://www.google.com/reader/view/
+qmark f http://www.facebook.com/
+qmark p http://plus.google.com/
+"}}}
+"}}}
+" set {{{
+" メニュー・ツールバー表示
+set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
+" t:タブ補完 s:登録してるキーワードの補完 l:openなどの補完をアドレスバーの補完が可能
+set complete=tsl
+set hlsearch
+set ignorecase
+set history=1000
+" 自動でテキストエリアにフォーカスしない（なんか微妙）
+set focuscontent
+set hintchars=fjklasdhguionmerwc
+set nextpattern=^\次,^\続き,\bnext,^>$,^(>>\|??)$,^(>\|??),(>\|??),\bmore\b$
+set previouspattern=^\前,^\戻,\bprev|previous\b,^<$,^(<<\|??)$,^(<\|??),(<\|??)$
+
+set tabnumbers=true
+" Firefox 環境設定 about config {{{
+" タブの閉じるボタンを非表示
+set! browser.tabs.closeButtons=3
+" ダウンロードウィンドウを完了後自動で閉じる
+set! browser.download.manager.closeWhenDone=true
+" ダウンロード履歴をFirefox終了時に削除
+set! browser.download.manager.retention=1
+" キャッシュをHDDからRAMに
+set! browser.cache.disk.enable=false
+set! browser.cache.memory.enable=true
+" 単位(KB)
+set! browser.cache.memory.capacity=-1
+" ファイルダウンロード完了時のウイルススキャン機能オフ
+set! browser.download.manager.scanWhenDone=false
+" アドオンインストール時の待ち時間カット
+set! security.dialog_enable_delay=0
+" ページのアクセスキー無効化
+set! ui.key.generalAccessKey=0
+" JavaScriptでのウィンドウ移動・リサイズ拒否
+set! dom.disable_window_move_resize=true
+" JavaScriptのステータスバー操作を無効化
+set! dom.event.contextmenu.enabled=false
+" 画像の多いタブを閉じた時にすぐにメモリ使用量を減らす
+" http://space.geocities.yahoo.co.jp/gl/alice0775/view/20110416/1302920985
+set! image.mem.min_discard_timeout_ms=6000
+" 新規タブをバックグラウンドで
+set! browser.tabs.loadDivertedInBackground=true
+"}}}
+colorscheme sweets_dita
+"}}}
+" plugin {{{
+" feedSomeKeys_3 {{{
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc y
+lazy fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / j,n k,p n,j p,k o u e x s r a # [ ] ? gi gs gt gd ga gc
+lazy fmaps -u='www\.google\.co\.jp/reader' -events=vkeypress j k n p m s v A r S N P X O gh ga gs gt gu u / ? J K
+lazy fmaps -u='twitter\.com' f r t m n <Enter> ?  j k <Space> / .  gh gc ga gr gd gp gf gm gu
+"}}}
+" twittperator {{{
+let g:twittperator_use_chirp = 1
+let g:twittperator_use_ssl_connection_for_api_ep = 1
+"}}}
+" facebook {{{
+let g:facebook_auto_load = 1
+"}}}
+" copy {{{
+javascript <<EOM
+liberator.globalVariables.copy_templates = [
+  { label: 'twitter',    value: '%TITLE% %URL%' }
+];
+EOM
+"}}}
+" google-plus-commando.js{{{
+
+let g:gplus_commando_map_next            = "j"
+let g:gplus_commando_map_prev            = "k"
+let g:gplus_commando_map_share           = "s"
+let g:gplus_commando_map_plusone         = "p"
+let g:gplus_commando_map_comment         = "c"
+let g:gplus_commando_map_post            = "C"
+let g:gplus_commando_map_yank            = "Y"
+let g:gplus_commando_map_notification    = "n"
+let g:gplus_commando_map_submit          = "<M-CR>"
+let g:gplus_commando_map_cancel          = "<Esc>"
+let g:gplus_commando_map_unfold          = "e"
+let g:gplus_commando_map_menu            = "o"
+
+nnoremap -urls 'plus\.google\.com' gh gU
+nnoremap -urls 'plus\.google\.com' gp :open https://plus.google.com/me<CR>
+nnoremap -urls 'plus\.google\.com' gP :open https://plus.google.com/photos<CR>
+nnoremap -urls 'plus\.google\.com' gc :open https://plus.google.com/circles<CR>
+"}}}
+" google-plus.js{{{
+noremap GP :gp -l<Space>
+"}}}
+"}}}
+" style {{{
+" ex mode時IMEをOFF
+style -name commandline-ime chrome://* #liberator-commandline-command input { ime-mode: inactive; }
+" Google+ Custom Layout {{{
+style -name gplus-custom-layout https://plus.google.com/,https://plus.google.com/stream/*,https://plus.google.com/sparks/* <<EOM
+  .a-b-jC-T,.a-nb-z {
+    display: none !important;
+  }
+  #contentPane, .xy {
+    width: 769px !important;
+  }
+  .a-b-h-z {
+    width: 727px !important;
+  }
+EOM
+styledisable -name gplus-custom-layout
+lazy styletoggle -name gplus-custom-layout
+nnoremap -urls 'plus\.google\.com' ,cl :styletoggle -name gplus-custom-layout<CR>
+"}}}
+"}}}
