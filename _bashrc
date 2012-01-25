@@ -69,3 +69,4 @@ function cd() {
 
 # load user .bashrc configuration file
 [ -f ~/.bashrc.mine ] && source ~/.bashrc.mine
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
