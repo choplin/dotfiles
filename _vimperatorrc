@@ -1,5 +1,7 @@
 " map {{{
-nnoremap ,sv :<C-u>so ~/.vimperatorrc<CR>
+noremap <C-a> <Insert><C-a><Insert>
+
+nnoremap ,sv :<C-u>so ~/_vimperatorrc<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -42,9 +44,9 @@ qmark p http://plus.google.com/
 "}}}
 " set {{{
 " メニュー・ツールバー表示
-set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
+set gui=nobookmarks,nomenu,nonavigation,tabs
 " t:タブ補完 s:登録してるキーワードの補完 l:openなどの補完をアドレスバーの補完が可能
-set complete=tsl
+set complete=stl
 set hlsearch
 set ignorecase
 set history=1000
@@ -103,7 +105,11 @@ let g:facebook_auto_load = 1
 " copy {{{
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-  { label: 'twitter',    value: '%TITLE% %URL%' }
+  { label: 'twitter',    value: '"%TITLE%" %URL%' }
+  ,{ label: 'title',    value: '%TITLE%' }
+  ,{ label: 'url',    value: '%url%' }
+  ,{ label: 'anchor',    value: '<a href="%url%" title="%title%">%title%</a>' }
+  ,{ label: 'markdown',    value: '[%titel%](%url%)' }
 ];
 EOM
 "}}}
