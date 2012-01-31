@@ -290,7 +290,7 @@ endfunction
 inoremap jj <Esc>
 
 " <Leader>
-map , <Leader>
+let mapleader = ","
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
