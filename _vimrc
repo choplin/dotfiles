@@ -41,7 +41,7 @@ NeoBundle 'git://github.com/Shougo/vimproc.git'
 NeoBundle 'git://github.com/Shougo/vimshell.git'
 NeoBundle 'git://github.com/Shougo/vimfiler.git'
 NeoBundle 'git://github.com/Shougo/clang_complete.git'
-NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+"NeoBundle 'git://github.com/Shougo/vim-vcs.git'
 
 NeoBundle 'git://github.com/tyru/open-browser.vim.git'
 NeoBundle 'git://github.com/tyru/urilib.vim.git'
@@ -190,7 +190,7 @@ set laststatus=2
 "ステータスのところにファイル情報表示
 set statusline=%<
 set statusline+=[%n]%F\ 
-set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
+"set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
 set statusline+=%=
 set statusline+=\ %m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
@@ -606,7 +606,7 @@ call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
 " VimShell Prompt {{{
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 
 if has('win32') || has('win64') 
   let g:vimshell_prompt = $USERNAME."% "
