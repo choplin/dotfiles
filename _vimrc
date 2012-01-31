@@ -299,10 +299,6 @@ map , <Leader>
 " {{{
 augroup MyAutoCmd
   autocmd!
-  " Command Window
-  autocmd CmdwinEnter * nnoremap <buffer><silent> <Esc> :quit<CR>
-  autocmd CmdwinEnter * inoremap <buffer> <Leader><Leader> ~
-
   " help
   autocmd FileType help nnoremap <buffer><silent> q :quit<CR>
 
@@ -319,13 +315,14 @@ augroup END
 
 function! s:init_cmdwin()
   nnoremap <buffer> q :<C-u>quit<CR>
-  "nnoremap <buffer> <TAB> :<C-u>quit<CR>
   inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
   inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
   inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
+  nnoremap <buffer><silent> <Esc> :quit<CR>
+  inoremap <buffer> <Leader><Leader> ~
 
   " Completion.
-  "inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
   startinsert!
 endfunction
