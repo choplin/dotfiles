@@ -1,5 +1,8 @@
+let mapleader = ","
 " map {{{
-nnoremap ,sv :<C-u>so ~/.vimperatorrc<CR>
+noremap <C-a> <Insert><C-a><Insert>
+
+nnoremap <Leader>sv :<C-u>so ~/_vimperatorrc<CR>
 
 nnoremap ; :
 nnoremap : ;
@@ -7,8 +10,9 @@ nnoremap j 5j
 nnoremap k 5k
 nnoremap h <C-p>
 nnoremap l <C-n>
-nnoremap ,g :<C-u>tabopen google 
-nnoremap ,G :<C-u>open google 
+nnoremap <Leader>g :<C-u>tabopen google 
+nnoremap <Leader>G :<C-u>open google 
+nnoremap c ;c
 
 nmap <F7> <F8>
 imap <F7> <F8>
@@ -21,13 +25,17 @@ inoremap <C-b> <left>
 inoremap <C-n> <down>
 inoremap <C-p> <up>
 
-"vnoremap <silent> G y<Esc><Esc>:os<space>google<space><M-v><CR>
+vnoremap G y<Esc><Esc>P
+cnoremap <C-d> <PageDown>
+vnoremap <C-d> <PageDown>
+cnoremap <C-u> <PageUp>
+vnoremap <C-u> <PageUp>
 " ブックマーク・検索プラグインから開く{{{
 " http://memo.officebrook.net/20090325.html
 com! -complete=bookmark -nargs=+ tabopenbookmark :t <args>
 com! -complete=search -nargs=+ tabopensearch :t <args>
-noremap ,b :tabopenbookmark<space>
-noremap ,se :tabopensearch<space>
+noremap <Leader>b :tabopenbookmark<space>
+noremap <Leader>se :tabopensearch<space>
 "}}}
 " qmarks{{{
 " gom,gorのようにgoに続けて入力・新規タブで開くにはgn
@@ -42,15 +50,15 @@ qmark p http://plus.google.com/
 "}}}
 " set {{{
 " メニュー・ツールバー表示
-set gui=noaddons,nobookmarks,nomenu,nonavigation,tabs
+set gui=nobookmarks,nomenu,nonavigation,tabs
 " t:タブ補完 s:登録してるキーワードの補完 l:openなどの補完をアドレスバーの補完が可能
-set complete=tsl
+set complete=stl
 set hlsearch
 set ignorecase
 set history=1000
-" 自動でテキストエリアにフォーカスしない（なんか微妙）
 set focuscontent
 set hintchars=fjklasdhguionmerwc
+"set hintmatching=custom
 set nextpattern=^\次,^\続き,\bnext,^>$,^(>>\|??)$,^(>\|??),(>\|??),\bmore\b$
 set previouspattern=^\前,^\戻,\bprev|previous\b,^<$,^(<<\|??)$,^(<\|??),(<\|??)$
 
@@ -90,8 +98,9 @@ colorscheme sweets_dita
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc y
 lazy fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / j,n k,p n,j p,k o u e x s r a # [ ] ? gi gs gt gd ga gc
+lazy fmaps -u='www\.google\.com/calendar/.*' a w m x c e ＜DEL＞（※1） / + q s ? A W M X C E
 lazy fmaps -u='www\.google\.co\.jp/reader' -events=vkeypress j k n p m s v A r S N P X O gh ga gs gt gu u / ? J K
-lazy fmaps -u='twitter\.com' f r t m n <Enter> ?  j k <Space> / .  gh gc ga gr gd gp gf gm gu
+lazy fmaps -u='twitter\.com' r t m n <Enter> ?  j k <Space> / .  gh gc ga gr gd gp gf gm gu
 "}}}
 " twittperator {{{
 let g:twittperator_use_chirp = 1
@@ -103,7 +112,11 @@ let g:facebook_auto_load = 1
 " copy {{{
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-  { label: 'twitter',    value: '%TITLE% %URL%' }
+  { label: 'twitter',    value: '"%TITLE%" %URL%' }
+  ,{ label: 'title',    value: '%TITLE%' }
+  ,{ label: 'url',    value: '%url%' }
+  ,{ label: 'anchor',    value: '<a href="%url%" title="%title%">%title%</a>' }
+  ,{ label: 'markdown',    value: '[%titel%](%url%)' }
 ];
 EOM
 "}}}

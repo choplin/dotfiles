@@ -41,7 +41,7 @@ NeoBundle 'git://github.com/Shougo/vimproc.git'
 NeoBundle 'git://github.com/Shougo/vimshell.git'
 NeoBundle 'git://github.com/Shougo/vimfiler.git'
 NeoBundle 'git://github.com/Shougo/clang_complete.git'
-NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+"NeoBundle 'git://github.com/Shougo/vim-vcs.git'
 
 NeoBundle 'git://github.com/tyru/open-browser.vim.git'
 NeoBundle 'git://github.com/tyru/urilib.vim.git'
@@ -150,7 +150,7 @@ set smartindent
 set expandtab
 "シフト移動幅
 set shiftwidth=4
-"ファイル内の <Tab> が対応する空白の数
+"ファイル内の Tab が対応する空白の数
 set tabstop=4
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
@@ -191,7 +191,7 @@ set laststatus=2
 "ステータスのところにファイル情報表示
 set statusline=%<
 set statusline+=[%n]%F\ 
-set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
+"set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
 set statusline+=%=
 set statusline+=\ %m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
@@ -291,7 +291,7 @@ endfunction
 inoremap jj <Esc>
 
 " <Leader>
-map , <Leader>
+let mapleader = ","
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
@@ -604,7 +604,7 @@ call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
 
 " VimShell Prompt {{{
 let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
+"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
 
 if has('win32') || has('win64') 
   let g:vimshell_prompt = $USERNAME."% "
