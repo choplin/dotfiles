@@ -149,7 +149,7 @@ set smartindent
 set expandtab
 "シフト移動幅
 set shiftwidth=4
-"ファイル内の <Tab> が対応する空白の数
+"ファイル内の Tab が対応する空白の数
 set tabstop=4
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
@@ -324,7 +324,7 @@ function! s:init_cmdwin()
   inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
 
   " Completion.
-  "inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
   startinsert!
 endfunction
