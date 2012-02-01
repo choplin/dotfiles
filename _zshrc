@@ -24,10 +24,18 @@ case $(uname) in
         ;;
     *)
         alias ps="ps -fU$(whoami) --forest"
+        ;;
+esac
+
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    alias ls="ls -v -F -G -w"
+    ;;
+linux*)
+    alias ls="ls -v -F --color"
     ;;
 esac
 
-alias ls="ls -F --color=auto"
 alias la="ls -A"
 alias ll="ls -l"
 # }}}
