@@ -1,11 +1,9 @@
 let mapleader = ","
-" map {{{
+" map {{
 noremap <C-a> <Insert><C-a><Insert>
 
-nnoremap <Leader>sv :<C-u>so ~/_vimperatorrc<CR>
 
-nnoremap ; :
-nnoremap : ;
+
 nnoremap j 5j
 nnoremap k 5k
 nnoremap h <C-p>
@@ -163,4 +161,22 @@ styledisable -name gplus-custom-layout
 lazy styletoggle -name gplus-custom-layout
 nnoremap -urls 'plus\.google\.com' ,cl :styletoggle -name gplus-custom-layout<CR>
 "}}}
+"}}}
+" OS•Ê {{{
+js<<EOM
+function execCmd(ary_cmd){
+  ary_cmd.forEach(function(cmd){
+    liberator.execute(cmd);
+  });
+}
+if (liberator.has("MacUnix")) {
+  execCmd(["nnoremap <Leader>sv :<C-u>so ~/.vimperatorrc<CR>"])
+} else if (liberator.has("Win32")) {
+  execCmd(["nnoremap ; :"
+          ,"nnoremap : ;"
+          ,"nnoremap <Leader>sv :<C-u>so ~/_vimperatorrc<CR>"])
+} else if (liberator.has("Unix")) {
+} else {
+}
+EOM
 "}}}
