@@ -150,6 +150,9 @@ nnoremap <Leader>r :js readable_by_evernote__button__call()<CR>
 let g:readitlater_open_as_read = 1
 let g:readitlater_get_count = 100
 "}}}
+" sbmcommentviewer{{{
+let g:def_sbms = "h"
+"}}}
 "}}}
 " style {{{
 " ex modeIME‚ğOFF
