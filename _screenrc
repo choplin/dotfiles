@@ -27,13 +27,13 @@ bind -c sencoding E eval 'encoding eucjp' '!!!echo "LANG=ja_JP.eucJP; export LAN
 bind -c sencoding S eval 'encoding sjis'  '!!!echo "LANG=ja_JP.sjis; export LANG"'  'info'
 
 # switch terminal
-bind                ^n eval next   'command -c term_region' 'echo "term"'
-bind                ^p eval prev   'command -c term_region' 'echo "term"'
-bind -c term_region ^n eval next   'command -c term_region' 'echo "term"'
-bind -c term_region ^p eval prev   'command -c term_region' 'echo "term"'
+bind                ^n eval next   'command -c term_region' #'echo "term"'
+bind                ^p eval prev   'command -c term_region' #'echo "term"'
+bind -c term_region ^n eval next   'command -c term_region' #'echo "term"'
+bind -c term_region ^p eval prev   'command -c term_region' #'echo "term"'
 #
-bind -c term_region  q eval remove 'command -c term_region' 'echo "term"'
-bind -c term_region ^i eval next   'command -c term_region' 'echo "term"'
+bind -c term_region  q eval remove 'command -c term_region' #'echo "term"'
+bind -c term_region ^i eval next   'command -c term_region' #'echo "term"'
 
 
 # continuous switch focus to other region(like vi)
@@ -48,9 +48,9 @@ bind -c term_region ^i eval next   'command -c term_region' 'echo "term"'
 #bind -c cfocus ^B eval 'focus bottom' 'command -c cfocus' 'echo "focus mode"'
 #bind -c cfocus  b eval 'focus bottom' 'command -c cfocus' 'echo "focus mode"'
 
-bind -c cfocus  q eval remove         'command -c cfocus' 'echo "focus mode"'
-bind           ^i eval focus          'command -c cfocus' 'echo "focus mode"'
-bind -c cfocus ^i eval focus          'command -c cfocus' 'echo "focus mode"'
+bind -c cfocus  q eval remove         'command -c cfocus' #'echo "focus mode"'
+bind           ^i eval focus          'command -c cfocus' #'echo "focus mode"'
+bind -c cfocus ^i eval focus          'command -c cfocus' #'echo "focus mode"'
 
 # add continuous switch focus definition
 #bind ^L           eval 'focus right'  'command -c cfocus' 'echo "focus mode"'
