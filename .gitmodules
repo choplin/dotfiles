@@ -8,9 +8,3 @@
 [submodule "_vim/neobundle.vim"]
 	path = _vim/neobundle.vim
 	url = git://github.com/Shougo/neobundle.vim.git
-[submodule "_zsh/auto-fu.zsh"]
-	path = _zsh/auto-fu.zsh
-	url = git://github.com/hchbaw/auto-fu.zsh.git
-[submodule "zsh.d"]
-	path = zsh.d
-	url = git://github.com/clear-code/zsh.d.git
