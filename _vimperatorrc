@@ -143,6 +143,13 @@ nnoremap -urls 'plus\.google\.com' gc :open https://plus.google.com/circles<CR>
 " google-plus.js{{{
 noremap GP :gp -l<Space>
 "}}}
+" cleary{{{
+nnoremap <Leader>r :js readable_by_evernote__button__call()<CR>
+"}}}
+" readitlater {{{
+let g:readitlater_open_as_read = 1
+let g:readitlater_get_count = 100
+"}}}
 "}}}
 " style {{{
 " ex modeŽžIME‚ðOFF
