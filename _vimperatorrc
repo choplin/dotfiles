@@ -42,8 +42,9 @@ noremap M <Nop>
 " îCà”ê›íË
 qmark m https://mail.google.com/
 qmark r https://www.google.com/reader/view/
+qmark c https://www.google.com/calendar/
 qmark f http://www.facebook.com/
-qmark p http://plus.google.com/
+qmark t http://twitter.com/
 "}}}
 "}}}
 " set {{{
