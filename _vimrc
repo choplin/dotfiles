@@ -467,7 +467,7 @@ nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
 function! s:unite_project(source)
   let dir = unite#util#path2project_directory(expand('%'))
-  execute 'Unite' a:source 'file_rec:' . escape(dir, ':')
+  execute 'Unite' a:source . ':' . escape(dir, ':')
 endfunction
 
 call unite#custom_default_action('source/bookmark/directory', 'rec/async')
