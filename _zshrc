@@ -183,7 +183,7 @@ prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_status}-${prompt_bar
 #   %{%B%K{magenta}%F{white}%}...%{%f%k%b%}:
 #       「...」を太字のマジェンタ背景の白文字にする。
 #   %d: カレントディレクトリのフルパス（省略しない）
-prompt_bar_right="-[%{%B%K{magenta}%F{white}%}%d%{%f%k%b%}]-"
+prompt_bar_right="-[%{%B%F{white}%}%~%{%f%b%}]-"
 #}}}
 # 2行目左にでるプロンプト。{{{
 #   %h: ヒストリ数。
