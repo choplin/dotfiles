@@ -447,7 +447,9 @@ let g:unite_enable_start_insert=1
 let g:unite_enable_split_vertically=1
 
 nnoremap <SID>[unite] <Nop>
+nnoremap <SID>[unite_project] <Nop>
 nmap <Leader>u <SID>[unite]
+nmap <Leader>p <SID>[unite_project]
 nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> <SID>[unite]u :<C-u>Unite bookmark buffer file_mru<CR>
 nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
@@ -458,8 +460,15 @@ nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
+nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec')<CR>
+nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
+
+function! s:unite_project(source)
+  let dir = unite#util#path2project_directory(expand('%'))
+  execute 'Unite' a:source 'file_rec:' . escape(dir, ':')
+endfunction
 
 call unite#custom_default_action('source/bookmark/directory', 'rec/async')
 
@@ -735,6 +744,9 @@ augroup foldmethod-expr
   \                   | endif
 augroup END
 " }}}
+" dicwin {{{
+let plugin_dicwin_disable = 1
+" }}}
 " }}}
 "-----------------------------------------------------------------------------
 " GUI
@@ -773,7 +785,6 @@ endif
 "-----------------------------------------------------------------------------
 " {{{
 " }}}
-
 " 現在のバッファのタグファイルを生成する{{{
 " neocomplcache からタグファイルのパスを取得して、tags に追加する
 nnoremap <expr><Space>tu g:TagsUpdate()
@@ -793,7 +804,6 @@ function! g:TagsUpdate()
   return ""
 endfunction
 "}}}
-
 " tablineを設定{{{
 " 各タブページのカレントバッファ名+αを表示
 function! s:tabpage_label(n)
@@ -849,5 +859,4 @@ if version >= 703
   endfunction
 endif
 " }}}
-
 " vim:ts=2 st=2 sw=2
