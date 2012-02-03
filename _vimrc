@@ -2,6 +2,8 @@ if has("win32") || has("win64")
   set encoding=cp932
 endif
 scriptencoding utf-8
+" <Leader>
+let mapleader = ","
 "-----------------------------------------------------------------------------
 " Vundle
 "-----------------------------------------------------------------------------
@@ -41,7 +43,7 @@ NeoBundle 'git://github.com/Shougo/vimproc.git'
 NeoBundle 'git://github.com/Shougo/vimshell.git'
 NeoBundle 'git://github.com/Shougo/vimfiler.git'
 NeoBundle 'git://github.com/Shougo/clang_complete.git'
-"NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+NeoBundle 'git://github.com/Shougo/vim-vcs.git'
 
 NeoBundle 'git://github.com/tyru/open-browser.vim.git'
 NeoBundle 'git://github.com/tyru/urilib.vim.git'
@@ -289,9 +291,6 @@ endfunction
 
 " jjでESC
 inoremap jj <Esc>
-
-" <Leader>
-let mapleader = ","
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
