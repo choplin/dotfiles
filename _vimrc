@@ -445,6 +445,8 @@ endfunction
 let g:unite_enable_start_insert=1
 " 縦分割で開く
 let g:unite_enable_split_vertically=1
+" history/yankを有効化
+let g:unite_source_history_yank_enable = 1
 
 nnoremap <SID>[unite] <Nop>
 nnoremap <SID>[unite_project] <Nop>
@@ -462,12 +464,13 @@ nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
 nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec')<CR>
 nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
+nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
 
 nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
-function! s:unite_project(source)
+function! s:unite_project(source, ...)
   let dir = unite#util#path2project_directory(expand('%'))
-  execute 'Unite' a:source . ':' . escape(dir, ':')
+  execute 'Unite' a:source . ':' . escape(dir, ':') . (a:0 > 0 ? ':' . join(a:000, ':') : '')
 endfunction
 
 call unite#custom_default_action('source/bookmark/directory', 'rec/async')
