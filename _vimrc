@@ -445,6 +445,8 @@ endfunction
 let g:unite_enable_start_insert=1
 " 縦分割で開く
 let g:unite_enable_split_vertically=1
+" history/yankを有効化
+let g:unite_source_history_yank_enable = 1
 
 nnoremap <SID>[unite] <Nop>
 nnoremap <SID>[unite_project] <Nop>

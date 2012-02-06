@@ -1,5 +1,5 @@
 let mapleader = ","
-" map {{
+" map {{{
 noremap <C-a> <Insert><C-a><Insert>
 
 
@@ -57,8 +57,9 @@ set history=1000
 set focuscontent
 set hintchars=fjklasdhguionmerwc
 "set hintmatching=custom
-set nextpattern=^\次,^\続き,\bnext,^>$,^(>>\|??)$,^(>\|??),(>\|??),\bmore\b$
-set previouspattern=^\前,^\戻,\bprev|previous\b,^<$,^(<<\|??)$,^(<\|??),(<\|??)$
+set newtab=all
+set nextpattern=\bnext\b,\bmore\b,next,^次(の)?ページ,\b次.*,→\b,^>$,^(>>|≫)$,^(>|≫),(>|≫)$
+set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$ 
 
 set tabnumbers=true
 " Firefox 環境設定 about config {{{
@@ -96,7 +97,7 @@ colorscheme sweets_dita
 command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
 lazy fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc y
 lazy fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / j,n k,p n,j p,k o u e x s r a # [ ] ? gi gs gt gd ga gc
-lazy fmaps -u='www\.google\.com/calendar/.*' a w m x c e ＜DEL＞（※1） / + q s ? A W M X C E
+lazy fmaps -u='www\.google\.com/calendar' -events=vkeydown t a d w m x c e <Del> / + q s ?
 lazy fmaps -u='www\.google\.co\.jp/reader' -events=vkeypress j k n p m s v A r S N P X O gh ga gs gt gu u / ? J K
 lazy fmaps -u='twitter\.com' r t m n <Enter> ?  j k <Space> / .  gh gc ga gr gd gp gf gm gu
 "}}}
