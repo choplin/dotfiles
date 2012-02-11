@@ -81,6 +81,7 @@ NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
 "NeoBundle 'git://github.com/mattn/unite-advent_calendar.git'
 NeoBundle 'git://github.com/mattn/vimplenote-vim.git'
 NeoBundle 'git://github.com/mattn/vim-metarw.git'
+NeoBundle 'git://github.com/mattn/mkdpreview-vim.git'
 
 "NeoBundle 'git://github.com/t9md/vim-textmanip.git'
 NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
@@ -133,6 +134,7 @@ NeoBundle 'a.vim'
 NeoBundle 'IndentAnything'
 NeoBundle 'Simple-Javascript-Indenter'
 NeoBundle 'Javascript-syntax-with-Ajax-Support'
+NeoBundle 'taglist.vim'
 "NeoBundle 'vimwiki'
 "}}}
 "-----------------------------------------------------------------------------
