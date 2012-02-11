@@ -749,7 +749,7 @@ augroup END
 let plugin_dicwin_disable = 1
 " }}}
 " singleton.vim {{{
-call singleton#enable()
+"call singleton#enable()
 " }}}
 " }}}
 "-----------------------------------------------------------------------------
