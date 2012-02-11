@@ -66,3 +66,6 @@
 [mergetool "sourcetree"]
   cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
   trustExitCode = true
+[tig "bind"]
+  generic = g move-first-line
+  generic = G move-last-line
