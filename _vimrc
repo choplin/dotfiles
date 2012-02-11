@@ -66,6 +66,7 @@ NeoBundle 'git://github.com/thinca/vim-localrc.git'
 NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
 NeoBundle 'git://github.com/thinca/vim-openbuf.git'
 NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
+NeoBundle 'git://github.com/thinca/vim-singleton.git'
 
 NeoBundle 'git://github.com/tpope/vim-surround.git'
 "NeoBundle 'git://github.com/tpope/vim-fugitive.git'
@@ -749,6 +750,9 @@ augroup END
 " }}}
 " dicwin {{{
 let plugin_dicwin_disable = 1
+" }}}
+" singleton.vim {{{
+call singleton#enable()
 " }}}
 " }}}
 "-----------------------------------------------------------------------------
