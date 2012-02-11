@@ -120,6 +120,7 @@ NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
 NeoBundle 'git://github.com/tangledhelix/vim-octopress.git'
 NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
 NeoBundle 'git://github.com/depuracao/vim-rdoc.git'
+NeoBundle 'git://github.com/banyan/recognize_charcode.vim.git'
 
 "NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
 "NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
@@ -199,12 +200,6 @@ set statusline+=%=
 set statusline+=\ %m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
 set statusline+=\ %l,%c\ %P 
-" 文字コード関連""""""""""""""""""""""""""""""""""""""""""
-" 文字コードの自動解釈の優先順位
-set fileencodings=utf-8,cp932,euc-jp
-" 改行コードの解釈優先順位
-set fileformats=unix,dos
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 矩形選択で行末を超えてブロックを選択できるようにする
 set virtualedit+=block
 "tagファイル読み込み
