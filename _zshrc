@@ -326,6 +326,8 @@ update_prompt()
             RPROMPT="${RPROMPT}-"
            ;;
         esac
+    else
+        RPROMPT=""
     fi
 }
 #}}}
@@ -585,4 +587,4 @@ if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > 
     fi
 fi
 # }}}
-#vim:filetype=zsh
+# vim:filetype=zsh
