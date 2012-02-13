@@ -1,10 +1,5 @@
 # alias to MacVim
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias gvim='env LANG=ja_JP.UTF-8 open -a /Applications/MacVim.app "$@"'
-#alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
-
-# enable git command completion
-#autoload bashcompinit
-#bashcompinit
-#source `brew --prefix`/etc/bash_completion.d/git-completion.bash

@@ -4,135 +4,14 @@ endif
 scriptencoding utf-8
 " <Leader>
 let mapleader = ","
-"-----------------------------------------------------------------------------
-" Vundle
-"-----------------------------------------------------------------------------
-" {{{
-if has('vim_starting')
-  set nocompatible
-  if has("win32") || has("win64")
-    set rtp+=~/vimfiles/neobundle.vim/ 
-    helptags ~/vimfiles/neobundle.vim/doc
-    call neobundle#rc('~/vimfiles/bundle/')
-  else
-    set rtp+=~/.vim/neobundle.vim/ 
-    helptags ~/.vim/neobundle.vim/doc
-    call neobundle#rc()
-  endif
 
-  filetype plugin on
-  filetype indent on
+if has("win32") || has("win64")
+  let vimdir="~/vimfiles/"
+else
+  let vimdir="~/.vim/"
 endif
-" original repos on github
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/tsukkee/unite-tag.git'
-NeoBundle 'git://github.com/tsukkee/unite-help.git'
-NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'git://github.com/ujihisa/unite-launch.git'
-NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
-NeoBundle 'git://github.com/ujihisa/unite-font.git'
-NeoBundle 'git://github.com/sgur/unite-qf.git'
-NeoBundle 'git://github.com/thinca/vim-unite-history.git'
-NeoBundle 'git://github.com/basyura/unite-rails.git'
-NeoBundle 'git://github.com/hakobe/unite-script.git'
-NeoBundle 'git://github.com/tacroe/unite-alias.git'
-NeoBundle 'git://github.com/Shougo/unite-build.git'
 
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
-NeoBundle 'git://github.com/Shougo/vimfiler.git'
-NeoBundle 'git://github.com/Shougo/clang_complete.git'
-NeoBundle 'git://github.com/Shougo/vim-vcs.git'
-
-NeoBundle 'git://github.com/tyru/open-browser.vim.git'
-NeoBundle 'git://github.com/tyru/urilib.vim.git'
-NeoBundle 'git://github.com/tyru/caw.vim.git'
-NeoBundle 'git://github.com/tyru/restart.vim.git'
-
-NeoBundle 'git://github.com/ujihisa/shadow.vim.git'
-NeoBundle 'git://github.com/ujihisa/neco-look.git'
-NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
-NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
-"NeoBundle 'git://github.com/ujihisa/tabpagecolorscheme.git'
-NeoBundle 'git://github.com/ujihisa/unite-haskellimport.git'
-NeoBundle 'git://github.com/ujihisa/quicklearn.git'
-
-NeoBundle 'git://github.com/thinca/vim-ref.git'
-NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/thinca/vim-qfreplace.git'
-NeoBundle 'git://github.com/thinca/vim-ambicmd.git'
-NeoBundle 'git://github.com/thinca/vim-localrc.git'
-NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
-NeoBundle 'git://github.com/thinca/vim-openbuf.git'
-NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
-
-NeoBundle 'git://github.com/tpope/vim-surround.git'
-"NeoBundle 'git://github.com/tpope/vim-fugitive.git'
-"NeoBundle 'git://github.com/tpope/vim-haml.git'
-
-NeoBundle 'git://github.com/mattn/zencoding-vim.git'
-"NeoBundle 'git://github.com/mattn/gist-vim.git'
-NeoBundle 'git://github.com/mattn/webapi-vim.git'
-"NeoBundle 'git://github.com/mattn/googletasks-vim.git'
-"NeoBundle 'git://github.com/mattn/learn-vimscript.git'
-NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
-"NeoBundle 'git://github.com/mattn/unite-advent_calendar.git'
-NeoBundle 'git://github.com/mattn/vimplenote-vim.git'
-NeoBundle 'git://github.com/mattn/vim-metarw.git'
-
-"NeoBundle 'git://github.com/t9md/vim-textmanip.git'
-NeoBundle 'git://github.com/t9md/vim-surround_custom_mapping.git'
-"NeoBundle 'git://github.com/t9md/vim-nerdtree_plugin_collections.git'
-NeoBundle 'git://github.com/t9md/vim-quickhl.git'
-
-NeoBundle 'git://github.com/kana/vim-submode.git'
-NeoBundle 'git://github.com/kana/vim-arpeggio.git'
-NeoBundle 'git://github.com/kana/vim-textobj-user.git'
-NeoBundle 'git://github.com/kana/vim-operator-user.git'
-NeoBundle 'git://github.com/kana/vim-filetype-haskell.git'
-
-NeoBundle 'git://github.com/kana/vim-textobj-indent.git'
-
-NeoBundle 'git://github.com/kana/vim-operator-replace.git'
-
-"NeoBundle 'git://github.com/jceb/vim-orgmode.git'
-NeoBundle 'git://github.com/motemen/hatena-vim.git'
-NeoBundle 'git://github.com/h1mesuke/vim-alignta.git'
-NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
-"NeoBundle 'git://github.com/yko/mojo.vim.git'
-"NeoBundle 'git://github.com/plasticboy/vim-markdown.git'
-"NeoBundle 'git://github.com/c9s/perlomni.vim.git'
-NeoBundle 'git://github.com/jceb/vim-hier.git'
-"NeoBundle 'git://github.com/tsukkee/lingr-vim.git'
-"NeoBundle 'git://github.com/nvie/vim-rst-tables.git'
-NeoBundle 'git://github.com/choplin/vim-rst-tables.git'
-"NeoBundle 'git://github.com/fuenor/qfixhowm.git'
-NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
-"NeoBundle 'git://github.com/choplin/unite-vim_hacks.git'
-NeoBundle 'git://github.com/sorah/metarw-simplenote.vim.git'
-NeoBundle 'git://github.com/basyura/TweetVim.git'
-NeoBundle 'git://github.com/basyura/twibill.vim.git'
-NeoBundle 'git://github.com/kien/ctrlp.vim.git'
-NeoBundle 'git://github.com/pekepeke/titanium-vim.git'
-NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
-NeoBundle 'git://github.com/tangledhelix/vim-octopress.git'
-NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
-NeoBundle 'git://github.com/depuracao/vim-rdoc.git'
-
-"NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
-"NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
-"NeoBundle 'git://github.com/therubymug/vim-pyte.git'
-NeoBundle 'molokai'
-NeoBundle 'robokai'
-"NeoBundle 'newspaper.vim'
-
-NeoBundle 'a.vim'
-NeoBundle 'IndentAnything'
-NeoBundle 'Simple-Javascript-Indenter'
-NeoBundle 'Javascript-syntax-with-Ajax-Support'
-"NeoBundle 'vimwiki'
-"}}}
+execute "source ".vimdir."vimrc/_vimrc.plugin"
 "-----------------------------------------------------------------------------
 " set
 "-----------------------------------------------------------------------------
@@ -198,12 +77,6 @@ set statusline+=%=
 set statusline+=\ %m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
 set statusline+=\ %l,%c\ %P 
-" 文字コード関連""""""""""""""""""""""""""""""""""""""""""
-" 文字コードの自動解釈の優先順位
-set fileencodings=utf-8,cp932,euc-jp
-" 改行コードの解釈優先順位
-set fileformats=unix,dos
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 矩形選択で行末を超えてブロックを選択できるようにする
 set virtualedit+=block
 "tagファイル読み込み
@@ -749,6 +622,9 @@ augroup END
 " }}}
 " dicwin {{{
 let plugin_dicwin_disable = 1
+" }}}
+" singleton.vim {{{
+"call singleton#enable()
 " }}}
 " }}}
 "-----------------------------------------------------------------------------

@@ -326,6 +326,8 @@ update_prompt()
             RPROMPT="${RPROMPT}-"
            ;;
         esac
+    else
+        RPROMPT=""
     fi
 }
 #}}}
@@ -465,7 +467,7 @@ kterm*|xterm*)
 esac
 # }}}
 ## load user .zshrc configuration file {{{
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}
 ## load user function files {{{
 fpath=($HOME/.zsh/functions $fpath)
@@ -585,4 +587,4 @@ if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > 
     fi
 fi
 # }}}
-#vim:filetype=zsh
+# vim:filetype=zsh
