@@ -45,6 +45,7 @@ qmark r https://www.google.com/reader/view/
 qmark c https://www.google.com/calendar/
 qmark f http://www.facebook.com/
 qmark t http://twitter.com/
+qmark a http://www.amazon.co.jp/
 "}}}
 "}}}
 " set {{{
