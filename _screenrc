@@ -9,7 +9,7 @@ vbell off
 
 shell -${SHELL}
 
-escape ^Jj
+escape ^Tt
 
 hardstatus  alwayslastline " %-Lw%{=ub bw}%n %t%{-}%+Lw %=%{=b} %H %l %{-}"
 caption     always         "%?%F%{= bW}%:%{= Kk}%?%2n%f%07=%t"
