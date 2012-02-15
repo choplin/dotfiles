@@ -20,7 +20,7 @@ execute "source ".vimdir."vimrc/_vimrc.plugin"
 set nobackup
 set noswapfile
 "ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
-set browsedir=buffer 
+set browsedir=buffer
 "左右のカーソル移動で行間移動可能にする。
 set whichwrap=h,l,b,s,<,>,[,]
 "新しい行を作ったときに高度な自動インデントを行う
@@ -164,6 +164,8 @@ endfunction
 
 " jjでESC
 inoremap jj <Esc>
+" help
+nnoremap <C-h> :<C-u>vertical help 
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
@@ -212,29 +214,12 @@ augroup END
 " matchit {{{
 source $VIMRUNTIME/macros/matchit.vim
 " }}}
-" NERDTree {{{
-noremap <silent> <Leader>nt :<C-u>NERDTreeToggle<CR>
-let g:NERDTreeAutoCenter=1
-let g:NERDTreeChDirMode=1
-let g:NERDTreeQuitOnOpen=1
-let g:NERDTreeShowBookmarks=1
-let g:NERDTreeHijackNetrw=0
-augroup MyNertTree
-  autocmd!
-  autocmd FileType nerdtree nnoremap <buffer> q :NERDTreeClose<CR>
-  autocmd FileType nerdtree nnoremap <buffer> <Leader>nb :<C-u>Bookmark 
-  autocmd FileType nerdtree nnoremap <buffer> <Leader>nc :<C-u>ClearBookmark<CR>
-augroup END
-" }}}
 " taglist {{{
-let Tlist_Show_One_File = 1               "現在編集中のソースのタグしか表示しない 
-let Tlist_Exit_OnlyWindow = 1             "taglistのウィンドーが最後のウィンドーならばVimを閉じる 
-let Tlist_Use_Right_Window = 1            "右側でtaglistのウィンドーを表示 
 noremap <silent> <Leader>tl :TlistToggle<cr>  "taglistを開くショットカットキー
 " }}}
 " neocomplcache {{{
 "Vimデフォルトのオムニ補完を置き換え
-inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_omni_complete() 
+inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_omni_complete()
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 " Use smartcase.
@@ -246,18 +231,11 @@ let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" スニペットファイルの配置場所
-if has("win32") || has("win64")
-  let g:neocomplcache_snippets_dir =  '~/vimfiles/snippets'
-else
-  let g:neocomplcache_snippets_dir =  '~/.vim/snippets'
-endif
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
       \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ 'vimshell' : $HOME.'/.vimshell_hist'
       \ }
 
 " Define keyword.
@@ -267,13 +245,8 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -302,6 +275,22 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+" }}}
+" neocomplcache-snippets {{{
+if has("win32") || has("win64")
+  let g:neocomplcache_snippets_dir =  '~/vimfiles/snippets'
+else
+  let g:neocomplcache_snippets_dir =  '~/.vim/snippets'
+endif
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+imap <C-s>     <Plug>(neocomplcache_start_unite_snippet)
+
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 nnoremap <Leader>es :<C-u>call EditSnippesWithTab({'mode':'user'})<CR>
 nnoremap <Leader>er :<C-u>call EditSnippesWithTab({'mode':'runtime'})<CR>
@@ -316,7 +305,7 @@ endfunction
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
 " 縦分割で開く
-let g:unite_enable_split_vertically=1
+"let g:unite_enable_split_vertically=1
 " history/yankを有効化
 let g:unite_source_history_yank_enable = 1
 
@@ -338,7 +327,7 @@ nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec'
 nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
 nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
 
-nnoremap <silent> <C-h> :<C-u>Unite help<CR>
+"nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
 function! s:unite_project(source, ...)
   let dir = unite#util#path2project_directory(expand('%'))
