@@ -32,7 +32,7 @@ endif
   " vim-operator-user : 簡単にoperatorを定義できるようにする
   NeoBundle 'git://github.com/kana/vim-operator-user.git'
   " operator-camelize : camel-caseへの変換
-  NeoBundle 'git://github.com/kana/vim-operator-camelize.git'
+  NeoBundle 'git://github.com/tyru/operator-camelize.vim.git'
   " operator-replace : yankしたものでreplaceする
   NeoBundle 'git://github.com/kana/vim-operator-replace.git'
   " textobj-user : 簡単にVimエディタのテキストオブジェクトをつくれる
@@ -74,6 +74,10 @@ endif
   NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
   " clang補完
   NeoBundle 'git://github.com/Shougo/clang_complete.git'
+  " snippet
+  NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
+  " ruby
+  NeoBundle 'git://github.com/ujihisa/neco-ruby.git'
 " }}}
 
 " Searching/Moving{{{
@@ -119,13 +123,13 @@ endif
   " nginx conf
   NeoBundle 'git://github.com/evanmiller/nginx-vim-syntax.git'
   " markdown
-  NeoBundle 'git://github.com/tpope/vim-markdown.vim'
+  NeoBundle 'git://github.com/tpope/vim-markdown.git'
   " coffee script
   NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
   " python
   NeoBundle 'git://github.com/yuroyoro/vim-python.git'
   " scala
-  NeoBundle 'git://github/yuroyoro/vim-scala.git'
+  NeoBundle 'git://github.com/yuroyoro/vim-scala.git'
   " syntax checking plugins exist for eruby, haml, html, javascript, php, python, ruby and sass.
   NeoBundle 'git://github.com/scrooloose/syntastic.git'
   " titanium
@@ -157,7 +161,7 @@ endif
   " vimproc : vimから非同期実行。vimshellで必要
   NeoBundle 'git://github.com/Shougo/vimproc.git'
   " vim-altercmd : Ex command拡張
-  NeoBundle 'git://github.com/tyru/vim-altercmd.com'
+  NeoBundle 'git://github.com/kana/vim-altercmd.git'
   " vim Interface to Web API
   NeoBundle 'git://github.com/mattn/webapi-vim.git'
   " urilib.vim : vim scriptからURLを扱うライブラリ
