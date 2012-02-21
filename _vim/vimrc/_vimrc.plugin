@@ -205,6 +205,8 @@ endif
   NeoBundle 'git://github.com/mattn/mkdpreview-vim.git'
   " 任意の箇所をハイライト
   NeoBundle 'git://github.com/t9md/vim-quickhl.git'
+  " Vimの復元を行う
+  "NeoBundle 'git://github.com/osyo-manga/vim-reanimate.git'
 " }}}
 
 " External {{{
