@@ -11,6 +11,9 @@ else
   let vimdir="~/.vim/"
 endif
 
+" load plugins with neobundle.vim
+execute "source ".vimdir."vimrc/_vimrc.neobundle"
+" plugin settings
 execute "source ".vimdir."vimrc/_vimrc.plugin"
 "-----------------------------------------------------------------------------
 " set
