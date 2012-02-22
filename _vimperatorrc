@@ -40,12 +40,13 @@ noremap <Leader>se :tabopensearch<space>
 " qmarksí«â¡ÉLÅ[MÇñ≥å¯âª
 noremap M <Nop>
 " îCà”ê›íË
-qmark m https://mail.google.com/
+qmark g https://mail.google.com/
 qmark r https://www.google.com/reader/view/
 qmark c https://www.google.com/calendar/
 qmark f http://www.facebook.com/
 qmark t http://twitter.com/
 qmark a http://www.amazon.co.jp/
+qmark m http://mixi.jp/
 "}}}
 "}}}
 " set {{{
@@ -145,7 +146,7 @@ nnoremap -urls 'plus\.google\.com' gc :open https://plus.google.com/circles<CR>
 noremap GP :gp -l<Space>
 "}}}
 " cleary{{{
-nnoremap <Leader>r :js readable_by_evernote__button__call()<CR>
+nnoremap <Leader>r :js __readable_by_evernote.readable_by_evernote__button__call()<CR>
 "}}}
 " readitlater {{{
 let g:readitlater_open_as_read = 1
@@ -153,6 +154,10 @@ let g:readitlater_get_count = 100
 "}}}
 " sbmcommentviewer{{{
 let g:def_sbms = "h"
+"}}}
+" evernote {{{
+nnoremap <Leader>e :js evernote_addSelectionToEn3()<CR>
+vnoremap <Leader>e :js evernote_addSelectionToEn3()<CR>
 "}}}
 "}}}
 " style {{{
