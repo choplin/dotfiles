@@ -218,7 +218,7 @@ endif
   NeoBundle 'git://github.com/basyura/twibill.vim.git'
 " }}}
 
-" ColorSchema{{{{
+" ColorScheme{{{
   NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
   NeoBundle 'molokai'
   NeoBundle 'robokai'
