@@ -11,6 +11,9 @@ else
   let vimdir="~/.vim/"
 endif
 
+" load plugins with neobundle.vim
+execute "source ".vimdir."vimrc/_vimrc.neobundle"
+" plugin settings
 execute "source ".vimdir."vimrc/_vimrc.plugin"
 "-----------------------------------------------------------------------------
 " set
@@ -38,7 +41,7 @@ set smarttab
 "タブ文字、行末など不可視文字を表示する
 set list
 "listで表示される文字のフォーマットを指定する
-set listchars=eol:$,tab:>-,extends:<,trail:_
+set listchars=tab:>-,extends:<,trail:_
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
 "インクリメンタルサーチを行う
