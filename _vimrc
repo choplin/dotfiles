@@ -306,6 +306,7 @@ endfunction
 let g:unite_enable_start_insert=1
 " 縦分割で開く
 "let g:unite_enable_split_vertically=1
+let g:unite_split_rule = 'botright'
 " history/yankを有効化
 let g:unite_source_history_yank_enable = 1
 
@@ -614,6 +615,9 @@ let plugin_dicwin_disable = 1
 " singleton.vim {{{
 "call singleton#enable()
 " }}}
+" operator-replace {{{
+map _  <Plug>(operator-replace)
+" }}}
 " }}}
 "-----------------------------------------------------------------------------
 " GUI
@@ -652,6 +656,10 @@ endif
 "-----------------------------------------------------------------------------
 " {{{
 " }}}
+"-----------------------------------------------------------------------------
+" Misc
+"-----------------------------------------------------------------------------
+" {{{
 " 現在のバッファのタグファイルを生成する{{{
 " neocomplcache からタグファイルのパスを取得して、tags に追加する
 nnoremap <expr><Space>tu g:TagsUpdate()
@@ -726,4 +734,6 @@ if version >= 703
   endfunction
 endif
 " }}}
+" }}}
+
 " vim:ts=2 st=2 sw=2
