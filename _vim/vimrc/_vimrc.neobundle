@@ -98,8 +98,12 @@ endif
   NeoBundle 'git://github.com/thinca/vim-quickrun.git'
   " perldocやphpmanual等のリファレンスをvim上で見る
   NeoBundle 'git://github.com/thinca/vim-ref.git'
-  " vim-refでjqueryのリファレンスを見る
+  " vim-ref jquery
   NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
+  " vim-ref javadoc
+  NeoBundle 'git://github.com/pekepeke/ref-javadoc.git'
+  " vim-ref hoogle
+  NeoBundle 'git://github.com/ujihisa/ref-hoogle.git'
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
   NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
   " rails.vim : rails的なアレ
