@@ -257,3 +257,8 @@ endif
   NeoBundle 'git://github.com/Shougo/unite-build.git'
   NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
 " }}}
+"
+" etc {{{
+  " keyremap4mackbook
+  NeoBundle 'git://github.com/emanon001/kr4mb.vim.git'
+" }}}
