@@ -63,6 +63,8 @@ set hintchars=fjklasdhguionmerwc
 set newtab=all
 set nextpattern=\bnext\b,\bmore\b,next,^次(の)?ページ,\b次.*,→\b,^>$,^(>>|≫)$,^(>|≫),(>|≫)$
 set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$ 
+set visualbell
+highlight Bell display:none
 
 set tabnumbers=true
 " Firefox 環境設定 about config {{{
@@ -92,6 +94,8 @@ set! dom.event.contextmenu.enabled=false
 set! image.mem.min_discard_timeout_ms=6000
 " 新規タブをバックグラウンドで
 set! browser.tabs.loadDivertedInBackground=true
+" 閉じたタブの記憶する数
+set! browser.sessionstore.max_tabs_undo=100
 "}}}
 colorscheme sweets_dita
 "}}}
