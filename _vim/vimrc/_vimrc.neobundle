@@ -98,8 +98,12 @@ endif
   NeoBundle 'git://github.com/thinca/vim-quickrun.git'
   " perldocやphpmanual等のリファレンスをvim上で見る
   NeoBundle 'git://github.com/thinca/vim-ref.git'
-  " vim-refでjqueryのリファレンスを見る
+  " vim-ref jquery
   NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
+  " vim-ref javadoc
+  NeoBundle 'git://github.com/pekepeke/ref-javadoc.git'
+  " vim-ref hoogle
+  NeoBundle 'git://github.com/ujihisa/ref-hoogle.git'
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
   NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
   " rails.vim : rails的なアレ
@@ -249,6 +253,7 @@ endif
   NeoBundle 'git://github.com/basyura/unite-rails.git'
   " haskell
   NeoBundle 'git://github.com/ujihisa/unite-haskellimport.git'
+  NeoBundle 'git://github.com/eagletmt/unite-haddock.git'
   " other
   NeoBundle 'git://github.com/ujihisa/unite-launch.git'
 
@@ -256,4 +261,9 @@ endif
   NeoBundle 'git://github.com/tacroe/unite-alias.git'
   NeoBundle 'git://github.com/Shougo/unite-build.git'
   NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
+" }}}
+"
+" etc {{{
+  " keyremap4mackbook
+  NeoBundle 'git://github.com/emanon001/kr4mb.vim.git'
 " }}}
