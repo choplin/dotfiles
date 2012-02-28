@@ -151,6 +151,10 @@ endif
   NeoBundle 'git://github.com/kien/ctrlp.vim.git'
   " .c/cpp .hを切り替え
   NeoBundle 'a.vim'
+  " gfを拡張
+  NeoBundle 'git://github.com/kana/vim-gf-user.git'
+  " gf for git diff
+  NeoBundle 'git://github.com/kana/vim-gf-diff.git'
 " }}}
 
 " Encording {{{
