@@ -369,7 +369,7 @@ bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 # }}}
 ## Completion configuration {{{
-fpath=(~/.zsh/functions/Completion ${fpath})
+fpath=($HOME/.zsh/functions/Completion ${fpath})
 autoload -U compinit
 compinit
 # 補完方法毎にグループ化する。{{{
@@ -470,7 +470,7 @@ esac
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}
 ## load user function files {{{
-fpath=($HOME/.zsh/functions $fpath)
+fpath=($HOME/.zsh/functions ${fpath})
 # }}}
 function psg() { #{{{
     ps a | head -n 1		 # ラベルを表示
