@@ -10,16 +10,11 @@ PS1+="\[\033[036m\]\h"
 PS1+="\[\033[0m\]:"
 PS1+="\[\033[031m\][\w]"
 PS1+="\[\033[033m\]"
-PS1+='$(hg_ps1)'
+#PS1+='$(hg_ps1)'
 PS1+="\[\033[033m\]\n\$"
 PS1+="\[\033[0m\] "
 
 export PS1
-
-# for bash_completion
-if [ -f `brew --prefix`/etc/bash_completion ]; then
-    source `brew --prefix`/etc/bash_completion
-fi
 
 # for perlbrew
 if [ -d ~/perl5/perlbrew ]; then
@@ -44,6 +39,10 @@ darwin*)
     alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     alias gvim='env LANG=ja_JP.UTF-8 open -a /Applications/MacVim.app "$@"'
     #alias ctags='/Applications/MacVim.app/Contents/MacOS/ctags "$@"'
+    # for bash_completion
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+        source `brew --prefix`/etc/bash_completion
+    fi
 ;;
 esac
 
