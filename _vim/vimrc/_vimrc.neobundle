@@ -73,7 +73,7 @@ endif
   " haskellの補完
   NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
   " clang補完
-  NeoBundle 'git://github.com/Shougo/clang_complete.git'
+  NeoBundle 'git://github.com/osyo-manga/neocomplcache-clang_complete.git'
   " snippet
   NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
   " ruby
@@ -122,8 +122,6 @@ endif
   " JavaScript
   NeoBundle 'Javascript-syntax-with-Ajax-Support'
   NeoBundle 'Simple-Javascript-Indenter'
-  " jQuery
-  NeoBundle 'git://github.com/garbas/vim-jquery.git'
   " nginx conf
   NeoBundle 'git://github.com/evanmiller/nginx-vim-syntax.git'
   " markdown
@@ -216,6 +214,8 @@ endif
   NeoBundle 'git://github.com/t9md/vim-quickhl.git'
   " Vimの復元を行う
   "NeoBundle 'git://github.com/osyo-manga/vim-reanimate.git'
+  " DBI
+  NeoBundle 'git://github.com/mattn/vdbi-vim.git'
 " }}}
 
 " External {{{
