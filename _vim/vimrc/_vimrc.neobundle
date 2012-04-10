@@ -78,6 +78,8 @@ endif
   NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
   " ruby
   NeoBundle 'git://github.com/ujihisa/neco-ruby.git'
+  " javascript
+  NeoBundle 'git://github.com/teramako/jscomplete-vim.git'
 " }}}
 
 " Searching/Moving{{{
