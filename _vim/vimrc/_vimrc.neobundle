@@ -218,6 +218,8 @@ endif
   "NeoBundle 'git://github.com/osyo-manga/vim-reanimate.git'
   " DBI
   NeoBundle 'git://github.com/mattn/vdbi-vim.git'
+  " vinarise
+  NeoBundle 'git://github.com/Shougo/vinarise.git'
 " }}}
 
 " External {{{
