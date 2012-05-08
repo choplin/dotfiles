@@ -1,6 +1,6 @@
-if exists('s:loaded')
-  finish
-endif
+" if exists('s:loaded')
+"   finish
+" endif
 
 if !exists('g:rst_header_chars')
   let g:rst_header_chars = '#*=-^'
@@ -17,6 +17,7 @@ endfor
 
 "silent! nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
 nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
+nmap <unique> <buffer> <Leader>h <Plug>(rst-header)
 
 function! s:add_header(level)
   let c = (exists('b:rst_header_chars') ? b:rst_header_chars
@@ -46,4 +47,4 @@ function! s:add_header(level)
   call setpos('.', cursor)
 endfunction
 
-let s:loaded = 1
+" let s:loaded = 1
