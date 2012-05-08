@@ -220,6 +220,8 @@ endif
   NeoBundle 'git://github.com/mattn/vdbi-vim.git'
   " vinarise
   NeoBundle 'git://github.com/Shougo/vinarise.git'
+  " memolist
+  NeoBundle 'git://github.com/glidenote/memolist.vim.git'
 " }}}
 
 " External {{{
