@@ -195,6 +195,8 @@ endif
   NeoBundle 'git://github.com/thinca/vim-ambicmd.git'
   " エラーの箇所の表示
   NeoBundle 'git://github.com/jceb/vim-hier.git'
+  " tab local cd
+  NeoBundle 'git://github.com/kana/vim-tabpagecd.git'
 " }}}
 
 " Tool {{{
