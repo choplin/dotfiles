@@ -28,8 +28,6 @@ set browsedir=buffer
 set whichwrap=h,l,b,s,<,>,[,]
 "新しい行を作ったときに高度な自動インデントを行う
 set smartindent
-"水平タブ系の設定==============================================
-"デフォルト設定。結局runtime/indentの設定のほうで、ファイルごとに切り替える
 "タブの代わりに空白文字を挿入する
 set expandtab
 "シフト移動幅
@@ -69,7 +67,6 @@ set showcmd
 set showmatch
 "検索結果文字列のハイライトを有効にする
 set hlsearch
-" ステータスエリア関係
 "ステータスラインを常に表示
 set laststatus=2
 "ステータスのところにファイル情報表示
@@ -86,29 +83,20 @@ set virtualedit+=block
 set tags=./tags,tags
 "コマンドの補完候補を一覧表示
 set wildmode=list:longest,full
-
 " foldを有効化
 set foldenable
 set foldmethod=marker
-
 " diff
 set diffopt=filler,vertical
-
+" splitは右下
 set splitbelow
 set splitright
-
 " 変更のあったファイルを自動で読みなおす
 set autoread
-
 " 下に余白を残してスクロールする
 set scrolloff=5
-
-" ファイルのある位置にchdirする
-" set autochdir
-
 " BOMをつけない
 set nobomb
-
 "タブラベルを常に表示
 set showtabline=2
 "}}}
