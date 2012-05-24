@@ -317,6 +317,18 @@ if version >= 703
   endfunction
 endif
 " }}}
+" cursorcolumn cursorlineを切り替え {{{
+nnoremap  <silent><expr> <Leader>c ToggleCursor()
+function! ToggleCursor()
+  if &cursorcolumn || &cursorline
+    set nocursorcolumn
+    set nocursorline
+  else
+    set cursorcolumn
+    set cursorline
+  endif
+endfunction
+" }}}
 " }}}
 
 " vim:ts=2 st=2 sw=2
