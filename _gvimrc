@@ -24,6 +24,8 @@ set guioptions-=L
 set guioptions-=r
 "非GUIのタブを用いる
 set guioptions-=e
+"メニュー非表示
+set guioptions-=m
 "}}}
 "-----------------------------------------------------------------------------
 " Windows
