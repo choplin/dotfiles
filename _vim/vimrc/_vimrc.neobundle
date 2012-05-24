@@ -197,6 +197,8 @@ endif
   NeoBundle 'git://github.com/jceb/vim-hier.git'
   " tab local cd
   NeoBundle 'git://github.com/kana/vim-tabpagecd.git'
+  " sudo
+  NeoBundle 'sudo.vim'
 " }}}
 
 " Tool {{{
