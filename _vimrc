@@ -305,10 +305,12 @@ set tabline=%!MakeTabLine()
 "}}}
 " numberとrelativenumberを切り替え {{{
 if version >= 703
-  nnoremap  <silent><expr> ,n ToggleNumberOption()
+  nnoremap  <silent><expr> <Leader>n ToggleNumberOption()
   function! ToggleNumberOption()
     if &number
       set relativenumber
+    elseif &relativenumber
+      set norelativenumber
     else
       set number
     endif
