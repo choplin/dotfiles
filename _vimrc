@@ -97,8 +97,10 @@ set autoread
 set scrolloff=5
 " BOMをつけない
 set nobomb
-"タブラベルを常に表示
+" タブラベルを常に表示
 set showtabline=2
+" insert開始時の文字列を削除できるように
+set backspace=indent,eol,start
 "}}}
 "-----------------------------------------------------------------------------
 " map
