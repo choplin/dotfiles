@@ -147,6 +147,8 @@ endif
   NeoBundle 'git://github.com/tangledhelix/vim-octopress.git'
   " rdoc
   NeoBundle 'git://github.com/depuracao/vim-rdoc.git'
+  " jsx
+  NeoBundle 'git://github.com/jsx/jsx.vim.git'
 " }}}
 
 " Buffer {{{
