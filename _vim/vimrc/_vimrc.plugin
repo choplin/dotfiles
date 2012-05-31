@@ -415,4 +415,14 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 " }}}
 " octoeditor{{{
 let g:octopress_path = '~/git/octopress'
+let g:octopress_template_dir_path = g:octopress_path
+let g:octopress_vimfiler = 1
+let g:octopress_published = 0
+nnoremap <SID>[octoeditor] <Nop>
+nmap <Leader>o <SID>[octoeditor]
+nnoremap <silent> <SID>[octoeditor]l :<C-u>OctopressList<CR>
+nnoremap <silent> <SID>[octoeditor]n :<C-u>OctopressNew<CR>
+nnoremap <silent> <SID>[octoeditor]g :<C-u>OctopressGenerate<CR>
+nnoremap <silent> <SID>[octoeditor]d :<C-u>OctopressDeploy<CR>
+nnoremap <silent> <SID>[octoeditor]r :<C-u>OctopressGrep<CR>
 " }}}
