@@ -69,6 +69,8 @@ alias po="popd"
 # git
 alias gst="git st -s -b && git statsh list"
 alias gch='git cherry -v'
+alias glgg='git logg'
+alias glg='git logg | head'
 # }}}
 ## Environment variable configuration {{{
 # LANG
