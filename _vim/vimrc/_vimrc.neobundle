@@ -149,6 +149,8 @@ endif
   NeoBundle 'git://github.com/depuracao/vim-rdoc.git'
   " jsx
   NeoBundle 'git://github.com/jsx/jsx.vim.git'
+  " haxe
+  NeoBundle 'MarcWeber/vim-haxe'
 " }}}
 
 " Buffer {{{
@@ -201,6 +203,16 @@ endif
   NeoBundle 'git://github.com/kana/vim-tabpagecd.git'
   " sudo
   NeoBundle 'sudo.vim'
+  "
+  NeoBundle 'MarcWeber/tlib'
+  NeoBundle 'MarcWeber/vim-addon-views'
+  NeoBundle 'MarcWeber/vim-addon-mw-utils'
+  NeoBundle 'MarcWeber/vim-addon-actions'
+  NeoBundle 'MarcWeber/vim-addon-goto-thing-at-cursor'
+  NeoBundle 'MarcWeber/vim-addon-background-cmd'
+  NeoBundle 'MarcWeber/vim-addon-completion'
+  NeoBundle 'MarcWeber/vim-addon-swfmill'
+  NeoBundle 'MarcWeber/vim-addon-manager'
 " }}}
 
 " Tool {{{
