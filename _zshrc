@@ -67,7 +67,7 @@ alias pd="pushd"
 alias po="popd"
 
 # git
-alias gst="git st -s -b"
+alias gst="git st -s -b && git statsh list"
 # }}}
 ## Environment variable configuration {{{
 # LANG
