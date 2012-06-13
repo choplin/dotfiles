@@ -65,6 +65,9 @@ alias mv="mv -i"
 ## pushd/popdのショートカット。
 alias pd="pushd"
 alias po="popd"
+
+# git
+alias gst="git st -s -b"
 # }}}
 ## Environment variable configuration {{{
 # LANG
