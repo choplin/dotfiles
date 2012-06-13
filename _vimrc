@@ -44,15 +44,10 @@ set listchars=tab:>-,extends:<,trail:_
 set hidden
 "インクリメンタルサーチを行う
 set incsearch
-"相対行番号を表示する
-set relativenumber
 "シンタックスハイライトを有効にする
 if has("syntax")
   syntax on
 endif
-"カレント行、列をハイライトする
-set cursorline
-set cursorcolumn
 "ルーラーを表示
 set ruler
 set title
