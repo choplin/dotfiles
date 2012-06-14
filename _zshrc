@@ -67,7 +67,7 @@ alias pd="pushd"
 alias po="popd"
 
 # git
-alias gst="git st -s -b && git statsh list"
+alias gst="git st -s -b && git stash list"
 alias gch='git cherry -v'
 alias glgg='git logg'
 alias glg='git logg | head'
