@@ -257,6 +257,7 @@ endif
 
 " ColorScheme{{{
   NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
+  NeoBundle 'git://github.com/nanotech/jellybeans.vim.git'
   NeoBundle 'molokai'
   NeoBundle 'robokai'
 " }}}
