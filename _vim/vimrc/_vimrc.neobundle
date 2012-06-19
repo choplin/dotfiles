@@ -205,7 +205,7 @@ endif
   " sudo
   NeoBundle 'sudo.vim'
   "
-  NeoBundle 'MarcWeber/tlib'
+  "NeoBundle 'MarcWeber/tlib'
   NeoBundle 'MarcWeber/vim-addon-views'
   NeoBundle 'MarcWeber/vim-addon-mw-utils'
   NeoBundle 'MarcWeber/vim-addon-actions'
