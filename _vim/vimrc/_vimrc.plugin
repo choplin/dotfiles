@@ -239,9 +239,11 @@ function! s:register_unite_qf_outputter_module()
   call quickrun#register_outputter('unite', l:outputter)
 endfunction
 
-if empty(quickrun#get_module('outputter', 'unite'))
+try
+	call quickrun#get_module('outputter', 'unite')
+catch
   call s:register_unite_qf_outputter_module()
-endif
+endtry
 " }}}
 " simplenote.vim" {{{
 "let g:SimplenoteUsername = ""
