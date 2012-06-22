@@ -206,7 +206,7 @@ nmap <Leader>q <SID>[quickrun]
 vmap <Leader>q <SID>[quickrun]
 " 出力先別にショートカットキーを設定する
 for [key, com] in items({
-      \   '<SID>[quickrun]q' : '>error -success buffer -error unite',
+      \   '<SID>[quickrun]q' : '>error -success buffer -error unite_qf',
       \   '<SID>[quickrun]m' : '>message',
       \   '<SID>[quickrun]s' : '-runner shell',
       \   '<SID>[quickrun]b' : '>buffer',
@@ -215,35 +215,6 @@ for [key, com] in items({
   execute 'nnoremap <silent>' key ':QuickRun' com '-mode n<CR>'
   execute 'vnoremap <silent>' key ':QuickRun' com '-mode v<CR>'
 endfor
-
-function! s:register_unite_qf_outputter_module()
-  let l:outputter = quickrun#outputter#buffered#new()
-  let l:outputter.config = {
-        \   'errorformat': '&errorformat',
-        \   'arg': '',
-        \ }
-
-  function! l:outputter.finish(session)
-    try
-      let errorformat = &l:errorformat
-      let &l:errorformat = self.config.errorformat
-      cgetexpr self._result
-
-      let args = split(self.config.arg, '|')
-      execute 'Unite' join(args, ' ') 'qf'
-    finally
-      let &l:errorformat = errorformat
-    endtry
-  endfunction
-
-  call quickrun#register_outputter('unite', l:outputter)
-endfunction
-
-try
-	call quickrun#get_module('outputter', 'unite')
-catch
-  call s:register_unite_qf_outputter_module()
-endtry
 " }}}
 " simplenote.vim" {{{
 "let g:SimplenoteUsername = ""
