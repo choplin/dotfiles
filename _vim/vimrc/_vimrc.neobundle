@@ -244,6 +244,8 @@ endif
   NeoBundle 'git://github.com/glidenote/memolist.vim.git'
   " octopress
   NeoBundle 'git://github.com/glidenote/octoeditor.vim'
+  " fugitive
+  NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 " }}}
 
 " External {{{
