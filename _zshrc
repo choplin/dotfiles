@@ -226,7 +226,7 @@ count_prompt_characters()
 function hg_ps1() {
     local prompt st color
     st=`hg prompt "{status}" 2> /dev/null`
-    prompt=`hg prompt "({branch}{bookmark}}{status}{update})" 2> /dev/null`
+    prompt=`hg prompt "({branch}:{bookmark}{status}{update})" 2> /dev/null`
     if [[ -z $prompt ]]; then
             return
     fi
