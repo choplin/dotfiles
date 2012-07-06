@@ -4,6 +4,7 @@ noremap <C-a> <Insert><C-a><Insert>
 
 
 
+nnoremap ; :
 nnoremap j 5j
 nnoremap k 5k
 nnoremap h <C-p>
@@ -192,7 +193,9 @@ function execCmd(ary_cmd){
   });
 }
 if (liberator.has("MacUnix")) {
-  execCmd(["nnoremap <Leader>sv :<C-u>so ~/.vimperatorrc<CR>"])
+  execCmd(["nnoremap <Leader>sv :<C-u>so ~/.vimperatorrc<CR>"
+          ,"cnoremap <C-w> <A-BS>"
+          ,"nnoremap <C-w> d"])
 } else if (liberator.has("Win32")) {
   execCmd(["nnoremap ; :"
           ,"nnoremap : ;"
