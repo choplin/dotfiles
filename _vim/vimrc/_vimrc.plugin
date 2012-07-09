@@ -177,7 +177,8 @@ call unite#define_source(s:unite_source)
 let g:hatena_user='choplin'
 " }}}
 " quickrun {{{
-unlet! g:quickrun_config
+let g:quickrun_config = {}
+let g:quickrun_config['*'] = {'runmode': 'async:remote:vimproc'}
 let g:quickrun_config = {
       \ 'sql':{
       \     'command': 'psql',
