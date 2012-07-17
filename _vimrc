@@ -136,6 +136,10 @@ nnoremap <Leader>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
 nnoremap <Leader>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <Leader>sg :<C-u>source $MYGVIMRC<CR>
+" after/ftplugin/{&filetype}.vim ファイルを開く
+" " ディレクトリは各環境にあわせて設定
+let $AFTER_FTPLUGIN = vimdir."/after/ftplugin"
+nnoremap <silent> <Leader>ef :<C-u>execute ":e".$AFTER_FTPLUGIN."/".&filetype.".vim"<CR>
 
 nnoremap <C-W><C-F> <C-W><C-F><C-W><S-L>
 
