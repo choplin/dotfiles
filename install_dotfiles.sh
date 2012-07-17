@@ -1,23 +1,19 @@
 #!/bin/bash
 
-find . |
-sed -e "s/^.\///" |
+ls -1 |
 while read i
 do
     case $i in
-        *~) continue ;;
         install_dotfiles.sh) continue ;;
+        bin) continue ;;
         .git*) continue ;;
     esac
-    
+
     j=`echo ${i} | sed -e "s/^_/./"`
-    if [ -d $i ]
-    then
-        if [ ! -d "${HOME}/${j}" ]
-        then
-            mkdir -p "${HOME}/${j}"
-        fi
-    else
-        ln -sf ${PWD}/$i ${HOME}/${j}
-    fi
+    cmd="rm -rf ${HOME}/${j}"
+    echo "execute: \"${cmd}\""
+    $cmd
+    cmd="ln -sf ${PWD}/$i ${HOME}/${j}"
+    echo "execute: \"${cmd}\""
+    $cmd
 done
