@@ -132,9 +132,6 @@ endif
   NeoBundle 'git://github.com/tpope/vim-markdown.git'
   " coffee script
   NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
-  " python
-  NeoBundle 'git://github.com/yuroyoro/vim-python.git'
-  NeoBundle 'git://github.com/jmcantrell/vim-virtualenv.git'
   " scala
   NeoBundle 'git://github.com/yuroyoro/vim-scala.git'
   " syntax checking plugins exist for eruby, haml, html, javascript, php, python, ruby and sass.
