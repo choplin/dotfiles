@@ -157,7 +157,7 @@ endif
   " ファイラー
   NeoBundle 'git://github.com/Shougo/vimfiler.git'
   " ファイルをファジーに開く
-  NeoBundle 'git://github.com/kien/ctrlp.vim.git'
+  "NeoBundle 'git://github.com/kien/ctrlp.vim.git'
   " .c/cpp .hを切り替え
   NeoBundle 'a.vim'
   " gfを拡張
