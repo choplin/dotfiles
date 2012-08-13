@@ -122,6 +122,7 @@ nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
 nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec')<CR>
 nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
 nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
+nnoremap <SID>[unite_project]d :<C-u>lcd <C-r>=unite#util#path2project_directory(expand('%'))<CR><CR>
 
 "nnoremap <silent> <C-h> :<C-u>Unite help<CR>
 
