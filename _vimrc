@@ -55,7 +55,8 @@ set title
 set ignorecase
 set smartcase
 "Vimgrepで外部grepを使用
-set grepprg=grep\ -nH
+"set grepprg=grep\ -nH
+set grepprg=ack\ -a
 "入力中のコマンドをステータスに表示する
 set showcmd
 "括弧入力時の対応する括弧を表示
