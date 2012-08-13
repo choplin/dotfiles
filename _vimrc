@@ -161,6 +161,9 @@ endfunction
 inoremap jj <Esc>
 " help
 nnoremap <C-h> :<C-u>vertical help 
+
+nnoremap <C-n> :<C-u>cnext<CR>
+nnoremap <C-p> :<C-u>cprevious<CR>
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
@@ -208,7 +211,8 @@ augroup END
 " {{{
 "+guiでコンパイルされている
 if has('gui')
-  "カラースキーム
+  colorscheme molokai
+else
   colorscheme robokai
 endif
 
