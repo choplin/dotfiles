@@ -420,3 +420,50 @@ nnoremap <silent> <SID>[memolist]l :<C-u>MemoList<CR>
 nnoremap <silent> <SID>[memolist]n :<C-u>MemoNew<CR>
 nnoremap <silent> <SID>[memolist]g :<C-u>MemoGrep<CR>
 " }}}
+" Gtags{{{
+nnoremap <SID>[gtags] <Nop>
+nmap <Leader>g <SID>[gtags]
+" 定義箇所
+nnoremap <silent> <C-g> :<C-u>Gtags <C-r><C-w><CR>
+" 使用箇所
+nnoremap <silent> <SID>[gtags]r :<C-u>Gtags -r <C-r><C-w><CR>
+" シンボル
+nnoremap <silent> <SID>[gtags]s :<C-u>Gtags -s <C-r><C-w><CR>
+" grep
+nnoremap <silent> <SID>[gtags]g :<C-u>Gtags -g <C-r><C-w><CR>
+" 関数一覧
+nnoremap <silent> <SID>[gtags]l :<C-u>Gtags -f %<CR>
+" update
+nnoremap <expr> <SID>[gtags]u GtagsUpdate()
+
+" from http://d.hatena.ne.jp/abulia/20111205/1323111263
+function! GtagsUpdate()
+  let gtagsroot = s:GtagsCscope_GtagsRoot()
+  if gtagsroot == ''
+    silent! exe "!gtags"
+    echo "update gtags at current directory"
+  else
+    let l:now_pwd = getcwd()
+    echo "update gtags at " . gtagsroot
+    silent! exe "cd " . gtagsroot
+    silent! exe "!gtags"
+    silent! exe "cd " . l:now_pwd
+  endif
+  silent! exec "redr!"
+endfunction
+
+" from gtags-cscope.vim
+function! s:GtagsCscope_GtagsRoot()
+    let cmd = "global -pq"
+    let cmd_output = system(cmd)
+    if v:shell_error != 0
+        if v:shell_error == 3
+            call s:Error('GTAGS not found.')
+        else
+            call s:Error('global command failed. command line: ' . cmd)
+        endif
+        return ''
+    endif
+    return strpart(cmd_output, 0, strlen(cmd_output) - 1)
+endfunction
+" }}}
