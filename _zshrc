@@ -421,6 +421,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 # _prefix: カーソル以降を無視してカーソル位置までで補完する。
 zstyle ':completion:*' completer \
     _oldlist _complete _match _history _ignored _approximate _prefix
+# mosh
+compdef mosh=ssh
 #}}}
 # setting {{{
 # 補完候補をキャッシュする。
