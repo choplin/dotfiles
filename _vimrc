@@ -135,6 +135,8 @@ nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 " .vimrc .gvimrcの編集、読み込み
 nnoremap <Leader>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
+nnoremap <Leader>en  :<C-u>edit $HOME/.vim/vimrc/_vimrc.neobundle<CR>
+nnoremap <Leader>ep  :<C-u>edit $HOME/.vim/vimrc/_vimrc.plugin<CR>
 nnoremap <Leader>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <Leader>sg :<C-u>source $MYGVIMRC<CR>
 " after/ftplugin/{&filetype}.vim ファイルを開く
