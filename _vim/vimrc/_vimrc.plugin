@@ -415,6 +415,7 @@ nnoremap <silent> <SID>[octoeditor]d :<C-u>OctopressDeploy<CR>
 nnoremap <silent> <SID>[octoeditor]r :<C-u>OctopressGrep<CR>
 " }}}
 " memolist{{{
+let g:memolist_vimfiler = 1
 nnoremap <SID>[memolist] <Nop>
 nmap <Leader>m <SID>[memolist]
 nnoremap <silent> <SID>[memolist]l :<C-u>MemoList<CR>
