@@ -282,7 +282,7 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " Vimfiler {{{
-nnoremap <silent> <Leader>vf :VimFilerBufferDir -split -direction=topleft -winwidth=80<CR><Esc><C-W><S-H>
+nnoremap <silent> <Leader>vf :VimFilerBufferDir -split -winwidth=50<CR>
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_edit_action = 'right'
 
