@@ -469,3 +469,17 @@ function! s:GtagsCscope_GtagsRoot()
     return strpart(cmd_output, 0, strlen(cmd_output) - 1)
 endfunction
 " }}}
+" TweetVim{{{
+nnoremap <SID>[tweetvim] <Nop>
+nmap <Leader>t <SID>[tweetvim]
+nnoremap <silent> <SID>[tweetvim]s :<C-u>TweetVimSay<CR>
+nnoremap <silent> <SID>[tweetvim]t :<C-u>TweetVimHomeTimeline<CR>
+nnoremap <silent> <SID>[tweetvim]m :<C-u>TweetVimMentions<CR>
+
+let g:tweetvim_tweet_per_page = 50
+let g:tweetvim_cache_size = 1000
+let g:tweetvim_display_time = 1
+"let g:tweetvim_display_separator = 0
+let g:tweetvim_display_icon = 1
+let g:tweetvim_open_buffer_cmd = 'botright split'
+" }}}
