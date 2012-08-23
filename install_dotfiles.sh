@@ -1,6 +1,11 @@
 #!/bin/bash
 
-ls -1 |
+set -e
+set -u
+
+basedir="$HOME/git/dotfiles"
+
+ls -1 $basedir |
 while read i
 do
     case $i in
@@ -13,7 +18,7 @@ do
     cmd="rm -rf ${HOME}/${j}"
     echo "execute: \"${cmd}\""
     $cmd
-    cmd="ln -sf ${PWD}/$i ${HOME}/${j}"
+    cmd="ln -sf $basedir/$i ${HOME}/${j}"
     echo "execute: \"${cmd}\""
     $cmd
 done
