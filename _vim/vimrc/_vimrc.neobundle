@@ -111,7 +111,7 @@ endif
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
   NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
   " rails.vim : rails的なアレ
-  NeoBundle 'git://github.com/tpope/vim-rails.git'
+  "NeoBundle 'git://github.com/tpope/vim-rails.git'
   " ソースコード上のメソッド宣言、変数宣言の一覧を表示
   NeoBundle 'taglist.vim'
   " コンパイル後の内容を表示
