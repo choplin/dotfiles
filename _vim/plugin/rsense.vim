@@ -1,0 +1,1 @@
+../bundle/rsense/etc/rsense.vim
