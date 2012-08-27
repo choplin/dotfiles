@@ -22,3 +22,5 @@ do
     echo "execute: \"${cmd}\""
     $cmd
 done
+
+cp -pr $basedir/bin ~/
