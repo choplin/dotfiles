@@ -1,8 +1,13 @@
 #!/bin/sh
+
 if [ $# -eq 1 ]; then
-    git add `git status -s -b | grep -v "^#" | awk '{print$1="";print}' | grep -v "^$" | awk "NR==$1"` && git status -s -b
+    idx=$1
+elif [ $# -eq 0 ]; then
+    idx=1
 else
     exit 1
 fi
+
+git add `git status -s -b | grep -v "^#" | awk '{print$1="";print}' | grep -v "^$" | awk "NR==${idx}"` && git status -s -b
 
 #vim:ft=sh
