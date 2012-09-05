@@ -295,7 +295,7 @@ let g:vimfiler_marked_file_icon = '*'
 
 augroup MyVimfiler
   autocmd!
-  autocmd FileType vimfiler nnoremap <buffer> q :<C-u>q<CR>
+  autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit):quit<CR>
 augroup END
 " }}}
 " textmanip {{{
