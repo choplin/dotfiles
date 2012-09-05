@@ -3,3 +3,6 @@ tags-ja
 GTAGS
 GRTAGS
 GPATH
+config.sh
+HTML
+.DS_Store
