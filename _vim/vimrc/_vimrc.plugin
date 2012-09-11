@@ -114,7 +114,7 @@ nnoremap <silent> <SID>[unite]u :<C-u>Unite bookmark buffer file_mru<CR>
 nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent> <SID>[unite]g :<C-u>Unite grep:.:-nHR:
 nnoremap <silent> <SID>[unite]l :<C-u>Unite -no-quit line<CR>
-nnoremap <silent> <SID>[unite]o :<C-u>Unite outline<CR>
+nnoremap <silent> <SID>[unite]o :<C-u>Unite -no-quit -preview outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit qf<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
