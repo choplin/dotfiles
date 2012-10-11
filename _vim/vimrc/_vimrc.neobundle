@@ -177,7 +177,12 @@ endif
 
 " Utility {{{
   " vimproc : vimから非同期実行。vimshellで必要
-  NeoBundle 'git://github.com/Shougo/vimproc.git'
+  NeoBundle 'git://github.com/Shougo/vimproc.git', {
+      \ 'build' : {
+      \     'unix' : 'make -f make_unix.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \    },
+      \ }
   " vim-altercmd : Ex command拡張
   NeoBundle 'git://github.com/kana/vim-altercmd.git'
   " vim Interface to Web API
