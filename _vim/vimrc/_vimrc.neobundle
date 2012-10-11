@@ -65,6 +65,10 @@ endif
   NeoBundle 'IndentAnything'
   " 括弧自動入力
   NeoBundle 'git://github.com/kana/vim-smartinput.git'
+  " syntaxチェック
+  NeoBundle 'git://github.com/osyo-manga/vim-watchdogs.git'
+  " quickrun hook集(watchdogs用)
+  NeoBundle 'git://github.com/osyo-manga/shabadou.vim.git'
 " }}}
 
 " Completion {{{
