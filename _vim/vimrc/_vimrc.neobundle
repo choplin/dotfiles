@@ -156,6 +156,8 @@ endif
   NeoBundle 'git://github.com/jsx/jsx.vim.git'
   " haxe
   NeoBundle 'MarcWeber/vim-haxe'
+  " pig
+  NeoBundle 'pig.vim'
 " }}}
 
 " Buffer {{{
