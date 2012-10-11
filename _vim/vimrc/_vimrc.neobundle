@@ -124,7 +124,7 @@ endif
   " コンパイル後の内容を表示
   NeoBundle 'git://github.com/ujihisa/quicklearn.git'
 " }}}
-"
+
 " FileType {{{
 " " vim
   NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
@@ -141,8 +141,6 @@ endif
   NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
   " scala
   NeoBundle 'git://github.com/yuroyoro/vim-scala.git'
-  " syntax checking plugins exist for eruby, haml, html, javascript, php, python, ruby and sass.
-  NeoBundle 'git://github.com/scrooloose/syntastic.git'
   " titanium
   NeoBundle 'git://github.com/pekepeke/titanium-vim.git'
   " haskell
