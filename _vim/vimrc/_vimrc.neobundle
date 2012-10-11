@@ -63,6 +63,8 @@ endif
   NeoBundle 'git://github.com/mattn/zencoding-vim.git'
   " インデント
   NeoBundle 'IndentAnything'
+  " 括弧自動入力
+  NeoBundle 'git://github.com/kana/vim-smartinput.git'
 " }}}
 
 " Completion {{{
