@@ -97,6 +97,8 @@ set nobomb
 set showtabline=2
 " insert開始時の文字列を削除できるように
 set backspace=indent,eol,start
+" これをしないと候補選択時に Scratch ウィンドウが開いてしまう 
+set completeopt=menuone
 "}}}
 "-----------------------------------------------------------------------------
 " map
