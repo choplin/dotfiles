@@ -39,8 +39,6 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
 inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
@@ -59,8 +57,6 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 " rsense
 let g:rsenseUseOmniFunc = 1
@@ -68,6 +64,16 @@ if filereadable(expand('~/.vim/bundle/rsense/bin/rsense'))
   let g:rsenseHome = expand('~/.vim/bundle/rsense')
   let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 endif
+
+" for clang_complete
+if !exists('g:neocomplcache_force_omni_patterns')
+  let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_overwrite_completefunc = 1
+let g:neocomplcache_force_omni_patterns.c =
+  \ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.cpp =
+  \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 " }}}
 " neocomplcache-snippets {{{
 if has("win32") || has("win64")
@@ -482,4 +488,12 @@ let g:tweetvim_display_time = 1
 "let g:tweetvim_display_separator = 0
 let g:tweetvim_display_icon = 1
 let g:tweetvim_open_buffer_cmd = 'botright split'
+" }}}
+" clang_complete{{{
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library   = 1
+let g:clang_library_path = '/usr/lib'
+let g:clang_exec='clang'
+"let g:clang_user_options  = '2>/dev/null || exit 0'
 " }}}
