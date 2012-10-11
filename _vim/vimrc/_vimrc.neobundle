@@ -77,7 +77,7 @@ endif
   " A neocomplcache plugin for English, using look command
   NeoBundle 'git://github.com/ujihisa/neco-look.git'
   " haskellの補完
-  NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
+  "NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
   " clang補完
   NeoBundle 'git://github.com/osyo-manga/neocomplcache-clang_complete.git'
   " snippet
