@@ -106,7 +106,6 @@ endif
 " Programming {{{
   " quickrun.vim : 編集中のファイルを簡単に実行できるプラグイン
   NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-  NeoBundle 'git://github.com/rhysd/quickrun-unite-qf-outputter.git'
   NeoBundle 'git://github.com/mattn/quickrunex-vim.git'
   " perldocやphpmanual等のリファレンスをvim上で見る
   NeoBundle 'git://github.com/thinca/vim-ref.git'
