@@ -145,7 +145,7 @@ endif
   NeoBundle 'git://github.com/pekepeke/titanium-vim.git'
   " haskell
   NeoBundle 'git://github.com/kana/vim-filetype-haskell.git'
-  NeoBundle 'git://github.com/eagletmt/ghcmod-vim.git'
+  "NeoBundle 'git://github.com/eagletmt/ghcmod-vim.git'
   " reStructuredText
   NeoBundle 'git://github.com/choplin/vim-rst-tables.git'
   " octopress
