@@ -166,6 +166,13 @@ nnoremap <C-h> :<C-u>vertical help
 
 nnoremap <C-n> :<C-u>cnext<CR>
 nnoremap <C-p> :<C-u>cprevious<CR>
+
+" imap
+inoremap <C-d> <ESC>lxi
+inoremap <C-a>  <Home>
+inoremap <C-e>  <End>
+inoremap <C-b>  <Left>
+inoremap <C-f>  <Right>
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
