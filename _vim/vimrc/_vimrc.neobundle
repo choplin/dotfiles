@@ -256,6 +256,8 @@ endif
   NeoBundle 'git://github.com/tpope/vim-fugitive.git'
   " gist
   NeoBundle 'git://github.com/mattn/gist-vim.git'
+  " qiita
+  NeoBundle 'git://github.com/mattn/qiita-vim.git'
 " }}}
 
 " External {{{
