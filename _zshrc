@@ -429,6 +429,9 @@ setopt no_beep
 # 辞書順ではなく数字順に並べる。
 setopt numeric_glob_sort
 # }}}
+# mosh {{{
+compdef mosh=ssh
+# }}}
 # }}}
 ## zsh editor {{{
 autoload zed
