@@ -6,3 +6,4 @@ GPATH
 config.sh
 HTML
 .DS_Store
+.o
