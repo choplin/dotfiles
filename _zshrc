@@ -3,9 +3,6 @@
 # expand aliases before completing
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
-alias where="command -v"
-alias j="jobs -l"
-
 # lsとpsの設定 {{{
 # ls: できるだけGNU lsを使う。
 # ps: 自分関連のプロセスのみ表示。
@@ -40,23 +37,12 @@ alias la="ls -A"
 alias ll="ls -l"
 # }}}
 
-alias du="du -h"
-alias df="df -h"
-
-alias su="su -l"
-
 # ページャーを使いやすくする。
 # grep -r def *.rb L -> grep -r def *.rb |& lv
 alias -g L="|& $PAGER"
 # grepを使いやすくする。
 alias -g G='| grep'
-## 後はおまけ。
-alias -g H='| head'
-alias -g T='| tail'
-alias -g S='| sed'
 
-# 完全に削除。
-alias rr="command rm -rf"
 # ファイル操作を確認する。
 alias rm="rm -i"
 alias cp="cp -i"
@@ -447,11 +433,6 @@ setopt numeric_glob_sort
 ## zsh editor {{{
 autoload zed
 # }}}
-## Prediction configuration {{{
-#
-#autoload predict-on
-#predict-off
-# }}}
 ## terminal configuration {{{
 unset LSCOLORS
 case "${TERM}" in
@@ -471,72 +452,12 @@ cons25)
         'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
     ;;
 esac
-
-# set terminal title including current directory
-#
-case "${TERM}" in
-kterm*|xterm*)
-    precmd() {
-        echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
-    }
-    export LSCOLORS=exfxcxdxbxegedabagacae
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors \
-        'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-esac
 # }}}
 ## load user .zshrc configuration file {{{
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 # }}}
 ## load user function files {{{
 fpath=($HOME/.zsh/functions ${fpath})
-# }}}
-function psg() { #{{{
-    ps a | head -n 1		 # ラベルを表示
-    ps a | grep $* | grep -v "ps -auxww" | grep -v grep # grep プロセスを除外
-}
-# }}}
-function google() { #{{{
-  local str opt 
-  if [ $# != 0 ]; then # 引数が存在すれば
-    for i in $*; do
-      str="$str+$i"
-    done    
-    str=`echo $str | sed 's/^\+//'` #先頭の「+」を削除
-    opt='search?num=50&hl=ja&ie=euc-jp&oe=euc-jp&lr=lang_ja'
-    opt="${opt}&q=${str}"
-  fi
-  w3m http://www.google.co.jp/$opt #引数がなければ $opt は空になる
-  # mozilla -remote openURL\(http::/www.google.co.jp/$opt\) # 未テスト
-}
-alias ggl=google
-# }}}
-# for screen {{{
-if [ "$TERM" = "screen" ]; then
-    local -a shorthost
-
-    lang=`echo $LANG | sed "s/.\+\.\(.\).\+/\1/"`
-
-    echo $TERMCAP | grep -q -i screen
-    if [ $? -eq 0 ]; then
-        shorthost=""
-    else
-        shorthost="${HOST%%.*}:"
-    fi
-    
-
-    echo -ne "\ek$shorthost\e\\"
-
-    preexec() {
-        echo -ne "\ek${shorthost}($1)\e\\"
-        echo -ne "\e_`dirs`\e\\"
-    }
-
-    precmd() {
-        echo -ne "\ek${shorthost}$(basename $(pwd))\e\\"
-    }
-fi
 # }}}
 # 展開 {{{
 ## --prefix=~/localというように「=」の後でも
@@ -556,12 +477,6 @@ setopt long_list_jobs
 ## 実行したプロセスの消費時間が3秒以上かかったら
 ## 自動的に消費時間の統計情報を表示する。
 REPORTTIME=3
-# }}}
-# ログイン・ログアウト {{{
-## 全てのユーザのログイン・ログアウトを監視する。
-watch="all"
-## ログイン時にはすぐに表示する。
-#log
 # }}}
 # 単語 {{{
 ## 「/」も単語区切りとみなす。
