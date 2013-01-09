@@ -258,6 +258,8 @@ endif
   NeoBundle 'git://github.com/mattn/gist-vim.git'
   " qiita
   NeoBundle 'git://github.com/mattn/qiita-vim.git'
+  " vcs
+  NeoBundle 'git://github.com/hrsh7th/vim-versions.git'
 " }}}
 
 " External {{{
