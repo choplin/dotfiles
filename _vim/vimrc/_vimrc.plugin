@@ -396,9 +396,6 @@ augroup END
 " dicwin {{{
 let plugin_dicwin_disable = 1
 " }}}
-" singleton.vim {{{
-call singleton#enable()
-" }}}
 " operator-replace {{{
 map _  <Plug>(operator-replace)
 " }}}

@@ -62,3 +62,7 @@ augroup MyAutoCmdGUI
     autocmd InsertLeave * highlight StatusLine guifg=#2E4340 guibg=#ccdc90
 augroup END
 "}}}
+"
+" singleton.vim {{{
+call singleton#enable()
+" }}}
