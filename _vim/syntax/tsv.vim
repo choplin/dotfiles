@@ -57,7 +57,7 @@ hi link Field16 Identifier
 
 
 "Some sane fields.
-set tabstop=20
-set shiftwidth=20
-set noexpandtab
-set nosmarttab
+setlocal tabstop=20
+setlocal shiftwidth=20
+setlocal noexpandtab
+setlocal nosmarttab
