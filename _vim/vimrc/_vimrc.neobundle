@@ -80,7 +80,7 @@ endif
   NeoBundle 'git://github.com/Rip-Rip/clang_complete.git'
   NeoBundle 'git://github.com/osyo-manga/neocomplcache-clang_complete.git'
   " snippet
-  NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
+  NeoBundle 'git://github.com/Shougo/neosnippet'
   " ruby
   NeoBundle 'git://github.com/ujihisa/neco-ruby.git'
   NeoBundle 'git://github.com/m2ym/rsense.git'
