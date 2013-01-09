@@ -310,6 +310,7 @@ endif
   NeoBundle 'git://github.com/Shougo/unite-build.git'
   NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
   NeoBundle 'git://github.com/yomi322/unite-tweetvim.git'
+  NeoBundle 'git://github.com/kmnk/vim-unite-giti.git'
 " }}}
 "
 " etc {{{
