@@ -99,6 +99,8 @@ set showtabline=2
 set backspace=indent,eol,start
 " これをしないと候補選択時に Scratch ウィンドウが開いてしまう 
 set completeopt=menuone
+" 行番号非表示
+set nonumber
 "}}}
 "-----------------------------------------------------------------------------
 " map
