@@ -21,138 +21,138 @@ endif
 
 " Edit {{{
   " visually indent guide
-  NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
+  NeoBundle 'nathanaelkane/vim-indent-guides.git'
   " マルチバイト対応の整形
-  NeoBundle 'git://github.com/h1mesuke/vim-alignta.git'
+  NeoBundle 'h1mesuke/vim-alignta.git'
   " undo履歴を追える (need python support)
-  NeoBundle 'git://github.com/sjl/gundo.vim.git'
+  NeoBundle 'sjl/gundo.vim.git'
   " surround.vim : テキストを括弧で囲む／削除する
-  NeoBundle 'git://github.com/tpope/vim-surround.git'
+  NeoBundle 'tpope/vim-surround.git'
   " smartchr.vim : ==などの前後を整形
-  NeoBundle 'git://github.com/kana/vim-smartchr.git'
+  NeoBundle 'kana/vim-smartchr.git'
   " vim-operator-user : 簡単にoperatorを定義できるようにする
-  NeoBundle 'git://github.com/kana/vim-operator-user.git'
+  NeoBundle 'kana/vim-operator-user.git'
   " operator-camelize : camel-caseへの変換
-  NeoBundle 'git://github.com/tyru/operator-camelize.vim.git'
+  NeoBundle 'tyru/operator-camelize.vim.git'
   " operator-replace : yankしたものでreplaceする
-  NeoBundle 'git://github.com/kana/vim-operator-replace.git'
+  NeoBundle 'kana/vim-operator-replace.git'
   " textobj-user : 簡単にVimエディタのテキストオブジェクトをつくれる
-  NeoBundle 'git://github.com/kana/vim-textobj-user.git'
+  NeoBundle 'kana/vim-textobj-user.git'
   " vim-textobj-syntax : syntax hilightされたものをtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-syntax.git'
+  NeoBundle 'kana/vim-textobj-syntax.git'
   " vim-textobj-plugins : いろんなものをtext-objectにする
-  NeoBundle 'git://github.com/thinca/vim-textobj-plugins.git'
+  NeoBundle 'thinca/vim-textobj-plugins.git'
   " vim-textobj-lastpat : 最後に検索されたパターンをtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-lastpat.git'
+  NeoBundle 'kana/vim-textobj-lastpat.git'
   " vim-textobj-indent : インデントされたものをtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-indent.git'
+  NeoBundle 'kana/vim-textobj-indent.git'
   " vim-textobj-function : 関数の中身をtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-function.git'
+  NeoBundle 'kana/vim-textobj-function.git'
   " vim-textobj-fold : 折りたたまれたアレをtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-fold.git'
+  NeoBundle 'kana/vim-textobj-fold.git'
   " vim-textobj-rubyblock
-  NeoBundle 'git://github.com/nelstrom/vim-textobj-rubyblock.git'
+  NeoBundle 'nelstrom/vim-textobj-rubyblock.git'
   " vim-textobj-entire : buffer全体をtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-entire.git'
+  NeoBundle 'kana/vim-textobj-entire.git'
   " 「foo」 or 【bar】などをtext-objectに
-  NeoBundle 'git://github.com/kana/vim-textobj-jabraces.git'
+  NeoBundle 'kana/vim-textobj-jabraces.git'
   " <C-a>でtrue/false切替。他色々
-  NeoBundle 'git://github.com/taku-o/vim-toggle.git'
+  NeoBundle 'taku-o/vim-toggle.git'
   " コメント
-  NeoBundle 'git://github.com/tyru/caw.vim.git'
+  NeoBundle 'tyru/caw.vim.git'
   " zencoding
-  NeoBundle 'git://github.com/mattn/zencoding-vim.git'
+  NeoBundle 'mattn/zencoding-vim.git'
   " インデント
   NeoBundle 'IndentAnything'
   " syntaxチェック
-  NeoBundle 'git://github.com/osyo-manga/vim-watchdogs.git'
+  NeoBundle 'osyo-manga/vim-watchdogs.git'
   " quickrun hook集(watchdogs用)
-  NeoBundle 'git://github.com/osyo-manga/shabadou.vim.git'
+  NeoBundle 'osyo-manga/shabadou.vim.git'
 " }}}
 
 " Completion {{{
   " 補完 neocomplcache.vim : 究極のVim的補完環境
-  NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+  NeoBundle 'Shougo/neocomplcache.git'
   " A neocomplcache plugin for English, using look command
-  NeoBundle 'git://github.com/ujihisa/neco-look.git'
+  NeoBundle 'ujihisa/neco-look.git'
   " haskellの補完
-  "NeoBundle 'git://github.com/ujihisa/neco-ghc.git'
+  "NeoBundle 'ujihisa/neco-ghc.git'
   " clang補完
-  NeoBundle 'git://github.com/Rip-Rip/clang_complete.git'
-  NeoBundle 'git://github.com/osyo-manga/neocomplcache-clang_complete.git'
+  NeoBundle 'Rip-Rip/clang_complete.git'
+  NeoBundle 'osyo-manga/neocomplcache-clang_complete.git'
   " snippet
-  NeoBundle 'git://github.com/Shougo/neosnippet'
+  NeoBundle 'Shougo/neosnippet'
   " ruby
-  NeoBundle 'git://github.com/ujihisa/neco-ruby.git'
-  NeoBundle 'git://github.com/m2ym/rsense.git'
+  NeoBundle 'ujihisa/neco-ruby.git'
+  NeoBundle 'm2ym/rsense.git'
   " javascript
-  NeoBundle 'git://github.com/teramako/jscomplete-vim.git'
+  NeoBundle 'teramako/jscomplete-vim.git'
 " }}}
 
 " Searching/Moving{{{
   " vim-smartword : 単語移動がスマートな感じで
-  NeoBundle 'git://github.com/kana/vim-smartword.git'
+  NeoBundle 'kana/vim-smartword.git'
   " camelcasemotion : CamelCaseやsnake_case単位でのワード移動
-  NeoBundle 'git://github.com/bkad/CamelCaseMotion.git'
+  NeoBundle 'bkad/CamelCaseMotion.git'
   " <Leader><Leader>w/fなどで、motion先をhilightする
-  NeoBundle 'git://github.com/Lokaltog/vim-easymotion.git'
+  NeoBundle 'Lokaltog/vim-easymotion.git'
   " ruby用のmatchit拡張
-  NeoBundle 'git://github.com/semmons99/vim-ruby-matchit.git'
+  NeoBundle 'semmons99/vim-ruby-matchit.git'
   " QuickFixの候補に対して置換
-  NeoBundle 'git://github.com/thinca/vim-qfreplace.git'
+  NeoBundle 'thinca/vim-qfreplace.git'
 " }}}
 
 " Programming {{{
   " quickrun.vim : 編集中のファイルを簡単に実行できるプラグイン
-  NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-  NeoBundle 'git://github.com/mattn/quickrunex-vim.git'
+  NeoBundle 'thinca/vim-quickrun.git'
+  NeoBundle 'mattn/quickrunex-vim.git'
   " perldocやphpmanual等のリファレンスをvim上で見る
-  NeoBundle 'git://github.com/thinca/vim-ref.git'
+  NeoBundle 'thinca/vim-ref.git'
   " vim-ref jquery
-  NeoBundle 'git://github.com/soh335/vim-ref-jquery.git'
+  NeoBundle 'soh335/vim-ref-jquery.git'
   " vim-ref javadoc
-  NeoBundle 'git://github.com/pekepeke/ref-javadoc.git'
+  NeoBundle 'pekepeke/ref-javadoc.git'
   " vim-ref hoogle
-  NeoBundle 'git://github.com/ujihisa/ref-hoogle.git'
+  NeoBundle 'ujihisa/ref-hoogle.git'
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
-  NeoBundle 'git://github.com/vim-ruby/vim-ruby.git'
+  NeoBundle 'vim-ruby/vim-ruby.git'
   " rails.vim : rails的なアレ
-  "NeoBundle 'git://github.com/tpope/vim-rails.git'
+  "NeoBundle 'tpope/vim-rails.git'
   " ソースコード上のメソッド宣言、変数宣言の一覧を表示
   NeoBundle 'taglist.vim'
   " コンパイル後の内容を表示
-  NeoBundle 'git://github.com/ujihisa/quicklearn.git'
+  NeoBundle 'ujihisa/quicklearn.git'
 " }}}
 
 " FileType {{{
 " " vim
-  NeoBundle 'git://github.com/thinca/vim-ft-vim_fold.git'
+  NeoBundle 'thinca/vim-ft-vim_fold.git'
   " haml
-  NeoBundle 'git://github.com/tpope/vim-haml.git'
+  NeoBundle 'tpope/vim-haml.git'
   " JavaScript
   NeoBundle 'Javascript-syntax-with-Ajax-Support'
   NeoBundle 'Simple-Javascript-Indenter'
   " nginx conf
-  NeoBundle 'git://github.com/evanmiller/nginx-vim-syntax.git'
+  NeoBundle 'evanmiller/nginx-vim-syntax.git'
   " markdown
-  NeoBundle 'git://github.com/tpope/vim-markdown.git'
+  NeoBundle 'tpope/vim-markdown.git'
   " coffee script
-  NeoBundle 'git://github.com/kchmck/vim-coffee-script.git'
+  NeoBundle 'kchmck/vim-coffee-script.git'
   " scala
-  NeoBundle 'git://github.com/yuroyoro/vim-scala.git'
+  NeoBundle 'yuroyoro/vim-scala.git'
   " titanium
-  NeoBundle 'git://github.com/pekepeke/titanium-vim.git'
+  NeoBundle 'pekepeke/titanium-vim.git'
   " haskell
-  NeoBundle 'git://github.com/kana/vim-filetype-haskell.git'
-  "NeoBundle 'git://github.com/eagletmt/ghcmod-vim.git'
+  NeoBundle 'kana/vim-filetype-haskell.git'
+  "NeoBundle 'eagletmt/ghcmod-vim.git'
   " reStructuredText
-  NeoBundle 'git://github.com/choplin/vim-rst-tables.git'
+  NeoBundle 'choplin/vim-rst-tables.git'
   " octopress
-  NeoBundle 'git://github.com/tangledhelix/vim-octopress.git'
+  NeoBundle 'tangledhelix/vim-octopress.git'
   " rdoc
-  NeoBundle 'git://github.com/depuracao/vim-rdoc.git'
+  NeoBundle 'depuracao/vim-rdoc.git'
   " jsx
-  NeoBundle 'git://github.com/jsx/jsx.vim.git'
+  NeoBundle 'jsx/jsx.vim.git'
   " haxe
   NeoBundle 'MarcWeber/vim-haxe'
   " pig
@@ -161,57 +161,57 @@ endif
 
 " Buffer {{{
   " ファイラー
-  NeoBundle 'git://github.com/Shougo/vimfiler.git'
+  NeoBundle 'Shougo/vimfiler.git'
   " ファイルをファジーに開く
-  NeoBundle 'git://github.com/kien/ctrlp.vim.git'
+  NeoBundle 'kien/ctrlp.vim.git'
   " .c/cpp .hを切り替え
   NeoBundle 'a.vim'
   " gfを拡張
-  NeoBundle 'git://github.com/kana/vim-gf-user.git'
+  NeoBundle 'kana/vim-gf-user.git'
   " gf for git diff
-  NeoBundle 'git://github.com/kana/vim-gf-diff.git'
+  NeoBundle 'kana/vim-gf-diff.git'
 " }}}
 
 " Encording {{{
-  NeoBundle 'git://github.com/banyan/recognize_charcode.vim.git'
+  NeoBundle 'banyan/recognize_charcode.vim.git'
 " }}}
 
 " Utility {{{
   " vimproc : vimから非同期実行。vimshellで必要
-  NeoBundle 'git://github.com/Shougo/vimproc.git', {
+  NeoBundle 'Shougo/vimproc.git', {
       \ 'build' : {
       \     'unix' : 'make -f make_unix.mak',
       \     'mac' : 'make -f make_mac.mak',
       \    },
       \ }
   " vim-altercmd : Ex command拡張
-  NeoBundle 'git://github.com/kana/vim-altercmd.git'
+  NeoBundle 'kana/vim-altercmd.git'
   " vim Interface to Web API
-  NeoBundle 'git://github.com/mattn/webapi-vim.git'
+  NeoBundle 'mattn/webapi-vim.git'
   " urilib.vim : vim scriptからURLを扱うライブラリ
-  NeoBundle 'git://github.com/tyru/urilib.vim.git'
+  NeoBundle 'tyru/urilib.vim.git'
   " Buffer管理のLibrary
-  NeoBundle 'git://github.com/thinca/vim-openbuf.git'
+  NeoBundle 'thinca/vim-openbuf.git'
   " 任意のsub modeを利用できるようにする
-  NeoBundle 'git://github.com/kana/vim-submode.git'
+  NeoBundle 'kana/vim-submode.git'
   " キーの同時押しにmapできるようにする
-  NeoBundle 'git://github.com/kana/vim-arpeggio.git'
+  NeoBundle 'kana/vim-arpeggio.git'
   " .local.vimrcを読み込む
-  NeoBundle 'git://github.com/thinca/vim-localrc.git'
+  NeoBundle 'thinca/vim-localrc.git'
   " vimの二重起動を防ぐ
-  NeoBundle 'git://github.com/thinca/vim-singleton.git'
+  NeoBundle 'thinca/vim-singleton.git'
   " vimのデータを見やすく出力
-  NeoBundle 'git://github.com/thinca/vim-prettyprint.git'
+  NeoBundle 'thinca/vim-prettyprint.git'
   " htmlを解釈してvimバッファに出力
-  NeoBundle 'git://github.com/mattn/wwwrenderer-vim.git'
+  NeoBundle 'mattn/wwwrenderer-vim.git'
   " netrwを拡張
-  NeoBundle 'git://github.com/mattn/vim-metarw.git'
+  NeoBundle 'mattn/vim-metarw.git'
   " Exコマンドをそれっぽく展開
-  NeoBundle 'git://github.com/thinca/vim-ambicmd.git'
+  NeoBundle 'thinca/vim-ambicmd.git'
   " エラーの箇所の表示
-  NeoBundle 'git://github.com/jceb/vim-hier.git'
+  NeoBundle 'jceb/vim-hier.git'
   " tab local cd
-  NeoBundle 'git://github.com/kana/vim-tabpagecd.git'
+  NeoBundle 'kana/vim-tabpagecd.git'
   " sudo
   NeoBundle 'sudo.vim'
   "
@@ -228,93 +228,93 @@ endif
 
 " Tool {{{
   " vimshell : vimのshell
-  NeoBundle 'git://github.com/Shougo/vimshell.git'
+  NeoBundle 'Shougo/vimshell.git'
   " vimshellでssh
-  NeoBundle 'git://github.com/ujihisa/vimshell-ssh.git'
+  NeoBundle 'ujihisa/vimshell-ssh.git'
   " vcs関連
-  NeoBundle 'git://github.com/Shougo/vim-vcs.git'
+  NeoBundle 'Shougo/vim-vcs.git'
   " vimの再起動を行う
-  NeoBundle 'git://github.com/tyru/restart.vim.git'
+  NeoBundle 'tyru/restart.vim.git'
   " .shdで自動処理を行う
-  NeoBundle 'git://github.com/ujihisa/shadow.vim.git'
+  NeoBundle 'ujihisa/shadow.vim.git'
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
-  NeoBundle 'git://github.com/tyru/open-browser.vim.git'
+  NeoBundle 'tyru/open-browser.vim.git'
   " 軽量マークアップを描画
-  NeoBundle 'git://github.com/mattn/mkdpreview-vim.git'
+  NeoBundle 'mattn/mkdpreview-vim.git'
   " 任意の箇所をハイライト
-  NeoBundle 'git://github.com/t9md/vim-quickhl.git'
+  NeoBundle 't9md/vim-quickhl.git'
   " Vimの復元を行う
-  "NeoBundle 'git://github.com/osyo-manga/vim-reanimate.git'
+  "NeoBundle 'osyo-manga/vim-reanimate.git'
   " DBI
-  NeoBundle 'git://github.com/mattn/vdbi-vim.git'
+  NeoBundle 'mattn/vdbi-vim.git'
   " vinarise
-  NeoBundle 'git://github.com/Shougo/vinarise.git'
+  NeoBundle 'Shougo/vinarise.git'
   " memolist
-  NeoBundle 'git://github.com/glidenote/memolist.vim.git'
+  NeoBundle 'glidenote/memolist.vim.git'
   " octopress
-  NeoBundle 'git://github.com/glidenote/octoeditor.vim'
+  NeoBundle 'glidenote/octoeditor.vim'
   " fugitive
-  NeoBundle 'git://github.com/tpope/vim-fugitive.git'
+  NeoBundle 'tpope/vim-fugitive.git'
   " gist
-  NeoBundle 'git://github.com/mattn/gist-vim.git'
+  NeoBundle 'mattn/gist-vim.git'
   " qiita
-  NeoBundle 'git://github.com/mattn/qiita-vim.git'
+  NeoBundle 'mattn/qiita-vim.git'
   " vcs
-  NeoBundle 'git://github.com/hrsh7th/vim-versions.git'
+  NeoBundle 'hrsh7th/vim-versions.git'
 " }}}
 
 " External {{{
   " simplenote
-  NeoBundle 'git://github.com/mattn/vimplenote-vim.git'
-  NeoBundle 'git://github.com/sorah/metarw-simplenote.vim.git'
+  NeoBundle 'mattn/vimplenote-vim.git'
+  NeoBundle 'sorah/metarw-simplenote.vim.git'
   " twitter
-  NeoBundle 'git://github.com/basyura/TweetVim.git'
-  NeoBundle 'git://github.com/basyura/twibill.vim.git'
+  NeoBundle 'basyura/TweetVim.git'
+  NeoBundle 'basyura/twibill.vim.git'
 " }}}
 
 " ColorScheme{{{
-  NeoBundle 'git://github.com/cschlueter/vim-wombat.git'
-  NeoBundle 'git://github.com/nanotech/jellybeans.vim.git'
+  NeoBundle 'cschlueter/vim-wombat.git'
+  NeoBundle 'nanotech/jellybeans.vim.git'
   NeoBundle 'molokai'
   NeoBundle 'robokai'
 " }}}
 
 " Unite {{{
   " 本体
-  NeoBundle 'git://github.com/Shougo/unite.vim.git'
+  NeoBundle 'Shougo/unite.vim.git'
   " tag
-  NeoBundle 'git://github.com/tsukkee/unite-tag.git'
+  NeoBundle 'tsukkee/unite-tag.git'
   " help
-  NeoBundle 'git://github.com/tsukkee/unite-help.git'
+  NeoBundle 'tsukkee/unite-help.git'
   " アウトライン
-  NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
+  NeoBundle 'h1mesuke/unite-outline.git'
   " colorscheme
-  NeoBundle 'git://github.com/ujihisa/unite-colorscheme.git'
+  NeoBundle 'ujihisa/unite-colorscheme.git'
   " font
-  NeoBundle 'git://github.com/ujihisa/unite-font.git'
+  NeoBundle 'ujihisa/unite-font.git'
   " QuickFix
-  NeoBundle 'git://github.com/sgur/unite-qf.git'
+  NeoBundle 'sgur/unite-qf.git'
   " history
-  NeoBundle 'git://github.com/thinca/vim-unite-history.git'
+  NeoBundle 'thinca/vim-unite-history.git'
   " rails
-  NeoBundle 'git://github.com/basyura/unite-rails.git'
+  NeoBundle 'basyura/unite-rails.git'
   " haskell
-  NeoBundle 'git://github.com/ujihisa/unite-haskellimport.git'
-  NeoBundle 'git://github.com/eagletmt/unite-haddock.git'
+  NeoBundle 'ujihisa/unite-haskellimport.git'
+  NeoBundle 'eagletmt/unite-haddock.git'
   " octopress
-  NeoBundle 'git://github.com/choplin/unite-octopress.git'
+  NeoBundle 'choplin/unite-octopress.git'
   " other
-  NeoBundle 'git://github.com/ujihisa/unite-launch.git'
+  NeoBundle 'ujihisa/unite-launch.git'
 
-  NeoBundle 'git://github.com/hakobe/unite-script.git'
-  NeoBundle 'git://github.com/tacroe/unite-alias.git'
-  NeoBundle 'git://github.com/Shougo/unite-build.git'
-  NeoBundle 'git://github.com/pekepeke/unite-fileline.git'
-  NeoBundle 'git://github.com/yomi322/unite-tweetvim.git'
-  NeoBundle 'git://github.com/kmnk/vim-unite-giti.git'
+  NeoBundle 'hakobe/unite-script.git'
+  NeoBundle 'tacroe/unite-alias.git'
+  NeoBundle 'Shougo/unite-build.git'
+  NeoBundle 'pekepeke/unite-fileline.git'
+  NeoBundle 'yomi322/unite-tweetvim.git'
+  NeoBundle 'kmnk/vim-unite-giti.git'
 " }}}
 "
 " etc {{{
   " keyremap4mackbook
-  NeoBundle 'git://github.com/emanon001/kr4mb.vim.git'
+  NeoBundle 'emanon001/kr4mb.vim.git'
 " }}}
