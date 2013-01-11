@@ -11,6 +11,7 @@ if has('vim_starting')
     set rtp+=~/.vim/neobundle.vim/ 
     helptags ~/.vim/neobundle.vim/doc
     call neobundle#rc()
+    NeoBundleLocal ~/.vim/localbundle
   endif
 
   filetype plugin on
