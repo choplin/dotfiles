@@ -531,4 +531,23 @@ function precmd () {
    z --add "$(pwd -P)"
 }
 # }}}
+# screen && tmux {{{
+if [ "$TERM" = "screen" ]; then
+    local -a shorthost
+    echo $TERMCAP | grep -q -i screen
+    if [ $? -eq 0 ]; then
+        shorthost=""
+    else
+        shorthost="${HOST%%.*}:"
+    fi
+    echo -ne "\ek$shorthost\e\\"
+    preexec() {
+        echo -ne "\ek${shorthost}($1)\e\\"
+        echo -ne "\e_`dirs`\e\\"
+    }
+    precmd() {
+        echo -ne "\ek${shorthost}$(basename $(pwd))\e\\"
+    }
+fi
+# }}}
 # vim:filetype=zsh
