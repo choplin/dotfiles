@@ -274,6 +274,8 @@ endif
   " twitter
   NeoBundle 'basyura/TweetVim.git'
   NeoBundle 'basyura/twibill.vim.git'
+  " DayOne
+  NeoBundle 'kazuph/dayone.vim.git'
 " }}}
 
 " ColorScheme{{{
