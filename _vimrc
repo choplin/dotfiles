@@ -285,7 +285,7 @@ endfunction
 " 各タブページのカレントバッファ名+αを表示
 function! s:tabpage_label(n)
   " t:title と言う変数があったらそれを使う
-  let title = gettabvar(a:n, 'title')
+  let title = v:version >= 703 ? gettabvar(a:n, 'title') : ''
   if title !=# ''
     return title
   endif
