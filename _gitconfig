@@ -83,3 +83,5 @@
   cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 
 # vim:ft=gitconfig
+[http]
+	sslVerify = false
