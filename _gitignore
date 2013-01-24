@@ -1,9 +1,16 @@
 tags
 tags-ja
+
 GTAGS
 GRTAGS
 GPATH
-config.sh
 HTML
+
+config.sh
+
 .DS_Store
+
 .o
+
+.idea
+.idea_modules
