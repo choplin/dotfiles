@@ -124,14 +124,18 @@ nnoremap <C-w>t :<C-u>tabnew<CR>
 
 
 ":でCommand Windowを開く
-nnoremap <sid>(command-line-enter) q:
-xnoremap <sid>(command-line-enter) q:
-nnoremap <sid>(command-line-norange) q:<C-u>
+"nnoremap <sid>(command-line-enter) q:
+"xnoremap <sid>(command-line-enter) q:
+"nnoremap <sid>(command-line-norange) q:<C-u>
 
-nmap :  <sid>(command-line-enter)
-xmap :  <sid>(command-line-enter)
-nmap ;  <sid>(command-line-enter)
-xmap ;  <sid>(command-line-enter)
+"nmap :  <sid>(command-line-enter)
+"xmap :  <sid>(command-line-enter)
+"nmap ;  <sid>(command-line-enter)
+"xmap ;  <sid>(command-line-enter)
+nnoremap ; :
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 
 "<C-l>でハイライトを止める
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
