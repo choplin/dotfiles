@@ -56,6 +56,10 @@ endif
   NeoBundle 'kana/vim-textobj-entire.git'
   " 「foo」 or 【bar】などをtext-objectに
   NeoBundle 'kana/vim-textobj-jabraces.git'
+  " wiw
+  NeoBundle 'h1mesuke/textobj-wiw.git'
+  " between
+  NeoBundle 'thinca/vim-textobj-between.git'
   " <C-a>でtrue/false切替。他色々
   NeoBundle 'taku-o/vim-toggle.git'
   " コメント
