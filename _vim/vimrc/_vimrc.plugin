@@ -163,9 +163,6 @@ let g:unite_launch_apps = [
 \ 'git push']
 
 " }}}
-" Hatena.vim {{{
-let g:hatena_user='choplin'
-" }}}
 " quickrun {{{
 let g:quickrun_config = {}
 let g:quickrun_config['*'] = {'runmode': 'async:remote:vimproc'}
