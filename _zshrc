@@ -11,16 +11,13 @@ case $(uname) in
         if [ -x "$(which gnuls)" ]; then
             alias ls="gnuls"
         fi
-        alias ps="ps -fU$(whoami)"
         ;;
     SunOS)
         if [ -x "`which gls`" ]; then
             alias ls="gls"
         fi
-        alias ps="ps -fl -u$(/usr/xpg4/bin/id -un)"
         ;;
     *)
-        alias ps="ps -fU$(whoami) --forest"
         ;;
 esac
 
