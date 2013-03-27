@@ -321,11 +321,14 @@ if version >= 703
   nnoremap  <silent><expr> <Leader>n ToggleNumberOption()
   function! ToggleNumberOption()
     if &number
+      set nonumber
       set relativenumber
     elseif &relativenumber
+      set nonumber
       set norelativenumber
     else
       set number
+      set norelativenumber
     endif
   endfunction
 endif
