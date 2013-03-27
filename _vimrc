@@ -246,6 +246,9 @@ endif
 " Mac
 "-----------------------------------------------------------------------------
 " {{{
+if has('mac')
+  let $PYTHON_DLL = "/usr/local/Frameworks/Python.framework/Versions/Current/lib/libpython2.7.dylib"
+endif
 " }}}
 "-----------------------------------------------------------------------------
 " Misc
