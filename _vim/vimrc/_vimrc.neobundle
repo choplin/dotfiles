@@ -83,7 +83,6 @@ endif
   "NeoBundle 'ujihisa/neco-ghc.git'
   " clang補完
   NeoBundle 'Rip-Rip/clang_complete.git'
-  NeoBundle 'osyo-manga/neocomplcache-clang_complete.git'
   " snippet
   NeoBundle 'Shougo/neosnippet'
   " ruby
