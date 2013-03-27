@@ -85,3 +85,5 @@
 # vim:ft=gitconfig
 [http]
 	sslVerify = false
+[github]
+	user = choplin
