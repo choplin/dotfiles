@@ -379,11 +379,6 @@ let plugin_dicwin_disable = 1
 " operator-replace {{{
 map _  <Plug>(operator-replace)
 " }}}
-" syntastic{{{
-let g:syntastic_mode_map = { 'mode': 'passive',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': [] }
-" }}}
 " octoeditor{{{
 let g:octopress_path = '~/git/octopress'
 let g:octopress_template_dir_path = g:octopress_path
