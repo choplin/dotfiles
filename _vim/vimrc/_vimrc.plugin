@@ -75,30 +75,35 @@ let g:neocomplcache_force_omni_patterns.c =
 let g:neocomplcache_force_omni_patterns.cpp =
   \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 " }}}
-" neocomplcache-snippets {{{
+" neosnippets {{{
 if has("win32") || has("win64")
-  let g:neocomplcache_snippets_dir =  '~/vimfiles/snippets'
+  let g:neosnippet#snippets_directory =  '~/vimfiles/snippets'
 else
-  let g:neocomplcache_snippets_dir =  '~/.vim/snippets'
+  let g:neosnippet#snippets_directory =  '~/.vim/snippets'
 endif
 
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-imap <C-s>     <Plug>(neocomplcache_start_unite_snippet)
-
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-s>     <Plug>(neosnippet_start_unite_snippet)
+xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+ \ "\<Plug>(neosnippet_expand_or_jump)"
+ \: "\<TAB>"
 
-nnoremap <Leader>es :<C-u>call EditSnippesWithTab({'mode':'user'})<CR>
-nnoremap <Leader>er :<C-u>call EditSnippesWithTab({'mode':'runtime'})<CR>
-function! EditSnippesWithTab(opt)
-  let ftype = &filetype
-  execute 'vsplit'
-  enew
-  execute 'NeoComplCacheEdit'.(a:opt.mode == 'runtime' ? 'Runtime' : '').'Snippets '.ftype
-endfunction
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+nnoremap <Leader>es :NeoSnippetEdit -vertical
+nnoremap <Leader>er :NeoSnippetEdit -runtime -vertical
 " }}}
 " unite.vim {{{
 " 入力モードで開始する
