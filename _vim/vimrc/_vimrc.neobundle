@@ -277,6 +277,7 @@ endif
   NeoBundle 'basyura/twibill.vim.git'
   " DayOne
   NeoBundle 'kazuph/dayone.vim.git'
+  NeoBundle 'glidenote/newdayone.vim'
 " }}}
 
 " ColorScheme{{{
