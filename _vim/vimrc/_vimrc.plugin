@@ -465,9 +465,13 @@ nnoremap <silent> <SID>[tweetvim]m :<C-u>TweetVimMentions<CR>
 let g:tweetvim_tweet_per_page = 50
 let g:tweetvim_cache_size = 1000
 let g:tweetvim_display_time = 1
-"let g:tweetvim_display_separator = 0
+let g:tweetvim_display_source = 1
+let g:tweetvim_display_time = 1
 let g:tweetvim_display_icon = 1
 let g:tweetvim_open_buffer_cmd = 'botright split'
+let g:tweetvim_say_insert_account = 1
+let g:tweetvim_async_post = 1
+let g:tweetvim_expand_t_co = 1
 " }}}
 " clang_complete{{{
 let g:clang_complete_auto = 0
