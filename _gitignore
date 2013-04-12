@@ -1,16 +1,33 @@
+# CTAGS
+
 tags
 tags-ja
+
+# GTAGS
 
 GTAGS
 GRTAGS
 GPATH
 HTML
 
-config.sh
+# Mac
 
 .DS_Store
 
+# c/c++
+
 .o
+
+# Intellij idea
 
 .idea
 .idea_modules
+
+# bunlder
+
+vendor
+
+# script for configure
+
+config.sh
+
