@@ -149,7 +149,8 @@ endif
   NeoBundle 'kana/vim-filetype-haskell.git'
   "NeoBundle 'eagletmt/ghcmod-vim.git'
   " reStructuredText
-  NeoBundle 'choplin/vim-rst-tables.git'
+  NeoBundle 'nvie/vim-rst-tables.git'
+  NeoBundle 'Rykka/riv.vim.git'
   " octopress
   NeoBundle 'tangledhelix/vim-octopress.git'
   " rdoc
@@ -269,12 +270,10 @@ endif
 " }}}
 
 " External {{{
-  " simplenote
-  NeoBundle 'mattn/vimplenote-vim.git'
-  NeoBundle 'sorah/metarw-simplenote.vim.git'
   " twitter
   NeoBundle 'basyura/TweetVim.git'
   NeoBundle 'basyura/twibill.vim.git'
+  NeoBundle 'basyura/bitly.vim'
   " DayOne
   NeoBundle 'kazuph/dayone.vim.git'
   NeoBundle 'glidenote/newdayone.vim'
