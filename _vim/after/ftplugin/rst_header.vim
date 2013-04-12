@@ -16,7 +16,7 @@ for s:i in range(len(g:rst_header_chars))
 endfor
 
 "silent! nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
-nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
+"nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
 nmap <unique> <buffer> <Leader>h <Plug>(rst-header)
 
 function! s:add_header(level)
