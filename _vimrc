@@ -101,6 +101,8 @@ set backspace=indent,eol,start
 set completeopt=menuone
 " 行番号非表示
 set nonumber
+"
+set backupcopy=yes
 "}}}
 "-----------------------------------------------------------------------------
 " map
