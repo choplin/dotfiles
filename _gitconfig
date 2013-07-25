@@ -1,16 +1,24 @@
+[include]
+  path = .gitconfig.local
+
 [user]
   name = choplin
   email = choplin.choplin@gmail.com
 
 [color]
-  status = auto
-  diff = auto
-  branch = auto
-  interactive = auto
-  grep = auto
+  ui = auto
 
 [push]
   default = tracking
+
+[pull]
+  rebase = true
+
+[branch]
+  autosetuprebase = always
+
+[merge]
+  ff = false
 
 [core]
   excludesfile = ~/.gitignore
