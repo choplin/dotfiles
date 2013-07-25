@@ -3,12 +3,12 @@
 set -e
 set -u
 
-basedir="$HOME/git/dotfiles"
+basedir=$(dirname $0)
 
-ls -1 $basedir |
+ls -1 ${basedir} |
 while read i
 do
-    case $i in
+    case ${i} in
         install_dotfiles.sh) continue ;;
         bin) continue ;;
         .git*) continue ;;
@@ -18,9 +18,9 @@ do
     cmd="rm -rf ${HOME}/${j}"
     echo "execute: \"${cmd}\""
     $cmd
-    cmd="ln -sf $basedir/$i ${HOME}/${j}"
+    cmd="ln -sf ${basedir}/${i} ${HOME}/${j}"
     echo "execute: \"${cmd}\""
-    $cmd
+    ${cmd}
 done
 
-cp -pr $basedir/bin ~/
+cp -pr ${basedir}/bin ~/
