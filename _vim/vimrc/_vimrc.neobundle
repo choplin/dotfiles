@@ -1,23 +1,14 @@
 scriptencoding utf-8
 
-" neobundle {{{
 if has('vim_starting')
   set nocompatible
-  if has("win32") || has("win64")
-    set rtp+=~/vimfiles/neobundle.vim/ 
-    helptags ~/vimfiles/neobundle.vim/doc
-    call neobundle#rc('~/vimfiles/bundle/')
-  else
-    set rtp+=~/.vim/neobundle.vim/ 
-    helptags ~/.vim/neobundle.vim/doc
-    call neobundle#rc()
-    NeoBundleLocal ~/.vim/localbundle
-  endif
+  filetype off
 
-  filetype plugin on
-  filetype indent on
+  set rtp+=~/.vim/neobundle.vim/
+  helptags ~/.vim/neobundle.vim/doc
+  call neobundle#rc()
+  NeoBundleLocal ~/.vim/localbundle
 endif
-" }}}
 
 " Edit {{{
   " visually indent guide
@@ -75,19 +66,20 @@ endif
 " }}}
 
 " Completion {{{
-  " 補完 neocomplcache.vim : 究極のVim的補完環境
+  " completion
   NeoBundle 'Shougo/neocomplcache.git'
+  NeoBundle 'Shougo/neocomplete.git'
   " A neocomplcache plugin for English, using look command
   NeoBundle 'ujihisa/neco-look.git'
   " haskellの補完
-  "NeoBundle 'ujihisa/neco-ghc.git'
+  NeoBundle 'ujihisa/neco-ghc.git'
   " clang補完
-  NeoBundle 'Rip-Rip/clang_complete.git'
+  "NeoBundle 'Rip-Rip/clang_complete.git'
   " snippet
   NeoBundle 'Shougo/neosnippet'
   " ruby
-  NeoBundle 'ujihisa/neco-ruby.git'
-  NeoBundle 'm2ym/rsense.git'
+  "NeoBundle 'ujihisa/neco-ruby.git'
+  "NeoBundle 'm2ym/rsense.git'
   " javascript
   NeoBundle 'teramako/jscomplete-vim.git'
 " }}}
@@ -161,13 +153,15 @@ endif
   NeoBundle 'MarcWeber/vim-haxe'
   " pig
   NeoBundle 'pig.vim'
+  " xslate
+  NeoBundle 'motemen/xslate-vim.git'
 " }}}
 
 " Buffer {{{
   " ファイラー
   NeoBundle 'Shougo/vimfiler.git'
   " ファイルをファジーに開く
-  NeoBundle 'kien/ctrlp.vim.git'
+  "NeoBundle 'kien/ctrlp.vim.git'
   " .c/cpp .hを切り替え
   NeoBundle 'a.vim'
   " gfを拡張
@@ -267,6 +261,8 @@ endif
   NeoBundle 'hrsh7th/vim-versions.git'
   " github
   NeoBundle 'tyru/open-browser-github.vim.git'
+  " gitv
+  NeoBundle 'gregsexton/gitv.git'
 " }}}
 
 " External {{{
@@ -294,13 +290,13 @@ endif
   " help
   NeoBundle 'tsukkee/unite-help.git'
   " アウトライン
-  NeoBundle 'h1mesuke/unite-outline.git'
+  NeoBundle "Shougo/unite-outline"
   " colorscheme
   NeoBundle 'ujihisa/unite-colorscheme.git'
   " font
   NeoBundle 'ujihisa/unite-font.git'
   " QuickFix
-  NeoBundle 'sgur/unite-qf.git'
+  NeoBundle "osyo-manga/unite-quickfix"
   " history
   NeoBundle 'thinca/vim-unite-history.git'
   " rails
@@ -319,9 +315,14 @@ endif
   NeoBundle 'pekepeke/unite-fileline.git'
   NeoBundle 'yomi322/unite-tweetvim.git'
   NeoBundle 'kmnk/vim-unite-giti.git'
+  NeoBundle 'osyo-manga/vim-reanimate'
+  NeoBundle 'osyo-manga/unite-quickrun_config'
 " }}}
 "
 " etc {{{
   " keyremap4mackbook
   NeoBundle 'emanon001/kr4mb.vim.git'
 " }}}
+
+filetype plugin on
+filetype indent on
