@@ -523,6 +523,9 @@ if has('lua')
   let g:neocomplete#force_omni_input_patterns.objcpp =
         \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
+  if !exists('g:neocomplete#sources#omni#functions')
+    let g:neocomplete#sources#omni#functions = {}
+  endif
   " JavaScript (plugin: jscomplete-vim)
   let g:neocomplete#sources#omni#functions.javascript =
     \ 'jscomplete#CompleteJS'
