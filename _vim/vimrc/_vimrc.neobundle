@@ -67,8 +67,11 @@ endif
 
 " Completion {{{
   " completion
-  NeoBundle 'Shougo/neocomplcache.git'
-  NeoBundle 'Shougo/neocomplete.git'
+  if has('lua')
+    NeoBundle 'Shougo/neocomplete.git'
+  else
+    NeoBundle 'Shougo/neocomplcache.git'
+  end
   " A neocomplcache plugin for English, using look command
   NeoBundle 'ujihisa/neco-look.git'
   " haskellの補完
