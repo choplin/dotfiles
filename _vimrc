@@ -216,11 +216,15 @@ augroup END
 "-----------------------------------------------------------------------------
 " {{{
 "+guiでコンパイルされている
-if has('gui')
-  colorscheme molokai
-else
-  colorscheme robokai
-endif
+try
+  if has('gui')
+    colorscheme molokai
+  else
+    colorscheme robokai
+  endif
+catch
+  " only suppress error message
+endtry
 
 "gvimとして起動（:guiで起動したときは読み込まれないので注意）
 if has('gui_running')
