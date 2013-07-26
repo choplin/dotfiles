@@ -3,7 +3,7 @@
 set -e
 set -u
 
-basedir=$(dirname $0)
+basedir=$(cd $(dirname $0); pwd)
 
 ls -1 ${basedir} |
 while read i
