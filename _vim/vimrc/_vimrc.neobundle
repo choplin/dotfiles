@@ -146,8 +146,6 @@ endif
   " reStructuredText
   NeoBundle 'nvie/vim-rst-tables.git'
   NeoBundle 'Rykka/riv.vim.git'
-  " octopress
-  NeoBundle 'tangledhelix/vim-octopress.git'
   " rdoc
   NeoBundle 'depuracao/vim-rdoc.git'
   " jsx
@@ -240,8 +238,6 @@ endif
   NeoBundle 'Shougo/vinarise.git'
   " memolist
   NeoBundle 'glidenote/memolist.vim.git'
-  " octopress
-  NeoBundle 'glidenote/octoeditor.vim'
   " fugitive
   NeoBundle 'tpope/vim-fugitive.git'
   " gist
@@ -295,8 +291,6 @@ endif
   " haskell
   NeoBundle 'ujihisa/unite-haskellimport.git'
   NeoBundle 'eagletmt/unite-haddock.git'
-  " octopress
-  NeoBundle 'choplin/unite-octopress.git'
   " other
   NeoBundle 'ujihisa/unite-launch.git'
 
