@@ -10,6 +10,8 @@ if has('vim_starting')
   NeoBundleLocal ~/.vim/localbundle
 endif
 
+let g:neobundle#install_max_processes = 20
+
 " Edit {{{
   " visually indent guide
   NeoBundle 'nathanaelkane/vim-indent-guides.git'
