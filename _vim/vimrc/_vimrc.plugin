@@ -208,7 +208,8 @@ function! s:interactive_settings()
 endfunction
 " }}}
 " Vimfiler {{{
-nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
+"nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
+nnoremap <silent> <Leader>vf :VimFilerBufferDir<CR>
 let g:vimfiler_as_default_explorer=1
 
 " Like Textmate icons.
@@ -333,7 +334,7 @@ nnoremap <silent> <SID>[octoeditor]r :<C-u>OctopressGrep<CR>
 " }}}
 " memolist{{{
 let g:memolist_vimfiler = 1
-let g:memolist_vimfiler_option = "-split -winwidth=50 -simple"
+let g:memolist_vimfiler_option = ''
 let g:memolist_memo_suffix = "rst"
 let g:memolist_template_dir_path = '~/.vim/template/memolist'
 nnoremap <SID>[memolist] <Nop>
@@ -618,4 +619,7 @@ else
     \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
   " }}}
 endif
+" }}
+" riv {{
+g:riv_fold_auto_update = 0
 " }}
