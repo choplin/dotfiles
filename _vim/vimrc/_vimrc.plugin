@@ -8,9 +8,6 @@ endif
 " matchit {{{
 source $VIMRUNTIME/macros/matchit.vim
 " }}}
-" taglist {{{
-noremap <silent> <Leader>tl :TlistToggle<cr>  "taglistを開くショットカットキー
-" }}}
 " neosnippets {{{
 if has("win32") || has("win64")
   let g:neosnippet#snippets_directory =  '~/vimfiles/snippets'
@@ -155,14 +152,8 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 " }}}
 " VimShell {{{
-nnoremap <Leader>vs :<C-u>VimShellPop<CR>
+nnoremap <Leader>vs :<C-u>VimShellBufferDir<CR>
 
-augroup MyVimShell
-  autocmd!
-  autocmd FileType vimshell nmap <buffer> q <Plug>(vimshell_hide)
-augroup END
-
-"
 " Initialize execute file list.
 let g:vimshell_execute_file_list = {}
 let g:vimshell_execute_file_list['rb'] = 'ruby'
@@ -238,24 +229,6 @@ let g:surround_custom_mapping.vim= {
       \'f':  "function! \r endfunction",
       \'z':  "\"{{{ \r \"}}}"
       \ }
-" }}}
-" ref.vim {{{
-" vsplitで開く
-let g:ref_open = ':vsplit'
-" filetype毎のソースを定義
-let g:_detect_filetype = {
-      \}
-nnoremap <Leader>ra :<C-u>Ref alc 
-nnoremap <Leader>rp :<C-u>Ref perldoc 
-nnoremap <Leader>rm :<C-u>Ref man 
-augroup MyRef
-  autocmd!
-  autocmd FileType ref nnoremap <buffer> q :<C-u>q<CR>
-augroup END
-" }}}
-" ambicmd {{{
-cnoremap <expr> <Space> ambicmd#expand("\<Space>")
-cnoremap <expr> <CR>    ambicmd#expand("\<CR>")
 " }}}
 " submode {{{
 call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
@@ -528,8 +501,8 @@ if has('lua')
   let g:neocomplete#sources#omni#functions.javascript =
     \ 'jscomplete#CompleteJS'
   " Go (plugin: gocode)
-  let g:neocomplete#sources#omni#functions.go =
-    \ 'gocomplete#Complete'
+  let g:neocomplete#force_omni_input_patterns.go =
+        \ '[^.[:digit:] *\t]\.'
   " Clojure (plugin: vim-clojure)
   let g:neocomplete#sources#omni#functions.clojure =
     \ 'vimclojure#OmniCompletion'
@@ -619,7 +592,11 @@ else
     \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
   " }}}
 endif
-" }}
-" riv {{
-g:riv_fold_auto_update = 0
-" }}
+" }}}
+" riv {{{
+let g:riv_fold_auto_update = 0
+" }}}
+" rmine.vim {{{
+let g:rmine_server_url = 'http://redmine.dev.scaleout.jp/'
+let g:rmine_access_key = '88275fc2181b20b47d8712adc974f84d3181cad6'
+" }}}

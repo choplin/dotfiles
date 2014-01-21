@@ -16,18 +16,25 @@ HTML
 
 # c/c++
 
-.o
+*.o
 
 # Intellij idea
 
 .idea
 .idea_modules
+*.iml
 
 # bunlder
 
-vendor
+vendor/bundle
 
 # script for configure
 
 config.sh
 
+# maven etc.
+#
+target
+
+# local memo
+memo.local

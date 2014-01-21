@@ -2,13 +2,14 @@ scriptencoding utf-8
 
 if has('vim_starting')
   set nocompatible
-  filetype off
-
   set rtp+=~/.vim/neobundle.vim/
-  helptags ~/.vim/neobundle.vim/doc
-  call neobundle#rc()
-  NeoBundleLocal ~/.vim/localbundle
 endif
+
+call neobundle#rc()
+NeoBundleLocal ~/.vim/localbundle
+
+" Let neobundle manage neobundle
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 let g:neobundle#install_max_processes = 20
 let g:neobundle#types#git#default_protocol = 'https'
@@ -22,8 +23,6 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'sjl/gundo.vim.git'
   " surround.vim : テキストを括弧で囲む／削除する
   NeoBundle 'tpope/vim-surround.git'
-  " smartchr.vim : ==などの前後を整形
-  NeoBundle 'kana/vim-smartchr.git'
   " vim-operator-user : 簡単にoperatorを定義できるようにする
   NeoBundle 'kana/vim-operator-user.git'
   " operator-camelize : camel-caseへの変換
@@ -48,16 +47,12 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'nelstrom/vim-textobj-rubyblock.git'
   " vim-textobj-entire : buffer全体をtext-objectに
   NeoBundle 'kana/vim-textobj-entire.git'
-  " 「foo」 or 【bar】などをtext-objectに
-  NeoBundle 'kana/vim-textobj-jabraces.git'
   " wiw
   NeoBundle 'h1mesuke/textobj-wiw.git'
   " between
   NeoBundle 'thinca/vim-textobj-between.git'
   " <C-a>でtrue/false切替。他色々
   NeoBundle 'taku-o/vim-toggle.git'
-  " コメント
-  NeoBundle 'tyru/caw.vim.git'
   " zencoding
   NeoBundle 'mattn/zencoding-vim.git'
   " インデント
@@ -83,9 +78,6 @@ let g:neobundle#types#git#default_protocol = 'https'
   "NeoBundle 'Rip-Rip/clang_complete.git'
   " snippet
   NeoBundle 'Shougo/neosnippet'
-  " ruby
-  "NeoBundle 'ujihisa/neco-ruby.git'
-  "NeoBundle 'm2ym/rsense.git'
   " javascript
   NeoBundle 'teramako/jscomplete-vim.git'
 " }}}
@@ -107,20 +99,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   " quickrun.vim : 編集中のファイルを簡単に実行できるプラグイン
   NeoBundle 'thinca/vim-quickrun.git'
   NeoBundle 'mattn/quickrunex-vim.git'
-  " perldocやphpmanual等のリファレンスをvim上で見る
-  NeoBundle 'thinca/vim-ref.git'
-  " vim-ref jquery
-  NeoBundle 'soh335/vim-ref-jquery.git'
-  " vim-ref javadoc
-  NeoBundle 'pekepeke/ref-javadoc.git'
-  " vim-ref hoogle
-  NeoBundle 'ujihisa/ref-hoogle.git'
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
   NeoBundle 'vim-ruby/vim-ruby.git'
-  " rails.vim : rails的なアレ
-  "NeoBundle 'tpope/vim-rails.git'
-  " ソースコード上のメソッド宣言、変数宣言の一覧を表示
-  NeoBundle 'taglist.vim'
   " コンパイル後の内容を表示
   NeoBundle 'ujihisa/quicklearn.git'
 " }}}
@@ -128,8 +108,6 @@ let g:neobundle#types#git#default_protocol = 'https'
 " FileType {{{
 " " vim
   NeoBundle 'thinca/vim-ft-vim_fold.git'
-  " haml
-  NeoBundle 'tpope/vim-haml.git'
   " JavaScript
   NeoBundle 'Javascript-syntax-with-Ajax-Support'
   NeoBundle 'Simple-Javascript-Indenter'
@@ -141,29 +119,22 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kchmck/vim-coffee-script.git'
   " scala
   NeoBundle 'yuroyoro/vim-scala.git'
-  " titanium
-  NeoBundle 'pekepeke/titanium-vim.git'
   " haskell
   NeoBundle 'kana/vim-filetype-haskell.git'
-  "NeoBundle 'eagletmt/ghcmod-vim.git'
   " reStructuredText
   NeoBundle 'nvie/vim-rst-tables.git'
   NeoBundle 'Rykka/riv.vim.git'
-  " rdoc
-  NeoBundle 'depuracao/vim-rdoc.git'
-  " jsx
-  NeoBundle 'jsx/jsx.vim.git'
   " pig
   NeoBundle 'pig.vim'
-  " xslate
-  NeoBundle 'motemen/xslate-vim.git'
+  " slim
+  NeoBundle 'slim-template/vim-slim.git'
+  " nagios
+  NeoBundle 'tejr/vim-nagios.git'
 " }}}
 
 " Buffer {{{
   " ファイラー
   NeoBundle 'Shougo/vimfiler.git'
-  " ファイルをファジーに開く
-  "NeoBundle 'kien/ctrlp.vim.git'
   " .c/cpp .hを切り替え
   NeoBundle 'a.vim'
   " gfを拡張
@@ -214,6 +185,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kana/vim-tabpagecd.git'
   " sudo
   NeoBundle 'sudo.vim'
+  "
+  NeoBundle 'airblade/vim-rooter'
 " }}}
 
 " Tool {{{
@@ -229,12 +202,6 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'ujihisa/shadow.vim.git'
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
   NeoBundle 'tyru/open-browser.vim.git'
-  " 軽量マークアップを描画
-  NeoBundle 'mattn/mkdpreview-vim.git'
-  " 任意の箇所をハイライト
-  NeoBundle 't9md/vim-quickhl.git'
-  " Vimの復元を行う
-  "NeoBundle 'osyo-manga/vim-reanimate.git'
   " DBI
   NeoBundle 'mattn/vdbi-vim.git'
   " vinarise
@@ -263,6 +230,15 @@ let g:neobundle#types#git#default_protocol = 'https'
   " DayOne
   NeoBundle 'kazuph/dayone.vim.git'
   NeoBundle 'glidenote/newdayone.vim'
+  " Redmine
+  NeoBundle 'basyura/rmine.vim'
+  NeoBundle 'mattn/vim-metarw-redmine'
+  " Dash
+  NeoBundle 'rizzatti/funcoo.vim'
+  NeoBundle 'rizzatti/dash.vim'
+  " codic
+  NeoBundle 'koron/codic-vim'
+  NeoBundle 'rhysd/unite-codic.vim'
 " }}}
 
 " ColorScheme{{{

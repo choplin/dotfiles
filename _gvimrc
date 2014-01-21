@@ -6,7 +6,7 @@
 colorscheme molokai
 "フォント
 if has ('gui_macvim')
-    set guifont=Ricty\ Regular:h14
+    set guifont=Ricty\ Regular:h16
 elseif has('win32') || has('win64')
     set guifont=Ricty:h13:b:cSHIFTJIS
 else 
