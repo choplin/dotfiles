@@ -17,7 +17,7 @@ endfor
 
 "silent! nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
 "nmap <unique> <buffer> <LocalLeader>h <Plug>(rst-header)
-nmap <unique> <buffer> <Leader>h <Plug>(rst-header)
+nmap <silent> <buffer> <Leader>h <Plug>(rst-header)
 
 function! s:add_header(level)
   let c = (exists('b:rst_header_chars') ? b:rst_header_chars

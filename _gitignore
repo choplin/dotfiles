@@ -38,3 +38,6 @@ target
 
 # local memo
 memo.local
+
+# vagrant
+.vagrant

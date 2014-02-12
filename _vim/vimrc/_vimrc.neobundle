@@ -61,6 +61,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'osyo-manga/vim-watchdogs.git'
   " quickrun hook集(watchdogs用)
   NeoBundle 'osyo-manga/shabadou.vim.git'
+  " ファイル間を移動
+  NeoBundle 'kana/vim-altr'
 " }}}
 
 " Completion {{{
@@ -130,6 +132,12 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'slim-template/vim-slim.git'
   " nagios
   NeoBundle 'tejr/vim-nagios.git'
+  " ini
+  NeoBundle 'ini-syntax-definition'
+  " yaml
+  NeoBundle 'chase/vim-ansible-yaml'
+  " jinja2
+  NeoBundle 'mitsuhiko/vim-jinja'
 " }}}
 
 " Buffer {{{
