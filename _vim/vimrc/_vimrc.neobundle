@@ -235,9 +235,6 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'basyura/TweetVim.git'
   NeoBundle 'basyura/twibill.vim.git'
   NeoBundle 'basyura/bitly.vim'
-  " DayOne
-  NeoBundle 'kazuph/dayone.vim.git'
-  NeoBundle 'glidenote/newdayone.vim'
   " Redmine
   NeoBundle 'basyura/rmine.vim'
   NeoBundle 'mattn/vim-metarw-redmine'
@@ -291,10 +288,21 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'osyo-manga/unite-quickrun_config'
 " }}}
 "
-" etc {{{
-  " keyremap4mackbook
-  NeoBundle 'emanon001/kr4mb.vim.git'
+" Mac {{{
+  if has('mac')
+    " keyremap4mackbook
+    NeoBundle 'emanon001/kr4mb.vim.git'
+    " DayOne
+    NeoBundle 'kazuph/dayone.vim.git'
+    NeoBundle 'glidenote/newdayone.vim'
+  endif
 " }}}
 
 filetype plugin on
 filetype indent on
+
+NeoBundleCheck
+
+if !has('vim_starting')
+  call neobundle#call_hook('on_source')
+endif
