@@ -600,3 +600,7 @@ let g:riv_fold_auto_update = 0
 let g:rmine_server_url = 'http://redmine.dev.scaleout.jp/'
 let g:rmine_access_key = '88275fc2181b20b47d8712adc974f84d3181cad6'
 " }}}
+" fugitive {{{
+command! Gpull Git pull
+command! Gpush Git push
+" }}}
