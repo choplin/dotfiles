@@ -263,6 +263,16 @@ function rprompt-virtualenv {
     echo "%{${fg_bold[white]}%}(env: %{${fg[green]}%}$env%{${fg_bold[white]}%})%{${reset_color}%}"
 }
 # }}}
+# goenv {{{
+function rprompt-virtualenv {
+    local env
+    if [[ -z $GOENVNAME ]]; then
+            return
+    fi
+    env=$GOENVNAME
+    echo "%{${fg_bold[white]}%}(goenv: %{${fg[green]}%}$env%{${fg_bold[white]}%})%{${reset_color}%}"
+}
+# }}}
 # プロンプトを更新する。{{{
 update_prompt()
 {
@@ -407,8 +417,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[._-]=*'
 # _prefix: カーソル以降を無視してカーソル位置までで補完する。
 zstyle ':completion:*' completer \
     _oldlist _complete _match _history _ignored _approximate _prefix
-# mosh
-compdef mosh=ssh
 #}}}
 # setting {{{
 # 補完候補をキャッシュする。
@@ -489,24 +497,24 @@ WORDCHARS="${WORDCHARS}|"
 # }}}
 # ウィンドウタイトル {{{
 ## 実行中のコマンドとユーザ名とホスト名とカレントディレクトリを表示。
-update_title() {
-    local command_line=
-    typeset -a command_line
-    command_line=${(z)2}
-    local command=
-    if [ ${(t)command_line} = "array-local" ]; then
-        command="$command_line[1]"
-    else
-        command="$2"
-    fi
-    print -n -P "\e]2;"
-    echo -n "(${command})"
-    print -n -P " %n@%m:%~\a"
-}
-## X環境上でだけウィンドウタイトルを変える。
-if [ -n "$DISPLAY" ]; then
-    preexec_functions=($preexec_functions update_title)
-fi
+#update_title() {
+#    local command_line=
+#    typeset -a command_line
+#    command_line=${(z)2}
+#    local command=
+#    if [ ${(t)command_line} = "array-local" ]; then
+#        command="$command_line[1]"
+#    else
+#        command="$2"
+#    fi
+#    print -n -P "\e]2;"
+#    echo -n "(${command})"
+#    print -n -P " %n@%m:%~\a"
+#}
+### X環境上でだけウィンドウタイトルを変える。
+#if [ -n "$DISPLAY" ]; then
+#    preexec_functions=($preexec_functions update_title)
+#fi
 # }}}
 # Attache tmux {{{
 if ( ! test $TMUX ) && ( ! expr $TERM : "^screen" > /dev/null ) && which tmux > /dev/null; then
@@ -531,24 +539,24 @@ function precmd () {
    z --add "$(pwd -P)"
 }
 # }}}
-# screen && tmux {{{
-if [ "$TERM" = "screen" ]; then
-    local -a shorthost
-    echo $TERMCAP | grep -q -i screen
-    if [ $? -eq 0 ]; then
-        shorthost=""
-    else
-        shorthost="${HOST%%.*}:"
-    fi
-    echo -ne "\ek$shorthost\e\\"
-    preexec() {
-        echo -ne "\ek${shorthost}($1)\e\\"
-        echo -ne "\e_`dirs`\e\\"
-    }
-    precmd() {
-        echo -ne "\ek${shorthost}$(basename $(pwd))\e\\"
-    }
-fi
+## screen && tmux {{{
+#if [ "$TERM" = "screen" ]; then
+#    local -a shorthost
+#    echo $TERMCAP | grep -q -i screen
+#    if [ $? -eq 0 ]; then
+#        shorthost=""
+#    else
+#        shorthost="${HOST%%.*}:"
+#    fi
+#    echo -ne "\ek$shorthost\e\\"
+#    preexec() {
+#        echo -ne "\ek${shorthost}($1)\e\\"
+#        echo -ne "\e_`dirs`\e\\"
+#    }
+#    precmd() {
+#        echo -ne "\ek${shorthost}$(basename $(pwd))\e\\"
+#    }
+#fi
 # }}}
 # 一定時間以上かかったら通知 {{{
 __timetrack_threshold=10 # seconds
