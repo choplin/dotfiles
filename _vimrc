@@ -67,10 +67,9 @@ set hlsearch
 set laststatus=2
 "ステータスのところにファイル情報表示
 set statusline=%<
-set statusline+=[%n]%F\ 
-"set statusline+=%{vcs#info(\"(%s)-[%b]\",\"(%s)-[%b\|%a]\")}
+set statusline+=\ [%{fnamemodify(getcwd(),':~')}]\ %F\ 
 set statusline+=%=
-set statusline+=\ %m%r%h%w%y
+set statusline+=\ %{fugitive#statusline()}%m%r%h%w%y
 set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}
 set statusline+=\ %l,%c\ %P 
 " 矩形選択で行末を超えてブロックを選択できるようにする
@@ -164,6 +163,8 @@ nnoremap <C-h> :<C-u>vertical help
 nnoremap <C-n> :<C-u>cnext<CR>
 nnoremap <C-p> :<C-u>cprevious<CR>
 
+nnoremap <C-W>t :<C-u>tabnew<CR>:cd<CR>
+
 " imap
 inoremap <C-d> <ESC>lxi
 inoremap <C-a>  <Home>
@@ -186,28 +187,6 @@ augroup MyAutoCmd
   " IME自動制御
   autocmd InsertEnter,CmdwinEnter * set noimdisable
   autocmd InsertLeave,CmdwinLeave * set imdisable
-
-  autocmd CmdwinEnter * call s:init_cmdwin()
-  autocmd BufEnter * call s:init_diff()
-  function! s:init_cmdwin()
-    nnoremap <buffer> q :<C-u>quit<CR>
-    inoremap <buffer><expr><CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
-    inoremap <buffer><expr><C-h> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-    inoremap <buffer><expr><BS> pumvisible() ? "\<C-y>\<C-h>" : "\<C-h>"
-    nnoremap <buffer><silent> <Esc> :quit<CR>
-    inoremap <buffer> <Leader><Leader> ~
-
-    " Completion.
-    inoremap <buffer><expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-    startinsert!
-  endfunction
-  function! s:init_diff()
-    if &diff
-      nnoremap <buffer><silent> J ]c
-      nnoremap <buffer><silent> K [c
-    endif
-  endfunction
 augroup END
 
 " }}}
@@ -218,7 +197,8 @@ augroup END
 "+guiでコンパイルされている
 try
   if has('gui')
-    colorscheme molokai
+    colorscheme solarized
+    set background=light
   else
     colorscheme robokai
   endif
@@ -253,32 +233,14 @@ endif
 "-----------------------------------------------------------------------------
 " {{{
 if has('mac')
-  let $PYTHON_DLL = "/usr/local/Frameworks/Python.framework/Versions/Current/lib/libpython2.7.dylib"
+  "let $PYTHON_DLL = "/usr/local/Frameworks/Python.framework/Versions/2.7/lib/libpython2.7.dylib"
 endif
+
 " }}}
 "-----------------------------------------------------------------------------
 " Misc
 "-----------------------------------------------------------------------------
 " {{{
-" 現在のバッファのタグファイルを生成する{{{
-" neocomplcache からタグファイルのパスを取得して、tags に追加する
-nnoremap <expr><Space>tu g:TagsUpdate()
-function! g:TagsUpdate()
-  execute "setlocal tags=./tags,tags"
-  let bufname = expand("%:p")
-  if bufname!=""
-    call system(
-          \ "ctags ". 
-          \ "-R --tag-relative=yes --sort=yes ".
-          \ "--c++-kinds=+p --fields=+iaS --extra=+q "
-          \ .bufname." `pwd`")
-  endif
-  for filename in neocomplcache#sources#include_complete#get_include_files(bufnr('%'))
-    execute "set tags+=".neocomplcache#cache#encode_name('include_tags', filename)
-  endfor
-  return ""
-endfunction
-"}}}
 " tablineを設定{{{
 " 各タブページのカレントバッファ名+αを表示
 function! s:tabpage_label(n)

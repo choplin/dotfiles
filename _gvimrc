@@ -3,7 +3,8 @@
 "-----------------------------------------------------------------------------
 "{{{
 "カラースキーム
-colorscheme molokai
+colorscheme solarized
+set background=light
 "フォント
 if has ('gui_macvim')
     set guifont=Ricty\ Regular:h16
@@ -40,7 +41,7 @@ endif
 "{{{
 if has ('gui_macvim')
     set iminsert=2
-    set transparency=10
+    set transparency=0
     set fuoptions=maxvert,maxhorz
 endif
 "}}}
