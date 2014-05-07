@@ -49,6 +49,8 @@ let g:unite_source_history_yank_enable = 1
 
 let g:unite_source_grep_default_opts = '-Hn --color=never'
 
+let g:unite_source_rec_max_cache_files = 20000
+
 nnoremap <SID>[unite] <Nop>
 nnoremap <SID>[unite_project] <Nop>
 nmap <Leader>u <SID>[unite]
@@ -63,7 +65,7 @@ nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit quickfix<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
-nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec')<CR>
+nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec/async')<CR>
 nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
 nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
 nnoremap <SID>[unite_project]d :<C-u>lcd <C-r>=unite#util#path2project_directory(expand('%'))<CR><CR>
@@ -78,10 +80,10 @@ endfunction
 call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
 
 " タグジャンプをunite-tagsで置き換え
-autocmd BufEnter *
-\   if empty(&buftype)
-\|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-\|  endif
+" autocmd BufEnter *
+" \   if empty(&buftype)
+" \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+" \|  endif
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()"{{{
@@ -93,12 +95,6 @@ function! s:unite_my_settings()"{{{
   " <C-l>: manual neocomplcache completion.
   inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
 endfunction"}}}
-
-let g:unite_launch_apps = [
-\ 'rake',
-\ 'make',
-\ 'git pull',
-\ 'git push']
 
 " }}}
 " quickrun {{{
@@ -150,9 +146,14 @@ endfor
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
+
+if !exists('g:openbrowser_search_engines')
+  let g:openbrowser_search_engines = {}
+endif
+let g:openbrowser_search_engines['amazon'] = 'http://www.amazon.co.jp/s/?keywords={query}'
 " }}}
 " VimShell {{{
-nnoremap <Leader>vs :<C-u>VimShellBufferDir<CR>
+nnoremap <Leader>vs :<C-u>VimShellBufferDir -popup<CR>
 
 " Initialize execute file list.
 let g:vimshell_execute_file_list = {}
@@ -291,19 +292,6 @@ let plugin_dicwin_disable = 1
 " }}}
 " operator-replace {{{
 map _  <Plug>(operator-replace)
-" }}}
-" octoeditor{{{
-let g:octopress_path = '~/git/octopress'
-let g:octopress_template_dir_path = g:octopress_path
-let g:octopress_vimfiler = 1
-let g:octopress_published = 0
-nnoremap <SID>[octoeditor] <Nop>
-nmap <Leader>o <SID>[octoeditor]
-nnoremap <silent> <SID>[octoeditor]l :<C-u>OctopressList<CR>
-nnoremap <silent> <SID>[octoeditor]n :<C-u>OctopressNew<CR>
-nnoremap <silent> <SID>[octoeditor]g :<C-u>OctopressGenerate<CR>
-nnoremap <silent> <SID>[octoeditor]d :<C-u>OctopressDeploy<CR>
-nnoremap <silent> <SID>[octoeditor]r :<C-u>OctopressGrep<CR>
 " }}}
 " memolist{{{
 let g:memolist_vimfiler = 1
@@ -472,10 +460,10 @@ if has('lua')
   endif
   let g:neocomplete#sources#omni#input_patterns.php =
   \ '[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
-  let g:neocomplete#sources#omni#input_patterns.c =
-  \ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
-  let g:neocomplete#sources#omni#input_patterns.cpp =
-  \ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+  "let g:neocomplete#sources#omni#input_patterns.c =
+  "\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?'
+  "let g:neocomplete#sources#omni#input_patterns.cpp =
+  "\ '[^.[:digit:] *\t]\%(\.\|->\)\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   let g:neocomplete#sources#omni#input_patterns.perl =
@@ -484,15 +472,14 @@ if has('lua')
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete#force_overwrite_completefunc = 1
   let g:neocomplete#force_omni_input_patterns.c =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)'
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
   let g:neocomplete#force_omni_input_patterns.cpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
   let g:neocomplete#force_omni_input_patterns.objc =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)'
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
   let g:neocomplete#force_omni_input_patterns.objcpp =
-        \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+        \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
@@ -502,7 +489,7 @@ if has('lua')
     \ 'jscomplete#CompleteJS'
   " Go (plugin: gocode)
   let g:neocomplete#force_omni_input_patterns.go =
-        \ '[^.[:digit:] *\t]\.'
+        \ '[^.[:digit:] *\t]\.\w*'
   " Clojure (plugin: vim-clojure)
   let g:neocomplete#sources#omni#functions.clojure =
     \ 'vimclojure#OmniCompletion'
@@ -603,4 +590,10 @@ let g:rmine_access_key = '88275fc2181b20b47d8712adc974f84d3181cad6'
 " fugitive {{{
 command! Gpull Git pull
 command! Gpush Git push
+command! Gcommitnow execute 'Git commit -m "'.strftime("%Y/%m/%d %H:%M").'"'
+" }}}
+" ag {{{
+nnoremap <SID>[ag] <Nop>
+nmap <Leader>ag <SID>[ag]
+nnoremap <SID>[ag] :<C-u>Ag 
 " }}}
