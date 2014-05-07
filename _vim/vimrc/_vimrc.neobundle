@@ -53,8 +53,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'thinca/vim-textobj-between.git'
   " <C-a>でtrue/false切替。他色々
   NeoBundle 'taku-o/vim-toggle.git'
-  " zencoding
-  NeoBundle 'mattn/zencoding-vim.git'
+  " emmet
+  NeoBundle 'mattn/emmet-vim'
   " インデント
   NeoBundle 'IndentAnything'
   " syntaxチェック
@@ -80,6 +80,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   "NeoBundle 'Rip-Rip/clang_complete.git'
   " snippet
   NeoBundle 'Shougo/neosnippet'
+  NeoBundle 'Shougo/neosnippet-snippets'
   " javascript
   NeoBundle 'teramako/jscomplete-vim.git'
 " }}}
@@ -120,7 +121,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   " coffee script
   NeoBundle 'kchmck/vim-coffee-script.git'
   " scala
-  NeoBundle 'yuroyoro/vim-scala.git'
+  NeoBundle 'derekwyatt/vim-scala'
   " haskell
   NeoBundle 'kana/vim-filetype-haskell.git'
   " reStructuredText
@@ -138,6 +139,16 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'chase/vim-ansible-yaml'
   " jinja2
   NeoBundle 'mitsuhiko/vim-jinja'
+  " Dockerfile
+  NeoBundle 'ekalinin/Dockerfile.vim'
+  " go
+  NeoBundle 'Blackrush/vim-gocode'
+  " rust
+  NeoBundle 'wting/rust.vim'
+  " pandoc
+  NeoBundle 'vim-pandoc/vim-pantondoc'
+  NeoBundle 'vim-pandoc/vim-pandoc-syntax'
+  NeoBundle 'vim-pandoc/vim-pandoc-after'
 " }}}
 
 " Buffer {{{
@@ -228,6 +239,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'tyru/open-browser-github.vim.git'
   " gitv
   NeoBundle 'gregsexton/gitv.git'
+  " ag
+  NeoBundle 'rking/ag.vim'
 " }}}
 
 " External {{{
@@ -251,6 +264,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'nanotech/jellybeans.vim.git'
   NeoBundle 'molokai'
   NeoBundle 'robokai'
+  NeoBundle 'altercation/vim-colors-solarized'
 " }}}
 
 " Unite {{{
