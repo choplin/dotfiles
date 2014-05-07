@@ -27,6 +27,7 @@ HTML
 # bunlder
 
 vendor/bundle
+.bundle
 
 # script for configure
 
@@ -41,3 +42,6 @@ memo.local
 
 # vagrant
 .vagrant
+
+# vim
+.*.un~
