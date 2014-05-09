@@ -19,9 +19,10 @@ execute "source ".vimdir."vimrc/_vimrc.plugin"
 " set
 "-----------------------------------------------------------------------------
 " {{{
-"バックアップ、スワップを作らない
-set nobackup
+"スワップを作らない
 set noswapfile
+set backupdir=~/.vim/backup
+set undodir=~/.vim/undo
 "ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
 set browsedir=buffer
 "左右のカーソル移動で行間移動可能にする。
