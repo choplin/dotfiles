@@ -4,3 +4,4 @@ _vim/vimrc/_vimrc
 _vim/vimrc/_vimrc.edit
 _vim/vimrc/_vimrc.visual
 _vim/localbundle/
+.neobundle/
