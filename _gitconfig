@@ -1,6 +1,3 @@
-[include]
-  path = .gitconfig.local
-
 [user]
   name = choplin
   email = choplin.choplin@gmail.com
@@ -121,5 +118,8 @@
 #[remote "origin"]
   #fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
   #fetch = +refs/pull-requests/*/from:refs/remotes/origin/pr/*
+
+[include]
+  path = .gitconfig.local
 
 # vim:ft=gitconfig shiftwidth=2
