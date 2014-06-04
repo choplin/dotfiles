@@ -91,7 +91,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   " camelcasemotion : CamelCaseやsnake_case単位でのワード移動
   NeoBundle 'bkad/CamelCaseMotion.git'
   " <Leader><Leader>w/fなどで、motion先をhilightする
-  NeoBundle 'Lokaltog/vim-easymotion.git'
+  NeoBundle 'Lokaltog/vim-easymotion.git', {'vim_version' : '7.3'}
   " ruby用のmatchit拡張
   NeoBundle 'semmons99/vim-ruby-matchit.git'
   " QuickFixの候補に対して置換
@@ -146,9 +146,9 @@ let g:neobundle#types#git#default_protocol = 'https'
   " rust
   NeoBundle 'wting/rust.vim'
   " pandoc
-  NeoBundle 'vim-pandoc/vim-pantondoc'
-  NeoBundle 'vim-pandoc/vim-pandoc-syntax'
-  NeoBundle 'vim-pandoc/vim-pandoc-after'
+  NeoBundle 'vim-pandoc/vim-pantondoc', {'vim_version' : '7.4'}
+  NeoBundle 'vim-pandoc/vim-pandoc-syntax', {'vim_version' : '7.4'}
+  NeoBundle 'vim-pandoc/vim-pandoc-after', {'vim_version' : '7.4'}
 " }}}
 
 " Buffer {{{
