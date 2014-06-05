@@ -45,18 +45,11 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 
-## pushd/popdのショートカット。
-alias pd="pushd"
-alias po="popd"
-
 # git
-alias gst="git st -s -b && git stash list"
+alias gst="git st -s -b && git --no-pager stash list"
 alias gch='git cherry -v'
 alias glgg='git logg'
 alias glg='git logg | head'
-
-# tmux
-alias tmux-copy='tmux save-buffer - | pbcopy'
 # }}}
 ## Environment variable configuration {{{
 # LANG
