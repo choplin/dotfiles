@@ -241,6 +241,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'gregsexton/gitv.git'
   " ag
   NeoBundle 'rking/ag.vim'
+  " ctrl-p
+  NeoBundle 'kien/ctrlp.vim'
 " }}}
 
 " External {{{
