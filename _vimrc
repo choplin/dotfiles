@@ -22,7 +22,7 @@ execute "source ".vimdir."vimrc/_vimrc.plugin"
 "スワップを作らない
 set noswapfile
 set backupdir=~/.vim/backup
-if version >= 740
+if version >= 704
   set undodir=~/.vim/undo
 endif
 "ファイル保存ダイアログの初期ディレクトリをバッファファイル位置に設定
@@ -58,8 +58,16 @@ set title
 set ignorecase
 set smartcase
 "Vimgrepで外部grepを使用
-"set grepprg=grep\ -nH
-set grepprg=ack\ -a
+if executable('ag')
+  set grepprg=ag\ --nogroup\ -iS
+  set grepformat=%f:%l:%m
+elseif executable('ack')
+  set grepprg=ack\ --nogroup
+  set grepformat=%f:%l:%m
+else
+  set grepprg=grep\ -Hnd\ skip\ -r
+  set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m
+endif
 "入力中のコマンドをステータスに表示する
 set showcmd
 "括弧入力時の対応する括弧を表示

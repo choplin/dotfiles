@@ -63,6 +63,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'osyo-manga/shabadou.vim.git'
   " ファイル間を移動
   NeoBundle 'kana/vim-altr'
+  " mru
+  NeoBundle 'Shougo/neomru.vim.git'
 " }}}
 
 " Completion {{{
@@ -145,10 +147,10 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'Blackrush/vim-gocode'
   " rust
   NeoBundle 'wting/rust.vim'
-  " pandoc
-  NeoBundle 'vim-pandoc/vim-pantondoc', {'vim_version' : '7.4'}
-  NeoBundle 'vim-pandoc/vim-pandoc-syntax', {'vim_version' : '7.4'}
-  NeoBundle 'vim-pandoc/vim-pandoc-after', {'vim_version' : '7.4'}
+  "HOCON
+  NeoBundle 'GEverding/vim-hocon'
+  "HOCON
+  NeoBundle 'wavded/vim-stylus'
 " }}}
 
 " Buffer {{{
@@ -220,7 +222,13 @@ let g:neobundle#types#git#default_protocol = 'https'
   " .shdで自動処理を行う
   NeoBundle 'ujihisa/shadow.vim.git'
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
-  NeoBundle 'tyru/open-browser.vim.git'
+  NeoBundleLazy 'tyru/open-browser.vim', {
+        \   'autoload' : {
+        \       'functions' : 'OpenBrowser',
+        \       'commands'  : ['OpenBrowser', 'OpenBrowserSearch'],
+        \       'mappings'  : '<Plug>(openbrowser-smart-search)'
+        \   },
+        \}
   " DBI
   NeoBundle 'mattn/vdbi-vim.git'
   " vinarise
@@ -236,7 +244,12 @@ let g:neobundle#types#git#default_protocol = 'https'
   " vcs
   NeoBundle 'hrsh7th/vim-versions.git'
   " github
-  NeoBundle 'tyru/open-browser-github.vim.git'
+  NeoBundleLazy 'tyru/open-browser-github.vim.git', {
+        \   'depends' : ['tyru/open-browser.vim'],
+        \   'autoload' : {
+        \       'commands' : ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
+        \   }
+        \}
   " gitv
   NeoBundle 'gregsexton/gitv.git'
   " ag
@@ -255,7 +268,12 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'mattn/vim-metarw-redmine'
   " Dash
   NeoBundle 'rizzatti/funcoo.vim'
-  NeoBundle 'rizzatti/dash.vim'
+  NeoBundleLazy 'rizzatti/dash.vim', {
+        \   'autoload' : {
+        \       'commands'  : 'Dash',
+        \       'mappings'  : '<Plug>DashSearch'
+        \   },
+        \}
   " codic
   NeoBundle 'koron/codic-vim'
   NeoBundle 'rhysd/unite-codic.vim'
@@ -302,6 +320,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kmnk/vim-unite-giti.git'
   NeoBundle 'osyo-manga/vim-reanimate'
   NeoBundle 'osyo-manga/unite-quickrun_config'
+  NeoBundle 'sorah/unite-ghq'
 " }}}
 "
 " Mac {{{

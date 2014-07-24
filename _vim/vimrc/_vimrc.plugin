@@ -51,6 +51,16 @@ let g:unite_source_grep_default_opts = '-Hn --color=never'
 
 let g:unite_source_rec_max_cache_files = 20000
 
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack-grep')
+  let g:unite_source_grep_command = 'ack-grep'
+  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
 nnoremap <SID>[unite] <Nop>
 nnoremap <SID>[unite_project] <Nop>
 nmap <Leader>u <SID>[unite]
@@ -58,15 +68,14 @@ nmap <Leader>p <SID>[unite_project]
 nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> <SID>[unite]u :<C-u>Unite bookmark buffer file_mru<CR>
 nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> <SID>[unite]g :<C-u>Unite grep:.:-nHR:
+nnoremap <silent> <SID>[unite]g :<C-u>Unite ghq<CR>
 nnoremap <silent> <SID>[unite]l :<C-u>Unite -no-quit line<CR>
 nnoremap <silent> <SID>[unite]o :<C-u>Unite -no-quit outline<CR>
 nnoremap <silent> <SID>[unite]q :<C-u>Unite -no-quit quickfix<CR>
 nnoremap <silent> <SID>[unite]f :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
 nnoremap <silent> <SID>[unite]r :<C-u>Unite quicklearn -immediately<CR>
-nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec/async')<CR>
-nnoremap <silent> <SID>[unite_project]f :<C-u>call <SID>unite_project('file')<CR>
+nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec/git')<CR>
 nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
 nnoremap <SID>[unite_project]d :<C-u>lcd <C-r>=unite#util#path2project_directory(expand('%'))<CR><CR>
 
@@ -77,7 +86,8 @@ function! s:unite_project(source, ...)
   execute 'Unite' a:source . ':' . escape(dir, ':') . (a:0 > 0 ? ':' . join(a:000, ':') : '')
 endfunction
 
-call unite#custom_default_action('source/bookmark/directory', 'vimfiler')
+call unite#custom#default_action('directory', 'vimfiler')
+call unite#custom#default_action('source/ghq/directory', 'vimfiler')
 
 " タグジャンプをunite-tagsで置き換え
 " autocmd BufEnter *
@@ -210,6 +220,13 @@ let g:vimfiler_tree_opened_icon = '▾'
 let g:vimfiler_tree_closed_icon = '▸'
 let g:vimfiler_file_icon = '-'
 let g:vimfiler_marked_file_icon = '*'
+
+" ignore
+let s:ignore_target = {
+      \ 'dotfiles' : '\..\+',
+      \ 'obj' : '.\+\.o'
+      \ }
+let g:vimfiler_ignore_pattern = '^\%('.join(values(s:ignore_target), '\|').'\)$'
 
 augroup MyVimfiler
   autocmd!
