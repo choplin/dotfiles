@@ -9,7 +9,7 @@ call neobundle#rc()
 NeoBundleLocal ~/.vim/localbundle
 
 " Let neobundle manage neobundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" NeoBundleFetch 'Shougo/neobundle.vim'
 
 let g:neobundle#install_max_processes = 20
 let g:neobundle#types#git#default_protocol = 'https'
@@ -34,13 +34,13 @@ let g:neobundle#types#git#default_protocol = 'https'
   " vim-textobj-syntax : syntax hilightされたものをtext-objectに
   NeoBundle 'kana/vim-textobj-syntax.git'
   " vim-textobj-plugins : いろんなものをtext-objectにする
-  NeoBundle 'thinca/vim-textobj-plugins.git'
+  "NeoBundle 'thinca/vim-textobj-plugins.git'
   " vim-textobj-lastpat : 最後に検索されたパターンをtext-objectに
   NeoBundle 'kana/vim-textobj-lastpat.git'
   " vim-textobj-indent : インデントされたものをtext-objectに
   NeoBundle 'kana/vim-textobj-indent.git'
   " vim-textobj-function : 関数の中身をtext-objectに
-  NeoBundle 'kana/vim-textobj-function.git'
+  "NeoBundle 'kana/vim-textobj-function.git'
   " vim-textobj-fold : 折りたたまれたアレをtext-objectに
   NeoBundle 'kana/vim-textobj-fold.git'
   " vim-textobj-rubyblock
@@ -65,6 +65,10 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kana/vim-altr'
   " mru
   NeoBundle 'Shougo/neomru.vim.git'
+  " f/Fの移動をリッチに
+  NeoBundle 'rhysd/clever-f.vim'
+  " コメント
+  NeoBundle 'scrooloose/nerdcommenter'
 " }}}
 
 " Completion {{{
@@ -84,7 +88,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/neosnippet-snippets'
   " javascript
-  NeoBundle 'teramako/jscomplete-vim.git'
+  NeoBundle 'marijnh/tern_for_vim'
 " }}}
 
 " Searching/Moving{{{
@@ -106,16 +110,11 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'mattn/quickrunex-vim.git'
   " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
   NeoBundle 'vim-ruby/vim-ruby.git'
-  " コンパイル後の内容を表示
-  NeoBundle 'ujihisa/quicklearn.git'
 " }}}
 
 " FileType {{{
 " " vim
   NeoBundle 'thinca/vim-ft-vim_fold.git'
-  " JavaScript
-  NeoBundle 'Javascript-syntax-with-Ajax-Support'
-  NeoBundle 'Simple-Javascript-Indenter'
   " nginx conf
   NeoBundle 'evanmiller/nginx-vim-syntax.git'
   " markdown
@@ -147,9 +146,9 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'Blackrush/vim-gocode'
   " rust
   NeoBundle 'wting/rust.vim'
-  "HOCON
+  " HOCON
   NeoBundle 'GEverding/vim-hocon'
-  "HOCON
+  " stylus
   NeoBundle 'wavded/vim-stylus'
 " }}}
 
@@ -206,7 +205,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kana/vim-tabpagecd.git'
   " sudo
   NeoBundle 'sudo.vim'
-  "
+  " リポジトリのrootに移動
   NeoBundle 'airblade/vim-rooter'
 " }}}
 
@@ -229,8 +228,6 @@ let g:neobundle#types#git#default_protocol = 'https'
         \       'mappings'  : '<Plug>(openbrowser-smart-search)'
         \   },
         \}
-  " DBI
-  NeoBundle 'mattn/vdbi-vim.git'
   " vinarise
   NeoBundle 'Shougo/vinarise.git'
   " memolist
@@ -250,12 +247,8 @@ let g:neobundle#types#git#default_protocol = 'https'
         \       'commands' : ['OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq']
         \   }
         \}
-  " gitv
-  NeoBundle 'gregsexton/gitv.git'
   " ag
   NeoBundle 'rking/ag.vim'
-  " ctrl-p
-  NeoBundle 'kien/ctrlp.vim'
 " }}}
 
 " External {{{
@@ -263,9 +256,6 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'basyura/TweetVim.git'
   NeoBundle 'basyura/twibill.vim.git'
   NeoBundle 'basyura/bitly.vim'
-  " Redmine
-  NeoBundle 'basyura/rmine.vim'
-  NeoBundle 'mattn/vim-metarw-redmine'
   " Dash
   NeoBundle 'rizzatti/funcoo.vim'
   NeoBundleLazy 'rizzatti/dash.vim', {
@@ -295,7 +285,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   " help
   NeoBundle 'tsukkee/unite-help.git'
   " アウトライン
-  NeoBundle "Shougo/unite-outline"
+  NeoBundle 'Shougo/unite-outline'
   " colorscheme
   NeoBundle 'ujihisa/unite-colorscheme.git'
   " font

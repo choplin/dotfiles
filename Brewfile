@@ -94,14 +94,41 @@ install protobuf
 install snappy
 install zsh
 
-tap phinze/homebrew-cask
-install brew-cask
+brew install caskroom/cask/brew-cask
 
 # インストール
-cask install google-chrome
 cask install kobito
 cask install virtualbox
 cask install vagrant
+cask install witch
+cask install alfred
+cask install dash
+cask install bartender
+cask install totalspaces
+cask install yorufukurou
+cask install intellij-idea
+cask install iterm2
+cask install capo
+cask install bettertouchtool
+cask install karabiner
+cask install limechat
+cask install sublime-text
+cask install sourcetree
+cask install firefox
+cask install evernote
+cask install google-drive
+cask install dropbox
+cask install the-unarchiver
+
+# cannot work with 1password from MacAppStore
+#cask install google-chrome
+
+# license problem
+#cask install onepassword
+#cask install forklift
+
+# account problem
+#cask install thunderbird
 
 # 不要なファイルを削除
 clean

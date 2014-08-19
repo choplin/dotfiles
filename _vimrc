@@ -157,8 +157,6 @@ nnoremap <Leader>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
 nnoremap <Leader>en  :<C-u>edit $HOME/.vim/vimrc/_vimrc.neobundle<CR>
 nnoremap <Leader>ep  :<C-u>edit $HOME/.vim/vimrc/_vimrc.plugin<CR>
-nnoremap <Leader>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-nnoremap <Leader>sg :<C-u>source $MYGVIMRC<CR>
 " after/ftplugin/{&filetype}.vim ファイルを開く
 " " ディレクトリは各環境にあわせて設定
 let $AFTER_FTPLUGIN = vimdir."/after/ftplugin"
@@ -182,6 +180,9 @@ inoremap <C-a>  <Home>
 inoremap <C-e>  <End>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
+
+" grep
+nnoremap <Leader>rr :<C-u>grep 
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
@@ -403,6 +404,17 @@ command! -nargs=0 KobitoClose call system("osascript -e 'tell application \"Kobi
 " Kobito にフォーカスを移す
 command! -nargs=0 KobitoFocus call system("osascript -e 'tell application \"Kobito\" to activate'")
 " }}}
+" html2slim
+function! Html2Slim(html)
+  if !executable("html2slim")
+    return ""
+  endif
+  let input  = tempname()
+  call writefile(split(a:html, "\n"), input)
+  let output = tempname()
+  call system(printf("html2slim %s %s", input, output))
+  return join(readfile(output), "\n")
+endfunction
 " }}}
 
 " vim:ts=2 st=2 sw=2
