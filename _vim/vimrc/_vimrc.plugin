@@ -224,7 +224,7 @@ let g:vimfiler_ignore_pattern = '^\%('.join(values(s:ignore_target), '\|').'\)$'
 
 augroup MyVimfiler
   autocmd!
-  autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_close)
+  autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit)
 augroup END
 " }}}
 " textmanip {{{
