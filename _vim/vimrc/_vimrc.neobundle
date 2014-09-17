@@ -127,7 +127,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kana/vim-filetype-haskell.git'
   " reStructuredText
   NeoBundle 'nvie/vim-rst-tables.git'
-  NeoBundle 'Rykka/riv.vim.git'
+  "NeoBundle 'Rykka/riv.vim.git'
   " pig
   NeoBundle 'pig.vim'
   " slim
@@ -150,6 +150,8 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'GEverding/vim-hocon'
   " stylus
   NeoBundle 'wavded/vim-stylus'
+  " julia
+  NeoBundle 'JuliaLang/julia-vim'
 " }}}
 
 " Buffer {{{
