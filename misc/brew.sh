@@ -56,6 +56,7 @@ formulas=(
     tmux
     wget
     zsh
+    reattach-to-user-namespace
 )
 brew install ${formulas[@]}
 
