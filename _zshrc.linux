@@ -1,4 +1,0 @@
-# enable git command completion
-#autoload bashcompinit
-#bashcompinit
-#source /etc/bash_completion.d/git
