@@ -11,7 +11,9 @@ repos=(
     homebrew/binary
     homebrew/completions
     homebrew/dupes
-    homebrew/versions)
+    homebrew/versions
+    peco/peco
+)
 
 for r in ${repos[@]}; do
     brew tap $r
@@ -43,6 +45,7 @@ formulas=(
     gnu-getopt
     gnuplot
     go
+    grep
     htop-osx
     hub
     lv
