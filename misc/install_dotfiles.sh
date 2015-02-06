@@ -6,20 +6,28 @@ set -x
 
 basedir=$(cd $(dirname $0)/..; pwd)
 
+link(){
+    local src=$1
+    local dest=$2
+
+    if [ -e "$dest" ]; then
+        rm -rf $dest
+    fi
+
+    ln -sf $src $dest
+}
+
 for f in $basedir/*; do
-    case $f in
+    name=$(basename $f)
+
+    case $name in
         misc) continue ;;
     esac
 
-    dotfile="$HOME/$(basename $(echo $f | sed -e "s/^_/./"))"
-    if [ -e "$dotfile" ]; then
-        rm -rf $dotfile
-    fi
+    dotfile="$HOME/$(echo $name | sed -e "s/^_/./")"
 
-    ln -sf $f $dotfile
+    link $f $dotfile
 done
 
-if [ -e $HOME/bin ]; then
-    rm -rf $HOME/bin
-fi
-cp -pr $basedir/bin ~/
+link $basedir/misc/bin $HOME/bin
+link $basedir/misc/oh-my-zsh-custom $HOME/.oh-my-zsh/custom
