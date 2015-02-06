@@ -21,6 +21,7 @@ done
 
 formulas=(
     caskroom/cask/brew-cask
+    ag
     autoconf
     automake
     bash-completion
