@@ -2,25 +2,24 @@
 
 set -e
 set -u
+set -x
 
-basedir=$(cd $(dirname $0); pwd)
+basedir=$(cd $(dirname $0)/..; pwd)
 
-ls -1 ${basedir} |
-while read i
-do
-    case ${i} in
-        install_dotfiles.sh) continue ;;
-        bin) continue ;;
-        .git*) continue ;;
+for f in $basedir/*; do
+    case $f in
+        misc) continue ;;
     esac
 
-    j=`echo ${i} | sed -e "s/^_/./"`
-    cmd="rm -rf ${HOME}/${j}"
-    echo "execute: \"${cmd}\""
-    $cmd
-    cmd="ln -sf ${basedir}/${i} ${HOME}/${j}"
-    echo "execute: \"${cmd}\""
-    ${cmd}
+    dotfile="$HOME/$(basename $(echo $f | sed -e "s/^_/./"))"
+    if [ -e "$dotfile" ]; then
+        rm -rf $dotfile
+    fi
+
+    ln -sf $f $dotfile
 done
 
-cp -pr ${basedir}/bin ~/
+if [ -e $HOME/bin ]; then
+    rm -rf $HOME/bin
+fi
+cp -pr $basedir/bin ~/
