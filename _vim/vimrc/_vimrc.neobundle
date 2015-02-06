@@ -5,7 +5,7 @@ if has('vim_starting')
   set rtp+=~/.vim/neobundle.vim/
 endif
 
-call neobundle#rc()
+call neobundle#begin()
 NeoBundleLocal ~/.vim/localbundle
 
 " Let neobundle manage neobundle
@@ -337,6 +337,8 @@ let g:neobundle#types#git#default_protocol = 'https'
     NeoBundle 'glidenote/newdayone.vim'
   endif
 " }}}
+
+call neobundle#end()
 
 filetype plugin on
 filetype indent on
