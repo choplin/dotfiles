@@ -45,3 +45,5 @@ memo.local
 
 # vim
 .*.un~
+
+*.pyc

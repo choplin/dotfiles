@@ -83,7 +83,9 @@ let g:neobundle#types#git#default_protocol = 'https'
   " haskellの補完
   NeoBundle 'ujihisa/neco-ghc.git'
   " clang補完
-  "NeoBundle 'Rip-Rip/clang_complete.git'
+  NeoBundleLazy 'Rip-Rip/clang_complete', {
+                \ 'autoload' : {'filetypes' : ['c', 'cpp']}
+                \ }
   " snippet
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/neosnippet-snippets'
@@ -127,7 +129,7 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'kana/vim-filetype-haskell.git'
   " reStructuredText
   NeoBundle 'nvie/vim-rst-tables.git'
-  "NeoBundle 'Rykka/riv.vim.git'
+  NeoBundle 'Rykka/riv.vim.git'
   " pig
   NeoBundle 'pig.vim'
   " slim
@@ -152,6 +154,17 @@ let g:neobundle#types#git#default_protocol = 'https'
   NeoBundle 'wavded/vim-stylus'
   " julia
   NeoBundle 'JuliaLang/julia-vim'
+  " cpp
+  NeoBundleLazy 'vim-jp/cpp-vim', {
+                \ 'autoload' : {'filetypes' : 'cpp'}
+                \ }
+
+  NeoBundleLazy 'osyo-manga/vim-stargate', {
+                \ 'autoload' : {'filetypes' : 'cpp'}
+                \ }
+
+  " python
+  NeoBundle 'jmcantrell/vim-virtualenv'
 " }}}
 
 " Buffer {{{
