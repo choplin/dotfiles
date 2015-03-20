@@ -43,6 +43,8 @@ if has ('gui_macvim')
     set iminsert=2
     set transparency=0
     set fuoptions=maxvert,maxhorz
+    let $SUDO_ASKPASS="/Applications/MacVim.app/Contents/MacOS/macvim-askpass"
+    let $DISPLAY=":0"
 endif
 "}}}
 "-----------------------------------------------------------------------------

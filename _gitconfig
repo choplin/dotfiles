@@ -18,7 +18,7 @@
   ff = false
 
 [core]
-  excludesfile = ~/.gitignore
+	excludesfile = /Users/okuno/.gitignore
   autocrlf = input
   pager = lv -c
   editor = vim #/usr/bin/vim
@@ -96,9 +96,13 @@
 [diff]
   #external = diffvim
 
+[alias]
+  pbcopy = !printf "$1" | pbcopy
+
 [tig "bind"]
   generic = g move-first-line
   generic = G move-last-line
+  main = C !@git pbcopy %(commit)
 
 [mergetool "gvimdiff3"]
   cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
@@ -123,3 +127,9 @@
   path = .gitconfig.local
 
 # vim:ft=gitconfig shiftwidth=2
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.4/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

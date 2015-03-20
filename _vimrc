@@ -113,6 +113,13 @@ set completeopt=menuone
 set nonumber
 "
 set backupcopy=yes
+" normal mode/command line のみconceal表示をする
+set concealcursor=nc
+
+set fileencodings="utf-8,iso-2022-jp-3,euc-jisx0213,guess,ucs-bom,latin1,iso-2022-jp-3,cp932,euc-jisx0213,euc-jp"
+
+
+
 "}}}
 "-----------------------------------------------------------------------------
 " map
@@ -123,7 +130,8 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-"検索語が画面の真ん中に来るようにする †
+
+"検索語が画面の真ん中に来るようにする
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -153,14 +161,18 @@ vnoremap : ;
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
 " .vimrc .gvimrcの編集、読み込み
-nnoremap <Leader>ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <Leader>eg  :<C-u>edit $MYGVIMRC<CR>
-nnoremap <Leader>en  :<C-u>edit $HOME/.vim/vimrc/_vimrc.neobundle<CR>
-nnoremap <Leader>ep  :<C-u>edit $HOME/.vim/vimrc/_vimrc.plugin<CR>
+nnoremap <SID>[vim] <Nop>
+nmap <Leader>e <SID>[vim]
+nnoremap <silent> <SID>[vim]v  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <SID>[vim]g  :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent> <SID>[vim]n  :<C-u>edit $HOME/.vim/vimrc/_vimrc.neobundle<CR>
+nnoremap <silent> <SID>[vim]p  :<C-u>edit $HOME/.vim/vimrc/_vimrc.plugin<CR>
 " after/ftplugin/{&filetype}.vim ファイルを開く
-" " ディレクトリは各環境にあわせて設定
 let $AFTER_FTPLUGIN = vimdir."/after/ftplugin"
-nnoremap <silent> <Leader>ef :<C-u>execute ":e".$AFTER_FTPLUGIN."/".&filetype.".vim"<CR>
+nnoremap <silent> <SID>[vim]f :<C-u>execute ":e".$AFTER_FTPLUGIN."/".&filetype.".vim"<CR>
+" snippet
+nnoremap <silent> <SID>[vim]s :<C-u>NeoSnippetEdit -vertical -split<CR>
+nnoremap <silent> <SID>[vim]r :<C-u>NeoSnippetEdit -runtime -vertical -split<CR>
 
 nnoremap <C-W><C-F> <C-W><C-F><C-W><S-L>
 
@@ -168,9 +180,6 @@ nnoremap <C-W><C-F> <C-W><C-F><C-W><S-L>
 inoremap jj <Esc>
 " help
 nnoremap <C-h> :<C-u>vertical help 
-
-nnoremap <C-n> :<C-u>cnext<CR>
-nnoremap <C-p> :<C-u>cprevious<CR>
 
 nnoremap <C-W>t :<C-u>tabnew<CR>:cd<CR>
 
@@ -181,8 +190,15 @@ inoremap <C-e>  <End>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 
-" grep
-nnoremap <Leader>rr :<C-u>grep 
+" quickfix
+nnoremap <SID>[quickfix] <Nop>
+nmap <Leader>c <SID>[quickfix]
+nnoremap <silent> <SID>[quickfix]o :<C-u>copen<CR>
+nnoremap <silent> <SID>[quickfix]c :<C-u>cclose<CR>
+
+nnoremap <C-n> :<C-u>cnext<CR>
+nnoremap <C-p> :<C-u>cprevious<CR>
+
 "}}}
 "-----------------------------------------------------------------------------
 " autocomd
@@ -314,7 +330,7 @@ if version >= 703
 endif
 " }}}
 " cursorcolumn cursorlineを切り替え {{{
-nnoremap  <silent><expr> <Leader>c ToggleCursor()
+" nnoremap  <silent><expr> <Leader>c ToggleCursor()
 function! ToggleCursor()
   if &cursorcolumn || &cursorline
     set nocursorcolumn
@@ -415,6 +431,30 @@ function! Html2Slim(html)
   call system(printf("html2slim %s %s", input, output))
   return join(readfile(output), "\n")
 endfunction
+
+" Capture {{{
+command!
+      \ -nargs=1
+      \ -complete=command
+      \ Capture
+      \ call Capture(<f-args>)
+
+function! Capture(cmd)
+  redir => result
+  silent execute a:cmd
+  redir END
+
+  let bufname = 'Capture: ' . a:cmd
+  new
+  setlocal bufhidden=unload
+  setlocal nobuflisted
+  setlocal buftype=nofile
+  setlocal noswapfile
+  silent file `=bufname`
+  silent put =result
+  1,2delete _
+endfunction
+" }}}
 " }}}
 
 " vim:ts=2 st=2 sw=2

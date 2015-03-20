@@ -68,7 +68,7 @@ NeoBundleLocal ~/.vim/localbundle
   " f/Fの移動をリッチに
   NeoBundle 'rhysd/clever-f.vim'
   " コメント
-  NeoBundle 'scrooloose/nerdcommenter'
+  " NeoBundle 'scrooloose/nerdcommenter'
 " }}}
 
 " Completion {{{
@@ -97,7 +97,7 @@ NeoBundleLocal ~/.vim/localbundle
   " vim-smartword : 単語移動がスマートな感じで
   NeoBundle 'kana/vim-smartword.git'
   " camelcasemotion : CamelCaseやsnake_case単位でのワード移動
-  NeoBundle 'bkad/CamelCaseMotion.git'
+  "NeoBundle 'bkad/CamelCaseMotion.git'
   " <Leader><Leader>w/fなどで、motion先をhilightする
   NeoBundle 'Lokaltog/vim-easymotion.git', {'vim_version' : '7.3'}
   " ruby用のmatchit拡張
@@ -137,7 +137,7 @@ NeoBundleLocal ~/.vim/localbundle
   " nagios
   NeoBundle 'tejr/vim-nagios.git'
   " ini
-  NeoBundle 'ini-syntax-definition'
+  " NeoBundle 'ini-syntax-definition'
   " yaml
   NeoBundle 'chase/vim-ansible-yaml'
   " jinja2
@@ -147,7 +147,7 @@ NeoBundleLocal ~/.vim/localbundle
   " go
   NeoBundle 'Blackrush/vim-gocode'
   " rust
-  NeoBundle 'wting/rust.vim'
+  NeoBundle 'rust-lang/rust.vim'
   " HOCON
   NeoBundle 'GEverding/vim-hocon'
   " stylus
@@ -165,6 +165,12 @@ NeoBundleLocal ~/.vim/localbundle
 
   " python
   NeoBundle 'jmcantrell/vim-virtualenv'
+
+  " python
+  NeoBundle 'solarnz/thrift.vim'
+
+  " jade
+  NeoBundle 'digitaltoad/vim-jade'
 " }}}
 
 " Buffer {{{
@@ -320,7 +326,6 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'hakobe/unite-script.git'
   NeoBundle 'tacroe/unite-alias.git'
   NeoBundle 'Shougo/unite-build.git'
-  NeoBundle 'pekepeke/unite-fileline.git'
   NeoBundle 'yomi322/unite-tweetvim.git'
   NeoBundle 'kmnk/vim-unite-giti.git'
   NeoBundle 'osyo-manga/vim-reanimate'

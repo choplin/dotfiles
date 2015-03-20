@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+`ps -ef|grep /usr/local/Cellar/sbt/0.13.7/libexec/sbt-launch.jar|grep -v grep`.each_line do |line|
+  sbt_pid = line.strip.split[1].to_i
+  `pgrep -P #{sbt_pid}`.each_line do |pid|
+     Process.kill(:TERM, pid.strip.to_i)
+  end
+end
