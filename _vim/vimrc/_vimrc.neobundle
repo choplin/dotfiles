@@ -91,6 +91,13 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'Shougo/neosnippet-snippets'
   " javascript
   NeoBundle 'marijnh/tern_for_vim'
+
+  NeoBundle 'phildawes/racer', {
+            \   'build' : {
+            \     'mac': 'cargo build --release',
+            \     'unix': 'cargo build --release',
+            \   }
+            \ }
 " }}}
 
 " Searching/Moving{{{
@@ -145,7 +152,7 @@ NeoBundleLocal ~/.vim/localbundle
   " Dockerfile
   NeoBundle 'ekalinin/Dockerfile.vim'
   " go
-  NeoBundle 'Blackrush/vim-gocode'
+  NeoBundle 'fatih/vim-go'
   " rust
   NeoBundle 'rust-lang/rust.vim'
   " HOCON
@@ -158,19 +165,17 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundleLazy 'vim-jp/cpp-vim', {
                 \ 'autoload' : {'filetypes' : 'cpp'}
                 \ }
-
   NeoBundleLazy 'osyo-manga/vim-stargate', {
                 \ 'autoload' : {'filetypes' : 'cpp'}
                 \ }
-
   " python
   NeoBundle 'jmcantrell/vim-virtualenv'
-
-  " python
+  " thrift
   NeoBundle 'solarnz/thrift.vim'
-
   " jade
   NeoBundle 'digitaltoad/vim-jade'
+  " TOML
+  NeoBundle 'cespare/vim-toml'
 " }}}
 
 " Buffer {{{
@@ -196,8 +201,6 @@ NeoBundleLocal ~/.vim/localbundle
       \     'mac' : 'make -f make_mac.mak',
       \    },
       \ }
-  " vim-altercmd : Ex command拡張
-  NeoBundle 'kana/vim-altercmd.git'
   " vim Interface to Web API
   NeoBundle 'mattn/webapi-vim.git'
   " urilib.vim : vim scriptからURLを扱うライブラリ
@@ -235,12 +238,8 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'Shougo/vimshell.git'
   " vimshellでssh
   NeoBundle 'ujihisa/vimshell-ssh.git'
-  " vcs関連
-  NeoBundle 'Shougo/vim-vcs.git'
   " vimの再起動を行う
   NeoBundle 'tyru/restart.vim.git'
-  " .shdで自動処理を行う
-  NeoBundle 'ujihisa/shadow.vim.git'
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
   NeoBundleLazy 'tyru/open-browser.vim', {
         \   'autoload' : {
@@ -251,8 +250,6 @@ NeoBundleLocal ~/.vim/localbundle
         \}
   " vinarise
   NeoBundle 'Shougo/vinarise.git'
-  " memolist
-  NeoBundle 'glidenote/memolist.vim.git'
   " fugitive
   NeoBundle 'tpope/vim-fugitive.git'
   " gist
@@ -270,13 +267,16 @@ NeoBundleLocal ~/.vim/localbundle
         \}
   " ag
   NeoBundle 'rking/ag.vim'
+  " Tagbar
+  NeoBundle 'majutsushi/tagbar'
+  " graphvis
+  NeoBundle 'wannesm/wmgraphviz.vim'
 " }}}
 
 " External {{{
   " twitter
   NeoBundle 'basyura/TweetVim.git'
   NeoBundle 'basyura/twibill.vim.git'
-  NeoBundle 'basyura/bitly.vim'
   " Dash
   NeoBundle 'rizzatti/funcoo.vim'
   NeoBundleLazy 'rizzatti/dash.vim', {
@@ -288,6 +288,7 @@ NeoBundleLocal ~/.vim/localbundle
   " codic
   NeoBundle 'koron/codic-vim'
   NeoBundle 'rhysd/unite-codic.vim'
+  NeoBundle 'mopp/AOJ.vim'
 " }}}
 
 " ColorScheme{{{
@@ -303,23 +304,12 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'Shougo/unite.vim.git'
   " tag
   NeoBundle 'tsukkee/unite-tag.git'
-  " help
-  NeoBundle 'tsukkee/unite-help.git'
   " アウトライン
   NeoBundle 'Shougo/unite-outline'
-  " colorscheme
-  NeoBundle 'ujihisa/unite-colorscheme.git'
-  " font
-  NeoBundle 'ujihisa/unite-font.git'
   " QuickFix
   NeoBundle "osyo-manga/unite-quickfix"
   " history
   NeoBundle 'thinca/vim-unite-history.git'
-  " rails
-  NeoBundle 'basyura/unite-rails.git'
-  " haskell
-  NeoBundle 'ujihisa/unite-haskellimport.git'
-  NeoBundle 'eagletmt/unite-haddock.git'
   " other
   NeoBundle 'ujihisa/unite-launch.git'
 

@@ -214,11 +214,11 @@ update_prompt()
 
     # バージョン管理システムの情報があったら右プロンプトに表示する。
     local virtualenv_information="`rprompt-virtualenv`"
-    local goenv_information="`rprompt-goenv`"
-    local vcs_information="$(hg_ps1)$(rprompt-git-current-branch)"
+    #local vcs_information="$(hg_ps1)$(rprompt-git-current-branch)"
+    local vcs_information="$(rprompt-git-current-branch)"
     if [ -n "${virtualenv_information}" ] || [ -n "${goenv_information}" ] || [ -n "${vcs_information}" ]; then
         RPROMPT=""
-        for str in "${virtualenv_information}" "${goenv_information}" "${vcs_information}"; do
+        for str in "${virtualenv_information}" "${vcs_information}"; do
             [ -n "${str}" ] && RPROMPT="${RPROMPT}[${str}]"
         done
 

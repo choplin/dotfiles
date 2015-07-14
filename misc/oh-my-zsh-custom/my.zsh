@@ -139,7 +139,7 @@ bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 # }}}
 ## Completion configuration {{{
-fpath=($HOME/.zsh/functions/Completion /usr/local/share/zsh/functions /usr/local/share/zsh/site-functions ${fpath})
+fpath=($HOME/.oh-my-zsh/custom/functions /usr/local/share/zsh/functions /usr/local/share/zsh/site-functions /usr/local/share/zsh-completions ${fpath})
 autoload -U compinit
 compinit
 # 補完方法毎にグループ化する。{{{

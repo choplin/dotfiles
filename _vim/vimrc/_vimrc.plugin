@@ -222,14 +222,6 @@ augroup MyVimfiler
   autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit)
 augroup END
 " }}}
-" textmanip {{{
-vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-vmap <C-h> <Plug>(Textmanip.move_selection_left)
-nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
-vmap <C-j> <Plug>(Textmanip.move_selection_down)
-vmap <C-k> <Plug>(Textmanip.move_selection_up)
-vmap <C-l> <Plug>(Textmanip.move_selection_right)
-" }}}
 " surround.vim {{{
 let g:surround_custom_mapping = {}
 let g:surround_custom_mapping.vim= {
@@ -408,13 +400,6 @@ if has('lua')
   let g:neocomplete#sources#syntax#min_keyword_length = 3
   let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-      \ }
-
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -453,15 +438,6 @@ if has('lua')
   " Or set this.
   "let g:neocomplete#enable_insert_char_pre = 1
 
-  " AutoComplPop like behavior.
-  "let g:neocomplete#enable_auto_select = 1
-
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplete#enable_auto_select = 1
-  "let g:neocomplete#disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
   " Enable omni completion.
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -496,8 +472,8 @@ if has('lua')
   let g:neocomplete#sources#omni#functions.javascript =
     \ 'tern#Complete'
   " Go (plugin: gocode)
-  let g:neocomplete#force_omni_input_patterns.go =
-        \ '[^.[:digit:] *\t]\.\w*'
+  "let g:neocomplete#sources#omni#functions.go =
+    "\ 'gocomplete#Complete'
   " Clojure (plugin: vim-clojure)
   let g:neocomplete#sources#omni#functions.clojure =
     \ 'vimclojure#OmniCompletion'
@@ -610,4 +586,21 @@ nnoremap <silent> <C-a> :<C-u>Ag <C-r><C-w><CR>
 " rooter {{{
 " disable the default map (,cd)
 map <Nop> <Plug>RooterChangeToRootDirectory
+" }}}
+" Dash {{{
+nnoremap <SID>[dash] <Nop>
+nmap <Leader>d <SID>[dash]
+nnoremap <SID>[dash]d :<C-u>Dash<CR>
+" }}}
+" vim-go {{{
+let g:gocomplete#system_function = 'vimproc#system2' "to use vimproc
+let g:go_snippet_engine = 'neosnippet'
+let g:go_fmt_command = "goimports"
+" }}}
+" aoj {{{
+let g:aoj#user_id = 'choplin'
+" }}}
+" racer {{{
+let g:racer_cmd = "$HOME/.vim/bundle/racer/target/release/racer"
+let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
 " }}}

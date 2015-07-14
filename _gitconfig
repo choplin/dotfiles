@@ -90,6 +90,8 @@
   ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >> .gitignore
   info = remote show origin
 
+  fixup = commit --amend --no-edit
+
 [merge]
   tool = gvimdiff3
 
@@ -116,9 +118,6 @@
 [github]
   user = choplin
 
-[web]
-    browser = google-chrome
-
 #[remote "origin"]
   #fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
   #fetch = +refs/pull-requests/*/from:refs/remotes/origin/pr/*
@@ -133,3 +132,8 @@
 [mergetool "sourcetree"]
 	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.4/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[ghi]
+	token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
+[alias]
+	stash-pr = !sh -c \"git fetch origin pull-requests/${1}/from:pr/${1}\" -
+	github-pr = !sh -c \"git fetch origin pull/${1}/head:pr/${1}\" -
