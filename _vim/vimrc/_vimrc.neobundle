@@ -89,15 +89,14 @@ NeoBundleLocal ~/.vim/localbundle
   " snippet
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/neosnippet-snippets'
-  " javascript
-  NeoBundle 'marijnh/tern_for_vim'
 
-  NeoBundle 'phildawes/racer', {
-            \   'build' : {
-            \     'mac': 'cargo build --release',
-            \     'unix': 'cargo build --release',
-            \   }
-            \ }
+  " rust
+  "NeoBundle 'phildawes/racer', {
+  "          \   'build' : {
+  "          \     'mac': 'cargo build --release',
+  "          \     'unix': 'cargo build --release',
+  "          \   }
+  "          \ }
 " }}}
 
 " Searching/Moving{{{
@@ -176,6 +175,11 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'digitaltoad/vim-jade'
   " TOML
   NeoBundle 'cespare/vim-toml'
+  " JavaScript
+  NeoBundle 'othree/javascript-libraries-syntax.vim'
+  NeoBundle 'othree/yajs.vim'
+  " JSX
+  NeoBundle 'mxw/vim-jsx'
 " }}}
 
 " Buffer {{{
@@ -271,6 +275,8 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'majutsushi/tagbar'
   " graphvis
   NeoBundle 'wannesm/wmgraphviz.vim'
+  " EditorConfig
+  NeoBundle 'editorconfig/editorconfig-vim'
 " }}}
 
 " External {{{
