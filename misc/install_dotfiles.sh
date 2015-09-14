@@ -17,12 +17,8 @@ link(){
     ln -sf $src $dest
 }
 
-for f in $basedir/*; do
+for f in $basedir/_*; do
     name=$(basename $f)
-
-    case $name in
-        misc) continue ;;
-    esac
 
     dotfile="$HOME/$(echo $name | sed -e "s/^_/./")"
 
@@ -30,4 +26,3 @@ for f in $basedir/*; do
 done
 
 link $basedir/misc/bin $HOME/bin
-link $basedir/misc/oh-my-zsh-custom $HOME/.oh-my-zsh/custom
