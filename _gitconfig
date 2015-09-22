@@ -59,11 +59,12 @@
   stash-pr = !sh -c \"git fetch origin pull-requests/${1}/from:pr/${1}\" -
   github-pr = !sh -c \"git fetch origin pull/${1}/head:pr/${1}\" -
 
+  pbcopy = !printf "$1" | pbcopy
+
+  user-guess = !sh -c '~/.git-scripts/user-guess.sh'
+
 [merge]
   tool = gvimdiff3
-
-[alias]
-  pbcopy = !printf "$1" | pbcopy
 
 [tig "bind"]
   generic = g move-first-line
