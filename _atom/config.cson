@@ -1,0 +1,65 @@
+"*":
+  "exception-reporting":
+    userId: "bb64fe25-8573-0f55-f93d-ca6d0d6723f3"
+  welcome:
+    showOnStartup: false
+  editor:
+    invisibles:
+      eol: " "
+    fontFamily: "Ricty"
+    lineHeight: 1.2
+    showIndentGuide: true
+    tabLength: 4
+    showInvisibles: true
+    fontSize: 15
+    softWrap: true
+  core:
+    themes: [
+      "atom-dark-ui"
+      "solarized-light-syntax"
+    ]
+    disabledPackages: [
+      "line-ending-selector"
+    ]
+    packagesWithKeymapsDisabled: [
+      "travis-ci-status"
+      "make-runner"
+    ]
+    excludeVcsIgnoredPaths: false
+  "go-plus":
+    goPath: "~/.go"
+    formatTool: "goreturns"
+  "git-diff":
+    showIconsInEditorGutter: true
+  term2:
+    colors:
+      foreground:
+        red: 77
+        green: 77
+        blue: 77
+        alpha: 1
+      brightWhite:
+        red: 33
+        green: 33
+        blue: 33
+        alpha: 1
+      normalWhite:
+        red: 62
+        green: 62
+        blue: 62
+        alpha: 1
+    fontFamily: "Ricty"
+  "vim-surround": {}
+  react: {}
+  blame: {}
+  goto: {}
+  "travis-ci-status": {}
+  linter: {}
+  "open-recent": {}
+  "make-runner": {}
+  "file-types":
+    tmpl: "text.html.gohtml"
+  minimap: {}
+  "tree-view": {}
+  "linter-eslint":
+    globalNodePath: "/usr/local"

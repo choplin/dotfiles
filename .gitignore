@@ -1,4 +1,3 @@
-
 _vimperator/info/
 _vim/bundle/
 _vim/vimrc/_vimrc
@@ -9,3 +8,6 @@ _vim/localbundle/
 
 _vim/undo/
 _vim/backup/
+
+_atom/.apm
+_atom/packages
