@@ -11,8 +11,8 @@
     showIndentGuide: true
     tabLength: 4
     showInvisibles: true
-    fontSize: 15
     softWrap: true
+    fontSize: 15
   core:
     themes: [
       "atom-dark-ui"
@@ -25,7 +25,6 @@
       "travis-ci-status"
       "make-runner"
     ]
-    excludeVcsIgnoredPaths: false
   "go-plus":
     goPath: "~/.go"
     formatTool: "goreturns"
@@ -60,6 +59,34 @@
   "file-types":
     tmpl: "text.html.gohtml"
   minimap: {}
-  "tree-view": {}
+  "tree-view":
+    hideVcsIgnoredFiles: true
   "linter-eslint":
     globalNodePath: "/usr/local"
+  "merge-conflicts": {}
+  "markdown-preview-plus": {}
+  "markdown-preview": {}
+  "advanced-open-file":
+    helmDirSwitch: true
+  "browser-plus": {}
+  "git-log":
+    fontScale: 1
+    fontFamily: "Ricty"
+  "autocomplete-plus": {}
+  "atom-ctags": {}
+  "symbols-tree-view": {}
+  "git-history": {}
+  "vim-mode-plus":
+    useClipboardAsDefaultRegister: true
+    useSmartcaseForSearch: true
+    incrementalSearch: true
+    stayOnTransformString: true
+    showHoverSearchCounter: true
+    showHoverOnOperate: true
+  "quick-highlight": {}
+  "lazy-motion": {}
+  "cursor-history":
+    debug: true
+  Ensime:
+    sbtExec: "/usr/local/bin/sbt"
+  "fuzzy-finder": {}
