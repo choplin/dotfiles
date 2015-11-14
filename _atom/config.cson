@@ -20,6 +20,8 @@
     ]
     disabledPackages: [
       "line-ending-selector"
+      "emmet"
+      "goto"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
@@ -90,3 +92,4 @@
   Ensime:
     sbtExec: "/usr/local/bin/sbt"
   "fuzzy-finder": {}
+  tasks: {}
