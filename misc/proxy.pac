@@ -5,6 +5,8 @@ function FindProxyForURL(url, host) {
         return "SOCKS localhost:1080;SOCKS5 localhost:1080";
     } else if (shExpMatch(host, "*.dc2p.scaleout.jp")) {
         return "SOCKS localhost:1080;SOCKS5 localhost:1080";
+    } else if (shExpMatch(host, "*.tkl.iis.u-tokyo.ac.jp")) {
+        return "SOCKS localhost:1082;SOCKS5 localhost:1082";
     } else {
         return "DIRECT";
     }
