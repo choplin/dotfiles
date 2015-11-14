@@ -39,6 +39,8 @@
   # logをtree表示
   log-graph = log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'
 
+  log-short =  log --pretty=\"format:%ad %h (%an): %s\" --date=short
+
   # diff関連
   dm = diff master           # masterとのdiff
   dw = diff --color-words    # 単語単位でいろつけてdiff
