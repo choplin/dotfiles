@@ -8,3 +8,6 @@
 [submodule "_vim/neobundle.vim"]
 	path = _vim/neobundle.vim
 	url = git://github.com/Shougo/neobundle.vim.git
+[submodule "prezto"]
+	path = prezto
+	url = https://github.com/sorin-ionescu/prezto.git
