@@ -8,9 +8,10 @@ fi
 # }}}
 
 # profiles {{{
-zstyle ':chpwd:profiles:/Users/okuno/scaleout(|/|/*)' profile scaleout
+zstyle ':chpwd:profiles:/Users/okuno/repos/scaleout(|/|/*)' profile scaleout
 zstyle ':chpwd:profiles:/Users/okuno/.ghq/stash.dev.scaleout.jp:7999(|/|/*)' profile scaleout
 zstyle ':chpwd:profiles:/Users/okuno/.ghq/stash.dev.scaleout.jp(|/|/*)' profile scaleout
+zstyle ':chpwd:profiles:/Users/okuno/.go/src/github.com/supership-jp(|/|/*)' profile scaleout
 zstyle ':chpwd:profiles:/**/*' profile root
 
 chpwd_profile_scaleout() {
@@ -93,10 +94,8 @@ BREW_PREFIX=`brew --prefix`
 typeset -U path
 
 path=($HOME/.cabal/bin(N-/)
-      $BREW_PREFIX/share/python(N-/)
       $BREW_PREFIX/bin(N-/)
       $BREW_PREFIX/sbin(N-/)
-      $HOME/Library/Python/2.7/bin(N-/)
       $HOME/bin(N-/)
       $path)
 

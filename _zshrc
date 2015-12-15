@@ -5,6 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+typeset -U fpath
+
+fpath=($HOME/.zsh/functions(N-/)
+       $fpath)
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -16,9 +21,10 @@ if [ -f $HOME/.zshrc.local ]; then
     source $HOME/.zshrc.local
 fi
 
-for f in peco profile; do
+for f in fzf profile zplug; do
     local file="$HOME/.zsh/custom/$f.zsh"
     if [ -f $file ];then
         source $file
     fi
 done
+

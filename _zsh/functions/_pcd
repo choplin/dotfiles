@@ -1,0 +1,7 @@
+#compdef pcd
+
+_pcd () {
+    local -a _repos
+    _repos=( ${(@f)"$(_call_program repositories ghq list --unique)"} )
+    _describe -t repositories Repositories _repos
+}
