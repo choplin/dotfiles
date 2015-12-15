@@ -1,0 +1,8 @@
+plmruby:
+  title: "plmruby"
+  paths: [
+    "/Users/okuno/work/plmruby"
+    "/Users/okuno/.ghq/git.postgresql.org/git/postgresql"
+    "/Users/okuno/.ghq/code.google.com/p/plv8js"
+  ]
+  group: "private"

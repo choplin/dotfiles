@@ -41,3 +41,12 @@
                 ${5:Body}
             }
         """
+
+".source.c":
+    "include_guard":
+        prefix: "include_guard"
+        body: """
+            #ifndef __${1}__
+            #define __${1}__
+            #endif /* __${1}__ */
+        """

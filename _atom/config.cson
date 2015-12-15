@@ -12,7 +12,8 @@
     tabLength: 4
     showInvisibles: true
     softWrap: true
-    fontSize: 15
+    showLineNumbers: false
+    fontSize: 18
   core:
     themes: [
       "atom-dark-ui"
@@ -22,6 +23,8 @@
       "line-ending-selector"
       "emmet"
       "goto"
+      "task-list"
+      "hyperclick"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
@@ -30,6 +33,7 @@
   "go-plus":
     goPath: "~/.go"
     formatTool: "goreturns"
+    showPanelWhenNoIssuesExist: true
   "git-diff":
     showIconsInEditorGutter: true
   term2:
@@ -50,46 +54,64 @@
         blue: 62
         alpha: 1
     fontFamily: "Ricty"
-  "vim-surround": {}
-  react: {}
-  blame: {}
-  goto: {}
-  "travis-ci-status": {}
-  linter: {}
-  "open-recent": {}
-  "make-runner": {}
   "file-types":
     tmpl: "text.html.gohtml"
-  minimap: {}
+  minimap:
+    displayCodeHighlights: false
+    absoluteMode: true
   "tree-view":
-    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+    hideIgnoredNames: true
   "linter-eslint":
     globalNodePath: "/usr/local"
-  "merge-conflicts": {}
-  "markdown-preview-plus": {}
-  "markdown-preview": {}
+  "markdown-preview":
+    useGitHubStyle: true
   "advanced-open-file":
     helmDirSwitch: true
-  "browser-plus": {}
   "git-log":
     fontScale: 1
     fontFamily: "Ricty"
-  "autocomplete-plus": {}
-  "atom-ctags": {}
-  "symbols-tree-view": {}
-  "git-history": {}
   "vim-mode-plus":
-    useClipboardAsDefaultRegister: true
     useSmartcaseForSearch: true
     incrementalSearch: true
     stayOnTransformString: true
     showHoverSearchCounter: true
     showHoverOnOperate: true
-  "quick-highlight": {}
-  "lazy-motion": {}
   "cursor-history":
     debug: true
   Ensime:
     sbtExec: "/usr/local/bin/sbt"
+  "atom-beautify":
+    _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
+    language_c_beautify_on_save: true
+    language_c_default_beautifier: "clang-format"
+    analytics: false
+  term3:
+    colors:
+      foreground:
+        red: 107
+        green: 108
+        blue: 104
+        alpha: 1
+      normalWhite:
+        red: 192
+        green: 199
+        blue: 192
+        alpha: 1
+      brightWhite:
+        red: 172
+        green: 171
+        blue: 173
+        alpha: 1
+  "find-and-replace":
+    scrollToResultOnLiveSearch: true
+    openProjectFindResultsInRightPane: true
   "fuzzy-finder": {}
+  tabs:
+    usePreviewTabs: true
   tasks: {}
+  "symbols-tree-view": {}
+".plain.text":
+  whitespace:
+    ensureSingleTrailingNewline: false
+    removeTrailingWhitespace: false
