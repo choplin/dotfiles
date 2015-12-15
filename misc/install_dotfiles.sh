@@ -25,4 +25,5 @@ for f in $basedir/_*; do
     link $f $dotfile
 done
 
+link $basedir/prezto $HOME/.zprezto
 link $basedir/misc/bin $HOME/bin
