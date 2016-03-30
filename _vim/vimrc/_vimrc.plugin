@@ -135,11 +135,6 @@ endfunction
 call quickrun#module#register(s:hook, 1)
 unlet s:hook
 " }}}
-" simplenote.vim" {{{
-"let g:SimplenoteUsername = ""
-"let g:SimplenotePassword = ""
-"source ~/.simplenoterc
-" }}}
 " open-browser {{{
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
@@ -149,53 +144,6 @@ if !exists('g:openbrowser_search_engines')
   let g:openbrowser_search_engines = {}
 endif
 let g:openbrowser_search_engines['amazon'] = 'http://www.amazon.co.jp/s/?keywords={query}'
-" }}}
-" VimShell {{{
-nnoremap <Leader>vs :<C-u>VimShellBufferDir -popup<CR>
-
-" Initialize execute file list.
-let g:vimshell_execute_file_list = {}
-let g:vimshell_execute_file_list['rb'] = 'ruby'
-let g:vimshell_execute_file_list['pl'] = 'perl'
-let g:vimshell_execute_file_list['py'] = 'python'
-call vimshell#set_execute_file('txt,vim,c,h,cpp,d,xml,java', 'vim')
-call vimshell#set_execute_file('html,xhtml', 'gexe firefox')
-
-" VimShell Prompt {{{
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-"let g:vimshell_right_prompt = 'vcs#info("(%s)-[%b]", "(%s)-[%b|%a]")'
-
-if has('win32') || has('win64') 
-  let g:vimshell_prompt = $USERNAME."% "
-else
-  let g:vimshell_prompt = $USER."% "
-endif
-" }}}
-
-let g:vimshell_enable_smart_case = 1
-
-if !(has('win32') || has('win64'))
-  call vimshell#set_execute_file('bmp,jpg,png,gif', 'gexe eog')
-  call vimshell#set_execute_file('mp3,m4a,ogg', 'gexe amarok')
-  let g:vimshell_execute_file_list['zip'] = 'zipinfo'
-  call vimshell#set_execute_file('tgz,gz', 'gzcat')
-  call vimshell#set_execute_file('tbz,bz2', 'bzcat')
-endif
-
-autocmd FileType vimshell
-      \ call vimshell#altercmd#define('g', 'git')
-      \| call vimshell#altercmd#define('i', 'iexe')
-      \| call vimshell#altercmd#define('l', 'll')
-      \| call vimshell#altercmd#define('ll', 'ls -l')
-      \| call vimshell#hook#add('chpwd', 'my_chpwd', 'MyChpwd')
-
-function! MyChpwd(args, context)
-  call vimshell#execute('ls')
-endfunction
-
-autocmd FileType int-* call s:interactive_settings()
-function! s:interactive_settings()
-endfunction
 " }}}
 " Vimfiler {{{
 "nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
@@ -273,34 +221,8 @@ command!
 \   let g:restart_sessionoptions = 'blank,curdir,folds,help,localoptions,tabpages'
 \   | Restart
 " }}}
-" ft-vim_fold {{{
-augroup foldmethod-expr
-  autocmd!
-  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
-  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
-  \                   |   setlocal foldmethod=manual foldexpr=0
-  \                   | endif
-  autocmd InsertLeave * if exists('b:foldinfo')
-  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
-  \                   | endif
-augroup END
-" }}}
-" dicwin {{{
-let plugin_dicwin_disable = 1
-" }}}
 " operator-replace {{{
 map _  <Plug>(operator-replace)
-" }}}
-" memolist{{{
-let g:memolist_vimfiler = 1
-let g:memolist_vimfiler_option = ''
-let g:memolist_memo_suffix = "rst"
-let g:memolist_template_dir_path = '~/.vim/template/memolist'
-nnoremap <SID>[memolist] <Nop>
-nmap <Leader>m <SID>[memolist]
-nnoremap <silent> <SID>[memolist]l :<C-u>MemoList<CR>
-nnoremap <silent> <SID>[memolist]n :<C-u>MemoNew<CR>
-nnoremap <silent> <SID>[memolist]g :<C-u>MemoGrep<CR>
 " }}}
 " Gtags{{{
 nnoremap <SID>[gtags] <Nop>
@@ -348,24 +270,6 @@ function! s:GtagsCscope_GtagsRoot()
     endif
     return strpart(cmd_output, 0, strlen(cmd_output) - 1)
 endfunction
-" }}}
-" TweetVim{{{
-nnoremap <SID>[tweetvim] <Nop>
-nmap <Leader>t <SID>[tweetvim]
-nnoremap <silent> <SID>[tweetvim]s :<C-u>TweetVimSay<CR>
-nnoremap <silent> <SID>[tweetvim]t :<C-u>TweetVimHomeTimeline<CR>
-nnoremap <silent> <SID>[tweetvim]m :<C-u>TweetVimMentions<CR>
-
-let g:tweetvim_tweet_per_page = 50
-let g:tweetvim_cache_size = 1000
-let g:tweetvim_display_time = 1
-let g:tweetvim_display_source = 1
-let g:tweetvim_display_time = 1
-let g:tweetvim_display_icon = 1
-let g:tweetvim_open_buffer_cmd = 'botright split'
-let g:tweetvim_say_insert_account = 1
-let g:tweetvim_async_post = 1
-let g:tweetvim_expand_t_co = 1
 " }}}
 " clang_complete{{{
 let g:clang_complete_auto = 0
@@ -532,13 +436,6 @@ else
   " }}}
 endif
 " }}}
-" riv {{{
-let g:riv_fold_auto_update = 0
-" }}}
-" rmine.vim {{{
-let g:rmine_server_url = 'http://redmine.dev.scaleout.jp/'
-let g:rmine_access_key = '88275fc2181b20b47d8712adc974f84d3181cad6'
-" }}}
 " fugitive {{{
 command! Gpull Git pull
 command! Gpush Git push
@@ -555,20 +452,8 @@ nnoremap <silent> <C-a> :<C-u>Ag <C-r><C-w><CR>
 " disable the default map (,cd)
 map <Nop> <Plug>RooterChangeToRootDirectory
 " }}}
-" Dash {{{
-nnoremap <SID>[dash] <Nop>
-nmap <Leader>d <SID>[dash]
-nnoremap <SID>[dash]d :<C-u>Dash<CR>
-" }}}
 " vim-go {{{
 let g:gocomplete#system_function = 'vimproc#system2' "to use vimproc
 let g:go_snippet_engine = 'neosnippet'
 let g:go_fmt_command = "goimports"
-" }}}
-" aoj {{{
-let g:aoj#user_id = 'choplin'
-" }}}
-" racer {{{
-let g:racer_cmd = "$HOME/.vim/bundle/racer/target/release/racer"
-let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
 " }}}

@@ -15,12 +15,8 @@ NeoBundleLocal ~/.vim/localbundle
 " NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Edit {{{
-  " visually indent guide
-  NeoBundle 'nathanaelkane/vim-indent-guides.git'
   " マルチバイト対応の整形
   NeoBundle 'h1mesuke/vim-alignta.git'
-  " undo履歴を追える (need python support)
-  NeoBundle 'sjl/gundo.vim.git'
   " surround.vim : テキストを括弧で囲む／削除する
   NeoBundle 'tpope/vim-surround.git'
   " vim-operator-user : 簡単にoperatorを定義できるようにする
@@ -33,42 +29,16 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'kana/vim-textobj-user.git'
   " vim-textobj-syntax : syntax hilightされたものをtext-objectに
   NeoBundle 'kana/vim-textobj-syntax.git'
-  " vim-textobj-plugins : いろんなものをtext-objectにする
-  "NeoBundle 'thinca/vim-textobj-plugins.git'
   " vim-textobj-lastpat : 最後に検索されたパターンをtext-objectに
   NeoBundle 'kana/vim-textobj-lastpat.git'
   " vim-textobj-indent : インデントされたものをtext-objectに
   NeoBundle 'kana/vim-textobj-indent.git'
-  " vim-textobj-function : 関数の中身をtext-objectに
-  "NeoBundle 'kana/vim-textobj-function.git'
   " vim-textobj-fold : 折りたたまれたアレをtext-objectに
   NeoBundle 'kana/vim-textobj-fold.git'
-  " vim-textobj-rubyblock
-  NeoBundle 'nelstrom/vim-textobj-rubyblock.git'
-  " vim-textobj-entire : buffer全体をtext-objectに
-  NeoBundle 'kana/vim-textobj-entire.git'
-  " wiw
-  NeoBundle 'h1mesuke/textobj-wiw.git'
-  " between
-  NeoBundle 'thinca/vim-textobj-between.git'
   " <C-a>でtrue/false切替。他色々
   NeoBundle 'taku-o/vim-toggle.git'
-  " emmet
-  NeoBundle 'mattn/emmet-vim'
-  " インデント
-  NeoBundle 'IndentAnything'
-  " syntaxチェック
-  NeoBundle 'osyo-manga/vim-watchdogs.git'
-  " quickrun hook集(watchdogs用)
-  NeoBundle 'osyo-manga/shabadou.vim.git'
-  " ファイル間を移動
-  NeoBundle 'kana/vim-altr'
-  " mru
-  NeoBundle 'Shougo/neomru.vim.git'
   " f/Fの移動をリッチに
   NeoBundle 'rhysd/clever-f.vim'
-  " コメント
-  " NeoBundle 'scrooloose/nerdcommenter'
 " }}}
 
 " Completion {{{
@@ -80,8 +50,6 @@ NeoBundleLocal ~/.vim/localbundle
   end
   " A neocomplcache plugin for English, using look command
   NeoBundle 'ujihisa/neco-look.git'
-  " haskellの補完
-  NeoBundle 'ujihisa/neco-ghc.git'
   " clang補完
   NeoBundleLazy 'Rip-Rip/clang_complete', {
                 \ 'autoload' : {'filetypes' : ['c', 'cpp']}
@@ -89,25 +57,13 @@ NeoBundleLocal ~/.vim/localbundle
   " snippet
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/neosnippet-snippets'
-
-  " rust
-  "NeoBundle 'phildawes/racer', {
-  "          \   'build' : {
-  "          \     'mac': 'cargo build --release',
-  "          \     'unix': 'cargo build --release',
-  "          \   }
-  "          \ }
 " }}}
 
 " Searching/Moving{{{
   " vim-smartword : 単語移動がスマートな感じで
   NeoBundle 'kana/vim-smartword.git'
-  " camelcasemotion : CamelCaseやsnake_case単位でのワード移動
-  "NeoBundle 'bkad/CamelCaseMotion.git'
   " <Leader><Leader>w/fなどで、motion先をhilightする
   NeoBundle 'Lokaltog/vim-easymotion.git', {'vim_version' : '7.3'}
-  " ruby用のmatchit拡張
-  NeoBundle 'semmons99/vim-ruby-matchit.git'
   " QuickFixの候補に対して置換
   NeoBundle 'thinca/vim-qfreplace.git'
 " }}}
@@ -116,8 +72,6 @@ NeoBundleLocal ~/.vim/localbundle
   " quickrun.vim : 編集中のファイルを簡単に実行できるプラグイン
   NeoBundle 'thinca/vim-quickrun.git'
   NeoBundle 'mattn/quickrunex-vim.git'
-  " vim-ruby : VimでRubyを扱う際の最も基本的な拡張機能
-  NeoBundle 'vim-ruby/vim-ruby.git'
 " }}}
 
 " FileType {{{
@@ -135,15 +89,12 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'kana/vim-filetype-haskell.git'
   " reStructuredText
   NeoBundle 'nvie/vim-rst-tables.git'
-  NeoBundle 'Rykka/riv.vim.git'
   " pig
   NeoBundle 'pig.vim'
   " slim
   NeoBundle 'slim-template/vim-slim.git'
   " nagios
   NeoBundle 'tejr/vim-nagios.git'
-  " ini
-  " NeoBundle 'ini-syntax-definition'
   " yaml
   NeoBundle 'chase/vim-ansible-yaml'
   " jinja2
@@ -224,8 +175,6 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'thinca/vim-singleton.git'
   " vimのデータを見やすく出力
   NeoBundle 'thinca/vim-prettyprint.git'
-  " htmlを解釈してvimバッファに出力
-  NeoBundle 'mattn/wwwrenderer-vim.git'
   " netrwを拡張
   NeoBundle 'mattn/vim-metarw.git'
   " Exコマンドをそれっぽく展開
@@ -241,10 +190,6 @@ NeoBundleLocal ~/.vim/localbundle
 " }}}
 
 " Tool {{{
-  " vimshell : vimのshell
-  NeoBundle 'Shougo/vimshell.git'
-  " vimshellでssh
-  NeoBundle 'ujihisa/vimshell-ssh.git'
   " vimの再起動を行う
   NeoBundle 'tyru/restart.vim.git'
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
@@ -259,12 +204,6 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'Shougo/vinarise.git'
   " fugitive
   NeoBundle 'tpope/vim-fugitive.git'
-  " gist
-  NeoBundle 'mattn/gist-vim.git'
-  " qiita
-  NeoBundle 'mattn/qiita-vim.git'
-  " vcs
-  NeoBundle 'hrsh7th/vim-versions.git'
   " github
   NeoBundleLazy 'tyru/open-browser-github.vim.git', {
         \   'depends' : ['tyru/open-browser.vim'],
@@ -274,30 +213,8 @@ NeoBundleLocal ~/.vim/localbundle
         \}
   " ag
   NeoBundle 'rking/ag.vim'
-  " Tagbar
-  NeoBundle 'majutsushi/tagbar'
-  " graphvis
-  NeoBundle 'wannesm/wmgraphviz.vim'
   " EditorConfig
   NeoBundle 'editorconfig/editorconfig-vim'
-" }}}
-
-" External {{{
-  " twitter
-  NeoBundle 'basyura/TweetVim.git'
-  NeoBundle 'basyura/twibill.vim.git'
-  " Dash
-  NeoBundle 'rizzatti/funcoo.vim'
-  NeoBundleLazy 'rizzatti/dash.vim', {
-        \   'autoload' : {
-        \       'commands'  : 'Dash',
-        \       'mappings'  : '<Plug>DashSearch'
-        \   },
-        \}
-  " codic
-  NeoBundle 'koron/codic-vim'
-  NeoBundle 'rhysd/unite-codic.vim'
-  NeoBundle 'mopp/AOJ.vim'
 " }}}
 
 " ColorScheme{{{
@@ -317,31 +234,12 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'Shougo/unite-outline'
   " QuickFix
   NeoBundle "osyo-manga/unite-quickfix"
-  " history
-  NeoBundle 'thinca/vim-unite-history.git'
   " other
   NeoBundle 'ujihisa/unite-launch.git'
-
-  NeoBundle 'hakobe/unite-script.git'
-  NeoBundle 'tacroe/unite-alias.git'
-  NeoBundle 'Shougo/unite-build.git'
-  NeoBundle 'yomi322/unite-tweetvim.git'
   NeoBundle 'kmnk/vim-unite-giti.git'
-  NeoBundle 'osyo-manga/vim-reanimate'
-  NeoBundle 'osyo-manga/unite-quickrun_config'
   NeoBundle 'sorah/unite-ghq'
 " }}}
 "
-" Mac {{{
-  if has('mac')
-    " keyremap4mackbook
-    NeoBundle 'emanon001/kr4mb.vim.git'
-    " DayOne
-    NeoBundle 'kazuph/dayone.vim.git'
-    NeoBundle 'glidenote/newdayone.vim'
-  endif
-" }}}
-
 call neobundle#end()
 
 filetype plugin on

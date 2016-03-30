@@ -143,15 +143,6 @@ nnoremap g# g#z
 nnoremap <C-w>t :<C-u>tabnew<CR>
 
 
-":でCommand Windowを開く
-"nnoremap <sid>(command-line-enter) q:
-"xnoremap <sid>(command-line-enter) q:
-"nnoremap <sid>(command-line-norange) q:<C-u>
-
-"nmap :  <sid>(command-line-enter)
-"xmap :  <sid>(command-line-enter)
-"nmap ;  <sid>(command-line-enter)
-"xmap ;  <sid>(command-line-enter)
 nnoremap ; :
 vnoremap ; :
 nnoremap : ;
@@ -160,27 +151,13 @@ vnoremap : ;
 "<C-l>でハイライトを止める
 nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
-" .vimrc .gvimrcの編集、読み込み
-nnoremap <SID>[vim] <Nop>
-nmap <Leader>e <SID>[vim]
-nnoremap <silent> <SID>[vim]v  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <SID>[vim]g  :<C-u>edit $MYGVIMRC<CR>
-nnoremap <silent> <SID>[vim]n  :<C-u>edit $HOME/.vim/vimrc/_vimrc.neobundle<CR>
-nnoremap <silent> <SID>[vim]p  :<C-u>edit $HOME/.vim/vimrc/_vimrc.plugin<CR>
-" after/ftplugin/{&filetype}.vim ファイルを開く
-let $AFTER_FTPLUGIN = vimdir."/after/ftplugin"
-nnoremap <silent> <SID>[vim]f :<C-u>execute ":e".$AFTER_FTPLUGIN."/".&filetype.".vim"<CR>
-" snippet
-nnoremap <silent> <SID>[vim]s :<C-u>NeoSnippetEdit -vertical -split<CR>
-nnoremap <silent> <SID>[vim]r :<C-u>NeoSnippetEdit -runtime -vertical -split<CR>
-
 nnoremap <C-W><C-F> <C-W><C-F><C-W><S-L>
 
 " jjでESC
 inoremap jj <Esc>
 " help
 nnoremap <C-h> :<C-u>vertical help 
-
+"C-w tでタブ
 nnoremap <C-W>t :<C-u>tabnew<CR>:cd<CR>
 
 " imap
@@ -216,6 +193,19 @@ augroup MyAutoCmd
   autocmd InsertEnter,CmdwinEnter * set noimdisable
   autocmd InsertLeave,CmdwinLeave * set imdisable
 augroup END
+
+" ft-vim_fold {{{
+augroup foldmethod-expr
+  autocmd!
+  autocmd InsertEnter * if &l:foldmethod ==# 'expr'
+  \                   |   let b:foldinfo = [&l:foldmethod, &l:foldexpr]
+  \                   |   setlocal foldmethod=manual foldexpr=0
+  \                   | endif
+  autocmd InsertLeave * if exists('b:foldinfo')
+  \                   |   let [&l:foldmethod, &l:foldexpr] = b:foldinfo
+  \                   | endif
+augroup END
+" }}}
 
 " }}}
 "-----------------------------------------------------------------------------
@@ -341,6 +331,11 @@ function! ToggleCursor()
   endif
 endfunction
 " }}}
+" }}}
+"-----------------------------------------------------------------------------
+" Command
+"-----------------------------------------------------------------------------
+" {{{
 " GitLogViewer {{{
 " " Inspired by ujihisa's vimrc
 function! s:GitLogViewer()
@@ -403,35 +398,6 @@ endfunctio
 command! GitLogViewer call s:GitLogViewer()
 
 " }}}
-" {{{ kobito
-function! s:open_kobito(...)
-    if a:0 == 0
-        call system('open -a Kobito '.expand('%:p'))
-    else
-        call system('open -a Kobito '.join(a:000, ' '))
-    endif
-endfunction
-
-" 引数のファイル(複数指定可)を Kobitoで開く
-" （引数無しのときはカレントバッファを開く
-command! -nargs=* Kobito call s:open_kobito(<f-args>)
-" Kobito を閉じる
-command! -nargs=0 KobitoClose call system("osascript -e 'tell application \"Kobito\" to quit'")
-" Kobito にフォーカスを移す
-command! -nargs=0 KobitoFocus call system("osascript -e 'tell application \"Kobito\" to activate'")
-" }}}
-" html2slim
-function! Html2Slim(html)
-  if !executable("html2slim")
-    return ""
-  endif
-  let input  = tempname()
-  call writefile(split(a:html, "\n"), input)
-  let output = tempname()
-  call system(printf("html2slim %s %s", input, output))
-  return join(readfile(output), "\n")
-endfunction
-
 " Capture {{{
 command!
       \ -nargs=1
@@ -456,5 +422,4 @@ function! Capture(cmd)
 endfunction
 " }}}
 " }}}
-
 " vim:ts=2 st=2 sw=2
