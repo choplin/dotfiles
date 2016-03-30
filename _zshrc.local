@@ -28,9 +28,9 @@ chpwd_profile_root() {
     [[ ${profile} == ${CHPWD_PROFILE} ]] && return 1
     print "chpwd(): Switching to profile: $profile"
 
-    export GIT_AUTHOR_NAME=choplin
+    export GIT_AUTHOR_NAME="Akihiro Okuno"
     export GIT_AUTHOR_EMAIL=choplin.choplin@gmail.com
-    export GIT_COMMITER_NAME=choplin
+    export GIT_COMMITER_NAME="Akihiro Okuno"
     export GIT_COMMITER_EMAIL=choplin.choplin@gmail.com
 }
 # }}}
@@ -84,6 +84,14 @@ docker-bash() {
     docker run --rm -it $1 bash
 }
 
+docker-chrome() {
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome $(docker-machine ip default)
+}
+
+iterm-tab-title() {
+    echo -ne "\e]1;$1\a"
+}
+
 # }}}
 
 # set environment variable {{{
@@ -108,12 +116,14 @@ export DEFAULT_USER=okuno
 
 export MAVEN_OPTS="-Dfile.encoding=UTF-8"
 
+export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
+export VISUAL=/Applications/MacVim.app/Contents/MacOS/Vim
 # }}}
 
 # rbenv {{{
 if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
-    source "$BREW_PREFIX/Cellar/rbenv/0.4.0/completions/rbenv.zsh"
+    source "$BREW_PREFIX/Cellar/rbenv/1.0.0/completions/rbenv.zsh"
 fi
 # }}}
 
@@ -122,7 +132,6 @@ export WORKON_HOME=~/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 export PIP_REQUIRE_VIRTUALENV=false
 export PIP_RESPECT_VIRTUALENV=true
-export DOCKER_HOST=localhost
 # }}}
 
 # go {{{
@@ -130,3 +139,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/.go
 export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 # }}}
+
+source /usr/local/share/zsh/site-functions/_aws
+
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi

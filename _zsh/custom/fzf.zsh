@@ -6,6 +6,10 @@ pcd() {
     _ghq_fzf cd "$*"
 }
 
+pcopy() {
+    _ghq_fzf "echo -n" "$*" | pbcopy
+}
+
 _ghq_fzf() {
     local cmd="$1"
     local arg="$2"
@@ -18,7 +22,7 @@ _ghq_fzf() {
     fi
 
     if [ -n "$target" ]; then
-        eval "'$cmd' $target"
+        eval "$cmd $target"
     fi
 }
 

@@ -1,116 +1,151 @@
 "*":
-  "exception-reporting":
-    userId: "bb64fe25-8573-0f55-f93d-ca6d0d6723f3"
-  welcome:
-    showOnStartup: false
-  editor:
-    invisibles:
-      eol: " "
-    fontFamily: "Ricty"
-    lineHeight: 1.2
-    showIndentGuide: true
-    tabLength: 4
-    showInvisibles: true
-    softWrap: true
-    showLineNumbers: false
-    fontSize: 18
+  Ensime:
+    sbtExec: "/usr/local/bin/sbt"
+  "advanced-open-file":
+    helmDirSwitch: true
+  "atom-beautify":
+    _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
+    analytics: false
+    beautifyEntireFileOnSave: false
+    language_c_beautify_on_save: true
+    language_c_default_beautifier: "clang-format"
+  "autocomplete-bibtex": {}
+  "autocomplete-clang": {}
+  "autocomplete-go": {}
+  "browser-plus": {}
   core:
-    themes: [
-      "atom-dark-ui"
-      "solarized-light-syntax"
-    ]
     disabledPackages: [
       "line-ending-selector"
-      "emmet"
       "goto"
       "task-list"
       "hyperclick"
+      "term3"
+      "emmet"
+      "lazy-motion"
+      "tablr"
+      "imdone-atom"
+      "Ensime"
+      "browser-plus"
+      "pigments"
+      "atom-beautify"
+      "linter-clang"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
       "make-runner"
     ]
-  "go-plus":
-    goPath: "~/.go"
-    formatTool: "goreturns"
-    showPanelWhenNoIssuesExist: true
-  "git-diff":
-    showIconsInEditorGutter: true
-  term2:
-    colors:
-      foreground:
-        red: 77
-        green: 77
-        blue: 77
-        alpha: 1
-      brightWhite:
-        red: 33
-        green: 33
-        blue: 33
-        alpha: 1
-      normalWhite:
-        red: 62
-        green: 62
-        blue: 62
-        alpha: 1
+    themes: [
+      "atom-dark-ui"
+      "solarized-light-syntax"
+    ]
+  "cursor-history":
+    debug: true
+  editor:
     fontFamily: "Ricty"
+    fontSize: 16
+    invisibles:
+      eol: " "
+    lineHeight: 1.2
+    showIndentGuide: true
+    showInvisibles: true
+    showLineNumbers: false
+    softWrap: true
+    tabLength: 4
+  emmet: {}
+  "exception-reporting":
+    userId: "bb64fe25-8573-0f55-f93d-ca6d0d6723f3"
   "file-types":
     tmpl: "text.html.gohtml"
-  minimap:
-    displayCodeHighlights: false
-    absoluteMode: true
-  "tree-view":
-    squashDirectoryNames: true
-    hideIgnoredNames: true
+  "find-and-replace":
+    openProjectFindResultsInRightPane: true
+    scrollToResultOnLiveSearch: true
+  "fuzzy-finder": {}
+  "git-diff":
+    showIconsInEditorGutter: true
+  "git-log":
+    fontFamily: "Ricty"
+    fontScale: 1
+  "git-plus": {}
+  "go-plus":
+    formatTool: "goreturns"
+    goPath: "~/.go"
+    showPanelWhenNoIssuesExist: true
+  gofmt: {}
+  "gometalinter-linter": {}
+  hex: {}
+  "imdone-atom":
+    openIn: {}
+    todaysJournal: {}
+  "latex-plus":
+    bibtexEnabled: true
+  "lazy-motion": {}
+  "linter-clang": {}
   "linter-eslint":
     globalNodePath: "/usr/local"
   "markdown-preview":
     useGitHubStyle: true
-  "advanced-open-file":
-    helmDirSwitch: true
-  "git-log":
-    fontScale: 1
-    fontFamily: "Ricty"
-  "vim-mode-plus":
-    useSmartcaseForSearch: true
-    incrementalSearch: true
-    stayOnTransformString: true
-    showHoverSearchCounter: true
-    showHoverOnOperate: true
-  "cursor-history":
-    debug: true
-  Ensime:
-    sbtExec: "/usr/local/bin/sbt"
-  "atom-beautify":
-    _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
-    language_c_beautify_on_save: true
-    language_c_default_beautifier: "clang-format"
-    analytics: false
-  term3:
-    colors:
-      foreground:
-        red: 107
-        green: 108
-        blue: 104
-        alpha: 1
-      normalWhite:
-        red: 192
-        green: 199
-        blue: 192
-        alpha: 1
-      brightWhite:
-        red: 172
-        green: 171
-        blue: 173
-        alpha: 1
-  "find-and-replace":
-    scrollToResultOnLiveSearch: true
-    openProjectFindResultsInRightPane: true
-  "fuzzy-finder": {}
+  "markdown-writer":
+    newPostFileName: "{year}-{month}-{day}{extension}"
+    siteEngine: "hexo"
+    sitePostsDir: "content/post"
+  minimap:
+    absoluteMode: true
+    displayCodeHighlights: false
+  nim: {}
+  pigments: {}
+  "symbols-tree-view": {}
+  tablr: {}
   tabs:
     usePreviewTabs: true
   tasks: {}
-  "symbols-tree-view": {}
+  term2:
+    colors:
+      brightWhite:
+        alpha: 1
+        blue: 33
+        green: 33
+        red: 33
+      foreground:
+        alpha: 1
+        blue: 77
+        green: 77
+        red: 77
+      normalWhite:
+        alpha: 1
+        blue: 62
+        green: 62
+        red: 62
+    fontFamily: "Ricty"
+  term3:
+    colors:
+      brightWhite:
+        alpha: 1
+        blue: 173
+        green: 171
+        red: 172
+      foreground:
+        alpha: 1
+        blue: 104
+        green: 108
+        red: 107
+      normalWhite:
+        alpha: 1
+        blue: 192
+        green: 199
+        red: 192
+  "todo-show": {}
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+  "vim-mode-plus":
+    incrementalSearch: true
+    showHoverOnOperate: true
+    showHoverSearchCounter: true
+    stayOnTransformString: true
+    useSmartcaseForSearch: true
+  welcome:
+    showOnStartup: false
 ".plain.text":
   whitespace:
     ensureSingleTrailingNewline: false

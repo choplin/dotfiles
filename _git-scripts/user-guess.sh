@@ -11,7 +11,7 @@ remote=$(git remote -v | awk '/\(push\)$/ {print $2}')
 
 if [ $(echo $remote | grep '.*stash\.dev\.scaleout\.jp.*') ]; then
   name=okuno
-  email=okuno@scaleout.jp
+  email=akihiro.okuno@supership.jp
 fi
 
 echo "Configuring user.name as $name"

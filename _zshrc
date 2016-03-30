@@ -10,16 +10,13 @@ typeset -U fpath
 fpath=($HOME/.zsh/functions(N-/)
        $fpath)
 
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
-
-if [ -f $HOME/.zshrc.local ]; then
-    source $HOME/.zshrc.local
-fi
 
 for f in fzf profile zplug; do
     local file="$HOME/.zsh/custom/$f.zsh"
@@ -28,3 +25,12 @@ for f in fzf profile zplug; do
     fi
 done
 
+if [ -f $HOME/.zshrc.local ]; then
+    source $HOME/.zshrc.local
+fi
+
+export LD_LIBRARY_PATH=/Users/okuno/tmp/instantclient_11_2:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=/Users/okuno/tmp/instantclient_11_2:$DYLD_LIBRARY_PATH
+export ORACLE_HOME=/Users/okuno/tmp/instantclient_11_2
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

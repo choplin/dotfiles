@@ -180,6 +180,9 @@ NeoBundleLocal ~/.vim/localbundle
   NeoBundle 'othree/yajs.vim'
   " JSX
   NeoBundle 'mxw/vim-jsx'
+  " Nim
+  NeoBundle 'zah/nimrod.vim/'
+  NeoBundle 'zah/nim.vim/'
 " }}}
 
 " Buffer {{{
