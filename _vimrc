@@ -140,7 +140,9 @@ call plug#begin('~/.vim/plugged')
 
 " Buffer {{{
   " ファイラー
-  Plug 'Shougo/vimfiler'
+  if v:version > 702
+    Plug 'Shougo/vimfiler'
+  endif
   " .c/cpp .hを切り替え
   Plug 'a.vim'
   " gfを拡張
@@ -190,7 +192,9 @@ call plug#begin('~/.vim/plugged')
   " open-browser.vim : カーソルの下のURLを開くor単語を検索エンジンで検索
   Plug 'tyru/open-browser.vim', { 'on' : ['OpenBrowser', 'OpenBrowserSearch'] }
   " vinarise
-  Plug 'Shougo/vinarise'
+  if v:version > 702
+    Plug 'Shougo/vinarise'
+  endif
   " fugitive
   Plug 'tpope/vim-fugitive'
   " github
@@ -210,18 +214,20 @@ call plug#begin('~/.vim/plugged')
 " }}}
 
 " Unite {{{
-  " 本体
-  Plug 'Shougo/unite.vim'
-  " tag
-  Plug 'tsukkee/unite-tag'
-  " アウトライン
-  Plug 'Shougo/unite-outline'
-  " QuickFix
-  Plug 'osyo-manga/unite-quickfix'
-  " other
-  Plug 'ujihisa/unite-launch'
-  Plug 'kmnk/vim-unite-giti'
-  Plug 'sorah/unite-ghq'
+  if v:version > 702
+    " 本体
+    Plug 'Shougo/unite.vim'
+    " tag
+    Plug 'tsukkee/unite-tag'
+    " アウトライン
+    Plug 'Shougo/unite-outline'
+    " QuickFix
+    Plug 'osyo-manga/unite-quickfix'
+    " other
+    Plug 'ujihisa/unite-launch'
+    Plug 'kmnk/vim-unite-giti'
+    Plug 'sorah/unite-ghq'
+  endif
 " }}}
 "
 call plug#end()
