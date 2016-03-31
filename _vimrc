@@ -146,7 +146,7 @@ endif
 
 " Buffer {{{
   " ファイラー
-  if !s:enable_unite
+  if s:enable_unite
     Plug 'Shougo/vimfiler'
   endif
   " .c/cpp .hを切り替え
@@ -220,7 +220,7 @@ endif
 " }}}
 
 " Unite {{{
-  if !s:enable_unite
+  if s:enable_unite
     " 本体
     Plug 'Shougo/unite.vim'
     " tag
@@ -273,7 +273,7 @@ if has('conceal')
 endif
 " }}}
 " unite.vim {{{
-if !s:enable_unite
+if s:enable_unite
   " 入力モードで開始する
   let g:unite_enable_start_insert=1
   " 下に開く
@@ -384,7 +384,7 @@ endif
 let g:openbrowser_search_engines['amazon'] = 'http://www.amazon.co.jp/s/?keywords={query}'
 " }}}
 " Vimfiler {{{
-if !s:enable_unite
+if s:enable_unite
   "nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
   nnoremap <silent> <Leader>vb :VimFilerBufferDir<CR>
   nnoremap <silent> <Leader>vf :VimFiler<CR>
