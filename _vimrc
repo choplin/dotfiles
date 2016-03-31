@@ -23,7 +23,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 if v:version > 702
-  s:enable_unite = 1
+  let s:enable_unite = 1
+else
+  let s:enable_unite = 0
 endif
 
 " Edit {{{
