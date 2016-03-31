@@ -22,6 +22,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+if v:version > 702
+  s:enable_unite = 1
+endif
+
 " Edit {{{
   " マルチバイト対応の整形
   Plug 'h1mesuke/vim-alignta'
@@ -140,7 +144,7 @@ call plug#begin('~/.vim/plugged')
 
 " Buffer {{{
   " ファイラー
-  if v:version > 702
+  if !s:enable_unite
     Plug 'Shougo/vimfiler'
   endif
   " .c/cpp .hを切り替え
@@ -214,7 +218,7 @@ call plug#begin('~/.vim/plugged')
 " }}}
 
 " Unite {{{
-  if v:version > 702
+  if !s:enable_unite
     " 本体
     Plug 'Shougo/unite.vim'
     " tag
@@ -267,67 +271,68 @@ if has('conceal')
 endif
 " }}}
 " unite.vim {{{
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" 下に開く
-let g:unite_split_rule = 'botright'
-" history/yankを有効化
-let g:unite_source_history_yank_enable = 1
+if !s:enable_unite
+  " 入力モードで開始する
+  let g:unite_enable_start_insert=1
+  " 下に開く
+  let g:unite_split_rule = 'botright'
+  " history/yankを有効化
+  let g:unite_source_history_yank_enable = 1
 
-let g:unite_source_grep_default_opts = '-Hn --color=never'
+  let g:unite_source_grep_default_opts = '-Hn --color=never'
 
-let g:unite_source_rec_max_cache_files = 20000
+  let g:unite_source_rec_max_cache_files = 20000
 
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-  let g:unite_source_grep_recursive_opt = ''
-elseif executable('ack-grep')
-  let g:unite_source_grep_command = 'ack-grep'
-  let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
-  let g:unite_source_grep_recursive_opt = ''
+  if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('ack-grep')
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+    let g:unite_source_grep_recursive_opt = ''
+  endif
+
+  nnoremap <SID>[unite] <Nop>
+  nnoremap <SID>[unite_project] <Nop>
+  nmap <Leader>u <SID>[unite]
+  nmap <Leader>p <SID>[unite_project]
+  nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
+  nnoremap <silent> <SID>[unite]u :<C-u>Unite bookmark buffer file_mru<CR>
+  nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+  nnoremap <silent> <SID>[unite]g :<C-u>Unite ghq<CR>
+  nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
+  nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec/git')<CR>
+  nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
+  nnoremap <SID>[unite_project]d :<C-u>lcd <C-r>=unite#util#path2project_directory(expand('%'))<CR><CR>
+
+  "nnoremap <silent> <C-h> :<C-u>Unite help<CR>
+
+  function! s:unite_project(source, ...)
+    let dir = unite#util#path2project_directory(expand('%'))
+    execute 'Unite' a:source . ':' . escape(dir, ':') . (a:0 > 0 ? ':' . join(a:000, ':') : '')
+  endfunction
+
+  call unite#custom#default_action('directory', 'vimfiler')
+  call unite#custom#default_action('source/ghq/directory', 'vimfiler')
+
+  " タグジャンプをunite-tagsで置き換え
+  " autocmd BufEnter *
+  " \   if empty(&buftype)
+  " \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
+  " \|  endif
+
+  autocmd FileType unite call s:unite_my_settings()
+  function! s:unite_my_settings()"{{{
+    " Overwrite settings.
+
+    nmap <buffer> <ESC>      <Plug>(unite_exit)
+    imap <buffer> jj      <Plug>(unite_insert_leave)
+
+    " <C-l>: manual neocomplcache completion.
+    inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
+  endfunction"}}}
 endif
-
-nnoremap <SID>[unite] <Nop>
-nnoremap <SID>[unite_project] <Nop>
-nmap <Leader>u <SID>[unite]
-nmap <Leader>p <SID>[unite_project]
-nnoremap <silent> <SID>[unite]b :<C-u>Unite buffer<CR>
-nnoremap <silent> <SID>[unite]u :<C-u>Unite bookmark buffer file_mru<CR>
-nnoremap <silent> <SID>[unite]a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> <SID>[unite]g :<C-u>Unite ghq<CR>
-nnoremap <silent> <SID>[unite]s :<C-u>Unite source<CR>
-nnoremap <silent> <SID>[unite_project]r :<C-u>call <SID>unite_project('file_rec/git')<CR>
-nnoremap <silent> <SID>[unite_project]g :<C-u>call <SID>unite_project('grep')<CR>
-nnoremap <SID>[unite_project]d :<C-u>lcd <C-r>=unite#util#path2project_directory(expand('%'))<CR><CR>
-
-"nnoremap <silent> <C-h> :<C-u>Unite help<CR>
-
-function! s:unite_project(source, ...)
-  let dir = unite#util#path2project_directory(expand('%'))
-  execute 'Unite' a:source . ':' . escape(dir, ':') . (a:0 > 0 ? ':' . join(a:000, ':') : '')
-endfunction
-
-call unite#custom#default_action('directory', 'vimfiler')
-call unite#custom#default_action('source/ghq/directory', 'vimfiler')
-
-" タグジャンプをunite-tagsで置き換え
-" autocmd BufEnter *
-" \   if empty(&buftype)
-" \|      nnoremap <buffer> <C-]> :<C-u>UniteWithCursorWord -immediately tag<CR>
-" \|  endif
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()"{{{
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
-  imap <buffer> jj      <Plug>(unite_insert_leave)
-
-  " <C-l>: manual neocomplcache completion.
-  inoremap <buffer> <C-l>  <C-x><C-u><C-p><Down>
-endfunction"}}}
-
 " }}}
 " quickrun {{{
 noremap <SID>[quickrun] <Nop>
@@ -377,29 +382,31 @@ endif
 let g:openbrowser_search_engines['amazon'] = 'http://www.amazon.co.jp/s/?keywords={query}'
 " }}}
 " Vimfiler {{{
-"nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
-nnoremap <silent> <Leader>vb :VimFilerBufferDir<CR>
-nnoremap <silent> <Leader>vf :VimFiler<CR>
-let g:vimfiler_as_default_explorer=1
+if !s:enable_unite
+  "nnoremap <silent> <Leader>vf :VimFilerBufferDir -simple -split -winwidth=50<CR>
+  nnoremap <silent> <Leader>vb :VimFilerBufferDir<CR>
+  nnoremap <silent> <Leader>vf :VimFiler<CR>
+  let g:vimfiler_as_default_explorer=1
 
-" Like Textmate icons.
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
+  " Like Textmate icons.
+  let g:vimfiler_tree_leaf_icon = ' '
+  let g:vimfiler_tree_opened_icon = '▾'
+  let g:vimfiler_tree_closed_icon = '▸'
+  let g:vimfiler_file_icon = '-'
+  let g:vimfiler_marked_file_icon = '*'
 
-" ignore
-let s:ignore_target = {
-      \ 'dotfiles' : '\..\+',
-      \ 'obj' : '.\+\.o'
-      \ }
-let g:vimfiler_ignore_pattern = '^\%('.join(values(s:ignore_target), '\|').'\)$'
+  " ignore
+  let s:ignore_target = {
+        \ 'dotfiles' : '\..\+',
+        \ 'obj' : '.\+\.o'
+        \ }
+  let g:vimfiler_ignore_pattern = '^\%('.join(values(s:ignore_target), '\|').'\)$'
 
-augroup MyVimfiler
-  autocmd!
-  autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit)
-augroup END
+  augroup MyVimfiler
+    autocmd!
+    autocmd FileType vimfiler nmap <buffer> q <Plug>(vimfiler_exit)
+  augroup END
+endif
 " }}}
 " surround.vim {{{
 let g:surround_custom_mapping = {}
@@ -788,7 +795,9 @@ set nonumber
 "
 set backupcopy=yes
 " normal mode/command line のみconceal表示をする
-set concealcursor=nc
+if has('conceal')
+  set concealcursor=nc
+endif
 
 set fileencodings="utf-8,iso-2022-jp-3,euc-jisx0213,guess,ucs-bom,latin1,iso-2022-jp-3,cp932,euc-jisx0213,euc-jp"
 
