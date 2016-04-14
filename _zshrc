@@ -18,7 +18,7 @@ fi
 
 # Customize to your needs...
 
-for f in fzf profile zplug; do
+for f in fzf profile zplug util; do
     local file="$HOME/.zsh/custom/$f.zsh"
     if [ -f $file ];then
         source $file

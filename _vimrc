@@ -117,6 +117,7 @@ endif
   Plug 'fatih/vim-go'
   " rust
   Plug 'rust-lang/rust.vim'
+  Plug 'racer-rust/vim-racer'
   " HOCON
   Plug 'GEverding/vim-hocon'
   " stylus
@@ -696,6 +697,10 @@ map <Nop> <Plug>RooterChangeToRootDirectory
 let g:gocomplete#system_function = 'vimproc#system2' "to use vimproc
 let g:go_snippet_engine = 'neosnippet'
 let g:go_fmt_command = "goimports"
+" }}}
+" vim-racer {{{
+let g:racer_cmd = "/Users/okuno/.multirust/toolchains/stable/cargo/bin/racer"
+let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
 " }}}
 " }}}
 "-----------------------------------------------------------------------------
