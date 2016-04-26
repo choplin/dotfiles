@@ -65,7 +65,7 @@ endif
   " A neocomplcache plugin for English, using look command
   Plug 'ujihisa/neco-look'
   " clang補完
-  Plug 'Rip-Rip/clang_complete', { 'for' : ['c', 'cpp'] }
+  Plug 'justmao945/vim-clang', { 'for' : ['c', 'cpp'] }
   " snippet
   Plug 'Shougo/neosnippet'
   Plug 'Shougo/neosnippet-snippets'
@@ -512,28 +512,6 @@ function! s:GtagsCscope_GtagsRoot()
     return strpart(cmd_output, 0, strlen(cmd_output) - 1)
 endfunction
 " }}}
-" clang_complete{{{
-let g:clang_complete_auto = 0
-let g:clang_auto_select = 0
-let g:clang_use_library = 1
-"let g:clang_library_path = '/usr/local/lib'
-let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
-let g:clang_user_options = '-std=c++11'
-
-" work with neocomplete
-let g:neocomplete#force_overwrite_completefunc = 1
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.c =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp =
-      \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:neocomplete#force_omni_input_patterns.objc =
-      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-let g:neocomplete#force_omni_input_patterns.objcpp =
-      \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-" }}}
 " neocomplcache && neocomplete {{{
 if has('lua')
   " neocomplete {{{
@@ -603,6 +581,15 @@ if has('lua')
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
+
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_overwrite_completefunc = 1
+  let g:neocomplete#force_omni_input_patterns.c =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+  let g:neocomplete#force_omni_input_patterns.cpp =
+    \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
   " }}}
 else
   " neocomplcache {{{
@@ -670,10 +657,6 @@ else
     let g:neocomplcache_force_omni_patterns = {}
   endif
   let g:neocomplcache_force_overwrite_completefunc = 1
-  let g:neocomplcache_force_omni_patterns.c =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)'
-  let g:neocomplcache_force_omni_patterns.cpp =
-    \ '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
   " }}}
 endif
 " }}}
@@ -701,6 +684,40 @@ let g:go_fmt_command = "goimports"
 " vim-racer {{{
 let g:racer_cmd = "/Users/okuno/.multirust/toolchains/stable/cargo/bin/racer"
 let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
+" }}}
+" vim-clang {{{
+" disable auto completion for vim-clang
+let g:clang_auto = 0
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+
+" default 'longest' can not work with neocomplete
+let g:clang_c_completeopt   = 'menuone'
+let g:clang_cpp_completeopt = 'menuone'
+
+if executable('clang-3.6')
+    let g:clang_exec = 'clang-3.6'
+elseif executable('clang-3.5')
+    let g:clang_exec = 'clang-3.5'
+elseif executable('clang-3.4')
+    let g:clang_exec = 'clang-3.4'
+else
+    let g:clang_exec = 'clang'
+endif
+
+if executable('clang-format-3.6')
+    let g:clang_format_exec = 'clang-format-3.6'
+elseif executable('clang-format-3.5')
+    let g:clang_format_exec = 'clang-format-3.5'
+elseif executable('clang-format-3.4')
+    let g:clang_format_exec = 'clang-format-3.4'
+else
+    let g:clang_format_exec = 'clang-format'
+endif
+
+let g:clang_c_options = '-std=c11'
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 " }}}
 " }}}
 "-----------------------------------------------------------------------------
