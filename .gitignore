@@ -13,3 +13,4 @@ _vim/backup/
 _atom/.apm
 _atom/packages
 _atom/blob-store
+_atom/.git-history

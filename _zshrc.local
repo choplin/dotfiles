@@ -77,6 +77,8 @@ export MAVEN_OPTS="-Dfile.encoding=UTF-8"
 
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 export VISUAL=/Applications/MacVim.app/Contents/MacOS/Vim
+
+export RUST_SRC_PATH=/Users/okuno/.ghq/github.com/rust-lang/rust/src
 # }}}
 
 # rbenv {{{
@@ -102,3 +104,4 @@ export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 source /usr/local/share/zsh/site-functions/_aws
 
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+

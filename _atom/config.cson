@@ -4,15 +4,22 @@
   "advanced-open-file":
     helmDirSwitch: true
   "atom-beautify":
-    _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
-    analytics: false
-    beautifyEntireFileOnSave: false
-    language_c_beautify_on_save: true
-    language_c_default_beautifier: "clang-format"
+    c:
+      beautify_on_save: true
+      default_beautifier: "clang-format"
+    general:
+      _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
+      analytics: false
+      beautifyEntireFileOnSave: false
+    rust:
+      beautify_on_save: true
   "autocomplete-bibtex": {}
   "autocomplete-clang": {}
   "autocomplete-go": {}
+  "autocomplete-plus": {}
+  "bracket-matcher": {}
   "browser-plus": {}
+  build: {}
   core:
     disabledPackages: [
       "line-ending-selector"
@@ -21,22 +28,21 @@
       "hyperclick"
       "term3"
       "emmet"
-      "lazy-motion"
       "tablr"
       "imdone-atom"
       "Ensime"
       "browser-plus"
       "pigments"
-      "atom-beautify"
       "linter-clang"
-      "language-rust"
-      "linter-rust"
       "tokamak"
       "tokamak-terminal"
+      "color-picker"
+      "autocomplete-bibtex"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
       "make-runner"
+      "color-picker"
     ]
     themes: [
       "atom-dark-ui"
@@ -46,7 +52,7 @@
     debug: true
   editor:
     fontFamily: "Ricty"
-    fontSize: 21
+    fontSize: 16
     invisibles:
       eol: " "
     lineHeight: 1.2
@@ -75,7 +81,15 @@
     goPath: "~/.go"
     showPanelWhenNoIssuesExist: true
   gofmt: {}
-  "gometalinter-linter": {}
+  "gometalinter-linter":
+    args: [
+      "--fast"
+      "--vendor"
+      "--tests"
+      "--disable=gotype"
+      "--json"
+      "."
+    ]
   hex: {}
   "imdone-atom":
     openIn: {}
@@ -83,10 +97,12 @@
   "latex-plus":
     bibtexEnabled: true
   "lazy-motion": {}
+  linter: {}
   "linter-clang": {}
   "linter-eslint":
     globalNodePath: "/usr/local"
   "linter-rust":
+    cargoCommand: "check"
     cargoPath: "/usr/local/bin/cargo"
     rustcPath: "/usr/local/bin/rustc"
   "markdown-preview":
@@ -103,14 +119,6 @@
   racer:
     cargoHome: '''
       /Users/okuno/.multirust/toolchains/stable/cargo
-      
-    '''
-    racerBinPath: '''
-      /Users/okuno/.multirust/toolchains/stable/cargo/bin/racer
-      /
-    '''
-    rustSrcPath: '''
-      /Users/okuno/.ghq/github.com/rust-lang/rust/src
       
     '''
   "symbols-tree-view": {}
@@ -154,26 +162,8 @@
         green: 199
         red: 192
   "todo-show": {}
-  tokamak:
-    binaryDetection: false
-    cargoHomePath: '''
-      /Users/okuno/.multirust/toolchains/stable/cargo
-      
-    '''
-    racerBinPath: '''
-      /Users/okuno/.multirust/toolchains/stable/cargo/bin/racer
-      /
-    '''
-    rustSrcPath: '''
-      /Users/okuno/.ghq/github.com/rust-lang/rust/src
-      
-    '''
-  "tokamak-terminal":
-    core: {}
-    style: {}
   "tree-view":
     hideIgnoredNames: true
-    hideVcsIgnoredFiles: true
     squashDirectoryNames: true
   "vim-mode-plus":
     incrementalSearch: true
@@ -183,6 +173,9 @@
     useSmartcaseForSearch: true
   welcome:
     showOnStartup: false
+".ini.source":
+  editor:
+    tabLength: 4
 ".plain.text":
   whitespace:
     ensureSingleTrailingNewline: false

@@ -4,6 +4,9 @@
 'atom-text-editor[data-grammar="source scala"]:not(.mini)':
     'ctrl-]': 'ensime:go-to-definition'
 
+'atom-text-editor[data-grammar="source rust"]:not(.mini)':
+    'ctrl-]': 'racer:find-definition'
+
 '.platform-darwin atom-workspace':
     'cmd-o': 'advanced-open-file:toggle'
 
@@ -26,3 +29,10 @@
   'ctrl-o':     'cursor-history:prev'
   'ctrl-cmd-i': 'cursor-history:next-within-editor'
   'ctrl-cmd-o': 'cursor-history:prev-within-editor'
+
+'atom-text-editor.autocomplete-active':
+  'ctrl-g': 'autocomplete-plus:cancel'
+
+'body':
+  'ctrl-tab': 'pane:show-next-item'
+  'ctrl-shift-tab': 'pane:show-previous-item'
