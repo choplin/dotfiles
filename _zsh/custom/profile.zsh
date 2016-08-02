@@ -22,4 +22,4 @@ function chpwd_profiles() {
     return 0
 }
 # Add the chpwd_profiles() function to the list called by chpwd()!
-chpwd_functions=( ${chpwd_functions} chpwd_profiles )
+#chpwd_functions=( ${chpwd_functions} chpwd_profiles )

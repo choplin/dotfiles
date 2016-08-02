@@ -54,11 +54,11 @@ endif
 augroup MyAutoCmdGUI
     "ウィンドウを最大化して起動
     " Windows
-    if has('win32') || has('win64')
-        autocmd GUIEnter * simalt ~x
-    elseif has('gui_macvim')
-        autocmd GUIEnter * set fullscreen
-    endif
+    "if has('win32') || has('win64')
+    "    autocmd GUIEnter * simalt ~x
+    "elseif has('gui_macvim')
+    "    autocmd GUIEnter * set fullscreen
+    "endif
 
     "入力モード時、ステータスラインのカラーを変更
     autocmd InsertEnter * highlight StatusLine guifg=#ccdc90 guibg=#2E4340

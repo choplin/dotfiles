@@ -41,14 +41,6 @@ endif
   Plug 'kana/vim-operator-replace'
   " textobj-user : 簡単にVimエディタのテキストオブジェクトをつくれる
   Plug 'kana/vim-textobj-user'
-  " vim-textobj-syntax : syntax hilightされたものをtext-objectに
-  Plug 'kana/vim-textobj-syntax'
-  " vim-textobj-lastpat : 最後に検索されたパターンをtext-objectに
-  Plug 'kana/vim-textobj-lastpat'
-  " vim-textobj-indent : インデントされたものをtext-objectに
-  Plug 'kana/vim-textobj-indent'
-  " vim-textobj-fold : 折りたたまれたアレをtext-objectに
-  Plug 'kana/vim-textobj-fold'
   " <C-a>でtrue/false切替。他色々
   Plug 'taku-o/vim-toggle'
   " f/Fの移動をリッチに
@@ -62,8 +54,6 @@ endif
   else
     Plug 'Shougo/neocomplcache'
   end
-  " A neocomplcache plugin for English, using look command
-  Plug 'ujihisa/neco-look'
   " clang補完
   Plug 'justmao945/vim-clang', { 'for' : ['c', 'cpp'] }
   " snippet
@@ -76,8 +66,6 @@ endif
   Plug 'kana/vim-smartword'
   " <Leader><Leader>w/fなどで、motion先をhilightする
   Plug 'Lokaltog/vim-easymotion', {'vim_version' : '7.3'}
-  " QuickFixの候補に対して置換
-  Plug 'thinca/vim-qfreplace'
 " }}}
 
 " Programming {{{
@@ -89,24 +77,14 @@ endif
 " FileType {{{
 " " vim
   Plug 'thinca/vim-ft-vim_fold'
-  " nginx conf
-  Plug 'evanmiller/nginx-vim-syntax'
   " markdown
   Plug 'tpope/vim-markdown'
-  " coffee script
-  Plug 'kchmck/vim-coffee-script'
   " scala
   Plug 'derekwyatt/vim-scala'
   " haskell
   Plug 'kana/vim-filetype-haskell'
   " reStructuredText
   Plug 'nvie/vim-rst-tables'
-  " pig
-  Plug 'pig.vim'
-  " slim
-  Plug 'slim-template/vim-slim'
-  " nagios
-  Plug 'tejr/vim-nagios'
   " yaml
   Plug 'chase/vim-ansible-yaml'
   " jinja2
@@ -118,12 +96,6 @@ endif
   " rust
   Plug 'rust-lang/rust.vim'
   Plug 'racer-rust/vim-racer'
-  " HOCON
-  Plug 'GEverding/vim-hocon'
-  " stylus
-  Plug 'wavded/vim-stylus'
-  " julia
-  Plug 'JuliaLang/julia-vim'
   " cpp
   Plug 'vim-jp/cpp-vim', { 'for' : ['cpp'] }
   Plug 'osyo-manga/vim-stargate', { 'for' : ['cpp'] }
@@ -131,18 +103,8 @@ endif
   Plug 'jmcantrell/vim-virtualenv'
   " thrift
   Plug 'solarnz/thrift.vim'
-  " jade
-  Plug 'digitaltoad/vim-jade'
   " TOML
   Plug 'cespare/vim-toml'
-  " JavaScript
-  Plug 'othree/javascript-libraries-syntax.vim'
-  Plug 'othree/yajs.vim'
-  " JSX
-  Plug 'mxw/vim-jsx'
-  " Nim
-  Plug 'zah/nimrod.vim/'
-  Plug 'zah/nim.vim/'
 " }}}
 
 " Buffer {{{
@@ -158,19 +120,9 @@ endif
   Plug 'kana/vim-gf-diff'
 " }}}
 
-" Encording {{{
-  Plug 'banyan/recognize_charcode.vim'
-" }}}
-
 " Utility {{{
   " vimproc : vimから非同期実行。vimshellで必要
   Plug 'Shougo/vimproc', { 'do': 'make'}
-  " vim Interface to Web API
-  Plug 'mattn/webapi-vim'
-  " urilib.vim : vim scriptからURLを扱うライブラリ
-  Plug 'tyru/urilib.vim'
-  " Buffer管理のLibrary
-  Plug 'thinca/vim-openbuf'
   " 任意のsub modeを利用できるようにする
   Plug 'kana/vim-submode'
   " キーの同時押しにmapできるようにする
@@ -213,10 +165,6 @@ endif
 " }}}
 
 " ColorScheme{{{
-  Plug 'cschlueter/vim-wombat'
-  Plug 'nanotech/jellybeans.vim'
-  Plug 'molokai'
-  Plug 'robokai'
   Plug 'altercation/vim-colors-solarized'
 " }}}
 
@@ -224,15 +172,9 @@ endif
   if s:enable_unite
     " 本体
     Plug 'Shougo/unite.vim'
-    " tag
-    Plug 'tsukkee/unite-tag'
-    " アウトライン
-    Plug 'Shougo/unite-outline'
     " QuickFix
     Plug 'osyo-manga/unite-quickfix'
     " other
-    Plug 'ujihisa/unite-launch'
-    Plug 'kmnk/vim-unite-giti'
     Plug 'sorah/unite-ghq'
   endif
 " }}}

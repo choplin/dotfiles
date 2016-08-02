@@ -8,6 +8,7 @@
 typeset -U fpath
 
 fpath=($HOME/.zsh/functions(N-/)
+       /usr/local/share/zsh-completions(N-/)
        $fpath)
 
 
@@ -34,3 +35,5 @@ export DYLD_LIBRARY_PATH=/Users/okuno/tmp/instantclient_11_2:$DYLD_LIBRARY_PATH
 export ORACLE_HOME=/Users/okuno/tmp/instantclient_11_2
 
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

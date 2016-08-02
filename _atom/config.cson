@@ -7,52 +7,62 @@
     c:
       beautify_on_save: true
       default_beautifier: "clang-format"
+    cpp: {}
     general:
       _analyticsUserId: "8d31151b-6c03-402f-843f-7541249c3d7e"
       analytics: false
       beautifyEntireFileOnSave: false
     rust:
-      beautify_on_save: true
+      rustfmt_path: "/Users/okuno/.cargo/bin/rustfmt"
   "autocomplete-bibtex": {}
   "autocomplete-clang": {}
   "autocomplete-go": {}
   "autocomplete-plus": {}
+  "autocomplete-python":
+    showDescriptions: false
   "bracket-matcher": {}
   "browser-plus": {}
   build: {}
   core:
+    closeEmptyWindows: false
     disabledPackages: [
       "line-ending-selector"
       "goto"
       "task-list"
       "hyperclick"
-      "term3"
       "emmet"
       "tablr"
       "imdone-atom"
       "Ensime"
-      "browser-plus"
       "pigments"
-      "linter-clang"
       "tokamak"
       "tokamak-terminal"
       "color-picker"
       "autocomplete-bibtex"
+      "gitignore-snippets"
+      "proto-repl"
+      "julia-client"
+      "nim"
+      "ink"
+      "advanced-new-file"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
       "make-runner"
       "color-picker"
+      "proto-repl"
+      "browser-plus"
+      "autocomplete-python"
+      "autocomplete-python"
     ]
     themes: [
       "atom-dark-ui"
       "solarized-light-syntax"
     ]
-  "cursor-history":
-    debug: true
+  "cursor-history": {}
   editor:
     fontFamily: "Ricty"
-    fontSize: 16
+    fontSize: 18
     invisibles:
       eol: " "
     lineHeight: 1.2
@@ -75,7 +85,8 @@
   "git-log":
     fontFamily: "Ricty"
     fontScale: 1
-  "git-plus": {}
+  "git-plus":
+    splitPane: "Right"
   "go-plus":
     formatTool: "goreturns"
     goPath: "~/.go"
@@ -87,6 +98,7 @@
       "--vendor"
       "--tests"
       "--disable=gotype"
+      "--disable=gocyclo"
       "--json"
       "."
     ]
@@ -97,14 +109,15 @@
   "latex-plus":
     bibtexEnabled: true
   "lazy-motion": {}
-  linter: {}
+  linter:
+    errorPanelHeight: 22
   "linter-clang": {}
   "linter-eslint":
     globalNodePath: "/usr/local"
   "linter-rust":
     cargoCommand: "check"
-    cargoPath: "/usr/local/bin/cargo"
-    rustcPath: "/usr/local/bin/rustc"
+    cargoPath: "/Users/okuno/.cargo/bin/cargo"
+    rustcPath: "/Users/okuno/.cargo/bin/rustc"
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":
@@ -114,16 +127,26 @@
   minimap:
     absoluteMode: true
     displayCodeHighlights: false
+    plugins:
+      "split-diff": true
+      "split-diffDecorationsZIndex": 0
   nim: {}
   pigments: {}
+  "proto-repl":
+    autoScroll: false
   racer:
     cargoHome: '''
-      /Users/okuno/.multirust/toolchains/stable/cargo
+      /Users/okuno/.cargo/bin/cargo
       
     '''
+  "split-diff":
+    diffWords: true
+    ignoreWhitespace: true
+    syncHorizontalScroll: true
   "symbols-tree-view": {}
   tablr: {}
   tabs:
+    enableVcsColoring: true
     usePreviewTabs: true
   tasks: {}
   term2:
@@ -147,21 +170,25 @@
   term3:
     colors:
       brightWhite:
-        alpha: 1
-        blue: 173
-        green: 171
         red: 172
+        green: 171
+        blue: 173
+        alpha: 1
       foreground:
-        alpha: 1
-        blue: 104
-        green: 108
         red: 107
-      normalWhite:
+        green: 108
+        blue: 104
         alpha: 1
-        blue: 192
-        green: 199
+      normalWhite:
         red: 192
+        green: 199
+        blue: 192
+        alpha: 1
   "todo-show": {}
+  "tool-bar":
+    fullWidth: false
+    iconSize: "16px"
+    position: "Bottom"
   "tree-view":
     hideIgnoredNames: true
     squashDirectoryNames: true
@@ -173,7 +200,13 @@
     useSmartcaseForSearch: true
   welcome:
     showOnStartup: false
+".diff.source":
+  editor:
+    tabLength: 4
 ".ini.source":
+  editor:
+    tabLength: 4
+".nim.source":
   editor:
     tabLength: 4
 ".plain.text":

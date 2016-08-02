@@ -3,6 +3,7 @@ alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 if [ -n "$TMUX" ]; then
   alias pbcopy="reattach-to-user-namespace pbcopy"
 fi
+alias ap="ansible-playbook -i hosts/hosts --skip-tags commit_check"
 # }}}
 
 # profiles {{{
@@ -17,9 +18,9 @@ chpwd_profile_scaleout() {
     print "chpwd(): Switching to profile: $profile"
 
     export GIT_AUTHOR_NAME=okuno
-    export GIT_AUTHOR_EMAIL=okuno@scaleout.jp
+    export GIT_AUTHOR_EMAIL=akihiro.okuno@supership.jp
     export GIT_COMMITER_NAME=okuno
-    export GIT_COMMITER_EMAIL=okuno@scaleout.jp
+    export GIT_COMMITER_EMAIL=akihiro.okuno@supership.jp
 }
 
 chpwd_profile_root() {
@@ -35,11 +36,7 @@ chpwd_profile_root() {
 
 # functions {{{
 idea() {
-    "/Applications/IntelliJ IDEA 15.app/Contents/MacOS/idea" $(pwd)
-}
-
-pidea() {
-    _ghq_pedo "/opt/homebrew-cask/Caskroom/intellij-idea/14.1/IntelliJ IDEA 14.app/Contents/MacOS/idea" "$*"
+    "/Applications/IntelliJ IDEA.app/Contents/MacOS/idea" $(pwd)
 }
 
 clion() {
@@ -105,3 +102,4 @@ source /usr/local/share/zsh/site-functions/_aws
 
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
+source $HOME/.cargo/env
