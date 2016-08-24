@@ -62,7 +62,7 @@
   "cursor-history": {}
   editor:
     fontFamily: "Ricty"
-    fontSize: 18
+    fontSize: 13
     invisibles:
       eol: " "
     lineHeight: 1.2

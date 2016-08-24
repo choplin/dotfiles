@@ -30,10 +30,6 @@ if [ -f $HOME/.zshrc.local ]; then
     source $HOME/.zshrc.local
 fi
 
-export LD_LIBRARY_PATH=/Users/okuno/tmp/instantclient_11_2:$LD_LIBRARY_PATH
-export DYLD_LIBRARY_PATH=/Users/okuno/tmp/instantclient_11_2:$DYLD_LIBRARY_PATH
-export ORACLE_HOME=/Users/okuno/tmp/instantclient_11_2
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"

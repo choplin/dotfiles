@@ -1,13 +1,11 @@
-pvim() {
-    _ghq_fzf vim "$*"
+fedit() {
+    cat - | fzf | xargs -o $EDITOR
 }
+
+alias fvim=fedit
 
 pcd() {
     _ghq_fzf cd "$*"
-}
-
-pcopy() {
-    _ghq_fzf "echo -n" "$*" | pbcopy
 }
 
 _ghq_fzf() {
