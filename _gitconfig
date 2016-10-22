@@ -80,7 +80,7 @@
   cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.4/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [http]
@@ -94,7 +94,7 @@
 	path = 
 
 [ghi]
-  token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
+	token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
 
 [filter "lfs"]
   clean = git-lfs clean %f

@@ -33,3 +33,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# added by travis gem
+[ -f /Users/okuno/.travis/travis.sh ] && source /Users/okuno/.travis/travis.sh

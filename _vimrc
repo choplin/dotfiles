@@ -407,6 +407,10 @@ command!
 " operator-replace {{{
 map _  <Plug>(operator-replace)
 " }}}
+" operator-camelize {{{
+nmap <Leader>C  <Plug>(operator-camelize-toggle)
+vmap <Leader>C  <Plug>(operator-camelize-toggle)
+" }}}
 " Gtags{{{
 nnoremap <SID>[gtags] <Nop>
 nmap <Leader>g <SID>[gtags]
