@@ -21,7 +21,7 @@
   excludesfile = /Users/okuno/.gitignore
   autocrlf = input
   pager = lv -c
-  editor = vim
+  editor = command vim
 
 [alias]
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort

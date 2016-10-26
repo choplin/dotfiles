@@ -47,6 +47,9 @@
       "ansible-snippets"
       "language-ansible"
       "linter-ansible-lint"
+      "tool-bar"
+      "flex-tool-bar"
+      "symbols-tree-view"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
@@ -65,7 +68,6 @@
   "cursor-history": {}
   editor:
     fontFamily: "Ricty"
-    fontSize: 20
     invisibles:
       eol: " "
     lineHeight: 1.2

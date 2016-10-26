@@ -8,7 +8,7 @@ if [ -d $HOME/.zplug ]; then
     zplug "tcnksm/docker-alias", of:zshrc
 
     # Prohibit updates to a plugin by using the "frozen:" tag
-    zplug "k4rthik/git-cal", as:command, frozen:1
+    # zplug "k4rthik/git-cal", as:command, frozen:1
 
     # Grab binaries from GitHub Releases
     # and rename to use "file:" tag

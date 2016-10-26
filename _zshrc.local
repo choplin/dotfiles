@@ -1,5 +1,5 @@
 # aliases {{{
-alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+alias vim=nvim
 if [ -n "$TMUX" ]; then
   alias pbcopy="reattach-to-user-namespace pbcopy"
 fi
@@ -68,12 +68,10 @@ export ANT_OPTS=-Dfile.encoding=UTF8
 
 export DEFAULT_USER=okuno
 
-# export SBT_OPTS="-Dfile.encoding=UTF-8 -XX:+CMSClassUnloadingEnabled"
-
 export MAVEN_OPTS="-Dfile.encoding=UTF-8"
 
-export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-export VISUAL=/Applications/MacVim.app/Contents/MacOS/Vim
+export EDITOR=vim
+export VISUAL=vim
 
 export RUST_SRC_PATH=/Users/okuno/.ghq/github.com/rust-lang/rust/src
 # }}}

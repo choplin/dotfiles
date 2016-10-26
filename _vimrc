@@ -1075,4 +1075,4 @@ function! Capture(cmd)
 endfunction
 " }}}
 " }}}
-" vim:ts=2 st=2 sw=2
+" vim:ts=2 sw=2
