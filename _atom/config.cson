@@ -33,7 +33,6 @@
       "emmet"
       "tablr"
       "imdone-atom"
-      "Ensime"
       "pigments"
       "tokamak"
       "tokamak-terminal"
@@ -45,6 +44,12 @@
       "nim"
       "ink"
       "advanced-new-file"
+      "ansible-snippets"
+      "language-ansible"
+      "linter-ansible-lint"
+      "tool-bar"
+      "flex-tool-bar"
+      "symbols-tree-view"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
@@ -55,6 +60,7 @@
       "autocomplete-python"
       "autocomplete-python"
     ]
+    telemetryConsent: "limited"
     themes: [
       "atom-dark-ui"
       "solarized-light-syntax"
@@ -62,7 +68,6 @@
   "cursor-history": {}
   editor:
     fontFamily: "Ricty"
-    fontSize: 13
     invisibles:
       eol: " "
     lineHeight: 1.2
@@ -87,9 +92,13 @@
     fontScale: 1
   "git-plus":
     splitPane: "Right"
+  "go-debug":
+    limitCommandsToGo: true
+    panelInitialVisible: false
   "go-plus":
     formatTool: "goreturns"
     goPath: "~/.go"
+    panelDisplayMode: "closed"
     showPanelWhenNoIssuesExist: true
   gofmt: {}
   "gometalinter-linter":
@@ -169,21 +178,9 @@
     fontFamily: "Ricty"
   term3:
     colors:
-      brightWhite:
-        red: 172
-        green: 171
-        blue: 173
-        alpha: 1
-      foreground:
-        red: 107
-        green: 108
-        blue: 104
-        alpha: 1
-      normalWhite:
-        red: 192
-        green: 199
-        blue: 192
-        alpha: 1
+      brightWhite: "#acabad"
+      foreground: "#6b6c68"
+      normalWhite: "#c0c7c0"
   "todo-show": {}
   "tool-bar":
     fullWidth: false

@@ -19,7 +19,7 @@ fi
 
 # Customize to your needs...
 
-for f in fzf profile zplug util; do
+for f in fzf profile util docker; do
     local file="$HOME/.zsh/custom/$f.zsh"
     if [ -f $file ];then
         source $file
@@ -32,4 +32,4 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+# [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
