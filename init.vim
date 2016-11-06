@@ -15,7 +15,7 @@ endif
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 " Edit
-Plug 'h1mesuke/vim-alignta'
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-surround'
 Plug 'kana/vim-operator-user'
 Plug 'tyru/operator-camelize.vim'
@@ -23,6 +23,7 @@ Plug 'kana/vim-operator-replace'
 Plug 'taku-o/vim-toggle'
 Plug 'rhysd/clever-f.vim'
 Plug 'vim-scripts/a.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -46,12 +47,12 @@ if v:version > 702
   Plug 'Shougo/vinarise'
 endif
 Plug 'rking/ag.vim'
+Plug 'lifepillar/vim-solarized8'
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
@@ -76,7 +77,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
 " scala
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for': 'scala' }
 
 " snippet
 Plug 'Shougo/neosnippet.vim'
@@ -85,11 +86,22 @@ Plug 'honza/vim-snippets'
 " nerdtree
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
-Plug 'jistr/vim-nerdtree-tabs'
 
 " denite
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'nixprime/cpsm', { 'do': 'PY3=ON ./install.sh' }
+
+" riot
+Plug 'ryym/vim-riot'
+
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+    !cargo build --release
+    UpdateRemotePlugins
+  endif
+endfunction
+
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
 call plug#end()
 filetype plugin indent on
@@ -98,7 +110,7 @@ filetype plugin indent on
 " Basic
 "-----------------------------------------------------------------------------
 " {{{
-"" Map leader to ,
+" Map leader to ,
 let mapleader=','
 
 "スワップを作らない
@@ -210,12 +222,23 @@ function! s:open_terminal() abort
 endfunction
 nnoremap <M-t> :<C-u>vsplit +terminal<CR>
 
+" open tig in terminal
+command! Tig vsplit term://env\ VIM=''\ VIMRUNTIME=''\ tig
+
 " python3
-" Path to python interpreter for neovim
-let g:python3_host_prog  = '/usr/local/bin/python3'
 " Skip the check of neovim module
 let g:python3_host_skip_check = 1
 
+" reload externally edited file
+augroup vimrc-checktime
+  autocmd!
+  autocmd WinEnter * checktime
+augroup END
+
+" source local vimrc
+if filereadable(expand('~/.config/nvim/local.vim'))
+  source ~/.config/nvim/local.vim
+endif
 " }}}
 "-----------------------------------------------------------------------------
 " Visual
@@ -225,16 +248,11 @@ if !exists('g:not_finish_vimplug')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   set background=light
-  colorscheme solarized
+  colorscheme solarized8_light
 endif
 
 set mousemodel=popup
-set t_Co=256
 set guioptions=egmrti
-
-" if &term =~ '256color'
-"   set t_ut=
-" endif
 
 "" Use modeline overrides
 set modeline
@@ -283,7 +301,6 @@ noremap <C-[> <Esc>
 nnoremap <C-W>t :<C-u>tabnew<CR>:cd<CR>
 " help
 " nnoremap <C-h> :<C-u>vertical help<Space>
- nnoremap <C-y> :<C-u>vertical help<Space>
 
 " imap
 inoremap <C-d> <ESC>lxi
@@ -319,6 +336,23 @@ nnoremap <SID>[quickfix] <Nop>
 nmap <Leader>c <SID>[quickfix]
 nnoremap <silent> <SID>[quickfix]o :<C-u>copen<CR>
 nnoremap <silent> <SID>[quickfix]c :<C-u>cclose<CR>
+
+function! s:get_visual_selection()
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - 2]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+function! s:copy_selected_text()
+  let text = s:get_visual_selection()
+  call system('reattach-to-user-namespace pbcopy', text)
+endfunction
+
+command! CopyToClipboard call s:copy_selected_text()
+vnoremap <silent> <Leader>y :<C-u>CopyToClipboard<CR>
 
 "}}}
 "-----------------------------------------------------------------------------
@@ -384,10 +418,7 @@ map <Nop> <Plug>RooterChangeToRootDirectory
 " vim-go {{{
 let g:go_snippet_engine = 'neosnippet'
 let g:go_fmt_command = "goimports"
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-let g:go_list_type = "locationlist"
+let g:go_metalinter_autosave = 0
 augroup go
   autocmd!
   autocmd Filetype go
@@ -465,6 +496,87 @@ let g:deoplete#sources#go#json_directory = expand('~/.cache/deoplete/go/').'$GOO
 let g:neomake_go_enabled_makers = []
 autocmd! BufWritePost * Neomake
 autocmd! User NeomakeFinished HierUpdate
+let s:metalinter_args = [
+      \ '--skip',
+      \ 'bindata',
+      \ '--fast',
+      \ '--vendor',
+      \ '--tests',
+      \ '--disable=gotype',
+      \ '--disable=gocyclo',
+      \ '--disable=dupl'
+      \ ]
+
+function! s:neomake_metalinter_args()
+  let rootdir = FindRootDirectory()
+  let target = ''
+  if len(rootdir)
+    let target = rootdir.'/...'
+  else
+    let target = expand('%:p:h')
+  endif
+  return s:metalinter_args + [target]
+endfunction
+
+let g:neomake_go_gometalinter_maker = {
+  \ 'args': function('s:neomake_metalinter_args'),
+  \ 'append_file': 0,
+  \ 'errorformat':
+    \ '%E%f:%l:%c:error: %m,' .
+    \ '%E%f:%l::error: %m,' .
+    \ '%W%f:%l:%c:warning: %m,' .
+    \ '%W%f:%l::warning: %m'
+  \ }
+
+function! s:neomake_go_build_args()
+  let fname = expand('%')
+  let importPath = go#package#ImportPath(expand('%:p:h'))
+  if fname =~ '_test\.go$'
+    return ['test', '-o', '/dev/null', '-c', importPath]
+  else
+    return ['install', importPath]
+  endif
+endfunction
+
+let g:neomake_go_go_maker = {
+  \ 'args': function('s:neomake_go_build_args'),
+  \ 'append_file': 0,
+  \ 'errorformat': '%E%f:%l: %m'
+  \ }
+let g:neomake_go_enabled_makers = ['gometalinter', 'go']
+
+function! Local_eslint() abort
+  let rootdir = FindRootDirectory()
+  let eslint = rootdir.'/node_modules/.bin/eslint'
+  if !executable(eslint)
+    return ''
+  endif
+  return eslint
+endfunction
+
+function! s:local_eslint() abort
+  let rootdir = FindRootDirectory()
+  let eslint = rootdir.'/node_modules/.bin/eslint'
+  if !executable(eslint)
+    return ''
+  endif
+  return eslint
+endfunction
+
+let g:neomake_javascript_eslint_maker = {
+  \ 'exe': function('s:local_eslint'),
+  \ 'args': ['-f', 'compact'],
+  \ 'errorformat':
+    \ '%E%f: line %l\, col %c\, Error - %m,' .
+    \ '%W%f: line %l\, col %c\, Warning - %m'
+  \ }
+
+let g:neomake_riot_eslint_maker = g:neomake_javascript_eslint_maker
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+
+let g:neomake_riot_eslint_maker = g:neomake_javascript_eslint_maker
+let g:neomake_riot_enabled_makers = ['eslint']
 " }}}
 " smartword {{{
 nmap w   <Plug>(smartword-w)
@@ -477,7 +589,9 @@ vmap / <Plug>Commentary
 " neosnippet {{{
 let g:neosnippet#disable_runtime_snippets = {'_' : 1}
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets,~/.config/nvim/snippets'
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['riot'] = 'html,javascript'
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -505,10 +619,13 @@ nnoremap <SID>[nerdtree] <Nop>
 nmap <Leader>n <SID>[nerdtree]
 nnoremap <silent> <SID>[nerdtree]t :<C-u>NERDTreeToggle<CR>
 nnoremap <silent> <SID>[nerdtree]f :<C-u>NERDTreeFind<CR>
-let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFolderPatternMatching = 0
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsDefaultFolderOpenSymbol = ' '
+
+
 " }}}
 " airline {{{
 let g:airline_theme = 'powerlineish'
@@ -544,16 +661,18 @@ function! s:filetype_scala() abort
   nnoremap <buffer> <silent> <SID>[ensime]I :<C-u>EnSuggestImport<CR>
   nnoremap <buffer> <silent> <SID>[ensime]r :<C-u>EnRename<CR>
 
+  " open sbt in terminal
+  command! -buffer Sbt vsplit term://sbt
 endfunction
 
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.scala = [
-  \ '[^. *\t]\.\w*',
-  \ '[:\[,] ?\w*',
-  \ '^import .*'
-  \]
+" if !exists('g:deoplete#omni#input_patterns')
+"   let g:deoplete#omni#input_patterns = {}
+" endif
+" let g:deoplete#omni#input_patterns.scala = [
+"   \ '[^. *\t]\.\w*',
+"   \ '[:\[,] ?\w*',
+"   \ '^import .*'
+"   \]
 " }}}
 " denite {{{
 nnoremap <C-p> :<C-u>Denite file_rec<CR>
@@ -570,8 +689,8 @@ call denite#custom#map('_', "\<C-p>", 'move_to_prev_line')
 " Change matchers.
 call denite#custom#source(
 \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-call denite#custom#source(
-\ 'file_rec', 'matchers', ['matcher_cpsm'])
+" call denite#custom#source(
+" \ 'file_rec', 'matchers', ['matcher_cpsm'])
 
 " Add custom menus
 let s:menus = {}
@@ -588,6 +707,112 @@ call denite#custom#var('menu', 'menus', s:menus)
 
 call denite#custom#source('file_mru', 'converters',
       \ ['converter_relative_word'])
+" }}}
+" editorconfig {{{
+let g:EditorConfig_core_mode = 'python_external'
+" }}}
+" lightline {{{
+let s:winwidth_threshold = 70
+
+function! s:special_buffer()
+  return expand('%:t') =~? 'NERD' || &ft =~? 'deoplete'
+endfunction
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitgutter', 'fugitive', 'filename' ] ],
+      \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component': {
+      \   'lineinfo': "\ue0a1 %3l:%-2v",
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightlineFugitive',
+      \   'gitgutter': 'LightlineGitGutter',
+      \   'filetype': 'LinelineFiletype',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filename': 'LightlineFilename',
+      \   'fileencoding': 'LightlineFileencoding',
+      \   'mode': 'LightlineMode',
+      \ },
+      \ 'component_expand': {
+      \   'lineinfo': 'LightlineLineInfo',
+      \   'percent': 'LightlinePercent',
+      \   'neomake': 'NeomakeStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'neomake': 'error',
+      \ },
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+      \ 'tabline_separator': { 'left': '', 'right':  ''},
+      \ 'tabline_subseparator': { 'left': '|', 'right':  '|'},
+      \ }
+
+function! LightlineLineInfo()
+  return winwidth(0) > s:winwidth_threshold ? "\ue0a1 %3l:%-2v" : ''
+endfunction
+
+function! LightlinePercent()
+  return winwidth(0) > s:winwidth_threshold ? '%3p%%' : ''
+endfunction
+
+function! LightlineMode()
+  let fname = expand('%:t')
+  return fname =~ 'NERD_tree' ? 'NERD' :
+        \ &ft == 'denite' ? denite#get_status_mode() :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+function! LightlineFilename()
+  let fname = expand('%:t')
+  let path = expand('%')
+  return fname =~ 'NERD_tree' ? '' :
+        \ &ft == 'denite' ? denite#() :
+        \ (&readonly ? "\ue0a2 " : '') .
+        \ ('' == fname ? '[No Name]' : FindRootDirectory() ? path : fname) .
+        \ (&ft =~ 'help' ? '' : &modified ? ' +' : &modifiable ? '' : ' -')
+endfunction
+
+function! LightlineFugitive()
+  if !s:special_buffer() && exists('*fugitive#head')
+    let mark = "\ue0a0 "
+    let branch = fugitive#head()
+    return branch !=# '' ? mark.branch : ''
+  endif
+  return ''
+endfunction
+
+function! LightlineGitGutter()
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= s:winwidth_threshold
+    return ''
+  endif
+  let symbols = ['+','~','-']
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
+
+
+function! LightlineFileformat()
+  return winwidth(0) > s:winwidth_threshold ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > s:winwidth_threshold ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! LightlineFileencoding()
+  return winwidth(0) > s:winwidth_threshold ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
 " }}}
 " }}}
 " vim:ts=2 sw=2
