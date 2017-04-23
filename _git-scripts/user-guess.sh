@@ -14,6 +14,11 @@ if [ $(echo $remote | grep '.*stash\.dev\.scaleout\.jp.*') ]; then
   email=akihiro.okuno@supership.jp
 fi
 
+if [ $(echo $remote | grep 'supership-jp') ]; then
+  name=okuno
+  email=akihiro.okuno@supership.jp
+fi
+
 echo "Configuring user.name as $name"
 git config user.name $name
 

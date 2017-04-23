@@ -32,6 +32,6 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[ -f /Users/okuno/.travis/travis.sh ] && source /Users/okuno/.travis/travis.sh
-
-# [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+if (which zprof > /dev/null) ;then
+  zprof | less
+fi

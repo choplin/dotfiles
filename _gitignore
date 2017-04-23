@@ -8,9 +8,7 @@ tags-ja
 GTAGS
 GRTAGS
 GPATH
-HTML
-
-# Mac
+HTML # Mac
 
 .DS_Store
 
@@ -48,4 +46,10 @@ memo.local
 
 *.pyc
 
+# visual studio code
+
 .vscode
+
+# venv
+
+venv/

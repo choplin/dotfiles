@@ -29,10 +29,13 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-go', { 'do': 'make' }
 Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-jedi'
 
 " Searching/Moving
 Plug 'kana/vim-smartword'
-Plug 'Lokaltog/vim-easymotion', {'vim_version' : '7.3'}
+Plug 'easymotion/vim-easymotion'
+"Plug 'haya14busa/incsearch.vim'
+"Plug 'haya14busa/incsearch-easymotion.vim'
 
 " Utility
 Plug 'kana/vim-submode'
@@ -60,10 +63,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'neomake/neomake'
 Plug 'thinca/vim-qfreplace'
 Plug 'dkprice/vim-easygrep'
-
-" ctrlp
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mattn/ctrlp-ghq'
+Plug 'rhysd/vim-grammarous'
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -77,7 +77,11 @@ Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
 " scala
-Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for': 'scala' }
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for': 'scala' }
+" Plug 'ensime/ensime-vim'
+
+" cpp
+" Plug 'critiqjo/lldb.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " snippet
 Plug 'Shougo/neosnippet.vim'
@@ -101,7 +105,7 @@ function! BuildComposer(info)
   endif
 endfunction
 
-Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+"Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
 call plug#end()
 filetype plugin indent on
@@ -428,28 +432,9 @@ augroup go
 augroup END
 " }}}
 " vim-racer {{{
-let g:racer_cmd = "/Users/okuno/.multirust/toolchains/stable/cargo/bin/racer"
+let g:racer_cmd = "/Users/okuno/.cargo/bin/racer"
 let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
 " }}}
-" ctrlp {{{
-let ctrlp_ghq_default_action = 'cd'
-let g:ctrlp_ghq_cache_enabled = 1
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_use_caching = 0
-let g:ctrlp_map = ''
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-" command! -nargs=? -complete=dir CtrlPNoHomeDir call <SID>ctrlp_unless_home_directory(<q-args>)
-" noremap <C-p> :<C-u>CtrlPNoHomeDir<CR>
-" function! s:ctrlp_unless_home_directory(args) abort
-"   if getcwd(0) == expand('~')
-"     echo 'ctrlp is disabled at home directory'
-"     return ''
-"   endif
-"   call ctrlp#init(0, {'dir': a:args})
-"   return ''
-" endfunction
-nnoremap <C-M-p> :<C-u>CtrlPGhq<CR>
-" " }}}
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
@@ -545,26 +530,25 @@ let g:neomake_go_go_maker = {
   \ }
 let g:neomake_go_enabled_makers = ['gometalinter', 'go']
 
-function! Local_eslint() abort
-  let rootdir = FindRootDirectory()
-  let eslint = rootdir.'/node_modules/.bin/eslint'
-  if !executable(eslint)
-    return ''
-  endif
-  return eslint
-endfunction
+" function! s:local_eslint() abort
+"   let rootdir = FindRootDirectory()
+"   let eslint = rootdir.'/node_modules/.bin/eslint'
+"   if !executable(eslint)
+"     return ''
+"   endif
+"   return eslint
+" endfunction
 
-function! s:local_eslint() abort
-  let rootdir = FindRootDirectory()
-  let eslint = rootdir.'/node_modules/.bin/eslint'
-  if !executable(eslint)
-    return ''
-  endif
-  return eslint
-endfunction
+" let g:neomake_javascript_eslint_maker = {
+"   \ 'exe': function('s:local_eslint'),
+"   \ 'args': ['-f', 'compact'],
+"   \ 'errorformat':
+"     \ '%E%f: line %l\, col %c\, Error - %m,' .
+"     \ '%W%f: line %l\, col %c\, Warning - %m'
+"   \ }
 
 let g:neomake_javascript_eslint_maker = {
-  \ 'exe': function('s:local_eslint'),
+  \ 'exe': expand('%:p:h').'/node_modules/.bin/eslint',
   \ 'args': ['-f', 'compact'],
   \ 'errorformat':
     \ '%E%f: line %l\, col %c\, Error - %m,' .
@@ -730,7 +714,7 @@ let g:lightline = {
       \ 'component_function': {
       \   'fugitive': 'LightlineFugitive',
       \   'gitgutter': 'LightlineGitGutter',
-      \   'filetype': 'LinelineFiletype',
+      \   'filetype': 'LightlineFiletype',
       \   'fileformat': 'LightlineFileformat',
       \   'filename': 'LightlineFilename',
       \   'fileencoding': 'LightlineFileencoding',
@@ -813,6 +797,25 @@ endfunction
 function! LightlineFileencoding()
   return winwidth(0) > s:winwidth_threshold ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
+" }}}
+" incsearch {{{
+" function! s:incsearch_config(...) abort
+"   return incsearch#util#deepextend(deepcopy({
+"   \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+"   \   'keymap': {
+"   \     "\<CR>": '<Over>(easymotion)'
+"   \   },
+"   \   'is_expr': 0
+"   \ }), get(a:, 1, {}))
+" endfunction
+" 
+" noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+" noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+" noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+" 
+" map z/ <Plug>(incsearch-easymotion-/)
+" map z? <Plug>(incsearch-easymotion-?)
+" map zg/ <Plug>(incsearch-easymotion-stay)<Paste>
 " }}}
 " }}}
 " vim:ts=2 sw=2

@@ -65,6 +65,8 @@
 
   user-guess = !sh -c '~/.git-scripts/user-guess.sh'
 
+  delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
+
 [merge]
   tool = gvimdiff3
 

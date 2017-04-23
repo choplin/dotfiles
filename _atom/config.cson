@@ -20,6 +20,7 @@
   "autocomplete-plus": {}
   "autocomplete-python":
     showDescriptions: false
+    useKite: false
   "bracket-matcher": {}
   "browser-plus": {}
   build: {}
@@ -91,7 +92,8 @@
     fontFamily: "Ricty"
     fontScale: 1
   "git-plus":
-    splitPane: "Right"
+    general:
+      _analyticsUserId: "c7aa2cbd-5fb7-4a40-bdd0-d4f56f74e381"
   "go-debug":
     limitCommandsToGo: true
     panelInitialVisible: false
@@ -118,8 +120,7 @@
   "latex-plus":
     bibtexEnabled: true
   "lazy-motion": {}
-  linter:
-    errorPanelHeight: 22
+  linter: {}
   "linter-clang": {}
   "linter-eslint":
     globalNodePath: "/usr/local"
@@ -127,6 +128,7 @@
     cargoCommand: "check"
     cargoPath: "/Users/okuno/.cargo/bin/cargo"
     rustcPath: "/Users/okuno/.cargo/bin/rustc"
+  "linter-ui-default": {}
   "markdown-preview":
     useGitHubStyle: true
   "markdown-writer":

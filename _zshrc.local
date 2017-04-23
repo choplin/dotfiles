@@ -76,13 +76,6 @@ export VISUAL=vim
 export RUST_SRC_PATH=/Users/okuno/.ghq/github.com/rust-lang/rust/src
 # }}}
 
-# rbenv {{{
-if [ -d ~/.rbenv ]; then
-    eval "$(rbenv init -)"
-    source "$BREW_PREFIX/Cellar/rbenv/1.0.0/completions/rbenv.zsh"
-fi
-# }}}
-
 # go {{{
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/.go
@@ -91,6 +84,6 @@ export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
 source /usr/local/share/zsh/site-functions/_aws
 
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
 source $HOME/.cargo/env
+
+eval "$(direnv hook zsh)"

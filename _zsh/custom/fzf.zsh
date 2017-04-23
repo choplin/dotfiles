@@ -5,23 +5,9 @@ fedit() {
 alias fvim=fedit
 
 pcd() {
-    _ghq_fzf cd "$*"
-}
-
-_ghq_fzf() {
-    local cmd="$1"
-    local arg="$2"
-
     local target
-    if [ -n "$arg" ]; then
-        target=$(ghq list -p|fzf --query "$arg" --select-1)
-    else
-        target=$(ghq list -p|fzf)
-    fi
-
-    if [ -n "$target" ]; then
-        eval "$cmd $target"
-    fi
+    target=$(ghq list -p|fzf)
+    cd $target
 }
 
 fzf-select-history() {
