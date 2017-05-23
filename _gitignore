@@ -53,3 +53,7 @@ memo.local
 # venv
 
 venv/
+
+.ipynb_checkpoints
+
+.envrc
