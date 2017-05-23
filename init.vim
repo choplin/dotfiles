@@ -60,10 +60,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/grep.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'neomake/neomake'
 Plug 'thinca/vim-qfreplace'
 Plug 'dkprice/vim-easygrep'
 Plug 'rhysd/vim-grammarous'
+Plug 'w0rp/ale'
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -477,91 +477,6 @@ let g:deoplete#sources#go#use_cache = 1
 let g:deoplete#sources#go#json_directory = expand('~/.cache/deoplete/go/').'$GOOS_$GOARCH'
 
 " }}}
-" neomake {{{
-let g:neomake_go_enabled_makers = []
-autocmd! BufWritePost * Neomake
-autocmd! User NeomakeFinished HierUpdate
-let s:metalinter_args = [
-      \ '--skip',
-      \ 'bindata',
-      \ '--fast',
-      \ '--vendor',
-      \ '--tests',
-      \ '--disable=gotype',
-      \ '--disable=gocyclo',
-      \ '--disable=dupl'
-      \ ]
-
-function! s:neomake_metalinter_args()
-  let rootdir = FindRootDirectory()
-  let target = ''
-  if len(rootdir)
-    let target = rootdir.'/...'
-  else
-    let target = expand('%:p:h')
-  endif
-  return s:metalinter_args + [target]
-endfunction
-
-let g:neomake_go_gometalinter_maker = {
-  \ 'args': function('s:neomake_metalinter_args'),
-  \ 'append_file': 0,
-  \ 'errorformat':
-    \ '%E%f:%l:%c:error: %m,' .
-    \ '%E%f:%l::error: %m,' .
-    \ '%W%f:%l:%c:warning: %m,' .
-    \ '%W%f:%l::warning: %m'
-  \ }
-
-function! s:neomake_go_build_args()
-  let fname = expand('%')
-  let importPath = go#package#ImportPath(expand('%:p:h'))
-  if fname =~ '_test\.go$'
-    return ['test', '-o', '/dev/null', '-c', importPath]
-  else
-    return ['install', importPath]
-  endif
-endfunction
-
-let g:neomake_go_go_maker = {
-  \ 'args': function('s:neomake_go_build_args'),
-  \ 'append_file': 0,
-  \ 'errorformat': '%E%f:%l: %m'
-  \ }
-let g:neomake_go_enabled_makers = ['gometalinter', 'go']
-
-" function! s:local_eslint() abort
-"   let rootdir = FindRootDirectory()
-"   let eslint = rootdir.'/node_modules/.bin/eslint'
-"   if !executable(eslint)
-"     return ''
-"   endif
-"   return eslint
-" endfunction
-
-" let g:neomake_javascript_eslint_maker = {
-"   \ 'exe': function('s:local_eslint'),
-"   \ 'args': ['-f', 'compact'],
-"   \ 'errorformat':
-"     \ '%E%f: line %l\, col %c\, Error - %m,' .
-"     \ '%W%f: line %l\, col %c\, Warning - %m'
-"   \ }
-
-let g:neomake_javascript_eslint_maker = {
-  \ 'exe': expand('%:p:h').'/node_modules/.bin/eslint',
-  \ 'args': ['-f', 'compact'],
-  \ 'errorformat':
-    \ '%E%f: line %l\, col %c\, Error - %m,' .
-    \ '%W%f: line %l\, col %c\, Warning - %m'
-  \ }
-
-let g:neomake_riot_eslint_maker = g:neomake_javascript_eslint_maker
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-
-let g:neomake_riot_eslint_maker = g:neomake_javascript_eslint_maker
-let g:neomake_riot_enabled_makers = ['eslint']
-" }}}
 " smartword {{{
 nmap w   <Plug>(smartword-w)
 nmap b   <Plug>(smartword-b)
@@ -816,6 +731,8 @@ endfunction
 " map z/ <Plug>(incsearch-easymotion-/)
 " map z? <Plug>(incsearch-easymotion-?)
 " map zg/ <Plug>(incsearch-easymotion-stay)<Paste>
+" }}}
+" ale {{{
 " }}}
 " }}}
 " vim:ts=2 sw=2
