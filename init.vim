@@ -43,7 +43,6 @@ Plug 'kana/vim-arpeggio'
 Plug 'thinca/vim-ambicmd'
 Plug 'jceb/vim-hier'
 Plug 'kana/vim-tabpagecd'
-Plug 'sudo.vim'
 Plug 'airblade/vim-rooter'
 Plug 'tyru/open-browser.vim', { 'on' : ['OpenBrowser', 'OpenBrowserSearch'] }
 if v:version > 702
