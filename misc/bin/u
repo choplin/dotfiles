@@ -1,9 +1,0 @@
-#!/bin/bash
-# u
-usage() { echo "[usage] ./u hostname"; df -t fuse.sshfs -h; exit 1; }
-[ $# -eq 1 ] || usage
-
-rhost=${1%/}
-[ -d "$rhost" ] || { echo "$rhost: no such directory"; usage; }
-fusermount -u $rhost && echo success || echo failed
-df -t fuse.sshfs -h

@@ -26,5 +26,4 @@ for f in $basedir/_*; do
 done
 
 link $basedir/prezto $HOME/.zprezto
-link $basedir/misc/bin $HOME/bin
 link $basedir/init.vim $HOME/.config/nvim/init.vim
