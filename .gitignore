@@ -14,3 +14,11 @@ _atom/.apm
 _atom/packages
 _atom/blob-store
 _atom/.git-history
+
+/fish/completions/*
+/fish/conf.d/*
+/fish/functions/*
+/fish/fishd.*
+!/fish/functions/fish_prompt.fish
+!/fish/functions/fish_right_prompt.fish
+!/fish/functions/pcd.fish
