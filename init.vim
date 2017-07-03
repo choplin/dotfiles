@@ -97,6 +97,8 @@ Plug 'nixprime/cpsm', { 'do': 'PY3=ON ./install.sh' }
 " riot
 Plug 'ryym/vim-riot'
 
+Plug 'dag/vim-fish'
+
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
     !cargo build --release
