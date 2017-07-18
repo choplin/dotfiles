@@ -1,6 +1,6 @@
 set theme_color_scheme solarized-light
 
-set -x JAVA_HOME `/usr/libexec/java_home`
+set -x JAVA_HOME (/usr/libexec/java_home)
 set -x ANT_OPTS -Dfile.encoding=UTF8
 
 set -x DEFAULT_USER okuno
@@ -12,6 +12,8 @@ set -x VISUAL vim
 
 set -x RUST_SRC_PATH $HOME/.ghq/github.com/rust-lang/rust/src
 
+set -x BROWSER open
+
 set -U fish_user_paths
 
 if which go > /dev/null
@@ -21,7 +23,7 @@ if which go > /dev/null
 end
 
 if test -d $HOME/.cargo
-    set -U fish_user_paths $HOME/.cargo/bin
+    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
 end
 
 if which direnv > /dev/null
