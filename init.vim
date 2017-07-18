@@ -34,8 +34,7 @@ Plug 'zchee/deoplete-jedi'
 " Searching/Moving
 Plug 'kana/vim-smartword'
 Plug 'easymotion/vim-easymotion'
-"Plug 'haya14busa/incsearch.vim'
-"Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch.vim'
 
 " Utility
 Plug 'kana/vim-submode'
@@ -424,12 +423,31 @@ map <Nop> <Plug>RooterChangeToRootDirectory
 let g:go_snippet_engine = 'neosnippet'
 let g:go_fmt_command = "goimports"
 let g:go_metalinter_autosave = 0
+let g:go_addtags_transform = "snakecase"
 augroup go
   autocmd!
   autocmd Filetype go
     \  command! -bang -buffer A call go#alternate#Switch(<bang>0, 'edit')
     \| command! -bang -buffer AV call go#alternate#Switch(<bang>0, 'vsplit')
     \| command! -bang -buffer AS call go#alternate#Switch(<bang>0, 'split')
+augroup END
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 0
+let g:go_addtags_transform = "snakecase"
+
+augroup MyGoAutocmd
+    autocmd!
+    autocmd User ALELint HierUpdate
+  au FileType go nmap <leader>gd <Plug>(go-doc)
+  au FileType go nmap <leader>gi <Plug>(go-info)
 augroup END
 " }}}
 " vim-racer {{{
@@ -527,53 +545,6 @@ let g:DevIconsDefaultFolderOpenSymbol = ' '
 
 
 " }}}
-" airline {{{
-let g:airline_theme = 'powerlineish'
-let g:airline_extensions = [
-  \ 'branch',
-  \ 'tabline',
-  \ 'quickfix',
-  \ 'hunks',
-  \ 'neomake',
-  \ ]
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline_powerline_fonts = 1
-" }}}
-" ensime {{{
-autocmd! BufWritePost *.scala silent :EnTypeCheck
-autocmd! FileType scala call <SID>filetype_scala()
-
-function! s:filetype_scala() abort
-  nnoremap <buffer> <silent> <C-]>  :<C-u>EnDeclaration<CR>
-  nnoremap <buffer> <silent> <C-w>] :<C-u>EnDeclarationSplit<CR>
-  nnoremap <buffer> <silent> <C-w><C-]> :<C-u>EnDeclarationSplit<CR>
-  nnoremap <buffer> <silent> <C-v>] :<C-u>EnDeclarationSplit v<CR>
-
-  nnoremap <buffer> <silent> K :<C-u>EnDocBrowse<CR>
-
-  nnoremap <SID>[ensime] <Nop>
-  nmap <Leader>e <SID>[ensime]
-  nnoremap <buffer> <silent> <SID>[ensime]t :<C-u>EnType<CR>
-  nnoremap <buffer> <silent> <SID>[ensime]T :<C-u>EnTypeCheck<CR>
-  nnoremap <buffer> <silent> <SID>[ensime]i :<C-u>EnInspectType<CR>
-  nnoremap <buffer> <silent> <SID>[ensime]I :<C-u>EnSuggestImport<CR>
-  nnoremap <buffer> <silent> <SID>[ensime]r :<C-u>EnRename<CR>
-
-  " open sbt in terminal
-  command! -buffer Sbt vsplit term://sbt
-endfunction
-
-" if !exists('g:deoplete#omni#input_patterns')
-"   let g:deoplete#omni#input_patterns = {}
-" endif
-" let g:deoplete#omni#input_patterns.scala = [
-"   \ '[^. *\t]\.\w*',
-"   \ '[:\[,] ?\w*',
-"   \ '^import .*'
-"   \]
-" }}}
 " denite {{{
 nnoremap <C-p> :<C-u>Denite file_rec<CR>
 
@@ -621,7 +592,7 @@ endfunction
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitgutter', 'fugitive', 'filename' ] ],
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitgutter', 'fugitive', 'filename' ], ['ale_ok', 'ale_warning', 'ale_error'] ],
       \   'right': [ [ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
       \ },
       \ 'component': {
@@ -640,9 +611,14 @@ let g:lightline = {
       \   'lineinfo': 'LightlineLineInfo',
       \   'percent': 'LightlinePercent',
       \   'neomake': 'NeomakeStatuslineFlag',
+      \   'ale_error': 'LightLineAleError',
+      \   'ale_warning': 'LightLineAleWarning',
+      \   'ale_ok': 'LightLineAleOk',
       \ },
       \ 'component_type': {
       \   'neomake': 'error',
+      \   'ale_error': 'error',
+      \   'ale_warning': 'warning',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
@@ -713,27 +689,70 @@ endfunction
 function! LightlineFileencoding()
   return winwidth(0) > s:winwidth_threshold ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
+
+
+function! LightLineAleError() abort
+  return s:ale_string(0)
+endfunction
+
+function! LightLineAleWarning() abort
+  return s:ale_string(1)
+endfunction
+
+function! LightLineAleOk() abort
+  return s:ale_string(2)
+endfunction
+
+function! s:ale_string(mode)
+  if !exists('g:ale_buffer_info')
+    return ''
+  endif
+
+  let l:buffer = bufnr('%')
+  let l:counts = ale#statusline#Count(l:buffer)
+  let [l:error_format, l:warning_format, l:no_errors] = g:ale_statusline_format
+
+  if a:mode == 0 " Error
+    let l:errors = l:counts.error + l:counts.style_error
+    return l:errors ? printf(l:error_format, l:errors) : ''
+  elseif a:mode == 1 " Warning
+    let l:warnings = l:counts.warning + l:counts.style_warning
+    return l:warnings ? printf(l:warning_format, l:warnings) : ''
+  endif
+
+  return l:counts.total == 0? l:no_errors: ''
+endfunction
 " }}}
 " incsearch {{{
-" function! s:incsearch_config(...) abort
-"   return incsearch#util#deepextend(deepcopy({
-"   \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-"   \   'keymap': {
-"   \     "\<CR>": '<Over>(easymotion)'
-"   \   },
-"   \   'is_expr': 0
-"   \ }), get(a:, 1, {}))
-" endfunction
-" 
-" noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
-" noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
-" noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
-" 
-" map z/ <Plug>(incsearch-easymotion-/)
-" map z? <Plug>(incsearch-easymotion-?)
-" map zg/ <Plug>(incsearch-easymotion-stay)<Paste>
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 " }}}
 " ale {{{
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_sign_column_always = 1
+
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+let g:ale_linters = {
+      \ 'go': ['gometalinter'],
+      \ 'javascript': ['eslint'],
+      \ 'typescript': ['tslint'],
+      \}
+let g:ale_go_gometalinter_options = '--fast --enable=megacheck'
+
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+let g:ale_echo_msg_error_str = 'Error'
+let g:ale_echo_msg_warning_str = 'Warning'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+augroup MyALEAutocmd
+    autocmd!
+    autocmd User ALELint HierUpdate
+    autocmd User ALELint call lightline#update()
+augroup END
 " }}}
 " }}}
 " vim:ts=2 sw=2
