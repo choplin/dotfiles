@@ -10,7 +10,7 @@ set -x MAVEN_OPTS "-Dfile.encoding=UTF-8"
 set -x EDITOR vim
 set -x VISUAL vim
 
-set -x RUST_SRC_PATH $HOME/.ghq/github.com/rust-lang/rust/src
+set -x RUST_SRC_PATH $HOME/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 set -x BROWSER open
 

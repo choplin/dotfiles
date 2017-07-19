@@ -446,13 +446,9 @@ let g:go_addtags_transform = "snakecase"
 augroup MyGoAutocmd
     autocmd!
     autocmd User ALELint HierUpdate
-  au FileType go nmap <leader>gd <Plug>(go-doc)
+  au FileType go nmap K <Plug>(go-doc)
   au FileType go nmap <leader>gi <Plug>(go-info)
 augroup END
-" }}}
-" vim-racer {{{
-let g:racer_cmd = "/Users/okuno/.cargo/bin/racer"
-let $RUST_SRC_PATH="/Users/okuno/.ghq/github.com/rust-lang/rust/src"
 " }}}
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
@@ -752,6 +748,16 @@ augroup MyALEAutocmd
     autocmd!
     autocmd User ALELint HierUpdate
     autocmd User ALELint call lightline#update()
+augroup END
+" }}}
+" rust {{{
+let g:rustfmt_autosave = 1
+let g:racer_cmd = "/Users/okuno/.cargo/bin/racer"
+augroup MyRustAutocmd
+    autocmd!
+    autocmd User ALELint HierUpdate
+  au FileType rust nmap <C-]> <Plug>(rust-def)
+  au FileType rust nmap K <Plug>(rust-doc)
 augroup END
 " }}}
 " }}}
