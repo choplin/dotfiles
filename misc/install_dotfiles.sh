@@ -25,6 +25,9 @@ for f in $basedir/_*; do
     link $f $dotfile
 done
 
+mkdir -p $HOME/.config
+mkdir -p $HOME/.config/nvim
+
 link $basedir/prezto $HOME/.zprezto
 link $basedir/init.vim $HOME/.config/nvim/init.vim
-link $basedir/fish $HOME/.config/
+link $basedir/fish $HOME/.config/fish
