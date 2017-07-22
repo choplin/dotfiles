@@ -29,3 +29,19 @@ end
 if which direnv > /dev/null
     eval (direnv hook fish)
 end
+
+if test -d $HOME/.cargo
+    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+end
+
+begin
+    set -l brew_prefix (brew --prefix)
+
+    if test -d $brew_prefix/sbin
+        set -U fish_user_paths $fish_user_paths $brew_prefix/sbin
+    end
+
+    if test -d $brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk
+        . $brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+    end
+end
