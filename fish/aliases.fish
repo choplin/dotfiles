@@ -7,9 +7,9 @@ end
 alias ap "ansible-playbook -i hosts/hosts --skip-tags commit_check"
 
 function idea
-    "/Applications/IntelliJ IDEA.app/Contents/MacOS/idea" (pwd)
+    open -a "/Applications/IntelliJ IDEA.app/Contents/MacOS/idea" (pwd)
 end
 
 function clion
-    "/Applications/CLion.app/Contents/MacOS/clion" (pwd)
+    open -a "/Applications/CLion.app/Contents/MacOS/clion" (pwd)
 end
