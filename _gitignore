@@ -57,3 +57,5 @@ venv/
 .ipynb_checkpoints
 
 .envrc
+
+.local.vimrc

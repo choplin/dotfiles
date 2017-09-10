@@ -1,6 +1,6 @@
 [user]
-  name = Akihiro Okuno
-  email = choplin.choplin@gmail.com
+	name = Akihiro Okuno
+	email = choplin.choplin@gmail.com
 
 [color]
   ui = auto
@@ -86,7 +86,7 @@
 	trustExitCode = true
 
 [http]
-  sslVerify = false
+	sslVerify = true
 
 [github]
   user = choplin
@@ -107,3 +107,5 @@
   path = .gitconfig.local
 
 # vim:ft=gitconfig shiftwidth=2
+[http "https://gopkg.in"]
+	followRedirects = true
