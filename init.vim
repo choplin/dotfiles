@@ -2,7 +2,8 @@
 " Plugins
 "-----------------------------------------------------------------------------
 "{{{
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+let vimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
+
 
 if !filereadable(vimplug_exists)
   echo "Installing Vim-Plug..."
