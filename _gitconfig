@@ -18,7 +18,6 @@
   ff = false
 
 [core]
-  excludesfile = /Users/okuno/.gitignore
   autocrlf = input
   pager = lv -c
   editor = command vim
