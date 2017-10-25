@@ -5,3 +5,5 @@
 if status --is-login
     . ~/.config/fish/env.fish
 end
+
+set fish_greeting ""
