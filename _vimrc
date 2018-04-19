@@ -113,7 +113,7 @@ endif
     Plug 'Shougo/vimfiler'
   endif
   " .c/cpp .hを切り替え
-  Plug 'a.vim'
+  Plug 'vim-scripts/a.vim'
   " gfを拡張
   Plug 'kana/vim-gf-user'
   " gf for git diff
@@ -140,7 +140,7 @@ endif
   " tab local cd
   Plug 'kana/vim-tabpagecd'
   " sudo
-  Plug 'sudo.vim'
+  Plug 'vim-scripts/sudo.vim'
   " リポジトリのrootに移動
   Plug 'airblade/vim-rooter'
 " }}}
