@@ -30,7 +30,6 @@
       "line-ending-selector"
       "goto"
       "task-list"
-      "hyperclick"
       "emmet"
       "tablr"
       "imdone-atom"
@@ -51,6 +50,7 @@
       "tool-bar"
       "flex-tool-bar"
       "symbols-tree-view"
+      "jupyter-notebook"
     ]
     packagesWithKeymapsDisabled: [
       "travis-ci-status"
@@ -68,7 +68,7 @@
     ]
   "cursor-history": {}
   editor:
-    fontFamily: "Ricty"
+    fontFamily: "RictyDiminishedDiscord Nerd Font"
     invisibles:
       eol: " "
     lineHeight: 1.2
@@ -202,6 +202,9 @@
 ".diff.source":
   editor:
     tabLength: 4
+".go.source":
+  editor:
+    tabType: "hard"
 ".ini.source":
   editor:
     tabLength: 4
