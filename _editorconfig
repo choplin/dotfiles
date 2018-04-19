@@ -15,7 +15,7 @@ indent_style = tab
 [*.go]
 indent_style = tab
 
-[*.{yml,yaml,json,html,tmpl,rb,cson,scala,coffee,tag,md}]
+[*.{yml,yaml,json,html,tmpl,rb,cson,scala,coffee,tag,md,tex}]
 indent_size = 2
 
 [.gitconfig]
