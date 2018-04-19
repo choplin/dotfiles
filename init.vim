@@ -24,7 +24,7 @@ Plug 'kana/vim-operator-replace'
 Plug 'taku-o/vim-toggle'
 Plug 'rhysd/clever-f.vim'
 Plug 'vim-scripts/a.vim'
-Plug 'editorconfig/editorconfig-vim'
+"Plug 'editorconfig/editorconfig-vim'
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -63,6 +63,7 @@ Plug 'thinca/vim-qfreplace'
 Plug 'dkprice/vim-easygrep'
 Plug 'rhysd/vim-grammarous'
 Plug 'w0rp/ale'
+Plug 'lambdalisue/gina.vim'
 
 "" Vim-Session
 Plug 'xolox/vim-misc'
@@ -92,7 +93,7 @@ Plug 'ryanoasis/vim-devicons'
 
 " denite
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'nixprime/cpsm', { 'do': 'PY3=ON ./install.sh' }
+Plug 'nixprime/cpsm', { 'do': 'env PY3=ON ./install.sh' }
 
 " riot
 Plug 'ryym/vim-riot'
