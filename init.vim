@@ -99,6 +99,7 @@ Plug 'nixprime/cpsm', { 'do': 'env PY3=ON ./install.sh' }
 Plug 'ryym/vim-riot'
 
 Plug 'dag/vim-fish'
+Plug 'lervag/vimtex'
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -213,9 +214,6 @@ let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
 
-" change the cursor shape
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " terminal
 autocmd! BufEnter term://* startinsert
 autocmd! TermOpen term://* call <SID>open_terminal()
@@ -251,7 +249,6 @@ endif
 "-----------------------------------------------------------------------------
 " {{{
 if !exists('g:not_finish_vimplug')
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   set background=light
   colorscheme solarized8_light
