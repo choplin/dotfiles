@@ -2,15 +2,20 @@
 " Plugins
 "-----------------------------------------------------------------------------
 "{{{
-let vimplug_exists=expand('~/.local/share/nvim/site/autoload/plug.vim')
+if has('win32') || has('win64')
+    let s:nvimdir=expand('~/AppData/Local/nvim')
+else
+    let s:nvimdir=expand('~/.config/nvim')
+endif
 
+let s:vimplug_exists=s:nvimdir.'/autoload/plug.vim'
 
-if !filereadable(vimplug_exists)
+if !filereadable(s:vimplug_exists)
   echo "Installing Vim-Plug..."
   echo ""
-  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  execute '!curl -fLo '.s:vimplug_exists.' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   let g:not_finish_vimplug = "yes"
-  autocmd VimEnter * PlugInstall
+  PlugInstall
 endif
 
 call plug#begin(expand('~/.config/nvim/plugged'))
@@ -251,7 +256,7 @@ endif
 if !exists('g:not_finish_vimplug')
   set termguicolors
   set background=light
-  colorscheme solarized8_light
+  "colorscheme solarized8_light
 endif
 
 set mousemodel=popup
