@@ -93,11 +93,11 @@ Plug 'Shougo/neosnippet.vim'
 Plug 'honza/vim-snippets'
 
 " nerdtree
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'ryanoasis/vim-devicons'
 
 " denite
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'nixprime/cpsm', { 'do': 'env PY3=ON ./install.sh' }
 
 " riot
@@ -455,7 +455,9 @@ augroup MyGoAutocmd
 augroup END
 " }}}
 " deoplete {{{
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
+autocmd InsertEnter * call deoplete#enable()
+
 let g:deoplete#enable_smart_case = 1
 
 " <C-h>, <BS>: close popup and delete backword char.
@@ -542,42 +544,41 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
 let g:DevIconsDefaultFolderOpenSymbol = ' '
-
-
+let g:webdevicons_enable_denite = 0
 " }}}
 " denite {{{
-nnoremap <C-p> :<C-u>Denite file_rec<CR>
-
-call denite#initialize()
-" Change file_rec command.
-call denite#custom#var('file_rec', 'command',
-\ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-" Change mappings.
-call denite#custom#map('_', "\<C-n>", 'move_to_next_line')
-call denite#custom#map('_', "\<C-p>", 'move_to_prev_line')
-
-" Change matchers.
-call denite#custom#source(
-\ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-" call denite#custom#source(
-" \ 'file_rec', 'matchers', ['matcher_cpsm'])
-
-" Add custom menus
-let s:menus = {}
-
-let s:menus.zsh = {
-  \ 'description': 'Edit your import zsh configuration'
-  \ }
-let s:menus.zsh.file_candidates = [
-  \ ['zshrc', '~/.config/zsh/.zshrc'],
-  \ ['zshenv', '~/.zshenv'],
-  \ ]
-
-call denite#custom#var('menu', 'menus', s:menus)
-
-call denite#custom#source('file_mru', 'converters',
-      \ ['converter_relative_word'])
+"nnoremap <C-p> :<C-u>Denite file/rec<CR>
+"
+"call denite#initialize()
+"" Change file_rec command.
+"call denite#custom#var('file_rec', 'command',
+"\ ['rg', '--follow', '--nocolor', '--nogroup', '-g', ''])
+"
+"" Change mappings.
+"call denite#custom#map('_', "\<C-n>", 'move_to_next_line')
+"call denite#custom#map('_', "\<C-p>", 'move_to_prev_line')
+"
+"" Change matchers.
+"call denite#custom#source(
+"\ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+"" call denite#custom#source(
+"" \ 'file_rec', 'matchers', ['matcher_cpsm'])
+"
+"" Add custom menus
+"let s:menus = {}
+"
+"let s:menus.zsh = {
+"  \ 'description': 'Edit your import zsh configuration'
+"  \ }
+"let s:menus.zsh.file_candidates = [
+"  \ ['zshrc', '~/.config/zsh/.zshrc'],
+"  \ ['zshenv', '~/.zshenv'],
+"  \ ]
+"
+"call denite#custom#var('menu', 'menus', s:menus)
+"
+"call denite#custom#source('file_mru', 'converters',
+"      \ ['converter_relative_word'])
 " }}}
 " editorconfig {{{
 let g:EditorConfig_core_mode = 'python_external'
