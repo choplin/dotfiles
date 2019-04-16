@@ -99,8 +99,6 @@ endif
   " cpp
   Plug 'vim-jp/cpp-vim', { 'for' : ['cpp'] }
   Plug 'osyo-manga/vim-stargate', { 'for' : ['cpp'] }
-  " python
-  Plug 'jmcantrell/vim-virtualenv'
   " thrift
   Plug 'solarnz/thrift.vim'
   " TOML
