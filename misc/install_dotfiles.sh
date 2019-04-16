@@ -25,8 +25,17 @@ for f in $basedir/_*; do
     link $f $dotfile
 done
 
-mkdir -p $HOME/.config
 mkdir -p $HOME/.config/nvim
-
 link $basedir/init.vim $HOME/.config/nvim/init.vim
-link $basedir/fish $HOME/.config/fish
+
+mkdir -p $HOME/.config/fish
+for f in $basedir/fish/*.fish; do
+    name=$(basename $f)
+    link $f $HOME/.config/fish/$name
+done
+
+mkdir -p $HOME/.config/fish/functions
+for f in $basedir/fish/functions/*.fish; do
+    name=$(basename $f)
+    link $f $HOME/.config/fish/functions/$name
+done
