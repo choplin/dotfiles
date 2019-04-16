@@ -1,6 +1,6 @@
 [user]
-	name = Akihiro Okuno
-	email = choplin.choplin@gmail.com
+  name = Akihiro Okuno
+  email = choplin.choplin@gmail.com
 
 [color]
   ui = auto
@@ -81,21 +81,21 @@
   cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 
 [http]
-	sslVerify = true
+  sslVerify = true
 
 [github]
   user = choplin
 
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
 
 [ghi]
-	token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
+  token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
 
 [filter "lfs"]
   clean = git-lfs clean %f
@@ -105,6 +105,7 @@
 [include]
   path = .gitconfig.local
 
-# vim:ft=gitconfig shiftwidth=2
 [http "https://gopkg.in"]
-	followRedirects = true
+  followRedirects = true
+
+# vim:ft=gitconfig shiftwidth=2
