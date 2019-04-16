@@ -27,6 +27,7 @@ switch (uname)
             begin
                 set -l brew_prefix (/home/linuxbrew/.linuxbrew/bin/brew --prefix)
                 set -U fish_user_paths $brew_prefix/bin $brew_prevfix/sbin $fish_user_paths
+                set -x SHELL /home/linuxbrew/.linuxbrew/bin/fish
             end
         end
         set -x DOCKER_HOST tcp://localhost:2375
