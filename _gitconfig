@@ -21,6 +21,7 @@
   autocrlf = input
   pager = lv -c
   editor = command vim
+  excludesfile = /home/okuno/.gitignore_global
 
 [alias]
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
