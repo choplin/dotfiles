@@ -18,7 +18,7 @@
   ff = false
 
 [core]
-  autocrlf = input
+  autocrlf = false
   pager = less
   editor = command vim
   excludesfile = /home/okuno/.gitignore_global
