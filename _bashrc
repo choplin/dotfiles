@@ -1,8 +1,3 @@
-# prompt
-function hg_ps1() {
-    hg prompt "({branch}{bookmark}}{status}{update})" 2> /dev/null
-}
-#PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[046m\]\u\[\033[0m\]@\[\033[036m\]\h\[\033[0m\]:\w\$ "
 PS1="\[\033[0m\][\t] "
 PS1+="\[\033[036m\]\u"
 PS1+="\[\033[0m\]@"
@@ -10,27 +5,10 @@ PS1+="\[\033[036m\]\h"
 PS1+="\[\033[0m\]:"
 PS1+="\[\033[031m\][\w]"
 PS1+="\[\033[033m\]"
-#PS1+='$(hg_ps1)'
 PS1+="\[\033[033m\]\n\$"
 PS1+="\[\033[0m\] "
 
 export PS1
-
-# for perlbrew
-if [ -d ~/perl5/perlbrew ]; then
-    source ~/perl5/perlbrew/etc/bashrc
-fi
-
-# for pythonbrew
-if [ -d $HOME/.pythonbrew ]; then
-    source $HOME/.pythonbrew/etc/bashrc
-fi
-
-# for nvm
-if [ -d ~/.nvm ]; then
-    source ~/.nvm/nvm.sh
-    nvm use default > /dev/null
-fi
 
 # alias to MacVim
 case "${OSTYPE}" in
@@ -60,21 +38,4 @@ linux*)
     ;;
 esac
 
-# function
-function cd() {
-    builtin cd $1
-    ls
-}
-
 # load user .bashrc configuration file
-[ -f ~/.bashrc.mine ] && source ~/.bashrc.mine
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# added by travis gem
-[ -f /Users/okuno/.travis/travis.sh ] && source /Users/okuno/.travis/travis.sh
-
-export PATH=$PATH:/Users/okuno/repos/git/dotfiles/misc/bin
-
-source '/Users/okuno/lib/azure-cli/az.completion'
