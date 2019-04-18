@@ -245,8 +245,8 @@ augroup vimrc-checktime
 augroup END
 
 " source local vimrc
-if filereadable(expand('~/.config/nvim/local.vim'))
-  source ~/.config/nvim/local.vim
+if filereadable(s:nvimdir.'/local.vim')
+  execute 'source '.s:nvimdir.'/local.vim'
 endif
 " }}}
 "-----------------------------------------------------------------------------
