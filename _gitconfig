@@ -20,7 +20,7 @@
 [core]
   autocrlf = false
   pager = less
-  editor = command vim
+  editor = vim
   excludesfile = /home/okuno/.gitignore_global
 
 [alias]
@@ -75,16 +75,6 @@
   generic = G move-last-line
   main = C !@git pbcopy %(commit)
 
-[mergetool "gvimdiff3"]
-  cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-
-[mergetool "vimdiff3"]
-  cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
-
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
-
 [http]
   sslVerify = true
 
@@ -95,18 +85,19 @@
   cmd = opendiff \"$LOCAL\" \"$REMOTE\"
   path = 
 
-[ghi]
-  token = !security find-internet-password -a choplin -s github.com -l 'ghi token' -w
-
 [filter "lfs"]
-  clean = git-lfs clean %f
-  smudge = git-lfs smudge %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   required = true
+  process = git-lfs filter-process
 
 [include]
   path = .gitconfig.local
 
 [http "https://gopkg.in"]
   followRedirects = true
+
+[fetch]
+  prune = true
 
 # vim:ft=gitconfig shiftwidth=2

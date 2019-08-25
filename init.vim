@@ -18,105 +18,50 @@ if !filereadable(s:vimplug_exists)
   PlugInstall
 endif
 
-call plug#begin(expand('~/.config/nvim/plugged'))
-
-" Edit
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-surround'
-Plug 'kana/vim-operator-user'
-Plug 'tyru/operator-camelize.vim'
-Plug 'kana/vim-operator-replace'
-Plug 'taku-o/vim-toggle'
-Plug 'rhysd/clever-f.vim'
-Plug 'vim-scripts/a.vim'
-"Plug 'editorconfig/editorconfig-vim'
-
-" Completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go', { 'do': 'make' }
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/deoplete-jedi'
-
-" Searching/Moving
-Plug 'kana/vim-smartword'
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-
-" Utility
-Plug 'kana/vim-submode'
-Plug 'kana/vim-arpeggio'
-Plug 'thinca/vim-ambicmd'
-Plug 'jceb/vim-hier'
-Plug 'kana/vim-tabpagecd'
-Plug 'airblade/vim-rooter'
-Plug 'tyru/open-browser.vim', { 'on' : ['OpenBrowser', 'OpenBrowserSearch'] }
-if v:version > 702
-  Plug 'Shougo/vinarise'
-endif
-Plug 'rking/ag.vim'
-Plug 'lifepillar/vim-solarized8'
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
-
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'sheerun/vim-polyglot'
-Plug 'vim-scripts/grep.vim'
-Plug 'Raimondi/delimitMate'
-Plug 'thinca/vim-qfreplace'
-Plug 'dkprice/vim-easygrep'
-Plug 'rhysd/vim-grammarous'
-Plug 'w0rp/ale'
-Plug 'lambdalisue/gina.vim'
-
-"" Vim-Session
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
-" go
-Plug 'fatih/vim-go'
-
-" rust
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
-
-" scala
-"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins', 'for': 'scala' }
-" Plug 'ensime/ensime-vim'
-
-" cpp
-" Plug 'critiqjo/lldb.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" snippet
-Plug 'Shougo/neosnippet.vim'
-Plug 'honza/vim-snippets'
-
-" nerdtree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'ryanoasis/vim-devicons'
-
-" denite
-" Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'nixprime/cpsm', { 'do': 'env PY3=ON ./install.sh' }
-
-" riot
-Plug 'ryym/vim-riot'
-
-Plug 'dag/vim-fish'
-Plug 'lervag/vimtex'
-
-function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-    !cargo build --release
-    UpdateRemotePlugins
-  endif
-endfunction
-
-"Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
-
+call plug#begin(s:nvimdir.'/plugged')
+  " quoting/parenthesizing made simple
+  Plug 'tpope/vim-surround'
+  " Extended f, F, t and T key mappings for Vim
+  Plug 'rhysd/clever-f.vim'
+  " Vim motions on speed!
+  Plug 'easymotion/vim-easymotion'
+  " Alternate Files quickly
+  Plug 'vim-scripts/a.vim'
+  " Git
+  Plug 'tpope/vim-fugitive'
+  Plug 'airblade/vim-gitgutter'
+  " EditorConfig
+  Plug 'editorconfig/editorconfig-vim'
+  " solarized
+  Plug 'lifepillar/vim-solarized8'
+  " A simple, easy-to-use Vim alignment plugin.
+  Plug 'junegunn/vim-easy-align'
+  " Snippet
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+  " A tree explorer plugin for vim.
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  " Adds file type glyphs/icons to popular Vim plugins
+  Plug 'ryanoasis/vim-devicons'
+  " Completion
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+  " fzf
+  Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+  " comment stuff out
+  Plug 'tpope/vim-commentary'
+  " Syntax Check
+  Plug 'w0rp/ale'
+  " A light and configurable statusline/tabline plugin for Vim
+  Plug 'itchyny/lightline.vim'
+  " Changes Vim working directory to project root
+  Plug 'airblade/vim-rooter'
+  " A solid language pack for Vim.
+  Plug 'sheerun/vim-polyglot'
+  " filetype:vim
+  Plug 'thinca/vim-ft-vim_fold'
+  " filetype:go
+  Plug 'fatih/vim-go'
 call plug#end()
-filetype plugin indent on
 "}}}
 "-----------------------------------------------------------------------------
 " Basic
@@ -138,16 +83,12 @@ set expandtab
 set shiftwidth=4
 "ファイル内の Tab が対応する空白の数
 set tabstop=4
-"行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
-set smarttab
 "タブ文字、行末など不可視文字を表示する
 set list
 "listで表示される文字のフォーマットを指定する
 set listchars=tab:▸\ ,extends:<,trail:_
 "変更中のファイルでも、保存しないで他のファイルを表示
 set hidden
-"インクリメンタルサーチを行う
-set incsearch
 "シンタックスハイライトを有効にする
 if has("syntax")
   syntax on
@@ -158,7 +99,10 @@ set ruler
 set ignorecase
 set smartcase
 "Vimgrepで外部grepを使用
-if executable('ag')
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor\ -iS
   set grepformat=%f:%l:%m
 elseif executable('ack')
@@ -190,8 +134,6 @@ set diffopt=filler,vertical
 " splitは右下
 set splitbelow
 set splitright
-" 変更のあったファイルを自動で読みなおす
-set autoread
 " 下に余白を残してスクロールする
 set scrolloff=5
 " BOMをつけない
@@ -204,7 +146,7 @@ set backspace=indent,eol,start
 set completeopt=menuone,noinsert,noselect
 " 行番号非表示
 set nonumber
-"
+
 set backupcopy=yes
 " normal mode/command line のみconceal表示をする
 if has('conceal')
@@ -232,7 +174,8 @@ endfunction
 nnoremap <M-t> :<C-u>vsplit +terminal<CR>
 
 " open tig in terminal
-command! Tig vsplit term://env\ VIM=''\ VIMRUNTIME=''\ tig
+" command! Tig vsplit term://env\ VIM=''\ VIMRUNTIME=''\ tig
+command! Tig vsplit term://tig
 
 " python3
 " Skip the check of neovim module
@@ -256,7 +199,7 @@ endif
 if !exists('g:not_finish_vimplug')
   set termguicolors
   set background=light
-  "colorscheme solarized8_light
+  colorscheme solarized8
 endif
 
 set mousemodel=popup
@@ -290,25 +233,10 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#z
 
-"タブの作成
-nnoremap <C-w>t :<C-u>tabnew<CR>
-
-
 nnoremap ; :
 vnoremap ; :
 nnoremap : ;
 vnoremap : ;
-
-"<C-l>でハイライトを止める
-nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
-
-nnoremap <C-W><C-F> <C-W><C-F><C-W><S-L>
-inoremap jj <Esc>
-noremap <C-[> <Esc>
-"C-w tでタブ
-nnoremap <C-W>t :<C-u>tabnew<CR>:cd<CR>
-" help
-" nnoremap <C-h> :<C-u>vertical help<Space>
 
 " imap
 inoremap <C-d> <ESC>lxi
@@ -355,8 +283,7 @@ function! s:get_visual_selection()
 endfunction
 
 function! s:copy_selected_text()
-  let text = s:get_visual_selection()
-  call system('reattach-to-user-namespace pbcopy', text)
+  let @+ = s:get_visual_selection()
 endfunction
 
 command! CopyToClipboard call s:copy_selected_text()
@@ -367,57 +294,8 @@ vnoremap <silent> <Leader>y :<C-u>CopyToClipboard<CR>
 " Plugin settings
 "-----------------------------------------------------------------------------
 " {{{
-" open-browser {{{
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-
-if !exists('g:openbrowser_search_engines')
-  let g:openbrowser_search_engines = {}
-endif
-let g:openbrowser_search_engines['amazon'] = 'http://www.amazon.co.jp/s/?keywords={query}'
-" }}}
-" submode {{{
-if !exists('g:not_finish_vimplug')
-  call submode#enter_with('undo/redo', 'n', '', 'g-', 'g-')
-  call submode#enter_with('undo/redo', 'n', '', 'g+', 'g+')
-  call submode#leave_with('undo/redo', 'n', '', '<Esc>')
-  call submode#map('undo/redo', 'n', '', '-', 'g-')
-  call submode#map('undo/redo', 'n', '', '+', 'g+')
-
-  call submode#enter_with('tabnext', 'n', '', '<C-Tab>', ':<C-u>tabnext<CR>')
-  call submode#enter_with('tabnext', 'n', '', 'gt', ':<C-u>tabnext<CR>')
-  call submode#enter_with('tabnext', 'n', '', '<C-S-Tab>', ':<C-u>tabprevious<CR>')
-  call submode#enter_with('tabnext', 'n', '', 'gT', ':<C-u>tabprevious<CR>')
-  call submode#leave_with('tabnext', 'n', '', '<Esc>')
-  call submode#map('tabnext', 'n', '', '<Tab>', ':<C-u>tabnext<CR>')
-  call submode#map('tabnext', 'n', '', '<C-Tab>', ':<C-u>tabnext<CR>')
-  call submode#map('tabnext', 'n', '', 't', ':<C-u>tabnext<CR>')
-  call submode#map('tabnext', 'n', '', '<S-Tab>', ':<C-u>tabprevious<CR>')
-  call submode#map('tabnext', 'n', '', '<C-S-Tab>', ':<C-u>tabprevious<CR>')
-  call submode#map('tabnext', 'n', '', 'T', ':<C-u>tabprevious<CR>')
-
-  call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-  call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-  call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-  call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-  call submode#map('winsize', 'n', '', '>', '<C-w>>')
-  call submode#map('winsize', 'n', '', '<', '<C-w><')
-  call submode#map('winsize', 'n', '', '+', '<C-w>-')
-  call submode#map('winsize', 'n', '', '-', '<C-w>+')
-endif
-" }}}
-" operator-replace {{{
-map _  <Plug>(operator-replace)
-" }}}
 " fugitive {{{
 command! Gnow execute 'Git now'
-" }}}
-" ag {{{
-nnoremap <SID>[ag] <Nop>
-nmap <Leader>a <SID>[ag]
-nnoremap <SID>[ag]g :<C-u>LAg<Space>
-nnoremap <SID>[ag]w :<C-u>LAg<Space>
 " }}}
 " rooter {{{
 " disable the default map (,cd)
@@ -449,72 +327,12 @@ let g:go_addtags_transform = "snakecase"
 
 augroup MyGoAutocmd
     autocmd!
-    autocmd User ALELint HierUpdate
-  au FileType go nmap K <Plug>(go-doc)
-  au FileType go nmap <leader>gi <Plug>(go-info)
+    au FileType go nmap K <Plug>(go-doc)
+    au FileType go nmap <leader>gi <Plug>(go-info)
 augroup END
-" }}}
-" deoplete {{{
-let g:deoplete#enable_at_startup = 0
-autocmd InsertEnter * call deoplete#enable()
-
-let g:deoplete#enable_smart_case = 1
-
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-
-" Undo inputted candidate
-inoremap <expr><C-g>     deoplete#undo_completion()
-" Refresh the candidates
-inoremap <expr><C-l>     deoplete#refresh()
-
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
-
-imap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-let g:deoplete#sources#clang#libclang_path = '/usr/local/opt/llvm/lib/libclang.dylib'
-let g:deoplete#sources#clang#clang_header = '/usr/local/opt/llvm/lib/clang'
-
-if !exists('$GOPATH')
-  let $GOPATH = expand('~/.go')
-endif
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-let g:deoplete#sources#go#use_cache = 1
-let g:deoplete#sources#go#json_directory = expand('~/.cache/deoplete/go/').'$GOOS_$GOARCH'
-
-" }}}
-" smartword {{{
-nmap w   <Plug>(smartword-w)
-nmap b   <Plug>(smartword-b)
-nmap e   <Plug>(smartword-e)
 " }}}
 " vim-commentary {{{
 vmap / <Plug>Commentary
-" }}}
-" neosnippet {{{
-let g:neosnippet#disable_runtime_snippets = {'_' : 1}
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets,~/.config/nvim/snippets'
-let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['riot'] = 'html,javascript'
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 " }}}
 " hier {{{
 execute "highlight hier_red     gui=bold,undercurl guifg=Red"
@@ -529,11 +347,6 @@ let g:hier_highlight_group_loc = "hier_red"
 let g:hier_highlight_group_locw = "hier_orange"
 let g:hier_highlight_group_loci = "hier_green"
 " }}}
-" easygrep {{{
-" disable default mappings
-let g:EasyGrepMappingsSet = 1
-let g:EasyGrepCommand = 1
-" }}}
 " NERDTree {{{
 nnoremap <SID>[nerdtree] <Nop>
 nmap <Leader>n <SID>[nerdtree]
@@ -543,42 +356,8 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let g:DevIconsEnableFoldersOpenClose = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-let g:DevIconsDefaultFolderOpenSymbol = ' '
+let g:DevIconsDefaultFolderOpenSymbol = ''
 let g:webdevicons_enable_denite = 0
-" }}}
-" denite {{{
-"nnoremap <C-p> :<C-u>Denite file/rec<CR>
-"
-"call denite#initialize()
-"" Change file_rec command.
-"call denite#custom#var('file_rec', 'command',
-"\ ['rg', '--follow', '--nocolor', '--nogroup', '-g', ''])
-"
-"" Change mappings.
-"call denite#custom#map('_', "\<C-n>", 'move_to_next_line')
-"call denite#custom#map('_', "\<C-p>", 'move_to_prev_line')
-"
-"" Change matchers.
-"call denite#custom#source(
-"\ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-"" call denite#custom#source(
-"" \ 'file_rec', 'matchers', ['matcher_cpsm'])
-"
-"" Add custom menus
-"let s:menus = {}
-"
-"let s:menus.zsh = {
-"  \ 'description': 'Edit your import zsh configuration'
-"  \ }
-"let s:menus.zsh.file_candidates = [
-"  \ ['zshrc', '~/.config/zsh/.zshrc'],
-"  \ ['zshenv', '~/.zshenv'],
-"  \ ]
-"
-"call denite#custom#var('menu', 'menus', s:menus)
-"
-"call denite#custom#source('file_mru', 'converters',
-"      \ ['converter_relative_word'])
 " }}}
 " editorconfig {{{
 let g:EditorConfig_core_mode = 'python_external'
@@ -724,11 +503,6 @@ function! s:ale_string(mode)
   return l:counts.total == 0? l:no_errors: ''
 endfunction
 " }}}
-" incsearch {{{
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-" }}}
 " ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always = 1
@@ -760,10 +534,16 @@ let g:rustfmt_autosave = 1
 let g:racer_cmd = "/Users/okuno/.cargo/bin/racer"
 augroup MyRustAutocmd
     autocmd!
-    autocmd User ALELint HierUpdate
-  au FileType rust nmap <C-]> <Plug>(rust-def)
-  au FileType rust nmap K <Plug>(rust-doc)
+    au FileType rust nmap <C-]> <Plug>(rust-def)
+    au FileType rust nmap K <Plug>(rust-doc)
 augroup END
+" }}}
+" fzf {{{
+nnoremap <silent> <C-P> :<C-u>Commands<CR>
+nnoremap <silent> <C-p> :<C-u>Files<CR>
+" }}}
+" commentary {{{
+vnoremap / :<C-u>Commetary<CR>
 " }}}
 " }}}
 " vim:ts=2 sw=2

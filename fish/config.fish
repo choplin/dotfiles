@@ -11,3 +11,5 @@ if test -e ~/.config/fish/local.fish
 end
 
 set fish_greeting ""
+
+#export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
