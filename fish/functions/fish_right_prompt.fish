@@ -5,7 +5,7 @@ function fish_right_prompt
         end
 
         if [ (_git_branch_name) ]
-            set -l git_color (set_color 242)
+            set -l git_color (set_color green)
             set -l reponame (basename (git rev-parse --show-toplevel))
             printf "%s%s/git/%s" $git_color $reponame (_git_branch_name)
         end
@@ -37,7 +37,7 @@ function fish_right_prompt
                         set git_status "$git_status"(set_color red)≠
                 end
             end
-            set -l color (set_color 242)
+            set -l color (set_color green)
             printf "%s[%s%s]" $color $git_status $color
         end
     end

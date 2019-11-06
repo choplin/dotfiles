@@ -25,6 +25,7 @@
   "browser-plus": {}
   build: {}
   core:
+    audioBeep: false
     closeEmptyWindows: false
     disabledPackages: [
       "line-ending-selector"
@@ -62,10 +63,6 @@
       "autocomplete-python"
     ]
     telemetryConsent: "limited"
-    themes: [
-      "atom-dark-ui"
-      "solarized-light-syntax"
-    ]
   "cursor-history": {}
   editor:
     fontFamily: "RictyDiminishedDiscord Nerd Font"

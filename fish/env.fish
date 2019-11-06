@@ -7,19 +7,7 @@ set -x EDITOR vim
 set -x VISUAL vim
 
 set -U fish_user_paths
-if which go > /dev/null
-    set -x GOROOT (go env GOROOT)
-    set -x GOPATH $HOME/.go
-    set -U fish_user_paths $GOROOT/bin $GOPATH/bin $fish_user_paths
-end
-
-if test -d $HOME/.cargo
-    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
-end
-
-if which direnv > /dev/null
-    eval (direnv hook fish)
-end
+set -U fish_user_paths $HOME/.local/bin $fish_user_paths
 
 switch (uname)
     case Linux
@@ -49,3 +37,18 @@ switch (uname)
     case FreeBSD NetBSD DragonFly
     case '*'
 end
+
+if which go > /dev/null
+    set -x GOROOT (go env GOROOT)
+    set -x GOPATH $HOME/.go
+    set -U fish_user_paths $GOROOT/bin $GOPATH/bin $fish_user_paths
+end
+
+if test -d $HOME/.cargo
+    set -U fish_user_paths $HOME/.cargo/bin $fish_user_paths
+end
+
+if which direnv > /dev/null
+    eval (direnv hook fish)
+end
+
