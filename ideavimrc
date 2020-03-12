@@ -2,6 +2,7 @@ set visualbell
 set noerrorbells
 set incsearch
 set surround
+set ideajoin
 
 nnoremap <Space><Space> :<C-u>action AceAction<CR>
 
@@ -23,3 +24,4 @@ nnoremap K :<C-u>action QuickJavaDoc<CR>
 
 nnoremap <M-S-t> :<C-u>action ActivateTerminalToolWindow<CR>
 nnoremap <Space>P :<C-u>action ManageRecentProjects<CR>
+

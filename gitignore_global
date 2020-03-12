@@ -59,3 +59,10 @@ venv/
 .envrc
 
 .local.vimrc
+
+.mypy_cache/
+.bloop/
+.metals/
+.history/
+.env
+metals.sbt

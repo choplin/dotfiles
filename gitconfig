@@ -1,0 +1,60 @@
+[user]
+  name = Akihiro Okuno
+  email = choplin.choplin@gmail.com
+
+[color]
+  ui = auto
+
+[push]
+  default = tracking
+
+[pull]
+  rebase = true
+
+[branch]
+  autosetuprebase = always
+
+[merge]
+  ff = false
+
+[core]
+  autocrlf = false
+  pager = less
+  editor = vim
+  excludesfile = /home/okuno/.gitignore_global
+
+[alias]
+  st = status
+  co = checkout
+  br = branch
+
+  fixup = commit --amend --no-edit
+
+  github-pr = !sh -c \"git fetch origin pull/${1}/head:pr/${1}\" -
+
+  user-guess = !sh -c '~/.git-scripts/user-guess.sh'
+
+  delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
+
+[http]
+  sslVerify = true
+
+[github]
+  user = choplin
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+
+[include]
+  path = .gitconfig.local
+
+[http "https://gopkg.in"]
+  followRedirects = true
+
+[fetch]
+  prune = true
+
+# vim:ft=gitconfig shiftwidth=2

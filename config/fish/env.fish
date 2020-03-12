@@ -34,7 +34,6 @@ switch (uname)
                 source $brew_prefix/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
             end
         end
-    case FreeBSD NetBSD DragonFly
     case '*'
 end
 
