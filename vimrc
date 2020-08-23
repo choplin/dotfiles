@@ -75,7 +75,7 @@ let mapleader=','
 "スワップを作らない
 set noswapfile
 set nobackup
-set undodir=~/.vim/undo
+let &undodir=s:vimdir.'/undo'
 set undofile
 "新しい行を作ったときに高度な自動インデントを行う
 set smartindent
@@ -158,7 +158,7 @@ endif
 set fileformats=unix,dos,mac
 
 " session management
-let g:session_directory = "~/.vim/session"
+let g:session_directory = s:vimdir.'/session'
 let g:session_autoload = "no"
 let g:session_autosave = "no"
 let g:session_command_aliases = 1
