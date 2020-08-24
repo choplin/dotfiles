@@ -5,7 +5,8 @@ from xkeysnail.transform import *
 
 # [Global modemap] Change modifier keys as in xmodmap
 define_modmap({
-    Key.CAPSLOCK: Key.LEFT_CTRL
+    Key.CAPSLOCK: Key.LEFT_CTRL,
+    Key.RIGHT_META: Key.LEFT_META,
 })
 
 # [Conditional modmap] Change modifier keys in certain applications
@@ -25,6 +26,8 @@ define_multipurpose_modmap({
     # To use this example, you can't remap capslock with define_modmap.
     Key.LEFT_ALT: [Key.MUHENKAN, Key.LEFT_ALT],
     Key.RIGHT_ALT: [Key.HENKAN, Key.RIGHT_ALT],
+    Key.END: [Key.MUHENKAN, Key.LEFT_ALT],
+    Key.PAGE_DOWN: [Key.HENKAN, Key.RIGHT_ALT],
 })
 #
 #
