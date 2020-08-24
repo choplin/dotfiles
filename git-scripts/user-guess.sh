@@ -9,18 +9,13 @@ email=choplin.choplin@gmail.com
 
 remote=$(git remote -v | awk '/\(push\)$/ {print $2}')
 
-if [ $(echo $remote | grep '.*stash\.dev\.scaleout\.jp.*') ]; then
-  name=okuno
-  email=akihiro.okuno@supership.jp
-fi
-
-if [ $(echo $remote | grep 'supership-jp') ]; then
-  name=okuno
-  email=akihiro.okuno@supership.jp
+if [ $(echo $remote | grep 'splinkns') ]; then
+  name="Akihiro Okuno"
+  email=okuno@splinkns.com
 fi
 
 echo "Configuring user.name as $name"
-git config user.name $name
+git config user.name "$name"
 
 echo "Configuring user.email as $email"
-git config user.email $email
+git config user.email "$email"
