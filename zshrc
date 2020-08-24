@@ -48,11 +48,13 @@ zinit ice wait lucid; zinit light zsh-users/zsh-autosuggestions
 zinit ice wait lucid; zinit light zdharma/history-search-multi-word
 zinit ice wait lucid; zinit light willghatch/zsh-saneopt
 zinit ice wait lucid; zinit light momo-lab/zsh-abbrev-alias
+zinit ice wait lucid; zinit light agkozak/zsh-z
 #zinit ice pick'kube-ps1.sh'; zinit light jonmosco/kube-ps1
 
 # Requires creinstall when updated
 zinit ice wait lucid; zinit light /home/linuxbrew/.linuxbrew/share/zsh/site-functions
-zinit ice wait lucid; zinit light /home/okuno/.zsh/completions
+zinit ice wait lucid; zinit light $HOME/.zsh/completions
+zinit ice lucid pick'settings.zsh'; zinit light "$HOME/.zsh"
 
 readonly local cloudsdk_home="$HOME/local/google-cloud-sdk"
 if test -d $cloudsdk_home; then
