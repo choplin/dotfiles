@@ -21,7 +21,7 @@
   autocrlf = false
   pager = less
   editor = vim
-  excludesfile = /home/okuno/.gitignore_global
+  excludesfile = ~/.gitignore_global
 
 [alias]
   st = status
