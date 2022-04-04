@@ -1,4 +1,8 @@
-alias ls=exa
+if type lsd > /dev/null; then
+    alias ls=lsd
+elif type exa > /dev/null; then
+    alias ls=exa
+fi
 
 bindkey -d
 bindkey -e

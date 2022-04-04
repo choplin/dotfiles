@@ -5,7 +5,14 @@ if test -d $HOME/local/bin; then
     path=("$HOME/local/bin" $path)
 fi
 
-readonly local brew_prefix='/home/linuxbrew/.linuxbrew'
+case ${OSTYPE} in
+  darwin*)
+    readonly local brew_prefix='/opt/homebrew'
+    ;;
+  linux*)
+    readonly local brew_prefix='/home/linuxbrew/.linuxbrew'
+    ;;
+esac
 if test -d $brew_prefix; then
     path=("$brew_prefix/bin" "$brew_prefix/sbin" $path)
 fi
@@ -17,7 +24,7 @@ if which go > /dev/null; then
 fi
 
 if test -d $HOME/.cargo; then
-    path=("$HOME/.cargo/bin" $path)
+    . "$HOME/.cargo/env"
 fi
 
 export PATH
@@ -29,7 +36,8 @@ fi
 zstyle ':completion:*' list-colors "${LS_COLORS}"
 
 ### Added by Zinit's installer
-source "$HOME/.zinit/bin/zinit.zsh"
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+source "${ZINIT_HOME}/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of zinit installer's chunk
@@ -38,7 +46,6 @@ zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 
 zinit ice lucid; zinit snippet PZT::modules/editor/init.zsh
 zinit ice wait lucid; zinit snippet PZT::modules/history/init.zsh
-zstyle ':prezto:module:utility:ls' color 'yes'
 zinit ice wait lucid; zinit snippet PZT::modules/utility/init.zsh
 
 #zinit ice wait lucid blockf atpull'zinit creinstall -q .'; zinit light zsh-users/zsh-completions
@@ -52,7 +59,7 @@ zinit ice wait lucid; zinit light agkozak/zsh-z
 #zinit ice pick'kube-ps1.sh'; zinit light jonmosco/kube-ps1
 
 # Requires creinstall when updated
-zinit ice wait lucid; zinit light /home/linuxbrew/.linuxbrew/share/zsh/site-functions
+zinit ice wait lucid; zinit light $brew_prefix/share/zsh/site-functions
 zinit ice wait lucid; zinit light $HOME/.zsh/completions
 zinit ice lucid pick'settings.zsh'; zinit light "$HOME/.zsh"
 
@@ -66,3 +73,4 @@ readonly local sdkman_home="$HOME/.sdkman"
 if test -d $sdkman_home; then
     zinit ice lucid pick'bin/sdkman-init.sh'; zinit light $sdkman_home
 fi
+### End of Zinit's installer chunk
