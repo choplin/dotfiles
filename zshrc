@@ -11,5 +11,6 @@ case ${OSTYPE} in
     ;;
 esac
 
-eval "$(sheldon source)"
+bindkey -d
 
+eval "$(sheldon source)"
