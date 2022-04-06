@@ -1,15 +1,3 @@
-if type lsd > /dev/null; then
-    alias ls=lsd
-elif type exa > /dev/null; then
-    alias ls=exa
-fi
-
-bindkey -d
-bindkey -e
-
-bindkey '^p' history-beginning-search-backward
-bindkey '^n' history-beginning-search-forward
-
 if test -d $brew_prefix/opt/fzf; then
     source $brew_prefix/opt/fzf/shell/completion.zsh
     source $brew_prefix/opt/fzf/shell/key-bindings.zsh
