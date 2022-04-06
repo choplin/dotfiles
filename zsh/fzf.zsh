@@ -1,6 +1,6 @@
-if test -d $brew_prefix/opt/fzf; then
-    source $brew_prefix/opt/fzf/shell/completion.zsh
-    source $brew_prefix/opt/fzf/shell/key-bindings.zsh
+if test -d $HOMEBREW_PREFIX/opt/fzf; then
+    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 fi
 
 fzf-z-search() {

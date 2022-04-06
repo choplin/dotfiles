@@ -1,14 +1,15 @@
 case ${OSTYPE} in
   darwin*)
-    readonly local brew_prefix='/opt/homebrew'
+    if test -d /opt/homebrew; then
+        eval $(/opt/homebrew/bin/brew shellenv)
+    fi
     ;;
   linux*)
-    readonly local brew_prefix='/home/linuxbrew/.linuxbrew'
+    if test -d /home/linuxbrew/.linuxbrew; then
+        eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    fi
     ;;
 esac
-if test -d $brew_prefix; then
-    path=("$brew_prefix/bin" "$brew_prefix/sbin" $path)
-fi
 
 eval "$(sheldon source)"
 
