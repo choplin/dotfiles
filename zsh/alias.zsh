@@ -3,3 +3,6 @@ if type lsd > /dev/null; then
 elif type exa > /dev/null; then
     alias ls=exa
 fi
+
+abbrev-alias d='docker'
+abbrev-alias k='kubectl'

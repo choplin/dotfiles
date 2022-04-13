@@ -34,3 +34,6 @@ if test -d $sdk_root; then
     zsh-defer source $sdk_root/completion.zsh.inc
 fi
 
+if test -d $HOME/.krew; then
+    path=("$HOME/.krew/bin" $path)
+fi
