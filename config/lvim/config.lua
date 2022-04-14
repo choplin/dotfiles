@@ -176,16 +176,18 @@ lvim.plugins = {
 -- }
 
 -- User-defined Commands
-local Terminal = require('toggleterm.terminal').Terminal
-local tig      = Terminal:new({ cmd = "tig", hidden = true })
-function _G.tig_toggle()
-  tig:toggle()
-end
+do
+  local Terminal = require('toggleterm.terminal').Terminal
+  local tig      = Terminal:new({ cmd = "tig", hidden = true })
+  function _G.tig_toggle()
+    tig:toggle()
+  end
 
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
-function _G.lazygit_toggle()
-  lazygit:toggle()
-end
+  local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+  function _G.lazygit_toggle()
+    lazygit:toggle()
+  end
 
-vim.cmd([[command! Tig lua _G.tig_toggle()]])
-vim.cmd([[command! Lazygit lua _G.lazygit_toggle()]])
+  vim.cmd([[command! Tig lua _G.tig_toggle()]])
+  vim.cmd([[command! Lazygit lua _G.lazygit_toggle()]])
+end
