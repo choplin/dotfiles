@@ -174,3 +174,7 @@ lvim.plugins = {
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
+
+-- User-defined Commands
+vim.cmd([[command! Tig TermExec cmd="tig"]])
+vim.cmd([[command! Lazygit TermExec cmd="lazygit"]])
