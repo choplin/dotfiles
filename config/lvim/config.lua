@@ -52,6 +52,7 @@ lvim.builtin.which_key.mappings["t"] = {
   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 }
+lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq list" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -166,6 +167,7 @@ lvim.plugins = {
       lvim.builtin.which_key.mappings["h"] = { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
     end
   },
+  { "nvim-telescope/telescope-ghq.nvim" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
