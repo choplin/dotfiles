@@ -176,5 +176,16 @@ lvim.plugins = {
 -- }
 
 -- User-defined Commands
-vim.cmd([[command! Tig TermExec cmd="tig"]])
-vim.cmd([[command! Lazygit TermExec cmd="lazygit"]])
+local Terminal = require('toggleterm.terminal').Terminal
+local tig      = Terminal:new({ cmd = "tig", hidden = true })
+function _G.tig_toggle()
+  tig:toggle()
+end
+
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+function _G.lazygit_toggle()
+  lazygit:toggle()
+end
+
+vim.cmd([[command! Tig lua _G.tig_toggle()]])
+vim.cmd([[command! Lazygit lua _G.lazygit_toggle()]])
