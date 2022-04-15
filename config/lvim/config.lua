@@ -175,7 +175,8 @@ lvim.plugins = {
       lvim.builtin.which_key.mappings["h"] = { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
     end
   },
-  { "nvim-telescope/telescope-ghq.nvim" }
+  { "nvim-telescope/telescope-ghq.nvim" },
+  { "cappyzawa/starlark.vim" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
