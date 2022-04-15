@@ -59,7 +59,15 @@ lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq li
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
+
 lvim.builtin.terminal.active = true
+lvim.builtin.terminal.open_mapping = "<M-t>"
+lvim.builtin.terminal.execs = {
+  { "lazygit", "<leader>gg", "LazyGit", "float" },
+  { "lazygit", "<c-\\><c-g>", "LazyGit", "float" },
+  { "tig", "<c-\\><c-t>", "Tig", "float" },
+}
+
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 lvim.builtin.dap.active = true
@@ -175,19 +183,3 @@ lvim.plugins = {
 --   { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
 -- }
 
--- User-defined Commands
-do
-  local Terminal = require('toggleterm.terminal').Terminal
-  local tig      = Terminal:new({ cmd = "tig", hidden = true })
-  function _G.tig_toggle()
-    tig:toggle()
-  end
-
-  local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
-  function _G.lazygit_toggle()
-    lazygit:toggle()
-  end
-
-  vim.cmd([[command! Tig lua _G.tig_toggle()]])
-  vim.cmd([[command! Lazygit lua _G.lazygit_toggle()]])
-end
