@@ -17,6 +17,7 @@ lvim.colorscheme = "tokyonight"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-]>"] = "<Cmd>lua vim.lsp.buf.definition()<CR>"
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = false
