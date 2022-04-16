@@ -74,6 +74,7 @@ lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
   { "lazygit", "<leader>gg", "LazyGit", "float" },
   { "lazygit", "<c-\\><c-g>", "LazyGit", "float" },
+  { "tig", "<leader>gt", "Tig", "float" },
   { "tig", "<c-\\><c-t>", "Tig", "float" },
 }
 
