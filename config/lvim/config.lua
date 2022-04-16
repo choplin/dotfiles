@@ -20,6 +20,12 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-]>"] = "<Cmd>lua vim.lsp.buf.definition()<CR>"
+-- emacs-like bindings for command line
+vim.api.nvim_set_keymap("c", "<C-a>", "<C-b>", { noremap = true })
+vim.api.nvim_set_keymap("c", "<C-b>", "<Left>", { noremap = true })
+vim.api.nvim_set_keymap("c", "<C-f>", "<Right>", { noremap = true })
+vim.api.nvim_set_keymap("c", "<C-k>", "<C-e><C-u>", { noremap = true })
+vim.api.nvim_set_keymap("c", "<C-d>", "<Del>", { noremap = true })
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = false
