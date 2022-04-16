@@ -14,6 +14,7 @@ lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
 
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
+vim.opt.cmdheight = 1
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
