@@ -101,6 +101,11 @@ lvim.builtin.treesitter.ensure_installed = {
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
+do
+  local components = require("lvim.core.lualine.components")
+  lvim.builtin.lualine.sections.lualine_z = { components.encoding, "fileformat" }
+end
+
 -- generic LSP settings
 
 -- ---@usage disable automatic installation of servers
