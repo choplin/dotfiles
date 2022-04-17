@@ -43,7 +43,7 @@ call plug#begin(s:nvimdir.'/plugged')
   " Adds file type glyphs/icons to popular Vim plugins
   Plug 'ryanoasis/vim-devicons'
   " Completion
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " fzf
   Plug '/home/linuxbrew/.linuxbrew/opt/fzf'
   Plug 'junegunn/fzf.vim'
