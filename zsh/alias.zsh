@@ -6,5 +6,5 @@ fi
 
 abbrev-alias d='docker'
 abbrev-alias k='kubectl'
-abbrev-alias lad='lazydocker'
-abbrev-alias lag='lazygit'
+abbrev-alias ld='lazydocker'
+abbrev-alias lg='lazygit'
