@@ -191,6 +191,7 @@ lvim.plugins = {
     config = function()
       local cmp = require "cmp"
       cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = {
           { name = 'cmdline' }
         }
@@ -202,6 +203,7 @@ lvim.plugins = {
     config = function()
       local cmp = require "cmp"
       cmp.setup.cmdline("/", {
+        mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
           { name = "nvim_lsp_document_symbol" }
         }, {
