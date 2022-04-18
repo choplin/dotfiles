@@ -212,6 +212,22 @@ lvim.plugins = {
       })
     end,
   },
+  { "github/copilot.vim" },
+  {
+    "zbirenbaum/copilot.lua",
+    require = { "github/copilot.vim" },
+    event   = "InsertEnter",
+    config  = function()
+      vim.schedule(function()
+        require("copilot").setup({
+          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+        })
+      end)
+    end,
+  },
+  { "zbirenbaum/copilot-cmp", after = { "copilot.lua", "nvim-cmp" }, config = function()
+    table.insert(lvim.builtin.cmp.sources, { name = "copilog" })
+  end },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
