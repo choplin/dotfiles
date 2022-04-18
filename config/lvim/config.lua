@@ -184,7 +184,32 @@ lvim.plugins = {
   },
   { "nvim-telescope/telescope-ghq.nvim" },
   { "cappyzawa/starlark.vim" },
-  { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
+  -- { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
+  {
+    "hrsh7th/cmp-cmdline",
+    require = { "hrsh7th/nvim-cmp" },
+    config = function()
+      local cmp = require "cmp"
+      cmp.setup.cmdline(':', {
+        sources = {
+          { name = 'cmdline' }
+        }
+      })
+    end
+  },
+  { "hrsh7th/cmp-nvim-lsp-document-symbol",
+    require = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-cmdline" },
+    config = function()
+      local cmp = require "cmp"
+      cmp.setup.cmdline("/", {
+        sources = cmp.config.sources({
+          { name = "nvim_lsp_document_symbol" }
+        }, {
+          { name = "buffer" }
+        })
+      })
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
