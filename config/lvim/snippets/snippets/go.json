@@ -1,0 +1,27 @@
+{
+  "errn": {
+    "prefix": "errn",
+    "body": [
+      "if ${1}err != nil {",
+      "\treturn ${2}err",
+      "}",
+      "$0"
+    ]
+  },
+  "errt": {
+    "prefix": "errt",
+    "body": [
+      "if ${1}err != nil {",
+      "\tt.Fatal(err)",
+      "}",
+      "$0"
+    ]
+  },
+  "append": {
+    "prefix": "append",
+    "body": [
+      "$1 = append($1, $2)",
+      "$0"
+    ]
+  }
+}
