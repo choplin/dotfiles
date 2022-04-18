@@ -184,6 +184,7 @@ lvim.plugins = {
   },
   { "nvim-telescope/telescope-ghq.nvim" },
   { "cappyzawa/starlark.vim" },
+  { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
