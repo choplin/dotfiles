@@ -225,9 +225,13 @@ lvim.plugins = {
       end)
     end,
   },
-  { "zbirenbaum/copilot-cmp", after = { "copilot.lua", "nvim-cmp" }, config = function()
-    table.insert(lvim.builtin.cmp.sources, { name = "copilog" })
-  end },
+  { "zbirenbaum/copilot-cmp", after = { "copilot.lua", "nvim-cmp" }, config = function() table.insert(lvim.builtin.cmp.sources, { name = "copilog" }) end },
+  { "hrsh7th/cmp-emoji", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
+  { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
+  { "folke/todo-comments.nvim", event = "BufRead", config = function() require("todo-comments").setup() end },
+  { "ggandor/lightspeed.nvim", event = "BufRead" },
+  -- { "windwp/nvim-spectre" },
+  { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
