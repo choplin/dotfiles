@@ -177,14 +177,18 @@ lvim.plugins = {
     end
   },
   {
-    "petertriho/nvim-scrollbar", require = { "kevinhwang91/nvim-hlslens" }, config = function()
+    "petertriho/nvim-scrollbar", after = { "nvim-hlslens" }, config = function()
       require("scrollbar").setup()
       require("scrollbar.handlers.search").setup()
       lvim.builtin.which_key.mappings["h"] = { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
     end
   },
-  { "nvim-telescope/telescope-ghq.nvim" },
-  { "cappyzawa/starlark.vim" },
+  {
+    "nvim-telescope/telescope-ghq.nvim", config = function()
+      require 'telescope'.load_extension 'ghq'
+    end
+  },
+  { "cappyzawa/starlark.vim", ft = "starlark" },
   -- { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
   {
     "hrsh7th/cmp-cmdline",
@@ -214,28 +218,29 @@ lvim.plugins = {
     end,
   },
   { "github/copilot.vim" },
+  { "zbirenbaum/copilot.lua" },
   {
-    "zbirenbaum/copilot.lua",
-    require = { "github/copilot.vim" },
-    event   = "InsertEnter",
-    config  = function()
+    "zbirenbaum/copilot-cmp",
+    event  = "InsertEnter",
+    after  = { "copilot.vim", "copilot.lua", "nvim-cmp" },
+    config = function()
       vim.schedule(function()
         require("copilot").setup({
           plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
         })
+        table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
       end)
-    end,
+    end
   },
-  { "zbirenbaum/copilot-cmp", after = { "copilot.lua", "nvim-cmp" }, config = function() table.insert(lvim.builtin.cmp.sources, { name = "copilog" }) end },
-  { "hrsh7th/cmp-emoji", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
-  { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
-  { "folke/todo-comments.nvim", event = "BufRead", config = function() require("todo-comments").setup() end },
-  { "ggandor/lightspeed.nvim", event = "BufRead" },
+  { "hrsh7th/cmp-emoji", event = "InsertEnter", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
+  { 'tzachar/cmp-tabnine', event = "InsertEnter", run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
+  { "folke/todo-comments.nvim", config = function() require("todo-comments").setup() end },
+  { "ggandor/lightspeed.nvim" },
   -- { "windwp/nvim-spectre" },
-  { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' },
+  { 'sindrets/diffview.nvim', cmd = { "DiffviewOpen", "DiffviewFileHistory" }, requires = 'nvim-lua/plenary.nvim' },
   { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end },
   {
-    "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter", config = function()
+    "yioneko/nvim-yati", evnet = "InsertEnter", requires = "nvim-treesitter/nvim-treesitter", config = function()
       require("nvim-treesitter.configs").setup { yati = { enable = true } }
     end
   },
