@@ -13,6 +13,11 @@ lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
 
+vim.opt.list = true
+vim.opt.listchars:remove("tab")
+vim.opt.listchars:append("tab:￫ ")
+vim.opt.listchars:append("extends:»")
+vim.opt.listchars:append("precedes:«")
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.cmdheight = 1
 
