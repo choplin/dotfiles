@@ -106,7 +106,9 @@ lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
   local components = require("lvim.core.lualine.components")
+  local gps = require("nvim-gps")
   lvim.builtin.lualine.sections.lualine_z = { components.encoding, "fileformat" }
+  lvim.builtin.lualine.sections.lualine_c = { components.diff, { gps.get_location, cond = gps.is_available } }
 end
 
 -- generic LSP settings
@@ -264,6 +266,56 @@ lvim.plugins = {
       vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
     end
   },
+  {
+    "RRethy/nvim-treesitter-textsubjects", config = function()
+      require('nvim-treesitter.configs').setup {
+        textsubjects = {
+          enable = true,
+          prev_selection = ',',
+          keymaps = {
+            ['.'] = 'textsubjects-smart',
+            [';'] = 'textsubjects-container-outer',
+            ['i;'] = 'textsubjects-container-inner',
+          },
+        }
+      }
+    end
+  },
+  {
+    "SmiteshP/nvim-gps",
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      local gps = require("nvim-gps")
+      gps.setup()
+    end,
+  },
+  -- { "sidebar-nvim/sidebar.nvim", event = "BufEnter", config = function() require "sidebar-nvim".setup { open = false } end },
+  { "gbprod/substitute.nvim", after = "yanky.nvim", config = function()
+    require("substitute").setup {
+      on_substitute = function(event)
+        require("yanky").init_ring("p", event.register, event.count, event.vmode:match("[vV�]"))
+      end
+    }
+    vim.api.nvim_set_keymap("n", "s", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "ss", "<cmd>lua require('substitute').line()<cr>", { noremap = true })
+    vim.api.nvim_set_keymap("n", "S", "<cmd>lua require('substitute').eol()<cr>", { noremap = true })
+    vim.api.nvim_set_keymap("x", "s", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
+  end },
+  { "gbprod/yanky.nvim", config = function()
+    require("yanky").setup()
+    vim.api.nvim_set_keymap("n", "p", "<Plug>(YankyPutAfter)", {})
+    vim.api.nvim_set_keymap("n", "P", "<Plug>(YankyPutBefore)", {})
+    vim.api.nvim_set_keymap("x", "p", "<Plug>(YankyPutAfter)", {})
+    vim.api.nvim_set_keymap("x", "P", "<Plug>(YankyPutBefore)", {})
+    vim.api.nvim_set_keymap("n", "gp", "<Plug>(YankyGPutAfter)", {})
+    vim.api.nvim_set_keymap("n", "gP", "<Plug>(YankyGPutBefore)", {})
+    vim.api.nvim_set_keymap("x", "gp", "<Plug>(YankyGPutAfter)", {})
+    vim.api.nvim_set_keymap("x", "gP", "<Plug>(YankyGPutBefore)", {})
+    vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
+    vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
+    vim.api.nvim_set_keymap("n", "y", "<Plug>(YankyYank)", {})
+    vim.api.nvim_set_keymap("x", "y", "<Plug>(YankyYank)", {})
+  end }
 }
 
 
