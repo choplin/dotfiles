@@ -102,6 +102,7 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
   local components = require("lvim.core.lualine.components")
@@ -231,8 +232,35 @@ lvim.plugins = {
   { "folke/todo-comments.nvim", event = "BufRead", config = function() require("todo-comments").setup() end },
   { "ggandor/lightspeed.nvim", event = "BufRead" },
   -- { "windwp/nvim-spectre" },
-  { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' },
+  { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end },
+  {
+    "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter", config = function()
+      require("nvim-treesitter.configs").setup { yati = { enable = true } }
+    end
+  },
+  {
+    "romgrk/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter", config = function()
+      require 'treesitter-context'.setup()
+    end
+  },
+  { "haringsrob/nvim_context_vt" },
+  {
+    "mfussenegger/nvim-ts-hint-textobject", config = function()
+      vim.api.nvim_set_keymap("o", "m", "<cmd>lua require('tsht').nodes()<cr>", { silent = true })
+      vim.api.nvim_set_keymap("v", "m", ":lua require('tsht').nodes()<cr>", { silent = true, noremap = true })
+    end
+  },
+  {
+    "David-Kunz/treesitter-unit", config = function()
+      vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
+      vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+      vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
+      vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+    end
+  },
 }
+
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.custom_groups = {
