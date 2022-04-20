@@ -115,6 +115,7 @@ do
   lvim.builtin.lualine.sections.lualine_z = { components.encoding, "fileformat" }
   lvim.builtin.lualine.sections.lualine_c = { components.diff, { gps.get_location, cond = gps.is_available } }
 end
+lvim.builtin.lualine.options.globalstatus = true
 
 -- generic LSP settings
 
