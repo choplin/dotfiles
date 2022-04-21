@@ -21,6 +21,9 @@ vim.opt.listchars:append("precedes:«")
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.cmdheight = 1
 
+vim.api.nvim_set_var("did_load_filetypes", 0)
+vim.api.nvim_set_var("do_filetype_lua", 1)
+
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
