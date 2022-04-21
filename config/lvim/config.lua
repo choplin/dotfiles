@@ -30,11 +30,11 @@ lvim.leader = "space"
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-]>"] = "<Cmd>lua vim.lsp.buf.definition()<CR>"
 -- emacs-like bindings for command line
-vim.api.nvim_set_keymap("c", "<C-a>", "<C-b>", { noremap = true })
-vim.api.nvim_set_keymap("c", "<C-b>", "<Left>", { noremap = true })
-vim.api.nvim_set_keymap("c", "<C-f>", "<Right>", { noremap = true })
-vim.api.nvim_set_keymap("c", "<C-k>", "<C-e><C-u>", { noremap = true })
-vim.api.nvim_set_keymap("c", "<C-d>", "<Del>", { noremap = true })
+vim.keymap.set("c", "<C-a>", "<C-b>")
+vim.keymap.set("c", "<C-b>", "<Left>")
+vim.keymap.set("c", "<C-f>", "<Right>")
+vim.keymap.set("c", "<C-k>", "<C-e><C-u>")
+vim.keymap.set("c", "<C-d>", "<Del>")
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = false
@@ -177,14 +177,14 @@ lvim.plugins = {
   },
   {
     "kevinhwang91/nvim-hlslens", config = function()
-      local kopts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-      vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      local kopts = { silent = true }
+      vim.keymap.set('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+      vim.keymap.set('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
     end
   },
   {
@@ -263,16 +263,13 @@ lvim.plugins = {
   { "haringsrob/nvim_context_vt" },
   {
     "mfussenegger/nvim-ts-hint-textobject", config = function()
-      vim.api.nvim_set_keymap("o", "m", "<cmd>lua require('tsht').nodes()<cr>", { silent = true })
-      vim.api.nvim_set_keymap("v", "m", ":lua require('tsht').nodes()<cr>", { silent = true, noremap = true })
+      vim.keymap.set({ "o", "v" }, "m", function() require('tsht').nodes() end, { silent = true })
     end
   },
   {
     "David-Kunz/treesitter-unit", config = function()
-      vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', { noremap = true })
-      vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', { noremap = true })
+      vim.keymap.set({ "x", "o" }, "iu", function() require "treesitter-unit".select() end)
+      vim.keymap.set({ "x", "o" }, "au", function() require "treesitter-unit".select(true) end)
     end
   },
   {
@@ -305,26 +302,34 @@ lvim.plugins = {
         require("yanky").init_ring("p", event.register, event.count, event.vmode:match("[vV�]"))
       end
     }
-    vim.api.nvim_set_keymap("n", "s", "<cmd>lua require('substitute').operator()<cr>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "ss", "<cmd>lua require('substitute').line()<cr>", { noremap = true })
-    vim.api.nvim_set_keymap("n", "S", "<cmd>lua require('substitute').eol()<cr>", { noremap = true })
-    vim.api.nvim_set_keymap("x", "s", "<cmd>lua require('substitute').visual()<cr>", { noremap = true })
+    vim.keymap.set("n", "s", function() require('substitute').operator() end)
+    vim.keymap.set("n", "ss", function() require('substitute').line() end)
+    vim.keymap.set("n", "S", function() require('substitute').eol() end)
+    vim.keymap.set("x", "s", function() require('substitute').visual() end)
   end },
   { "gbprod/yanky.nvim", config = function()
     require("yanky").setup()
-    vim.api.nvim_set_keymap("n", "p", "<Plug>(YankyPutAfter)", {})
-    vim.api.nvim_set_keymap("n", "P", "<Plug>(YankyPutBefore)", {})
-    vim.api.nvim_set_keymap("x", "p", "<Plug>(YankyPutAfter)", {})
-    vim.api.nvim_set_keymap("x", "P", "<Plug>(YankyPutBefore)", {})
-    vim.api.nvim_set_keymap("n", "gp", "<Plug>(YankyGPutAfter)", {})
-    vim.api.nvim_set_keymap("n", "gP", "<Plug>(YankyGPutBefore)", {})
-    vim.api.nvim_set_keymap("x", "gp", "<Plug>(YankyGPutAfter)", {})
-    vim.api.nvim_set_keymap("x", "gP", "<Plug>(YankyGPutBefore)", {})
-    vim.api.nvim_set_keymap("n", "<c-n>", "<Plug>(YankyCycleForward)", {})
-    vim.api.nvim_set_keymap("n", "<c-p>", "<Plug>(YankyCycleBackward)", {})
-    vim.api.nvim_set_keymap("n", "y", "<Plug>(YankyYank)", {})
-    vim.api.nvim_set_keymap("x", "y", "<Plug>(YankyYank)", {})
-  end }
+    vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+    vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+    vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+    vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+    vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
+    vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+    vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+  end },
+  { "monaqa/dial.nvim", config = function()
+    vim.keymap.set({ "n", "v" }, "<C-a>", require("dial.map").inc_normal())
+    vim.keymap.set({ "n", "v" }, "<C-x>", require("dial.map").dec_normal())
+    vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual())
+    vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual())
+  end },
+  -- TODO: set keymaps that can enable both hlslens and vim-asterisk
+  { "haya14busa/vim-asterisk", config = function()
+    vim.keymap.set({ "n", "v", "o" }, "*", "<Plug>(asterisk-z*)")
+    vim.keymap.set({ "n", "v", "o" }, "#", "<Plug>(asterisk-z#)")
+    vim.keymap.set({ "n", "v", "o" }, "g*", "<Plug>(asterisk-gz*)")
+    vim.keymap.set({ "n", "v", "o" }, "g#", "<Plug>(asterisk-gz#)")
+  end },
 }
 
 
