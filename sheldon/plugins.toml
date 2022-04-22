@@ -51,16 +51,14 @@ apply = ["fpath"]
 [plugins.zsh-abbrev-zlias]
 github = "momo-lab/zsh-abbrev-alias"
 
-[plugins.zsh-z]
-github = "agkozak/zsh-z"
-
 [plugins.dotfiles-defers]
 local = "~/.zsh"
 use = [
-    "alias.zsh",
-    "fzf.zsh",
-    "keybinding.zsh",
-    "saneopt.zsh",
-    "setting.zsh",
-    "zstyle.zsh",
+  "alias.zsh",
+  "fzf.zsh",
+  "keybinding.zsh",
+  "saneopt.zsh",
+  "setting.zsh",
+  "zstyle.zsh",
+  "zoxide.zsh",
 ]

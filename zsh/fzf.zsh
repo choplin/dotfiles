@@ -6,19 +6,6 @@ fi
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-fzf-z-search() {
-    local res=$(z | sort -rn | cut -c 12- | fzf)
-    if [ -n "$res" ]; then
-        BUFFER+="cd $res"
-        zle accept-line
-    else
-        return 1
-    fi
-}
-
-zle -N fzf-z-search
-bindkey '^g' fzf-z-search
-
 function ghq-fzf() {
   local selected_dir=$(ghq list | fzf --query="$LBUFFER")
 
