@@ -67,3 +67,5 @@ venv/
 .env
 metals.sbt
 todo.md
+
+/vendor/
