@@ -65,7 +65,8 @@ local direction_keys = {
 return {
   font = wezterm.font("Hackgen35Nerd Console"),
   font_size = 16.0,
-  color_scheme = "OneHalfDark",
+  -- color_scheme = "OneHalfDark",
+  color_scheme = "nord",
   use_ime = true,
   hide_tab_bar_if_only_one_tab = true,
   adjust_window_size_when_changing_font_size = false,
@@ -96,6 +97,7 @@ return {
       { key = "d", mods = "SUPER", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
       { key = "s", mods = "LEADER|CTRL", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
       { key = "o", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
+      { key = "w", mods = "CMD", action = wezterm.action { CloseCurrentPane = { confirm = true } } },
     },
     map(direction_keys, function(e)
       return { key = e.key, mods = "LEADER", action = wezterm.action {
