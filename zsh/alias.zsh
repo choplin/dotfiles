@@ -8,3 +8,5 @@ abbrev-alias d='docker'
 abbrev-alias k='kubectl'
 abbrev-alias ld='lazydocker'
 abbrev-alias lg='lazygit'
+
+abbrev-alias -g B='| bat'
