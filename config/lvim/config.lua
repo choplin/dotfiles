@@ -253,7 +253,7 @@ lvim.plugins = {
   { "folke/todo-comments.nvim", config = function() require("todo-comments").setup() end },
   { "ggandor/lightspeed.nvim" },
   -- { "windwp/nvim-spectre" },
-  { 'sindrets/diffview.nvim', cmd = { "DiffviewOpen", "DiffviewFileHistory" }, requires = 'nvim-lua/plenary.nvim' },
+  { 'sindrets/diffview.nvim', cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" }, requires = 'nvim-lua/plenary.nvim' },
   { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end },
   {
     "yioneko/nvim-yati", evnet = "InsertEnter", requires = "nvim-treesitter/nvim-treesitter", config = function()
@@ -335,6 +335,84 @@ lvim.plugins = {
     vim.keymap.set({ "n", "v", "o" }, "g*", "<Plug>(asterisk-gz*)")
     vim.keymap.set({ "n", "v", "o" }, "g#", "<Plug>(asterisk-gz#)")
   end },
+  { "chentau/marks.nvim", config = function() require 'marks'.setup {} end },
+  { "lukas-reineke/indent-blankline.nvim", config = function()
+    vim.opt.termguicolors = true
+    vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]]
+    vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
+    require("indent_blankline").setup {
+      char = "",
+      char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+      },
+      space_char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+      },
+      show_trailing_blankline_indent = false,
+    }
+  end },
+  {
+    "danymat/neogen",
+    config = function()
+      require("neogen").setup {}
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+  },
+  {
+    "andymass/vim-matchup",
+    config = function()
+      require "nvim-treesitter.configs".setup { matchup = { enable = true } }
+    end
+  },
+  { "windwp/nvim-ts-autotag", config = function() require("nvim-ts-autotag").setup() end,
+    ft = { "html", "javascript", "typescript", "javascriptreact", "typescriptreact", "svelte", "vue", "tsx", "jsx", "rescript", "xml", } },
+  {
+    "klen/nvim-test",
+    cmd = { "TestSuite", "TestFile", "TestEdit", "TestNearest", "TestLast", "TestVisit", "TestInfo" },
+    config = function()
+      require("nvim-test").setup {
+        term = "toggleterm",
+        termOpts = { direction = "float" },
+      }
+    end
+  },
+  { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
+  { "gpanders/editorconfig.nvim" },
+  {
+    "stevearc/aerial.nvim",
+    config = function() require("aerial").setup {
+        on_attach = function(bufnr)
+          -- Toggle the aerial window with <leader>a
+          vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { buffer = bufnr })
+          -- Jump forwards/backwards with "{" and "}"
+          vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+          vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+        end
+      }
+    end
+  },
+  { "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" }, cmd = "Neogit",
+    config = function() require("neogit").setup { integrations = { diffview = true } } end },
+  { 'akinsho/git-conflict.nvim', config = function() require('git-conflict').setup() end },
+  { "rhysd/committia.vim" },
+  { "hotwatermorning/auto-git-diff" },
+  -- { "rcarriga/nvim-dap-ui" },
+  -- { "theHamsta/nvim-dap-virtual-text" },
+  -- { "theHamsta/nvim-dap-virtual-text" },
+  {
+    'pwntester/octo.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function() require "octo".setup() end
+  },
+  -- { "simrat39/rust-tools.nvim", ft = "rust", config = function() require('rust-tools').setup {} end }
+  { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', ft = 'markdown' },
+  { "tpope/vim-repeat" },
 }
 
 
