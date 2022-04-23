@@ -35,6 +35,11 @@ vim.keymap.set("c", "<C-b>", "<Left>")
 vim.keymap.set("c", "<C-f>", "<Right>")
 vim.keymap.set("c", "<C-k>", "<C-e><C-u>")
 vim.keymap.set("c", "<C-d>", "<Del>")
+-- move based on display lines
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
+vim.keymap.set("n", "<Down>", "gj")
+vim.keymap.set("n", "<Up>", "gk")
 
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = false
