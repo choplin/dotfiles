@@ -61,6 +61,7 @@ use = [
   "setting.zsh",
   "zstyle.zsh",
   "zoxide.zsh",
+  "hook.zsh",
   "local.zsh",
   "env.zsh",
 ]
