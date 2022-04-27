@@ -119,9 +119,8 @@ lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
   local components = require("lvim.core.lualine.components")
-  local gps = require("nvim-gps")
   lvim.builtin.lualine.sections.lualine_z = { components.encoding, "fileformat" }
-  lvim.builtin.lualine.sections.lualine_c = { components.diff, { gps.get_location, cond = gps.is_available } }
+  lvim.builtin.lualine.sections.lualine_c = { components.diff }
 end
 lvim.builtin.lualine.options.globalstatus = true
 
@@ -298,6 +297,9 @@ lvim.plugins = {
     config = function()
       local gps = require("nvim-gps")
       gps.setup()
+
+      local components = require("lvim.core.lualine.components")
+      lvim.builtin.lualine.sections.lualine_c = { components.diff, { gps.get_location, cond = gps.is_available } }
     end,
   },
   -- { "sidebar-nvim/sidebar.nvim", event = "BufEnter", config = function() require "sidebar-nvim".setup { open = false } end },
