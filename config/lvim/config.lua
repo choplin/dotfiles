@@ -251,7 +251,11 @@ lvim.plugins = {
   { 'tzachar/cmp-tabnine', event = "InsertEnter", run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
   { "folke/todo-comments.nvim", config = function() require("todo-comments").setup() end },
   { "ggandor/lightspeed.nvim" },
-  -- { "windwp/nvim-spectre" },
+  {
+    "windwp/nvim-spectre", event = "BufRead", config = function()
+      vim.keymap.set("n", "<leader>S", function() require("spectre").open_file_search() end)
+    end
+  },
   { 'sindrets/diffview.nvim', cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" }, requires = 'nvim-lua/plenary.nvim' },
   { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end },
   {
