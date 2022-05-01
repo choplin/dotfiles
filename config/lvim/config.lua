@@ -415,6 +415,20 @@ lvim.plugins = {
   -- { "simrat39/rust-tools.nvim", ft = "rust", config = function() require('rust-tools').setup {} end }
   { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', ft = 'markdown' },
   { "tpope/vim-repeat" },
+  { "kevinhwang91/rnvimr", config = function()
+    vim.keymap.set({ "n", "t" }, "<M-o>", "<Cmd>RnvimrToggle<CR>", { silent = true })
+    vim.keymap.set("t", "<M-i>", "<Cmd>RnvimrResize<CR>", { silent = true })
+    vim.g.rnvimr_enable_ex = true
+    vim.g.rnvimr_enable_picker = true
+    vim.g.rnvimr_layout = {
+      ['relative'] = 'editor',
+      ['width'] = vim.fn.float2nr(vim.fn.round(vim.o.columns * 0.9)),
+      ['height'] = vim.fn.float2nr(vim.fn.round(vim.o.lines * 0.9)),
+      ['col'] = vim.fn.float2nr(vim.fn.round(vim.o.columns * 0.05)),
+      ['row'] = vim.fn.float2nr(vim.fn.round(vim.o.lines * 0.05)),
+      ['style'] = 'minimal'
+    }
+  end }
 }
 
 
