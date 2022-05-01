@@ -384,6 +384,7 @@ lvim.plugins = {
       }
     end
   },
+  { "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins", cmd = { "Ultest" } },
   { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
   { "gpanders/editorconfig.nvim" },
   {
