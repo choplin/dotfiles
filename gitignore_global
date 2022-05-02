@@ -69,3 +69,5 @@ metals.sbt
 todo.md
 
 /vendor/
+
+pyrightconfig.json
