@@ -264,7 +264,7 @@ lvim.plugins = {
     end
   },
   {
-    "romgrk/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter", config = function()
+    "lewis6991/nvim-treesitter-context", requires = "nvim-treesitter/nvim-treesitter", config = function()
       require 'treesitter-context'.setup()
     end
   },
