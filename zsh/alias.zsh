@@ -4,10 +4,11 @@ elif type exa > /dev/null; then
     alias ls=exa
 fi
 
+abbrev-alias g='git'
 abbrev-alias d='docker'
 abbrev-alias k='kubectl'
 abbrev-alias r='ranger'
 abbrev-alias ld='lazydocker'
-abbrev-alias lg='lazygit'
+abbrev-alias gu='gitui'
 
 abbrev-alias -g B='| bat'

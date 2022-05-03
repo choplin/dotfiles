@@ -86,10 +86,8 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
-  { "lazygit", "<leader>gg", "LazyGit", "float" },
-  { "lazygit", "<c-\\><c-g>", "LazyGit", "float" },
-  { "tig", "<leader>gt", "Tig", "float" },
-  { "tig", "<c-\\><c-t>", "Tig", "float" },
+  { "gitui", "<leader>gg", "GitUI", "float" },
+  { "gitui", "<c-\\><c-g>", "GitUI", "float" },
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -433,7 +431,8 @@ lvim.plugins = {
       ['row'] = vim.fn.float2nr(vim.fn.round(vim.o.lines * 0.05)),
       ['style'] = 'minimal'
     }
-  end }
+  end },
+  { "ron-rs/ron.vim" }
 }
 
 
