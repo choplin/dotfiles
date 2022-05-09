@@ -71,3 +71,4 @@ todo.md
 /vendor/
 
 pyrightconfig.json
+compile_commands.json
