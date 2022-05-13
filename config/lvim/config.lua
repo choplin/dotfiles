@@ -120,8 +120,8 @@ lvim.builtin.lualine.options.globalstatus = true
 -- lvim.lsp.automatic_servers_installation = false
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
--- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
--- vim.list_extend(lvim.lsp.override, { "pyright" })
+table.insert(lvim.lsp.automatic_configuration.skipped_servers, "rust_analyzer") -- Use rust-tools instead
+
 
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options

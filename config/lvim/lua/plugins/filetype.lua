@@ -2,7 +2,24 @@ return {
   -- Provide markdown preview in browser
   { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", ft = "markdown" },
   --Rust
-  -- { "simrat39/rust-tools.nvim", ft = "rust", config = function() require('rust-tools').setup {} end }
+  {
+    "simrat39/rust-tools.nvim", ft = "rust", config = function()
+      local installed, server = require("nvim-lsp-installer.servers").get_server("rust_analyzer")
+      if installed then
+        local default_opts = require("lvim.lsp").get_common_opts()
+        require("rust-tools").setup({
+          server = vim.tbl_deep_extend("force", default_opts, server:get_default_options()),
+          tools = {
+            autoSetHints = true,
+            hover_with_actions = true,
+            inlay_hints = {
+              show_parameter_hints = true,
+            },
+          },
+        })
+      end
+    end
+  },
   -- Ron (Rusty Object Notation)
   { "ron-rs/ron.vim" },
   -- Starlark (Tiltfile)
