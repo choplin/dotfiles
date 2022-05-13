@@ -74,6 +74,7 @@ return {
 
   tab_bar_at_bottom = true,
   use_fancy_tab_bar = true,
+  window_decorations = "RESIZE",
   window_frame = {
     font = wezterm.font({ family = "Roboto", weight = "Bold" }),
     font_size = 14.0,
@@ -129,6 +130,7 @@ return {
       { key = "L", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Right", 5 } } },
 
       { key = "Escape", action = "PopKeyTable" },
+      { key = "[", mods = "CTRL", action = "PopKeyTable" },
     },
   }
 }
