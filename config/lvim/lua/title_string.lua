@@ -1,7 +1,11 @@
 local M = {}
 
 local function title_string()
-  local path = vim.fn.expand("%:~")
+  local path = vim.fn.expand("%:~", false, false)
+  if vim.startswith(path, "term://") then
+    path = vim.bo.filetype
+  end
+
   -- -- return the file path if the file exists outside home directory
   if not vim.startswith(path, "~") then
     return path
