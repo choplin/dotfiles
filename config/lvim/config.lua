@@ -80,6 +80,7 @@ lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
   { "gitui", "<leader>gg", "GitUI", "float" },
   { "gitui", "<c-\\><c-g>", "GitUI", "float" },
+  { "tig", "<c-\\><c-t>", "Tig", "float" },
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
