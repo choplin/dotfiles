@@ -176,10 +176,14 @@ lvim.plugins = require('util').concatLists(
 
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-  -- { "BufWinEnter", "*.lua", "setlocal ts=8 sw=8" },
-  { "CmdWinEnter", "[:/?=]", [[nnoremap <buffer> q <Cmd>q<CR>]] }
-}
+do
+  local augroup = vim.api.nvim_create_augroup("mygroup", {})
+  vim.api.nvim_create_autocmd("CmdWinEnter", {
+    group = augroup,
+    pattern = "[:/?=]",
+    command = [[nnoremap <buffer> q <Cmd>q<CR>]],
+  })
+end
 
 -- Load local environment specif settings
 pcall(require, "local")
