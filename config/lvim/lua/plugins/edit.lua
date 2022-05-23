@@ -1,5 +1,5 @@
 return {
-  -- lightspeed provides TODO:
+  -- lightspeed provides TODO:: compare with hop.nvim and nvim-treehopper
   { "ggandor/lightspeed.nvim" },
   -- Provide yank ring
   {
