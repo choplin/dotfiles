@@ -74,19 +74,18 @@ return {
         }
       end
 
-      do
-        local trouble = require("trouble")
-        vim.keymap.set("n", "<C-]>", function() trouble.open("lsp_definitions") end, { silent = true })
-        lvim.lsp.buffer_mappings = vim.tbl_deep_extend("force", lvim.lsp.buffer_mappings, {
-          normal_mode = {
-            ["gd"] = { function() trouble.open("lsp_definitions") end, "Goto Definition" },
-            ["gr"] = { function() trouble.open("lsp_references") end, "Goto references" },
-            ["gI"] = { function() trouble.open("lsp_implementations") end, "Goto Implementation" },
-          }
-        })
-      end
+      -- do
+      --   local trouble = require("trouble")
+      --   vim.keymap.set("n", "<C-]>", function() trouble.open("lsp_definitions") end, { silent = true })
+      --   lvim.lsp.buffer_mappings = vim.tbl_deep_extend("force", lvim.lsp.buffer_mappings, {
+      --     normal_mode = {
+      --       ["gd"] = { function() trouble.open("lsp_definitions") end, "Goto Definition" },
+      --       ["gr"] = { function() trouble.open("lsp_references") end, "Goto references" },
+      --       ["gI"] = { function() trouble.open("lsp_implementations") end, "Goto Implementation" },
+      --     }
+      --   })
+      -- end
     end
-
   },
   -- Spectre provides regexp search and replace
   {

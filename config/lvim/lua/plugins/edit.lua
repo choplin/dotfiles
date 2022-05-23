@@ -56,4 +56,11 @@ return {
   },
   -- Make marker management easy
   -- { "chentau/marks.nvim", config = function() require 'marks'.setup {} end },
+  { "kevinhwang91/nvim-bqf", ft = "qf", config = function()
+    require('bqf').setup {
+      preview = {
+        win_height = 32
+      }
+    }
+  end },
 }
