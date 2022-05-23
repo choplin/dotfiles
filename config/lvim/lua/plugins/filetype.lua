@@ -24,6 +24,12 @@ return {
   { "ron-rs/ron.vim" },
   -- Starlark (Tiltfile)
   { "cappyzawa/starlark.vim", ft = "starlark" },
+  -- Flutter
+  {
+    "akinsho/flutter-tools.nvim", requires = 'nvim-lua/plenary.nvim', ft = "dart", config = function()
+      require("flutter-tools").setup {}
+    end
+  },
   -- Scala
   {
     "scalameta/nvim-metals", ft = { "scala", "sbt" }, requires = { "nvim-lua/plenary.nvim" }, config = function()
