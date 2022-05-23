@@ -183,6 +183,14 @@ do
     pattern = "[:/?=]",
     command = [[nnoremap <buffer> q <Cmd>q<CR>]],
   })
+  vim.api.nvim_create_autocmd("BufEnter", {
+    nested = true,
+    callback = function()
+      if vim.fn.winnr("$") == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
+        vim.cmd("quit")
+      end
+    end,
+  })
 end
 
 -- Load local environment specif settings
