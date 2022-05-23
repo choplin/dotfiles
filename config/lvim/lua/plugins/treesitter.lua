@@ -41,7 +41,8 @@ return {
   -- Provide treesitter based text object with text hint
   {
     "mfussenegger/nvim-ts-hint-textobject", config = function()
-      vim.keymap.set({ "o", "v" }, "m", function() require('tsht').nodes() end, { silent = true })
+      vim.keymap.set("o", "m", require('tsht').nodes, { silent = true })
+      vim.keymap.set("v", "m", ":lua require('tsht').nodes()<CR>", { silent = true })
     end
   },
   -- Provide treesitter based text object that can be expanded incrementally
