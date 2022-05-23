@@ -17,8 +17,17 @@ return {
   -- Automatically show diff in interactive git rebase window
   { "hotwatermorning/auto-git-diff" },
   -- Provide :Neogit, which
-  { "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" }, cmd = "Neogit",
-    config = function() require("neogit").setup { integrations = { diffview = true } } end },
+  {
+    "TimUntersberger/neogit",
+    requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    config = function()
+      require("neogit").setup { integrations = { diffview = true } }
+    end
+  },
   -- :DiffviewOpen, :DiffviewFileHistory provides neat diff UI
-  { 'sindrets/diffview.nvim', cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" }, requires = 'nvim-lua/plenary.nvim' },
+  {
+    'sindrets/diffview.nvim',
+    cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" },
+    requires = 'nvim-lua/plenary.nvim'
+  },
 }
