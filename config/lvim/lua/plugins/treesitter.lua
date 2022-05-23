@@ -48,6 +48,7 @@ return {
   -- Provide treesitter based text object that can be expanded incrementally
   {
     "RRethy/nvim-treesitter-textsubjects", config = function()
+      lvim.builtin.treesitter.textsubjects = {}
       require('nvim-treesitter.configs').setup {
         textsubjects = {
           enable = true,
