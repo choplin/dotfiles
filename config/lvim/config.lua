@@ -63,6 +63,13 @@ vim.keymap.set("n", "<Up>", "gk")
 --     ["<C-k>"] = actions.move_selection_previous,
 --   },
 -- }
+lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
+  defaults = {
+    layout_config = {
+      width = 0.90,
+    },
+  }
+}, lvim.builtin.telescope)
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
