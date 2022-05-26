@@ -128,7 +128,10 @@ lvim.builtin.lualine.options.globalstatus = true
 -- lvim.lsp.automatic_servers_installation = false
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
-table.insert(lvim.lsp.automatic_configuration.skipped_servers, "rust_analyzer") -- Use rust-tools instead
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
+  "rust_analyzer", -- Use rust-tools instead
+  "yamlls", -- With additional options, setup in ftplugin
+})
 
 
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration

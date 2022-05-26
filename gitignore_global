@@ -57,6 +57,7 @@ venv/
 .ipynb_checkpoints
 
 .envrc
+.envrc-e
 
 .local.vimrc
 
@@ -72,3 +73,7 @@ todo.md
 
 pyrightconfig.json
 compile_commands.json
+
+memo.md
+
+.vimrc.lua
