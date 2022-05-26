@@ -12,6 +12,7 @@ return {
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
       vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
+      require("telescope").load_extension("yank_history")
     end
   },
   -- Show index of search results as virtual text
@@ -39,9 +40,6 @@ return {
           require("yanky").init_ring("p", event.register, event.count, event.vmode:match("[vV�]"))
         end
       }
-      vim.keymap.set("n", "s", function() require('substitute').operator() end)
-      vim.keymap.set("n", "ss", function() require('substitute').line() end)
-      vim.keymap.set("n", "S", function() require('substitute').eol() end)
       vim.keymap.set("x", "s", function() require('substitute').visual() end)
     end
   },
@@ -63,4 +61,5 @@ return {
       }
     }
   end },
+  { 'junegunn/fzf' },
 }

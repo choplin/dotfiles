@@ -1,6 +1,8 @@
 return {
   -- Provide markdown preview in browser
   { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", ft = "markdown" },
+  -- Markdown table
+  { "dhruvasagar/vim-table-mode", ft = "markdown" },
   --Rust
   {
     "simrat39/rust-tools.nvim", ft = "rust", config = function()
@@ -78,4 +80,6 @@ return {
       })
     end
   },
+  -- Helm
+  { "towolf/vim-helm" }
 }
