@@ -30,21 +30,22 @@ return {
     end,
   },
   -- Github Copilot
-  -- { "github/copilot.vim" },
-  -- { "zbirenbaum/copilot.lua" },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   event  = "InsertEnter",
-  --   after  = { "copilot.vim", "copilot.lua", "nvim-cmp" },
-  --   config = function()
-  --     vim.schedule(function()
-  --       require("copilot").setup({
-  --         plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
-  --       })
-  --       table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
-  --     end)
-  --   end
-  -- },
+  { "github/copilot.vim" },
+  { "zbirenbaum/copilot.lua" },
+  {
+    "zbirenbaum/copilot-cmp",
+    event  = "InsertEnter",
+    after  = { "copilot.vim", "copilot.lua", "nvim-cmp" },
+    config = function()
+      vim.schedule(function()
+        require("copilot").setup({
+          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
+        })
+        table.insert(lvim.builtin.cmp.sources, { name = "copilot" })
+        lvim.builtin.cmp.formatting.source_names["copilot"] = "(Copilot)"
+      end)
+    end
+  },
   -- Enable emoji completion
   { "hrsh7th/cmp-emoji", event = "InsertEnter", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
   -- Provide AI code completion with Tabnine
