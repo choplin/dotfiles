@@ -61,5 +61,18 @@ return {
       }
     }
   end },
+  -- fzf provides fuzzy search using fzf, used for integration with nvim-bqf
   { 'junegunn/fzf' },
+  -- lsp_signature provides popup window showing fucntion signatures
+  {
+    "ray-x/lsp_signature.nvim", config = function()
+      require "lsp_signature".setup({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+          border = "rounded"
+        },
+        hint_enable = false
+      })
+    end
+  },
 }

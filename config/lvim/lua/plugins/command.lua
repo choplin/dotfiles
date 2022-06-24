@@ -91,4 +91,10 @@ return {
       vim.keymap.set("n", "<leader>S", function() require("spectre").open_file_search() end)
     end
   },
+  -- Symbols Outline
+  {
+    'simrat39/symbols-outline.nvim', config = function()
+      lvim.builtin.which_key.mappings["o"] = { function() require 'symbols-outline'.toggle_outline() end, "Symbols Outline" }
+    end
+  },
 }
