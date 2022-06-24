@@ -41,8 +41,6 @@ return {
     end,
     requires = "nvim-treesitter/nvim-treesitter",
   },
-  -- :Ultest* runs tests with fancy UI
-  { "rcarriga/vim-ultest", requires = { "vim-test/vim-test" }, run = ":UpdateRemotePlugins" },
   -- :Trouble provides a pretty list of quickfix, diagnostics, telescopes etc.
   {
     "folke/trouble.nvim",
