@@ -250,3 +250,5 @@ bind main    w      @hub browse -- compare/%(branch)?expand=1
 bind diff    w      @hub browse -- compare/%(branch)?expand=1
 bind refs    w      @hub browse -- compare/%(branch)?expand=1
 
+# vim: ft=tigrc
+
