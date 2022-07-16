@@ -81,5 +81,7 @@ return {
     end
   },
   -- Helm
-  { "towolf/vim-helm" }
+  { "towolf/vim-helm" },
+  -- Zig
+  { "ziglang/zig.vim" },
 }
