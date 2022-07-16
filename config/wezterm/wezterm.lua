@@ -130,6 +130,7 @@ return {
       { key = "L", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Right", 5 } } },
 
       { key = "Escape", action = "PopKeyTable" },
+      { key = "Enter", action = "PopKeyTable" },
       { key = "[", mods = "CTRL", action = "PopKeyTable" },
     },
   }
