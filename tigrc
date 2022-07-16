@@ -140,46 +140,26 @@ bind generic ~      :goto %(commit)^
 # Alt-~ で表示のトグル (default: ~)
 bind generic <Esc>~ :toggle line-graphics
 
-# S で stash save
-bind generic S      ?git stash save "%(prompt Enter stash comment: )"
-
-# Y で stash pop
-bind diff    Y      ?git stash pop %(stash)
-bind stash   Y      ?git stash pop %(stash)
-
-# Alt-y で stash apply
-bind diff    <Esc>y ?git stash apply %(stash)
-bind stash   <Esc>y ?git stash apply %(stash)
-
-# H で reset --hard
+# git reset --hard
 bind main    H      ?git reset --hard %(commit)
 bind diff    H      ?git reset --hard %(commit)
 bind refs    H      ?git reset --hard %(branch)
-
-# H で reset --hard HEAD (status-view)
 bind status  H      ?git reset --hard HEAD
 
-# D でブランチを削除 (マージ済みブランチのみ. 強制削除(branch -D) は `!`) (refs-view)
+# delete something
 bind refs    D      ?git branch -d %(branch)
-
-# D でトラッキングされていないファイルを削除 (status-view)
 bind status  D      ?git clean -d -f -- %(file)
-
-# D で stash を削除 (`!` と同じ) (stash-view)
-bind stash   D      ?git stash drop %(stash)
-
-# D でファイルを削除 (tree-view)
 bind tree    D      ?git rm %(file)
 
-# x でトラッキングされていないファイルをすべて削除
+# git clean
 bind main    x      ?git clean -d -f
 bind status  x      ?git clean -d -f
 
 # x でマージ済みローカルブランチをすべて削除 (master/develop 除く)
 bind refs    x      ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
 
-# ` で commit ID をクリップボードにコピー (Mac用)
-bind generic `      @bash -c "echo -n '%(commit)' | pbcopy"
+# pbcoby commit ID for Mac
+bind generic Y      @bash -c "echo -n '%(commit)' | pbcopy"
 
 # ` でファイルパスをクリップボードにコピー (Mac用)
 bind stage   `      @bash -c "echo -n '%(file)' | pbcopy"
@@ -231,24 +211,38 @@ bind main    <Esc>i ?git rebase -i %(commit)
 bind diff    <Esc>i ?git rebase -i %(commit)
 
 # ; で GitHub の該当コミットを開く ※要 hub インストール
-bind main    ;      @hub browse -- commit/%(commit)
-bind blame   ;      @hub browse -- commit/%(commit)
-bind diff    ;      @hub browse -- commit/%(commit)
+bind main    ;      @gh browse -- commit/%(commit)
+bind blame   ;      @gh browse -- commit/%(commit)
+bind diff    ;      @gh browse -- commit/%(commit)
 
 # ; で GitHub の該当ページを開く
-bind tree    ;      @hub browse -- blob/%(branch)/%(file)
-bind blob    ;      @hub browse -- blob/%(branch)/%(file)
-bind grep    ;      @hub browse -- blob/%(branch)/%(file)
+bind tree    ;      @gh browse -- blob/%(branch)/%(file)
+bind blob    ;      @gh browse -- blob/%(branch)/%(file)
+bind grep    ;      @gh browse -- blob/%(branch)/%(file)
 
 # Alt-; で GitHub の指定ブランチの該当ページを開く
-bind tree    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
-bind blob    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
-bind grep    <Esc>; @hub browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind tree    <Esc>; @gh browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind blob    <Esc>; @gh browse -- blob/"%(prompt Enter branch name: )"/%(file)
+bind grep    <Esc>; @gh browse -- blob/"%(prompt Enter branch name: )"/%(file)
 
 # w で GitHub の該当ブランチの Pull Request 作成ページを開く ※要 hub インストール
-bind main    w      @hub browse -- compare/%(branch)?expand=1
-bind diff    w      @hub browse -- compare/%(branch)?expand=1
-bind refs    w      @hub browse -- compare/%(branch)?expand=1
+bind main    w      @gh browse -- compare/%(branch)?expand=1
+bind diff    w      @gh browse -- compare/%(branch)?expand=1
+bind refs    w      @gh browse -- compare/%(branch)?expand=1
+
+## git diff
+bind main D !>git diff %(commit)^ %(commit)
+
+## Binds for making Pull Request
+bind status <Ctrl-r> ?gh pr create --fill --web --assignee "@me"
+
+## Binds for git-stash
+bind stash    S     ?git stash push "%(prompt Enter stash comment: )"
+bind stash    U     ?git stash push -u "%(prompt Enter stash comment: )"
+bind stash    P     ?git stash pop %(stash)
+bind diff    <Esc>y ?git stash apply %(stash)
+bind stash   <Esc>y ?git stash apply %(stash)
+bind stash   D      ?git stash drop %(stash)
 
 # vim: ft=tigrc
 
