@@ -30,6 +30,8 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<C-]>"] = "<Cmd>lua vim.lsp.buf.definition()<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- emacs-like bindings for command line
 vim.keymap.set("c", "<C-a>", "<C-b>")
 vim.keymap.set("c", "<C-b>", "<Left>")
