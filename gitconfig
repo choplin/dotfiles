@@ -6,7 +6,8 @@
   ui = auto
 
 [push]
-  default = tracking
+  default = current
+  autoSetupRemote = true
 
 [pull]
   rebase = true
@@ -29,8 +30,6 @@
   br = branch
 
   fixup = commit --amend --no-edit
-
-  github-pr = !sh -c \"git fetch origin pull/${1}/head:pr/${1}\" -
 
   user-guess = !sh -c '~/.git-scripts/user-guess.sh'
 
