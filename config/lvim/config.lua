@@ -119,8 +119,11 @@ lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
   local components = require("lvim.core.lualine.components")
+  lvim.builtin.lualine.sections.lualine_a = { components.branch }
+  lvim.builtin.lualine.sections.lualine_b = { components.diff }
+  lvim.builtin.lualine.sections.lualine_c = { { "filename", path = 1 } }
+  lvim.builtin.lualine.sections.lualine_y = { components.location }
   lvim.builtin.lualine.sections.lualine_z = { components.encoding, "fileformat" }
-  lvim.builtin.lualine.sections.lualine_c = { components.diff }
 end
 lvim.builtin.lualine.options.globalstatus = true
 
