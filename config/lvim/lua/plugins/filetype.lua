@@ -6,14 +6,17 @@ return {
   --Rust
   {
     "simrat39/rust-tools.nvim", ft = "rust", config = function()
-      local installed, server = require("nvim-lsp-installer.servers").get_server("rust_analyzer")
-      if installed then
+      if require("mason-registry").is_installed("rust-analyzer") then
         local default_opts = require("lvim.lsp").get_common_opts()
+        local package_dir = require("mason-core.path").package_prefix("rust-analyzer")
+
         require("rust-tools").setup({
-          server = vim.tbl_deep_extend("force", default_opts, server:get_default_options()),
+          server = vim.tbl_deep_extend("force", default_opts, {
+            cmd_env = { PATH = require("mason-core.process").extend_path { package_dir } }
+          }),
           tools = {
             autoSetHints = true,
-            hover_with_actions = true,
+            -- hover_with_actions = true,
             inlay_hints = {
               show_parameter_hints = true,
             },
