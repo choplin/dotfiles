@@ -71,7 +71,7 @@ lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
     layout_config = {
       width = 0.90,
     },
-  }
+  },
 }, lvim.builtin.telescope)
 
 -- Use which-key to add extra bindings with the leader-key prefix
@@ -138,7 +138,6 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
   "yamlls", -- With additional options, setup in ftplugin
 })
 
-
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
 -- require("lvim.lsp.manager").setup("pylsp", opts)
@@ -173,17 +172,16 @@ do
   require("lvim.lsp.null-ls.linters").setup(linter_sources)
 end
 
-lvim.plugins = require('util').concatLists(
-  require('plugins/base'),
-  require('plugins/cmp'),
-  require('plugins/command'),
-  require('plugins/debug'),
-  require('plugins/edit'),
-  require('plugins/filetype'),
-  require('plugins/git'),
-  require('plugins/treesitter')
+lvim.plugins = require("util").concatLists(
+  require("plugins/base"),
+  require("plugins/cmp"),
+  require("plugins/command"),
+  require("plugins/debug"),
+  require("plugins/edit"),
+  require("plugins/filetype"),
+  require("plugins/git"),
+  require("plugins/treesitter")
 )
-
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 do
