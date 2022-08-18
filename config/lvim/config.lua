@@ -53,12 +53,9 @@ lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
 }, lvim.builtin.telescope)
 
 -- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq list" }
 lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 
--- TODO: User Config for predefined plugins
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
@@ -73,23 +70,6 @@ lvim.builtin.terminal.execs = {
 
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.dap.active = true
-
--- if you don't want all the parsers change this to a table of the ones you want
-lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "python",
-  "typescript",
-  "tsx",
-  "css",
-  "rust",
-  "java",
-  "yaml",
-  "go",
-}
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
@@ -106,9 +86,6 @@ end
 lvim.builtin.lualine.options.globalstatus = true
 
 -- generic LSP settings
-
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
@@ -132,7 +109,6 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 do
-  local null_ls = require("null-ls")
   local mason_package = require("mason-core.package")
 
   local formatter_sources = {}
@@ -163,12 +139,15 @@ lvim.plugins = require("util").concatLists(
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 do
+  -- map q to close cmdwin
   local augroup = vim.api.nvim_create_augroup("mygroup", {})
   vim.api.nvim_create_autocmd("CmdWinEnter", {
     group = augroup,
     pattern = "[:/?=]",
-    command = [[nnoremap <buffer> q <Cmd>q<CR>]],
+    callback = function() vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true }) end,
   })
+
+  -- Quit nvim if the only nvimtree window remains
   vim.api.nvim_create_autocmd("BufEnter", {
     nested = true,
     callback = function()
