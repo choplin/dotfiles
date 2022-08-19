@@ -27,7 +27,7 @@
 [alias]
   st = status
   co = checkout
-  br = branch
+  br = !tig refs
 
   fixup = commit --amend --no-edit
 
