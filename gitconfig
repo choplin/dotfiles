@@ -2,6 +2,14 @@
   name = Akihiro Okuno
   email = choplin.choplin@gmail.com
 
+[core]
+  autocrlf = false
+  pager = less
+  editor = vim
+  excludesfile = ~/.gitignore_global
+  editor = lvim
+  pager = LESS= delta
+
 [color]
   ui = auto
 
@@ -12,17 +20,24 @@
 [pull]
   rebase = true
 
+[fetch]
+  prune = true
+
 [branch]
   autosetuprebase = always
 
 [merge]
   ff = false
+  conflictstyle = diff3
 
-[core]
-  autocrlf = false
-  pager = less
-  editor = vim
-  excludesfile = ~/.gitignore_global
+[diff]
+  colorMoved = default
+
+[interactive]
+  diffFilter = delta --color-only
+
+[add.interactive]
+  useBuiltin = false # required for git 2.37.0
 
 [alias]
   st = status
@@ -38,33 +53,17 @@
 [http]
   sslVerify = true
 
-[github]
-  user = choplin
-
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   required = true
   process = git-lfs filter-process
 
-[include]
-  path = .gitconfig.local
+[github]
+  user = choplin
 
 [http "https://gopkg.in"]
   followRedirects = true
-
-[fetch]
-  prune = true
-
-[core]
-  editor = lvim
-  pager = LESS= delta
-
-[interactive]
-  diffFilter = delta --color-only
-
-[add.interactive]
-  useBuiltin = false # required for git 2.37.0
 
 [delta]
   side-by-side = true
@@ -72,10 +71,7 @@
   light = false
   paging = always
 
-[merge]
-  conflictstyle = diff3
-
-[diff]
-  colorMoved = default
+[include]
+  path = .gitconfig.local
 
 # vim:ft=gitconfig shiftwidth=2
