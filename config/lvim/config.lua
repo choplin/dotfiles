@@ -107,18 +107,19 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- set a formatter, this will override the language server formatting capabilities (if it exists)
 do
   local mason_package = require("mason-core.package")
 
   local formatter_sources = {}
   local linter_sources = {}
   for _, package in ipairs(require("mason-registry").get_installed_packages()) do
-    local category = package.spec.categories[1]
-    if category == mason_package.Cat.Formatter then
-      table.insert(formatter_sources, { name = package.name })
-    elseif category == mason_package.Cat.Linter then
-      table.insert(linter_sources, { name = package.name })
+    for _, category in ipairs(package.spec.categories) do
+      if category == mason_package.Cat.Formatter then
+        table.insert(formatter_sources, { name = package.name })
+      elseif category == mason_package.Cat.Linter then
+        table.insert(linter_sources, { name = package.name })
+      end
     end
   end
 
