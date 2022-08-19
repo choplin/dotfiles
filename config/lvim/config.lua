@@ -150,11 +150,21 @@ do
 
   -- Quit nvim if the only nvimtree window remains
   vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
     nested = true,
     callback = function()
       if vim.fn.winnr("$") == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
         vim.cmd("quit")
       end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
+    pattern = "\\[dap-repl\\]",
+    callback = function()
+      -- vim.api.nvim_buf_set_option(0, "buftype", "prompt")
+      vim.keymap.set("n", "q", "<Cmd>bdelete!<CR>", { buffer = true })
     end,
   })
 end
