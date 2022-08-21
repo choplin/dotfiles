@@ -231,7 +231,9 @@ bind diff    w      @gh browse -- compare/%(branch)?expand=1
 bind refs    w      @gh browse -- compare/%(branch)?expand=1
 
 ## git diff
-bind main D !>git diff %(commit)^ %(commit)
+bind main  D !>git diff %(commit)^ %(commit)
+bind diff  D !>git diff %(commit)^ %(commit)
+bind blame D !>git diff %(commit)^ %(commit)
 
 ## Binds for making Pull Request
 bind status <Ctrl-r> ?gh pr create --fill --web --assignee "@me"
