@@ -50,4 +50,11 @@ return {
   { "hrsh7th/cmp-emoji", event = "InsertEnter", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
   -- Provide AI code completion with Tabnine
   { 'tzachar/cmp-tabnine', event = "InsertEnter", run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
+  -- Lookup dictionary
+  {
+    "octaltree/cmp-look", config = function()
+      table.insert(lvim.builtin.cmp.sources, { name = "look" })
+      lvim.builtin.cmp.formatting.source_names["look"] = "(Look)"
+    end
+  },
 }
