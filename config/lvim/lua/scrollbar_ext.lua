@@ -1,4 +1,4 @@
-local utils = require("scrollbar.utils")
+local utils = require "scrollbar.utils"
 local render = require("scrollbar").render
 
 local M = {}

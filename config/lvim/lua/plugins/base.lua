@@ -3,23 +3,32 @@ return {
   { "folke/tokyonight.nvim" },
   -- { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
   -- Highlight Todo: comments
-  { "folke/todo-comments.nvim", config = function() require("todo-comments").setup() end },
+  {
+    "folke/todo-comments.nvim",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
   -- Load a local .vimrc.lua file
   {
-    "klen/nvim-config-local", config = function()
-      require('config-local').setup {
+    "klen/nvim-config-local",
+    config = function()
+      require("config-local").setup {
         lookup_parents = true,
-        config_files = { ".vimrc.lua" }
+        config_files = { ".vimrc.lua" },
       }
-    end
+    end,
   },
   -- Show scrollbar
   {
-    "petertriho/nvim-scrollbar", after = { "nvim-hlslens" }, config = function()
+    "petertriho/nvim-scrollbar",
+    after = { "nvim-hlslens" },
+    config = function()
       require("scrollbar").setup()
       require("scrollbar.handlers.search").setup()
-      lvim.builtin.which_key.mappings["h"] = { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
-    end
+      lvim.builtin.which_key.mappings["h"] =
+        { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
+    end,
   },
   -- Apply .editorconfig
   { "gpanders/editorconfig.nvim" },
@@ -41,22 +50,28 @@ return {
           sidebar.close()
           require("nvim-tree").toggle()
         end,
-        "Explorer"
+        "Explorer",
       }
       lvim.builtin.which_key.mappings["B"] = {
         function()
           require("nvim-tree.view").close()
           sidebar.toggle()
         end,
-        "Sidebar"
+        "Sidebar",
       }
     end,
   },
   -- Provide UI that shows status of LSP at the bottom right
-  { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end },
+  {
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end,
+  },
   -- Colorize indentation depth
   {
-    "lukas-reineke/indent-blankline.nvim", config = function()
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
       vim.opt.termguicolors = true
       vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]]
       vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
@@ -72,8 +87,13 @@ return {
         },
         show_trailing_blankline_indent = false,
       }
-    end
+    end,
   },
   -- Provide Telescope ghq
-  { "nvim-telescope/telescope-ghq.nvim", config = function() require 'telescope'.load_extension 'ghq' end },
+  {
+    "nvim-telescope/telescope-ghq.nvim",
+    config = function()
+      require("telescope").load_extension "ghq"
+    end,
+  },
 }

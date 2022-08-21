@@ -11,7 +11,7 @@ local function title_string()
     return path
   end
 
-  local project_root = require('project_nvim.project').get_project_root()
+  local project_root = require("project_nvim.project").get_project_root()
   -- return the file path relative to the home directory if the file exists outside project directory
   if project_root == nil then
     return path

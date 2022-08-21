@@ -14,10 +14,10 @@ lvim.format_on_save = true
 lvim.colorscheme = "tokyonight"
 
 vim.opt.list = true
-vim.opt.listchars:remove("tab")
-vim.opt.listchars:append("tab:￫ ")
-vim.opt.listchars:append("extends:»")
-vim.opt.listchars:append("precedes:«")
+vim.opt.listchars:remove "tab"
+vim.opt.listchars:append "tab:￫ "
+vim.opt.listchars:append "extends:»"
+vim.opt.listchars:append "precedes:«"
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.cmdheight = 1
 vim.o.guifont = "HackGen35 Console NFJ:h18"
@@ -76,7 +76,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
-  local components = require("lvim.core.lualine.components")
+  local components = require "lvim.core.lualine.components"
   lvim.builtin.lualine.sections.lualine_a = { components.branch }
   lvim.builtin.lualine.sections.lualine_b = { components.diff }
   lvim.builtin.lualine.sections.lualine_c = { { "filename", path = 1 } }
@@ -109,7 +109,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 do
-  local mason_package = require("mason-core.package")
+  local mason_package = require "mason-core.package"
 
   local formatter_sources = {}
   local linter_sources = {}
@@ -128,14 +128,14 @@ do
 end
 
 lvim.plugins = require("util").concatLists(
-  require("plugins/base"),
-  require("plugins/cmp"),
-  require("plugins/command"),
-  require("plugins/debug"),
-  require("plugins/edit"),
-  require("plugins/filetype"),
-  require("plugins/git"),
-  require("plugins/treesitter")
+  require "plugins/base",
+  require "plugins/cmp",
+  require "plugins/command",
+  require "plugins/debug",
+  require "plugins/edit",
+  require "plugins/filetype",
+  require "plugins/git",
+  require "plugins/treesitter"
 )
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -145,7 +145,9 @@ do
   vim.api.nvim_create_autocmd("CmdWinEnter", {
     group = augroup,
     pattern = "[:/?=]",
-    callback = function() vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true }) end,
+    callback = function()
+      vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true })
+    end,
   })
 
   -- Quit nvim if the only nvimtree window remains
@@ -153,8 +155,8 @@ do
     group = augroup,
     nested = true,
     callback = function()
-      if vim.fn.winnr("$") == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
-        vim.cmd("quit")
+      if vim.fn.winnr "$" == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
+        vim.cmd "quit"
       end
     end,
   })

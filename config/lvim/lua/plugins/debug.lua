@@ -11,35 +11,42 @@ return {
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
     },
-    config = function() require("neotest").setup({
+    config = function()
+      require("neotest").setup {
         adapters = {
-          require("neotest-go"),
-          require("neotest-python")({
+          require "neotest-go",
+          require "neotest-python" {
             dap = { justMyCode = false },
-          }),
-          require("neotest-plenary"),
-          require("neotest-vim-test")({
+          },
+          require "neotest-plenary",
+          require "neotest-vim-test" {
             ignore_file_types = { "python", "vim", "lua", "go" },
-          }),
-        }
-      })
+          },
+        },
+      }
     end,
   },
   -- Provide UI for nvim-dap
   {
-    "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = function()
+    "rcarriga/nvim-dap-ui",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
       require("dapui").setup()
       lvim.builtin.which_key.mappings["dU"] = {
-        function() require("dapui").toggle() end,
-        "Toggle UI"
+        function()
+          require("dapui").toggle()
+        end,
+        "Toggle UI",
       }
-    end
+    end,
   },
   -- Provide settings for Go delve
   {
-    "leoluz/nvim-dap-go", requires = { "mfussenegger/nvim-dap" }, config = function()
+    "leoluz/nvim-dap-go",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
       require("dap-go").setup()
-    end
+    end,
   },
   -- { "theHamsta/nvim-dap-virtual-text" },
   { "vim-test/vim-test" },

@@ -5,11 +5,11 @@ return {
     require = { "hrsh7th/nvim-cmp" },
     config = function()
       local cmp = require "cmp"
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'cmdline' }
-        }
+          { name = "cmdline" },
+        },
       })
     end,
   },
@@ -22,10 +22,10 @@ return {
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = "nvim_lsp_document_symbol" }
+          { name = "nvim_lsp_document_symbol" },
         }, {
-          { name = "buffer" }
-        })
+          { name = "buffer" },
+        }),
       })
     end,
   },
@@ -47,14 +47,21 @@ return {
   --   end
   -- },
   -- Enable emoji completion
-  { "hrsh7th/cmp-emoji", event = "InsertEnter", config = function() table.insert(lvim.builtin.cmp.sources, { name = "emoji" }) end },
+  {
+    "hrsh7th/cmp-emoji",
+    event = "InsertEnter",
+    config = function()
+      table.insert(lvim.builtin.cmp.sources, { name = "emoji" })
+    end,
+  },
   -- Provide AI code completion with Tabnine
-  { 'tzachar/cmp-tabnine', event = "InsertEnter", run = './install.sh', requires = 'hrsh7th/nvim-cmp' },
+  { "tzachar/cmp-tabnine", event = "InsertEnter", run = "./install.sh", requires = "hrsh7th/nvim-cmp" },
   -- Lookup dictionary
   {
-    "octaltree/cmp-look", config = function()
+    "octaltree/cmp-look",
+    config = function()
       table.insert(lvim.builtin.cmp.sources, { name = "look" })
       lvim.builtin.cmp.formatting.source_names["look"] = "(Look)"
-    end
+    end,
   },
 }

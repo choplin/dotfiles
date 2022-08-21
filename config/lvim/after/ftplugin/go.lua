@@ -14,4 +14,9 @@ function OrgImports(wait_ms)
 end
 
 -- Apply goimports automatically when a file is saved
-vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*.go", callback = function() OrgImports(1000) end })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    OrgImports(1000)
+  end,
+})

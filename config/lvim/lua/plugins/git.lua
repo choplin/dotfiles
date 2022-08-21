@@ -2,16 +2,23 @@ return {
   -- Provide Github utility commands
   -- :Octo
   {
-    'pwntester/octo.nvim',
+    "pwntester/octo.nvim",
     requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "kyazdani42/nvim-web-devicons",
     },
-    config = function() require "octo".setup() end
+    config = function()
+      require("octo").setup()
+    end,
   },
   -- Provide better conflict UI and commands for resolving it
-  { 'akinsho/git-conflict.nvim', config = function() require('git-conflict').setup() end },
+  {
+    "akinsho/git-conflict.nvim",
+    config = function()
+      require("git-conflict").setup()
+    end,
+  },
   -- Provide fancy UI of git commit
   { "rhysd/committia.vim" },
   -- Automatically show diff in interactive git rebase window
@@ -22,20 +29,20 @@ return {
     requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     config = function()
       require("neogit").setup { integrations = { diffview = true } }
-    end
+    end,
   },
   -- :DiffviewOpen, :DiffviewFileHistory provides neat diff UI
   {
-    'sindrets/diffview.nvim',
+    "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" },
-    requires = 'nvim-lua/plenary.nvim'
+    requires = "nvim-lua/plenary.nvim",
   },
   -- gitlinker generates a file permalink
   {
-    'ruifm/gitlinker.nvim',
-    requires = 'nvim-lua/plenary.nvim',
+    "ruifm/gitlinker.nvim",
+    requires = "nvim-lua/plenary.nvim",
     config = function()
-      require "gitlinker".setup()
-    end
-  }
+      require("gitlinker").setup()
+    end,
+  },
 }

@@ -5,14 +5,16 @@ return {
   { "dhruvasagar/vim-table-mode", ft = "markdown" },
   --Rust
   {
-    "simrat39/rust-tools.nvim", ft = "rust", config = function()
-      if require("mason-registry").is_installed("rust-analyzer") then
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    config = function()
+      if require("mason-registry").is_installed "rust-analyzer" then
         local default_opts = require("lvim.lsp").get_common_opts()
-        local package_dir = require("mason-core.path").package_prefix("rust-analyzer")
+        local package_dir = require("mason-core.path").package_prefix "rust-analyzer"
 
-        require("rust-tools").setup({
+        require("rust-tools").setup {
           server = vim.tbl_deep_extend("force", default_opts, {
-            cmd_env = { PATH = require("mason-core.process").extend_path { package_dir } }
+            cmd_env = { PATH = require("mason-core.process").extend_path { package_dir } },
           }),
           tools = {
             autoSetHints = true,
@@ -21,9 +23,9 @@ return {
               show_parameter_hints = true,
             },
           },
-        })
+        }
       end
-    end
+    end,
   },
   -- Ron (Rusty Object Notation)
   { "ron-rs/ron.vim" },
@@ -31,13 +33,19 @@ return {
   { "cappyzawa/starlark.vim", ft = "starlark" },
   -- Flutter
   {
-    "akinsho/flutter-tools.nvim", requires = 'nvim-lua/plenary.nvim', ft = "dart", config = function()
+    "akinsho/flutter-tools.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    ft = "dart",
+    config = function()
       require("flutter-tools").setup {}
-    end
+    end,
   },
   -- Scala
   {
-    "scalameta/nvim-metals", ft = { "scala", "sbt" }, requires = { "nvim-lua/plenary.nvim" }, config = function()
+    "scalameta/nvim-metals",
+    ft = { "scala", "sbt" },
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
       local metals_config = require("metals").bare_config()
       metals_config.settings = {
         showImplicitArguments = true,
@@ -81,7 +89,7 @@ return {
         end,
         group = nvim_metals_group,
       })
-    end
+    end,
   },
   -- Helm
   { "towolf/vim-helm" },
