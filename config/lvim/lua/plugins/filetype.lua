@@ -53,7 +53,7 @@ return {
       }
 
       metals_config.init_options.statusBarProvider = "on"
-      table.insert(lvim.builtin.lualine.sections.lualine_c, "g:metals_status")
+      -- table.insert(lvim.builtin.lualine.sections.lualine_c, "g:metals_status")
       require("lvim.core.lualine").setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()

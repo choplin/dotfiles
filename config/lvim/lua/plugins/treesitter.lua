@@ -7,8 +7,7 @@ return {
       local gps = require "nvim-gps"
       gps.setup()
 
-      local components = require "lvim.core.lualine.components"
-      lvim.builtin.lualine.sections.lualine_c = { components.diff, { gps.get_location, cond = gps.is_available } }
+      table.insert(lvim.builtin.lualine.sections.lualine_c, { gps.get_location, cond = gps.is_available })
     end,
   },
   -- Show current context at the top of the windows as virtual text
