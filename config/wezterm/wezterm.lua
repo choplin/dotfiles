@@ -1,15 +1,15 @@
-local wezterm = require 'wezterm';
+local wezterm = require "wezterm"
 
 local function recompute_padding(window)
-  local window_dims = window:get_dimensions();
+  local window_dims = window:get_dimensions()
   local overrides = window:get_config_overrides() or {}
 
   if not window_dims.is_full_screen then
     if not overrides.window_padding then
       -- not changing anything
-      return;
+      return
     end
-    overrides.window_padding = nil;
+    overrides.window_padding = nil
   else
     -- Add a top padding to avoid overlap with MacBook's notch
     local new_padding = {
@@ -17,29 +17,27 @@ local function recompute_padding(window)
       right = 5,
       top = 30,
       bottom = 0,
-    };
+    }
     if overrides.window_padding and new_padding.left == overrides.window_padding.left then
       -- padding is same, avoid triggering further changes
       return
     end
     overrides.window_padding = new_padding
-
   end
   window:set_config_overrides(overrides)
 end
 
 wezterm.on("window-resized", function(window, _)
   recompute_padding(window)
-end);
+end)
 
 wezterm.on("window-config-reloaded", function(window)
   recompute_padding(window)
-end);
-
+end)
 
 local function merge(...)
   local l = {}
-  for _, list in ipairs({ ... }) do
+  for _, list in ipairs { ... } do
     for _, v in ipairs(list) do
       table.insert(l, v)
     end
@@ -63,7 +61,7 @@ local direction_keys = {
 }
 
 return {
-  font = wezterm.font("HackGen35 Console NF"),
+  font = wezterm.font "HackGen35 Console NF",
   font_size = 16.0,
   -- color_scheme = "OneHalfDark",
   color_scheme = "nord",
@@ -76,7 +74,7 @@ return {
   use_fancy_tab_bar = true,
   window_decorations = "RESIZE",
   window_frame = {
-    font = wezterm.font({ family = "Roboto", weight = "Bold" }),
+    font = wezterm.font { family = "Roboto", weight = "Bold" },
     font_size = 14.0,
     active_titlebar_bg = "#333333",
     inactive_titlebar_bg = "#111111",
@@ -94,27 +92,47 @@ return {
   leader = { key = "y", mods = "CTRL", timeout_milliseconds = 1000 },
   keys = merge(
     {
-      { key = "v", mods = "LEADER|CTRL", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
-      { key = "d", mods = "SUPER", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
-      { key = "s", mods = "LEADER|CTRL", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
+      {
+        key = "v",
+        mods = "LEADER|CTRL",
+        action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
+      },
+      {
+        key = "d",
+        mods = "SUPER",
+        action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
+      },
+      {
+        key = "s",
+        mods = "LEADER|CTRL",
+        action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } },
+      },
       { key = "o", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
       { key = "w", mods = "CMD", action = wezterm.action { CloseCurrentPane = { confirm = true } } },
     },
     map(direction_keys, function(e)
-      return { key = e.key, mods = "LEADER", action = wezterm.action {
-        Multiple = {
-          wezterm.action { ActivatePaneDirection = e.direction },
-          wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
-        }
-      } }
+      return {
+        key = e.key,
+        mods = "LEADER",
+        action = wezterm.action {
+          Multiple = {
+            wezterm.action { ActivatePaneDirection = e.direction },
+            wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
+          },
+        },
+      }
     end),
     map(direction_keys, function(e)
-      return { key = e.key, mods = "LEADER|SHIFT", action = wezterm.action {
-        Multiple = {
-          wezterm.action { AdjustPaneSize = { e.direction, 5 } },
-          wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
-        }
-      } }
+      return {
+        key = e.key,
+        mods = "LEADER|SHIFT",
+        action = wezterm.action {
+          Multiple = {
+            wezterm.action { AdjustPaneSize = { e.direction, 5 } },
+            wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
+          },
+        },
+      }
     end)
   ),
   key_tables = {
@@ -133,5 +151,5 @@ return {
       { key = "Enter", action = "PopKeyTable" },
       { key = "[", mods = "CTRL", action = "PopKeyTable" },
     },
-  }
+  },
 }
