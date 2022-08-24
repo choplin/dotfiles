@@ -87,6 +87,10 @@ return {
     bottom = 0,
   },
 
+  unix_domains = { { name = "unix" } },
+  -- Do not start multiplexing on startup because it causes significant performance degradation
+  -- default_gui_startup_args = { "connect", "unix" },
+
   send_composed_key_when_right_alt_is_pressed = false,
 
   leader = { key = "y", mods = "CTRL", timeout_milliseconds = 1000 },
