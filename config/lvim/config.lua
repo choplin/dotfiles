@@ -63,10 +63,21 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
-  { "gitui", "<leader>gg", "GitUI", "float" },
-  { "gitui", "<c-\\><c-g>", "GitUI", "float" },
   { "tig", "<c-\\><c-t>", "Tig", "float" },
+  { "tig status", "<c-\\><c-s>", "Tig Status", "float" },
+  { "tig refs", "<c-\\><c-b>", "Tig Branch", "float" },
+  { "git diff", "<c-\\><c-d>", "Git Diff", "float" },
 }
+
+do
+  vim.api.nvim_create_user_command("Blame", function()
+    local name = vim.api.nvim_buf_get_name(0)
+    local cmd = "tig blame " .. name
+    local Terminal = require("toggleterm.terminal").Terminal
+    local term = Terminal:new { cmd = cmd, close_on_exit = true }
+    term:toggle()
+  end, {})
+end
 
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.dap.active = true
