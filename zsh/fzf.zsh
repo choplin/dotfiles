@@ -4,10 +4,11 @@ if test -d $HOMEBREW_PREFIX/opt/fzf; then
 fi
 
 export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS="--height=40% --info=inline --layout=reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-local fzf_options=('--height=40%' '--info=inline' '--layout=reverse' '--select-1' '--exit-0')
 function ghq-fzf() {
+  local fzf_options=('--select-1' '--exit-0')
   local root=$(ghq root)
   local selected_dir=$(ghq list | fzf --query="$LBUFFER" $fzf_options --preview="ls ${root}/{}")
 
