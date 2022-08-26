@@ -147,7 +147,7 @@ bind refs    H      ?git reset --hard %(branch)
 bind status  H      ?git reset --hard HEAD
 
 # delete something
-bind refs    D      ?git branch -d %(branch)
+bind refs    D      ?git branch -D %(branch)
 bind status  D      ?git clean -d -f -- %(file)
 bind tree    D      ?git rm %(file)
 
