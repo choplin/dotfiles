@@ -12,3 +12,4 @@ abbrev-alias ld='lazydocker'
 abbrev-alias gu='gitui'
 
 abbrev-alias -g B='| bat'
+abbrev-alias -g F='| fzf'
