@@ -186,5 +186,11 @@ do
   })
 end
 
+vim.filetype.add {
+  filename = {
+    ["Tiltfile"] = "tiltfile",
+  },
+}
+
 -- Load local environment specif settings
 pcall(require, "local")
