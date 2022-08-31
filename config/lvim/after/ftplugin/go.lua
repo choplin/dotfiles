@@ -20,3 +20,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     org_imports(1000)
   end,
 })
+
+require("lvim.lsp.manager").setup "golangci_lint_ls"
