@@ -34,33 +34,6 @@ return {
   { "gpanders/editorconfig.nvim" },
   -- Expand .(repeat)/u(undo) funcionality to several plugins
   { "tpope/vim-repeat" },
-  -- Provide customizable sidebar
-  {
-    "sidebar-nvim/sidebar.nvim",
-    event = "BufEnter",
-    config = function()
-      local sidebar = require "sidebar-nvim"
-      sidebar.setup {
-        side = "left",
-        initial_width = 30,
-        sections = { "git", "diagnostics", "todos", "containers", "buffers", "files", "symbols" },
-      }
-      lvim.builtin.which_key.mappings["e"] = {
-        function()
-          sidebar.close()
-          require("nvim-tree").toggle()
-        end,
-        "Explorer",
-      }
-      lvim.builtin.which_key.mappings["B"] = {
-        function()
-          require("nvim-tree.view").close()
-          sidebar.toggle()
-        end,
-        "Sidebar",
-      }
-    end,
-  },
   -- Provide UI that shows status of LSP at the bottom right
   {
     "j-hui/fidget.nvim",
