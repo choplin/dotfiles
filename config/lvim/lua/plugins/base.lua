@@ -1,7 +1,6 @@
 return {
   -- tokyonight colorscheme
   { "folke/tokyonight.nvim" },
-  -- { "EdenEast/nightfox.nvim", tag = "v1.0.0" },
   -- Highlight Todo: comments
   {
     "folke/todo-comments.nvim",
