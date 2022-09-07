@@ -17,21 +17,6 @@ return {
       }
     end,
   },
-  -- :Aerial*  provides code outline sidebar
-  {
-    "stevearc/aerial.nvim",
-    config = function()
-      require("aerial").setup {
-        on_attach = function(bufnr)
-          -- Toggle the aerial window with <leader>a
-          vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { buffer = bufnr })
-          -- Jump forwards/backwards with "{" and "}"
-          vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-          vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-        end,
-      }
-    end,
-  },
   -- :SnipRun runs code instantly
   { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
   -- :Neogen generates documentation comments
@@ -65,6 +50,7 @@ return {
   {
     "simrat39/symbols-outline.nvim",
     config = function()
+      require("symbols-outline").setup()
       lvim.builtin.which_key.mappings["o"] = {
         function()
           require("symbols-outline").toggle_outline()
