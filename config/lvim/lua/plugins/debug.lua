@@ -24,6 +24,60 @@ return {
           },
         },
       }
+      local neotest = require "neotest"
+      require("which-key").register {
+        ["<leader>t"] = {
+          name = "+Neotest",
+          t = {
+            function()
+              neotest.run.run()
+            end,
+            "Run the nearest test",
+          },
+          f = {
+            function()
+              neotest.run.run(vim.fn.expand "%")
+            end,
+            "Run the current file",
+          },
+          d = {
+            function()
+              neotest.run.run { strategy = "dap" }
+            end,
+            "Debug the nearest test",
+          },
+          S = {
+            function()
+              neotest.run.stop()
+            end,
+            "Stop the nearest test",
+          },
+          a = {
+            function()
+              neotest.run.attach()
+            end,
+            "Attach the nearest test",
+          },
+          s = {
+            function()
+              neotest.summary.toggle()
+            end,
+            "Toggle the summary window",
+          },
+          ["["] = {
+            function()
+              neotest.jump.prev { status = "failed" }
+            end,
+            "Jump to the next failed test",
+          },
+          ["]"] = {
+            function()
+              neotest.jump.next { status = "failed" }
+            end,
+            "Jump to the next failed test",
+          },
+        },
+      }
     end,
   },
   -- Provide UI for nvim-dap

@@ -49,7 +49,7 @@ return {
     cmd = "Trouble",
     config = function()
       require("which-key").register {
-        ["<leader>t"] = {
+        ["<leader>T"] = {
           name = "+Trouble",
           r = { "<cmd>Trouble lsp_references<cr>", "References" },
           f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
