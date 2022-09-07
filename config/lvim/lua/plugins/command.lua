@@ -73,4 +73,19 @@ return {
       }
     end,
   },
+  -- Note taking
+  {
+    "phaazon/mind.nvim",
+    branch = "v2.2",
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("mind").setup()
+      lvim.builtin.which_key.mappings["m"] = {
+        function()
+          require("mind").open_project()
+        end,
+        "Mind Project",
+      }
+    end,
+  },
 }
