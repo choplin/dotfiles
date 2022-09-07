@@ -29,8 +29,6 @@ return {
   },
   -- Ron (Rusty Object Notation)
   { "ron-rs/ron.vim" },
-  -- Starlark (Tiltfile)
-  { "cappyzawa/starlark.vim", ft = "starlark" },
   -- Flutter
   {
     "akinsho/flutter-tools.nvim",
