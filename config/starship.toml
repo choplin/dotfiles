@@ -1,0 +1,7 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+right_format = "$kubernetes"
+
+[kubernetes]
+disabled = false
