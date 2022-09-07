@@ -90,10 +90,5 @@ return {
     end,
   },
   -- Provide Telescope ghq
-  {
-    "nvim-telescope/telescope-ghq.nvim",
-    config = function()
-      require("telescope").load_extension "ghq"
-    end,
-  },
+  { "nvim-telescope/telescope-ghq.nvim" },
 }

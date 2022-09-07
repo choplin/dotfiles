@@ -100,6 +100,11 @@ do
 end
 lvim.builtin.lualine.options.globalstatus = true
 
+lvim.builtin.telescope.on_config_done = function(telescope)
+  pcall(telescope.load_extension, "ghq")
+  pcall(telescope.load_extension, "yank_history")
+end
+
 -- generic LSP settings
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.

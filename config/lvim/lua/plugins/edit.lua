@@ -13,7 +13,6 @@ return {
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
       vim.keymap.set({ "n", "x" }, "y", "<Plug>(YankyYank)")
-      require("telescope").load_extension "yank_history"
     end,
   },
   -- Show index of search results as virtual text
