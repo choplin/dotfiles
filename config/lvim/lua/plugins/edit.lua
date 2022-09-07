@@ -1,6 +1,11 @@
 return {
-  -- lightspeed provides TODO:: compare with hop.nvim and nvim-treehopper
-  { "ggandor/lightspeed.nvim" },
+  -- general-purpose motion plugin
+  {
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").set_default_keymaps()
+    end,
+  },
   -- Provide yank ring
   {
     "gbprod/yanky.nvim",
