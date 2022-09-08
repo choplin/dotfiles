@@ -69,20 +69,6 @@ lvim.builtin.terminal.execs = {
   { "git diff", "<c-\\><c-d>", "Git Diff", "float" },
 }
 
-do
-  local term_with_buf_file = function(cmd, bufnr)
-    return function()
-      local name = vim.api.nvim_buf_get_name(bufnr)
-      local cmd_with_name = cmd .. " " .. name
-      local Terminal = require("toggleterm.terminal").Terminal
-      local term = Terminal:new { cmd = cmd_with_name, close_on_exit = true }
-      term:toggle()
-    end
-  end
-  vim.api.nvim_create_user_command("Blame", term_with_buf_file("tig blame", 0), {})
-  vim.api.nvim_create_user_command("FileHistory", term_with_buf_file("tig", 0), {})
-end
-
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.dap.active = true
 
@@ -143,6 +129,20 @@ lvim.plugins = require("util").concatLists(
   require "plugins/git",
   require "plugins/treesitter"
 )
+
+-- Commnads
+local term_with_buf_file = function(cmd, bufnr)
+  return function()
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    local cmd_with_name = cmd .. " " .. name
+    local Terminal = require("toggleterm.terminal").Terminal
+    local term = Terminal:new { cmd = cmd_with_name, close_on_exit = true }
+    term:toggle()
+  end
+end
+
+vim.api.nvim_create_user_command("GitBlame", term_with_buf_file("tig blame", 0), {})
+vim.api.nvim_create_user_command("GitFileHistory", term_with_buf_file("tig", 0), {})
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 do
