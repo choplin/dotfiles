@@ -137,4 +137,5 @@ return {
       }, { prefix = "<leader>", mode = "x" })
     end,
   },
+  { "tpope/vim-surround" },
 }
