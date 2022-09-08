@@ -1,1 +1,1 @@
-EXCLUDES="Makefile rcrc"
+EXCLUDES="Makefile rcrc misc"

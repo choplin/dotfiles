@@ -1,0 +1,37 @@
+tap 'homebrew/bundle'
+tap 'homebrew/core'
+
+brew 'bandwhich'         # Terminal bandwidth utilization tool
+brew 'bat'               # Clone of cat(1) with syntax highlighting and Git integration
+brew 'bottom'            # Yet another cross-platform graphical process/system monitor
+brew 'broot'             # New way to see and navigate directory trees
+brew 'direnv'            # Load/unload environment variables based on $PWD
+brew 'dust'              # More intuitive version of du in rust
+brew 'fd'                # Simple, fast and user-friendly alternative to find
+brew 'fzf'               # Command-line fuzzy finder written in Go
+brew 'gh'                # GitHub command-line tool
+brew 'ghq'               # Remote repository management made easy
+brew 'git-crypt'         # Enable transparent encryption/decryption of files in a git repo
+brew 'git-delta'         # Syntax-highlighting pager for git and diff output
+brew 'git-now'           # Light, temporary commits for git
+brew 'gitui'             # Blazing fast terminal-ui for git written in rust
+brew 'glow'              # Render markdown on the CLI
+brew 'hexyl'             # Command-line hex viewer
+brew 'jq'                # Lightweight and flexible command-line JSON processor
+brew 'lazydocker'        # Lazier way to manage everything docker
+brew 'lsd'               # Clone of ls with colorful output, file type icons, and more
+brew 'navi'              # Interactive cheatsheet tool for the command-line
+brew 'neovim'            # Ambitious Vim-fork focused on extensibility and agility
+brew 'procs'             # Modern replacement for ps written by Rust
+brew 'rcm'               # RC file (dotfile) management
+brew 'ripgrep'           # Search tool like grep and The Silver Searcher
+brew 'sheldon'           # Fast, configurable, shell plugin manager
+brew 'starship'          # Cross-shell prompt for astronauts
+brew 'tealdeer'          # Very fast implementation of tldr in Rust
+brew 'terminal-notifier' # Send macOS User Notifications from the command-line
+brew 'tig'               # Text interface for Git repositories
+brew 'tokei'             # Program that allows you to count code, quickly
+brew 'vim'               # Vi 'workalike' with many additional features
+brew 'watchexec'         # Execute commands when watched files change
+brew 'wget'              # Internet file retriever
+brew 'zoxide'            # Shell extension to navigate your filesystem faster
