@@ -21,6 +21,9 @@ defer = { value = 'zsh-defer source "{{ file }}"', each = true }
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'
 
+[plugins.bindkey]
+inline = 'bindkey -e'
+
 [plugins.zsh-syntax-highlighting]
 github = "zdharma/fast-syntax-highlighting"
 
@@ -48,7 +51,7 @@ github = "asdf-vm/asdf"
 dir = "completions"
 apply = ["fpath"]
 
-[plugins.zsh-abbrev-zlias]
+[plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
 [plugins.dotfiles-defers]
