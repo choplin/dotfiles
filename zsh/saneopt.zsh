@@ -65,10 +65,10 @@ fi
 # Don't send SIGHUP to background processes when the shell exits.
 #setopt nohup
 # make cd push the old directory onto the directory stack.
-#setopt auto_pushd
+setopt auto_pushd
 # avoid "beep"ing
-#setopt nobeep
+setopt nobeep
 # don't push the same dir twice.
-#setopt pushd_ignore_dups
+setopt pushd_ignore_dups
 # * shouldn't match dotfiles. ever.
-#setopt noglobdots
+setopt noglobdots
