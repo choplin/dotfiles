@@ -1,0 +1,6 @@
+abbr -g B="| bat"
+abbr -g F="| fzf"
+abbr d="docker"
+abbr g="git"
+abbr gu="gitui"
+abbr k="kubectl"

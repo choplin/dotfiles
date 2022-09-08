@@ -49,7 +49,7 @@ dir = "completions"
 apply = ["fpath"]
 
 [plugins.zsh-abbrev-zlias]
-github = "momo-lab/zsh-abbrev-alias"
+github = "olets/zsh-abbr"
 
 [plugins.dotfiles-defers]
 local = "~/.zsh"
