@@ -33,16 +33,6 @@ github = "zsh-users/zsh-completions"
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
-[plugins.ohmyzsh-lib]
-github = "ohmyzsh/ohmyzsh"
-dir = "lib"
-use = ["clipboard.zsh"]
-
-[plugins.prezto-modules]
-github = "sorin-ionescu/prezto"
-dir = "modules"
-use = ["editor/init.zsh", "history/init.zsh"]
-
 [plugins.asdf]
 github = "asdf-vm/asdf"
 
@@ -57,14 +47,15 @@ github = "olets/zsh-abbr"
 [plugins.dotfiles-defers]
 local = "~/.zsh"
 use = [
-  "alias.zsh",
-  "fzf.zsh",
-  "keybinding.zsh",
-  "saneopt.zsh",
-  "setting.zsh",
-  "zstyle.zsh",
-  "zoxide.zsh",
-  "hook.zsh",
-  "local.zsh",
-  "env.zsh",
+    "alias.zsh",
+    "fzf.zsh",
+    "keybinding.zsh",
+    "saneopt.zsh",
+    "setting.zsh",
+    "zstyle.zsh",
+    "zoxide.zsh",
+    "hook.zsh",
+    "local.zsh",
+    "env.zsh",
+    "history.zsh",
 ]
