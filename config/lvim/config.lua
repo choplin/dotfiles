@@ -175,6 +175,14 @@ do
       vim.keymap.set("n", "q", "<Cmd>bdelete!<CR>", { buffer = true })
     end,
   })
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
+    pattern = "*.md",
+    callback = function()
+      vim.api.nvim_buf_create_user_command(0, "Glow", term_with_buf_file("glow -p", 0), {})
+    end,
+  })
 end
 
 vim.filetype.add {
