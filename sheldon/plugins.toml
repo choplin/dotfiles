@@ -44,6 +44,10 @@ apply = ["fpath"]
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
+[plugins.enhancd]
+github = "b4b4r07/enhancd"
+apply = ["defer"]
+
 [plugins.dotfiles-defers]
 local = "~/.zsh"
 use = [
