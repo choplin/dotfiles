@@ -5,3 +5,6 @@ right_format = "$kubernetes"
 
 [kubernetes]
 disabled = false
+
+[env_var.DEVBOX_SHELL_ENABLED]
+format = "📦[devbox](bold fg:green)"
