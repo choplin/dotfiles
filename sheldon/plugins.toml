@@ -22,7 +22,7 @@ defer = { value = 'zsh-defer source "{{ file }}"', each = true }
 inline = 'autoload -Uz compinit && zsh-defer compinit'
 
 [plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
+github = "zdharma/fast-syntax-highlighting"
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
