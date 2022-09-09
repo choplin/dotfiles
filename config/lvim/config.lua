@@ -57,7 +57,6 @@ lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq li
 lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 
 lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "startify"
 lvim.builtin.notify.active = true
 
 lvim.builtin.terminal.active = true
