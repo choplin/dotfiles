@@ -106,35 +106,33 @@ return {
   {
     "Vonr/align.nvim",
     config = function()
-      require("which-key").register({
-        ["A"] = {
-          name = "+Aligh",
-          a = {
-            function()
-              require("align").align_to_char(1, true)
-            end,
-            "Aligns to 1 character, looking left",
-          },
-          s = {
-            function()
-              require("align").align_to_char(2, true, true)
-            end,
-            "Aligns to 2 characters, looking left and with previews",
-          },
-          w = {
-            function()
-              require("align").align_to_string(false, true, true)
-            end,
-            "Aligns to a string, looking left and with previews",
-          },
-          r = {
-            function()
-              require("align").align_to_string(true, true, true)
-            end,
-            "Aligns to a Lua pattern, looking left and with previews",
-          },
+      lvim.builtin.which_key.vmappings["A"] = {
+        name = "+Aligh",
+        a = {
+          function()
+            require("align").align_to_char(1, true)
+          end,
+          "Aligns to 1 character, looking left",
         },
-      }, { prefix = "<leader>", mode = "x" })
+        s = {
+          function()
+            require("align").align_to_char(2, true, true)
+          end,
+          "Aligns to 2 characters, looking left and with previews",
+        },
+        w = {
+          function()
+            require("align").align_to_string(false, true, true)
+          end,
+          "Aligns to a string, looking left and with previews",
+        },
+        r = {
+          function()
+            require("align").align_to_string(true, true, true)
+          end,
+          "Aligns to a Lua pattern, looking left and with previews",
+        },
+      }
     end,
   },
   { "tpope/vim-surround" },
