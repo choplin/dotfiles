@@ -190,3 +190,6 @@ vim.filetype.add {
     ["Tiltfile"] = "tiltfile",
   },
 }
+
+lvim.builtin.bufferline.options.indicator_icon = nil
+lvim.builtin.bufferline.options.indicator = { style = "icon", icon = "▎" }
