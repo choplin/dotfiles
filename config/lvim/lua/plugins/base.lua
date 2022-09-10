@@ -25,8 +25,10 @@ return {
     config = function()
       require("scrollbar").setup()
       require("scrollbar.handlers.search").setup()
-      lvim.builtin.which_key.mappings["h"] =
-        { [[<Cmd>nohlsearch<CR><Cmd>lua require('scrollbar_ext').hide_search_results()<CR>]], "No Highlight" }
+      vim.keymap.set("n", "<Esc>", function()
+        require("scrollbar_ext").hide_search_results()
+        vim.cmd "nohlsearch"
+      end)
     end,
   },
   -- Apply .editorconfig
