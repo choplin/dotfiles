@@ -199,4 +199,29 @@ return {
     end,
   },
   { "tpope/vim-surround" },
+  -- Distraction-free coding for Neovim
+  {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {}
+      lvim.builtin.which_key.mappings["Z"] = {
+        function()
+          require("zen-mode").toggle {}
+        end,
+        "Zen Mode",
+      }
+    end,
+  },
+  -- Dims inactive portions of the code you're editing
+  {
+    "folke/twilight.nvim",
+    config = function()
+      require("twilight").setup {
+        expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+          "function",
+          "method",
+        },
+      }
+    end,
+  },
 }
