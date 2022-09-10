@@ -100,6 +100,13 @@ return {
       require("dap-go").setup()
     end,
   },
-  -- { "theHamsta/nvim-dap-virtual-text" },
+  -- Add virtual text support to nvim-dap.
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
+  },
+  -- A Vim wrapper for running tests on different granularities. (used via neotest)
   { "vim-test/vim-test" },
 }
