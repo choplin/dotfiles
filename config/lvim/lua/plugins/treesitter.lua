@@ -58,7 +58,7 @@ return {
   },
   -- Provide treesitter based text object with text hint
   {
-    "mfussenegger/nvim-ts-hint-textobject",
+    "mfussenegger/nvim-treehopper",
     config = function()
       vim.keymap.set("o", "m", require("tsht").nodes, { silent = true })
       vim.keymap.set("v", "m", ":lua require('tsht').nodes()<CR>", { silent = true })
