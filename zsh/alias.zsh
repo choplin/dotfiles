@@ -3,3 +3,5 @@ if type lsd > /dev/null; then
 elif type exa > /dev/null; then
     alias ls=exa
 fi
+
+disable r
