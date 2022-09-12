@@ -102,24 +102,24 @@ return {
       {
         key = "V",
         mods = "LEADER|CTRL",
-        action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
+        action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
       },
       {
         key = "d",
         mods = "SUPER",
-        action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
+        action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
       },
       {
         key = "S",
         mods = "LEADER|CTRL",
-        action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } },
+        action = act.SplitVertical { domain = "CurrentPaneDomain" },
       },
-      { key = "O", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
-      { key = "w", mods = "CMD", action = wezterm.action { CloseCurrentPane = { confirm = true } } },
+      { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection "Next" },
+      { key = "w", mods = "CMD", action = act.CloseCurrentPane { confirm = true } },
       {
         key = "P",
         mods = "CTRL",
-        action = wezterm.action.QuickSelectArgs {
+        action = act.QuickSelectArgs {
           label = "open url",
           patterns = {
             "https?://\\S+",
@@ -137,11 +137,9 @@ return {
       return {
         key = e.key,
         mods = "LEADER",
-        action = wezterm.action {
-          Multiple = {
-            wezterm.action { ActivatePaneDirection = e.direction },
-            wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
-          },
+        action = act.Multiple {
+          act.ActivatePaneDirection(e.direction),
+          act.ActivateKeyTable { name = "pane", one_shot = false },
         },
       }
     end),
@@ -149,26 +147,24 @@ return {
       return {
         key = e.key,
         mods = "LEADER|SHIFT",
-        action = wezterm.action {
-          Multiple = {
-            wezterm.action { AdjustPaneSize = { e.direction, 5 } },
-            wezterm.action { ActivateKeyTable = { name = "pane", one_shot = false } },
-          },
+        action = act.Multiple {
+          act.AdjustPaneSize { e.direction, 5 },
+          act.ActivateKeyTable { name = "pane", one_shot = false },
         },
       }
     end)
   ),
   key_tables = {
     pane = {
-      { key = "h", action = wezterm.action { ActivatePaneDirection = "Left" } },
-      { key = "l", action = wezterm.action { ActivatePaneDirection = "Right" } },
-      { key = "k", action = wezterm.action { ActivatePaneDirection = "Up" } },
-      { key = "j", action = wezterm.action { ActivatePaneDirection = "Down" } },
+      { key = "h", action = act.ActivatePaneDirection "Left" },
+      { key = "l", action = act.ActivatePaneDirection "Right" },
+      { key = "k", action = act.ActivatePaneDirection "Up" },
+      { key = "j", action = act.ActivatePaneDirection "Down" },
 
-      { key = "H", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Left", 5 } } },
-      { key = "J", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Down", 5 } } },
-      { key = "K", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Up", 5 } } },
-      { key = "L", mods = "SHIFT", action = wezterm.action { AdjustPaneSize = { "Right", 5 } } },
+      { key = "H", mods = "SHIFT", action = act.AdjustPaneSize { "Left", 5 } },
+      { key = "J", mods = "SHIFT", action = act.AdjustPaneSize { "Down", 5 } },
+      { key = "K", mods = "SHIFT", action = act.AdjustPaneSize { "Up", 5 } },
+      { key = "L", mods = "SHIFT", action = act.AdjustPaneSize { "Right", 5 } },
 
       { key = "Escape", action = "PopKeyTable" },
       { key = "Enter", action = "PopKeyTable" },
