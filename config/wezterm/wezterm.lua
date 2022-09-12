@@ -96,11 +96,11 @@ return {
 
   send_composed_key_when_right_alt_is_pressed = false,
 
-  leader = { key = "y", mods = "CTRL", timeout_milliseconds = 1000 },
+  leader = { key = "Y", mods = "CTRL", timeout_milliseconds = 1000 },
   keys = merge(
     {
       {
-        key = "v",
+        key = "V",
         mods = "LEADER|CTRL",
         action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
       },
@@ -110,11 +110,11 @@ return {
         action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } },
       },
       {
-        key = "s",
+        key = "S",
         mods = "LEADER|CTRL",
         action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } },
       },
-      { key = "o", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
+      { key = "O", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
       { key = "w", mods = "CMD", action = wezterm.action { CloseCurrentPane = { confirm = true } } },
       {
         key = "P",
