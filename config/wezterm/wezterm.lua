@@ -100,8 +100,8 @@ return {
   keys = merge(
     {
       {
-        key = "V",
-        mods = "LEADER|CTRL",
+        key = "v",
+        mods = "LEADER",
         action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
       },
       {
@@ -110,8 +110,8 @@ return {
         action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
       },
       {
-        key = "S",
-        mods = "LEADER|CTRL",
+        key = "s",
+        mods = "LEADER",
         action = act.SplitVertical { domain = "CurrentPaneDomain" },
       },
       { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection "Next" },
