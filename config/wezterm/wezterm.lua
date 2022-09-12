@@ -61,6 +61,8 @@ local direction_keys = {
 }
 
 return {
+  term = "wezterm",
+
   font = wezterm.font "HackGen35 Console NF",
   font_size = 16.0,
   -- color_scheme = "OneHalfDark",
