@@ -1,4 +1,5 @@
 local wezterm = require "wezterm"
+local act = wezterm.action
 
 local function recompute_padding(window)
   local window_dims = window:get_dimensions()
@@ -129,6 +130,8 @@ return {
           end),
         },
       },
+      { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
+      { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
     },
     map(direction_keys, function(e)
       return {

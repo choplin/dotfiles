@@ -62,4 +62,5 @@ use = [
     "local.zsh",
     "env.zsh",
     "history.zsh",
+    "osc133.zsh",
 ]
