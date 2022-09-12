@@ -115,6 +115,20 @@ return {
       },
       { key = "o", mods = "LEADER|CTRL", action = wezterm.action { ActivatePaneDirection = "Next" } },
       { key = "w", mods = "CMD", action = wezterm.action { CloseCurrentPane = { confirm = true } } },
+      {
+        key = "P",
+        mods = "CTRL",
+        action = wezterm.action.QuickSelectArgs {
+          label = "open url",
+          patterns = {
+            "https?://\\S+",
+          },
+          action = wezterm.action_callback(function(window, pane)
+            local url = window:get_selection_text_for_pane(pane)
+            wezterm.open_with(url)
+          end),
+        },
+      },
     },
     map(direction_keys, function(e)
       return {
