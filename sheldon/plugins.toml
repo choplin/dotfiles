@@ -63,4 +63,5 @@ use = [
     "env.zsh",
     "history.zsh",
     "osc133.zsh",
+    "broot.zsh",
 ]

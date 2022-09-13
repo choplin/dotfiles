@@ -70,7 +70,10 @@ end
 return {
   term = "wezterm",
 
-  font = wezterm.font "HackGen35 Console NF",
+  font = wezterm.font_with_fallback {
+    "HackGen35 Console NF",
+    "Broot Icons Visual Studio Code",
+  },
   font_size = 16.0,
   -- color_scheme = "OneHalfDark",
   -- color_scheme = "nord",
