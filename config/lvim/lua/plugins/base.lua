@@ -86,4 +86,6 @@ return {
   },
   -- Provide Telescope symbols
   { "nvim-telescope/telescope-symbols.nvim" },
+  -- Tracking coding activities
+  { "wakatime/vim-wakatime" },
 }
