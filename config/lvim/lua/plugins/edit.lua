@@ -224,4 +224,13 @@ return {
       }
     end,
   },
+  -- Replace via quickfix window
+  {
+    "gabrielpoca/replacer.nvim",
+    config = function()
+      vim.api.nvim_create_user_command("Replacer", function()
+        require("replacer").run()
+      end, {})
+    end,
+  },
 }
