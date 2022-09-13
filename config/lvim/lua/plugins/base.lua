@@ -65,4 +65,24 @@ return {
   },
   -- Provide Telescope ghq
   { "nvim-telescope/telescope-ghq.nvim" },
+  -- Provide Telescope frecency
+  {
+    "nvim-telescope/telescope-frecency.nvim",
+    config = function()
+      require("telescope").load_extension "frecency"
+      lvim.builtin.which_key.mappings["sf"] = {
+        function()
+          require("telescope").extensions.frecency.frecency { workspace = "CWD" }
+        end,
+        "Frecency Current Directory",
+      }
+      lvim.builtin.which_key.mappings["sF"] = {
+        function()
+          require("telescope").extensions.frecency.frecency()
+        end,
+        "Frecency Global",
+      }
+    end,
+    requires = { "kkharji/sqlite.lua" },
+  },
 }
