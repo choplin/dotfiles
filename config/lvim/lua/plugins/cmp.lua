@@ -47,4 +47,11 @@ return {
       lvim.builtin.cmp.formatting.source_names["look"] = "(Look)"
     end,
   },
+  -- Completion from treesitter nodes
+  {
+    "ray-x/cmp-treesitter",
+    config = function()
+      lvim.builtin.cmp.formatting.source_names["treesitter"] = "(Treesitter)"
+    end,
+  },
 }
