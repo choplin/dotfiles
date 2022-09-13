@@ -56,6 +56,14 @@ lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
 lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq list" }
 lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 
+lvim.builtin.which_key.mappings["B"] = lvim.builtin.which_key.mappings["b"]
+lvim.builtin.which_key.mappings["b"] = {
+  function()
+    require("telescope.builtin").buffers()
+  end,
+  "Find Buffer",
+}
+
 lvim.builtin.alpha.active = true
 lvim.builtin.notify.active = true
 
