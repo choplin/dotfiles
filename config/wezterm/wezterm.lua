@@ -142,6 +142,7 @@ return {
       },
       { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
       { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
+      { key = "Enter", mods = "ALT", action = act.Nop },
     },
     map(direction_keys, function(e)
       return {
