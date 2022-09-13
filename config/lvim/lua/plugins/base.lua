@@ -69,7 +69,6 @@ return {
   {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
-      require("telescope").load_extension "frecency"
       lvim.builtin.which_key.mappings["sf"] = {
         function()
           require("telescope").extensions.frecency.frecency { workspace = "CWD" }
@@ -85,4 +84,6 @@ return {
     end,
     requires = { "kkharji/sqlite.lua" },
   },
+  -- Provide Telescope symbols
+  { "nvim-telescope/telescope-symbols.nvim" },
 }

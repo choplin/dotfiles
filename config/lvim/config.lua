@@ -96,6 +96,8 @@ lvim.builtin.lualine.options.globalstatus = true
 lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "ghq")
   pcall(telescope.load_extension, "yank_history")
+  pcall(telescope.load_extension, "frecency")
+  pcall(telescope.load_extension, "symbols")
 end
 
 -- generic LSP settings
