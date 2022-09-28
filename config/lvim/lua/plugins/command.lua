@@ -65,7 +65,7 @@ return {
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("mind").setup()
-      lvim.builtin.which_key.mappings["m"] = {
+      lvim.builtin.which_key.mappings["M"] = {
         function()
           require("mind").open_project()
         end,
