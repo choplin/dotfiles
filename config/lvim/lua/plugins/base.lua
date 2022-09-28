@@ -46,7 +46,7 @@ return {
   {
     "nvim-telescope/telescope-frecency.nvim",
     config = function()
-      lvim.builtin.which_key.mappings["sf"] = {
+      lvim.builtin.which_key.mappings["s"]["f"] = {
         function()
           require("telescope").extensions.frecency.frecency { workspace = "CWD" }
         end,
