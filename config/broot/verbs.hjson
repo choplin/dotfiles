@@ -15,7 +15,7 @@
         {
             invocation: edit
             shortcut: e
-            key: enter
+            key: ctrl-e
             external: "$EDITOR +{line} {file}"
             leave_broot: false
             apply_to: file
@@ -23,7 +23,7 @@
         {
             invocation: edit_leave
             shortcut: el
-            key: ctrl-e
+            key: enter
             external: "$EDITOR +{line} {file}"
             leave_broot: true
             apply_to: file
@@ -68,23 +68,23 @@
 
         {
             key: ctrl-k
-            execution: ":line_up"
+            internal: ":line_up"
         }
         {
             key: ctrl-j
-            execution: ":line_down"
+            internal: ":line_down"
         }
         {
             key: ctrl-u
-            execution: ":page_up"
+            internal: ":page_up"
         }
         {
             key: ctrl-d
-            execution: ":page_down"
+            internal: ":page_down"
         }
         {
             key: ctrl-h
-            execution: ":root_up"
+            internal: ":root_up"
         }
     ]
 
