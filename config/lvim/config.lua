@@ -236,6 +236,17 @@ do
       vim.keymap.set("n", "<C-q>", "<Cmd>DiffviewClose<CR>", { buffer = true })
     end,
   })
+
+  vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    pattern = "toggleterm",
+    callback = function()
+      vim.keymap.set("t", "<C-j>", "<C-j>", { buffer = true })
+      vim.keymap.set("t", "<C-k>", "<C-k>", { buffer = true })
+      vim.keymap.set("t", "<C-h>", "<C-h>", { buffer = true })
+      vim.keymap.set("t", "<C-l>", "<C-l>", { buffer = true })
+    end,
+  })
 end
 
 vim.filetype.add {
