@@ -33,16 +33,16 @@ lvim.keys.normal_mode["<C-]>"] = "<Cmd>lua vim.lsp.buf.definition()<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- emacs-like bindings for command line
-vim.keymap.set("c", "<C-a>", "<C-b>")
-vim.keymap.set("c", "<C-b>", "<Left>")
-vim.keymap.set("c", "<C-f>", "<Right>")
-vim.keymap.set("c", "<C-k>", "<C-e><C-u>")
-vim.keymap.set("c", "<C-d>", "<Del>")
+vim.keymap.set("c", "<C-a>", "<C-b>", {})
+vim.keymap.set("c", "<C-b>", "<Left>", {})
+vim.keymap.set("c", "<C-f>", "<Right>", {})
+vim.keymap.set("c", "<C-k>", "<C-e><C-u>", {})
+vim.keymap.set("c", "<C-d>", "<Del>", {})
 -- move based on display lines
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
-vim.keymap.set("n", "<Down>", "gj")
-vim.keymap.set("n", "<Up>", "gk")
+vim.keymap.set("n", "j", "gj", {})
+vim.keymap.set("n", "k", "gk", {})
+vim.keymap.set("n", "<Down>", "gj", {})
+vim.keymap.set("n", "<Up>", "gk", {})
 
 lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
   defaults = {

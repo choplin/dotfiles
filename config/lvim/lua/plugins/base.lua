@@ -26,7 +26,7 @@ return {
       vim.keymap.set("n", "<Esc>", function()
         require("scrollbar_ext").hide_search_results()
         vim.cmd "nohlsearch"
-      end)
+      end, {})
     end,
   },
   -- Apply .editorconfig
