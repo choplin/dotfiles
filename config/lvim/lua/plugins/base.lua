@@ -65,4 +65,11 @@ return {
   { "nvim-telescope/telescope-symbols.nvim" },
   -- Tracking coding activities
   { "wakatime/vim-wakatime" },
+  -- Enable per-tab buffers
+  {
+    "tiagovla/scope.nvim",
+    config = function()
+      require("scope").setup()
+    end,
+  },
 }
