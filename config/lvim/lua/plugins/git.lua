@@ -28,13 +28,21 @@ return {
     "TimUntersberger/neogit",
     requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     config = function()
-      require("neogit").setup { integrations = { diffview = true } }
+      require("neogit").setup {
+        kind = "vsplit",
+        integrations = { diffview = true },
+      }
+      lvim.builtin.which_key.mappings["G"] = {
+        function()
+          require("neogit").open()
+        end,
+        "Neogit",
+      }
     end,
   },
   -- :DiffviewOpen, :DiffviewFileHistory provides neat diff UI
   {
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewFileHistory", "Neogit" },
     requires = "nvim-lua/plenary.nvim",
   },
   -- gitlinker generates a file permalink
