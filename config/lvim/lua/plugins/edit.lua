@@ -28,7 +28,7 @@ return {
         require("hop").hint_char1 {
           direction = require("hop.hint").HintDirection.AFTER_CURSOR,
           current_line_only = true,
-          hint_offset = 1,
+          hint_offset = -1,
         }
       end, {})
       vim.keymap.set("", "T", function()
