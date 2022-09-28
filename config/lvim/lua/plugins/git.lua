@@ -44,6 +44,23 @@ return {
   {
     "sindrets/diffview.nvim",
     requires = "nvim-lua/plenary.nvim",
+    config = function()
+      local lazy = require "diffview.lazy"
+      local diffview = lazy.require "diffview"
+
+      lvim.builtin.which_key.mappings["gD"] = {
+        function()
+          diffview.open()
+        end,
+        "DiffviewOpen",
+      }
+      lvim.builtin.which_key.mappings["gH"] = {
+        function()
+          diffview.file_history()
+        end,
+        "DiffviewFileHistory",
+      }
+    end,
   },
   -- gitlinker generates a file permalink
   {

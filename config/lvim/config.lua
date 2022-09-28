@@ -215,6 +215,14 @@ do
       vim.api.nvim_buf_create_user_command(0, "Glow", term_with_buf_file("glow -p", 0), {})
     end,
   })
+
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
+    pattern = "diffview://*",
+    callback = function()
+      vim.keymap.set("n", "<C-q>", "<Cmd>DiffviewClose<CR>", { buffer = true })
+    end,
+  })
 end
 
 vim.filetype.add {
