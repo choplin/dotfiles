@@ -79,4 +79,6 @@ return {
       require("overseer").setup { templates = { "builtin" } }
     end,
   },
+  -- Provide :Linediff to compare the selection areas
+  { "AndrewRadev/linediff.vim" },
 }
