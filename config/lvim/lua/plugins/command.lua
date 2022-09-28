@@ -16,6 +16,7 @@ return {
         ["style"] = "minimal",
       }
     end,
+    disable = true,
   },
   -- :SnipRun runs code instantly
   { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },

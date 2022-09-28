@@ -214,3 +214,6 @@ vim.filetype.add {
     ["Tiltfile"] = "tiltfile",
   },
 }
+
+lvim.builtin.nvimtree.active = true
+lvim.builtin.lir.active = true
