@@ -81,7 +81,6 @@ lvim.builtin.which_key.mappings["b"] = {
   "Find Buffer",
 }
 
-lvim.builtin.alpha.active = true
 lvim.builtin.notify.active = true
 
 lvim.builtin.terminal.active = true
