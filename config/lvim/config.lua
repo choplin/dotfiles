@@ -44,13 +44,30 @@ vim.keymap.set("n", "k", "gk", {})
 vim.keymap.set("n", "<Down>", "gj", {})
 vim.keymap.set("n", "<Up>", "gk", {})
 
-lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
-  defaults = {
-    layout_config = {
-      width = 0.90,
+do
+  local actions = require "telescope.actions"
+  lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
+    defaults = {
+      layout_config = {
+        width = 0.90,
+      },
+      mappings = {
+        i = {
+          ["<C-j>"] = actions.move_selection_next,
+          ["<C-k>"] = actions.move_selection_previous,
+          ["<C-n>"] = actions.cycle_history_next,
+          ["<C-p>"] = actions.cycle_history_prev,
+        },
+      },
     },
-  },
-}, lvim.builtin.telescope)
+  }, lvim.builtin.telescope)
+end
+lvim.builtin.telescope.on_config_done = function(telescope)
+  pcall(telescope.load_extension, "ghq")
+  pcall(telescope.load_extension, "yank_history")
+  pcall(telescope.load_extension, "frecency")
+  pcall(telescope.load_extension, "symbols")
+end
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq list" }
@@ -100,13 +117,6 @@ do
   lvim.builtin.lualine.sections.lualine_z = {}
 end
 lvim.builtin.lualine.options.globalstatus = true
-
-lvim.builtin.telescope.on_config_done = function(telescope)
-  pcall(telescope.load_extension, "ghq")
-  pcall(telescope.load_extension, "yank_history")
-  pcall(telescope.load_extension, "frecency")
-  pcall(telescope.load_extension, "symbols")
-end
 
 lvim.builtin.indentlines.options.char = ""
 lvim.builtin.indentlines.options.char_highlight_list = {
