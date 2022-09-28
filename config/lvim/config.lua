@@ -76,7 +76,9 @@ lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 lvim.builtin.which_key.mappings["B"] = lvim.builtin.which_key.mappings["b"]
 lvim.builtin.which_key.mappings["b"] = {
   function()
-    require("telescope.builtin").buffers()
+    require("telescope.builtin").buffers {
+      initial_mode = "insert",
+    }
   end,
   "Find Buffer",
 }
