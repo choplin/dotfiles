@@ -123,6 +123,8 @@ lvim.builtin.indentlines.on_config_done = function()
   vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
 end
 
+lvim.builtin.bufferline.options.always_show_bufferline = true
+
 -- generic LSP settings
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
