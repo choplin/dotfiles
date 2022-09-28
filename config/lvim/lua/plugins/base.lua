@@ -1,6 +1,4 @@
 return {
-  -- tokyonight colorscheme
-  { "folke/tokyonight.nvim" },
   -- Highlight Todo: comments
   {
     "folke/todo-comments.nvim",
@@ -40,27 +38,6 @@ return {
     "j-hui/fidget.nvim",
     config = function()
       require("fidget").setup()
-    end,
-  },
-  -- Colorize indentation depth
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      vim.opt.termguicolors = true
-      vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]]
-      vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
-      require("indent_blankline").setup {
-        char = "",
-        char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-        space_char_highlight_list = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-        show_trailing_blankline_indent = false,
-      }
     end,
   },
   -- Provide Telescope ghq

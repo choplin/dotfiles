@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "tokyonight-storm"
 
 vim.opt.list = true
 vim.opt.listchars:remove "tab"
@@ -98,6 +98,21 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "yank_history")
   pcall(telescope.load_extension, "frecency")
   pcall(telescope.load_extension, "symbols")
+end
+
+lvim.builtin.indentlines.options.char = ""
+lvim.builtin.indentlines.options.char_highlight_list = {
+  "IndentBlanklineIndent1",
+  "IndentBlanklineIndent2",
+}
+lvim.builtin.indentlines.options.space_char_highlight_list = {
+  "IndentBlanklineIndent1",
+  "IndentBlanklineIndent2",
+}
+lvim.builtin.indentlines.options.show_trailing_blankline_indent = false
+lvim.builtin.indentlines.on_config_done = function()
+  vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]]
+  vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
 end
 
 -- generic LSP settings
