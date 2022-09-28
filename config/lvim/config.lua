@@ -244,5 +244,14 @@ vim.filetype.add {
   },
 }
 
+do
+  local open_broot = function()
+    local Terminal = require("toggleterm.terminal").Terminal
+    local term = Terminal:new { cmd = "broot", direction = "float", env = { EDITOR = "nvr -l" } }
+    term:toggle(lvim.builtin.terminal.size)
+  end
+  lvim.builtin.which_key.mappings["f"] = { open_broot, "Broot" }
+end
+
 lvim.builtin.nvimtree.active = true
 lvim.builtin.lir.active = true
