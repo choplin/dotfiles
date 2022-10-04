@@ -22,9 +22,6 @@ vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %
 vim.opt.timeoutlen = 250
 vim.o.guifont = "HackGen35 Console NFJ:h18"
 
-vim.api.nvim_set_var("did_load_filetypes", 0)
-vim.api.nvim_set_var("do_filetype_lua", 1)
-
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
