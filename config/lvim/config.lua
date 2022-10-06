@@ -21,7 +21,6 @@ vim.opt.listchars:append "precedes:«"
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.timeoutlen = 250
 vim.opt.guifont = "HackGen35 Console NFJ:h18"
-vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
@@ -102,11 +101,9 @@ lvim.builtin.treesitter.indent.enable = false -- use yati instead
 do
   local components = require "lvim.core.lualine.components"
   local branch = require "lualine_branch"
-  lvim.builtin.lualine.sections.lualine_a = { { branch, color = { gui = "bold" } } }
-  lvim.builtin.lualine.sections.lualine_b = { { "filename", path = 1 }, components.diff }
-  lvim.builtin.lualine.sections.lualine_c = {
-    components.diagnostics,
-  }
+  lvim.builtin.lualine.sections.lualine_a = { components.mode }
+  lvim.builtin.lualine.sections.lualine_b = { { branch, color = { gui = "bold" } }, components.diff }
+  lvim.builtin.lualine.sections.lualine_c = { components.diagnostics }
   lvim.builtin.lualine.sections.lualine_x = {
     components.treesitter,
     components.lsp,
@@ -114,8 +111,9 @@ do
   }
   lvim.builtin.lualine.sections.lualine_y = { components.location }
   lvim.builtin.lualine.sections.lualine_z = {}
+  lvim.builtin.lualine.inactive_sections = vim.deepcopy(lvim.builtin.lualine.sections)
+  lvim.builtin.lualine.options.globalstatus = false
 end
-lvim.builtin.lualine.options.globalstatus = true
 
 lvim.builtin.indentlines.options.char = ""
 lvim.builtin.indentlines.options.char_highlight_list = {
