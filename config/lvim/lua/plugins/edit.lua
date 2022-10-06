@@ -138,8 +138,6 @@ return {
       vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual())
     end,
   },
-  -- Make marker management easy
-  -- { "chentau/marks.nvim", config = function() require 'marks'.setup {} end },
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
