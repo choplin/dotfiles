@@ -134,6 +134,8 @@ end
 
 lvim.builtin.bufferline.options.always_show_bufferline = true
 
+lvim.builtin.breadcrumbs.active = true
+
 -- generic LSP settings
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.

@@ -1,15 +1,4 @@
 return {
-  -- Show current context at statusbar
-  {
-    "SmiteshP/nvim-gps",
-    requires = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      local gps = require "nvim-gps"
-      gps.setup()
-
-      table.insert(lvim.builtin.lualine.sections.lualine_c, { gps.get_location, cond = gps.is_available })
-    end,
-  },
   -- Show current context at the top of the windows as virtual text
   {
     "lewis6991/nvim-treesitter-context",
