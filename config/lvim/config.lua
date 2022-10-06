@@ -20,7 +20,9 @@ vim.opt.listchars:append "extends:»"
 vim.opt.listchars:append "precedes:«"
 vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.timeoutlen = 250
-vim.o.guifont = "HackGen35 Console NFJ:h18"
+vim.opt.guifont = "HackGen35 Console NFJ:h18"
+vim.opt.laststatus = 0
+vim.opt.cmdheight = 0
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
