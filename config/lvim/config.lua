@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "tokyonight-storm"
+lvim.colorscheme = "tokyonight-moon"
 
 vim.opt.list = true
 vim.opt.listchars:remove "tab"
