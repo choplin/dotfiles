@@ -184,8 +184,15 @@ local term_with_buf_file = function(cmd, bufnr)
   end
 end
 
+local open_broot = function()
+  local Terminal = require("toggleterm.terminal").Terminal
+  local term = Terminal:new { cmd = "broot", direction = "float", env = { EDITOR = "nvr -l" } }
+  term:toggle(lvim.builtin.terminal.size)
+end
+
 vim.api.nvim_create_user_command("GitBlame", term_with_buf_file("tig blame", 0), {})
 vim.api.nvim_create_user_command("GitFileHistory", term_with_buf_file("tig", 0), {})
+vim.api.nvim_create_user_command("Broot", open_broot, { desc = "Broot" })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 do
@@ -252,15 +259,6 @@ vim.filetype.add {
     ["Tiltfile"] = "tiltfile",
   },
 }
-
-do
-  local open_broot = function()
-    local Terminal = require("toggleterm.terminal").Terminal
-    local term = Terminal:new { cmd = "broot", direction = "float", env = { EDITOR = "nvr -l" } }
-    term:toggle(lvim.builtin.terminal.size)
-  end
-  lvim.builtin.which_key.mappings["f"] = { open_broot, "Broot" }
-end
 
 lvim.builtin.nvimtree.active = true
 lvim.builtin.lir.active = true
