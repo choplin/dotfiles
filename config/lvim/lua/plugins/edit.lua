@@ -168,7 +168,7 @@ return {
     "Vonr/align.nvim",
     config = function()
       lvim.builtin.which_key.vmappings["A"] = {
-        name = "+Aligh",
+        name = "+Align",
         a = {
           function()
             require("align").align_to_char(1, true)
