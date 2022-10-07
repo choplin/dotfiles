@@ -40,7 +40,7 @@ vim.keymap.set("n", "j", "gj", {})
 vim.keymap.set("n", "k", "gk", {})
 vim.keymap.set("n", "<Down>", "gj", {})
 vim.keymap.set("n", "<Up>", "gk", {})
-vim.keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>:<CR>", {})
+vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", {})
 
 do
   local actions = require "telescope.actions"
