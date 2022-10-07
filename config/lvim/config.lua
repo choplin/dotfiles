@@ -81,9 +81,6 @@ lvim.builtin.which_key.mappings["b"] = {
   "Find Buffer",
 }
 
-lvim.builtin.notify.active = true
-
-lvim.builtin.terminal.active = true
 lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
   { "tig", "<c-\\><c-t>", "Tig", "float" },
@@ -93,7 +90,6 @@ lvim.builtin.terminal.execs = {
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.dap.active = true
 lvim.builtin.dap.on_config_done = function()
   lvim.builtin.which_key.mappings["dU"] = {
     function()
@@ -140,8 +136,6 @@ lvim.builtin.indentlines.on_config_done = function()
 end
 
 lvim.builtin.bufferline.options.always_show_bufferline = true
-
-lvim.builtin.breadcrumbs.active = true
 
 -- generic LSP settings
 
@@ -268,6 +262,3 @@ vim.filetype.add {
     ["Tiltfile"] = "tiltfile",
   },
 }
-
-lvim.builtin.nvimtree.active = true
-lvim.builtin.lir.active = true
