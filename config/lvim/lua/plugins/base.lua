@@ -55,10 +55,6 @@ return {
         },
       }
       require("scrollbar.handlers.search").setup()
-      vim.keymap.set("n", "<Esc>", function()
-        require("scrollbar_ext").hide_search_results()
-        vim.cmd "nohlsearch"
-      end, {})
       require("scrollbar.handlers").register("git", function(bufnr)
         local gitsign = require "gitsigns"
         local gitsign_hunks = require "gitsigns.hunks"
