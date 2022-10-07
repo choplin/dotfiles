@@ -19,6 +19,7 @@ return {
   -- Show scrollbar
   {
     "petertriho/nvim-scrollbar",
+    require = { "lewis6991/gitsigns.nvim" },
     after = { "nvim-hlslens" },
     config = function()
       local colors = require("tokyonight.colors").setup()
