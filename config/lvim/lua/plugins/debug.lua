@@ -78,20 +78,6 @@ return {
       }
     end,
   },
-  -- Provide UI for nvim-dap
-  {
-    "rcarriga/nvim-dap-ui",
-    requires = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dapui").setup()
-      lvim.builtin.which_key.mappings["dU"] = {
-        function()
-          require("dapui").toggle()
-        end,
-        "Toggle UI",
-      }
-    end,
-  },
   -- Provide settings for Go delve
   {
     "leoluz/nvim-dap-go",

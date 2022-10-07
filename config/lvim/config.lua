@@ -94,6 +94,14 @@ lvim.builtin.terminal.execs = {
 
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.dap.active = true
+lvim.builtin.dap.on_config_done = function()
+  lvim.builtin.which_key.mappings["dU"] = {
+    function()
+      require("dapui").toggle()
+    end,
+    "Toggle UI",
+  }
+end
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
