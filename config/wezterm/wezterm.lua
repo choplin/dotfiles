@@ -110,6 +110,16 @@ return {
   keys = merge(
     {
       {
+        key = "J",
+        mods = "CTRL",
+        action = act.ActivateTabRelative(-1),
+      },
+      {
+        key = "K",
+        mods = "CTRL",
+        action = act.ActivateTabRelative(1),
+      },
+      {
         key = "v",
         mods = "LEADER",
         action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
