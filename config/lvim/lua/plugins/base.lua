@@ -27,22 +27,30 @@ return {
           GitAdd = {
             text = { "▎" },
             color = colors.green,
-            priority = -1,
+            priority = 5,
           },
           GitDelete = {
             text = { "▎" },
             color = colors.red,
-            priority = -1,
+            priority = 5,
           },
           GitChange = {
             text = { "▎" },
             color = colors.blue,
-            priority = -1,
+            priority = 5,
           },
           GitChangeDelete = {
             text = { "▎" },
             color = colors.orange,
-            priority = -1,
+            priority = 5,
+          },
+          Error = { text = { "🮇" } },
+          Info = { text = { "🮇" } },
+          Warn = { text = { "🮇" } },
+          Hint = { text = { "🮇" } },
+          Search = {
+            text = { "━" },
+            priority = 6,
           },
         },
       }
