@@ -56,6 +56,7 @@ do
           ["<C-p>"] = actions.cycle_history_prev,
         },
       },
+      path_display = "truncate",
     },
   }, lvim.builtin.telescope)
 end
