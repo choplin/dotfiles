@@ -8,7 +8,7 @@ return {
       cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = "cmdline" },
+          { name = "cmdline", keyword_length = 1 },
         },
       })
     end,
