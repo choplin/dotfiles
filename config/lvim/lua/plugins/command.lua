@@ -82,4 +82,6 @@ return {
   },
   -- Provide :Linediff to compare the selection areas
   { "AndrewRadev/linediff.vim" },
+  -- Provide a fancy UI for json
+  { "gennaro-tedesco/nvim-jqx" },
 }
