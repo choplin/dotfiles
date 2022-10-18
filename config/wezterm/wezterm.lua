@@ -112,12 +112,12 @@ return {
       {
         key = "J",
         mods = "CTRL",
-        action = act.ActivateTabRelative(-1),
+        action = act.ActivateTabRelative(1),
       },
       {
         key = "K",
         mods = "CTRL",
-        action = act.ActivateTabRelative(1),
+        action = act.ActivateTabRelative(-1),
       },
       {
         key = "v",
