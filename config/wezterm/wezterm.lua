@@ -67,8 +67,15 @@ if gui then
   -- table.insert(copy_mode, { key = "Backspace", mods = "NONE", action = act.CopyMode "MoveLeft" })
 end
 
+local default_prog = nil
+if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+  default_prog = { "wsl.exe", "~", "-d", "Ubuntu" }
+end
+
 return {
   term = "wezterm",
+
+  default_prog = default_prog,
 
   font = wezterm.font_with_fallback {
     "HackGen35 Console NF",
