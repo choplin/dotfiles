@@ -10,6 +10,7 @@ return {
       "nvim-neotest/neotest-vim-test",
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-go",
+      "rouge8/neotest-rust",
     },
     config = function()
       require("neotest").setup {
@@ -22,6 +23,7 @@ return {
           require "neotest-vim-test" {
             ignore_file_types = { "python", "vim", "lua", "go" },
           },
+          require "neotest-rust",
         },
       }
       local neotest = require "neotest"
