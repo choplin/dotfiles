@@ -6,67 +6,10 @@ return {
       require("leap").set_default_keymaps()
     end,
   },
-  -- EasyMotion-like plugin allowing you to jump anywhere in a document with as few keystrokes as possible.
   {
-    "phaazon/hop.nvim",
-    branch = "v2",
+    "ggandor/flit.nvim",
     config = function()
-      require("hop").setup {}
-      vim.keymap.set("", "f", function()
-        require("hop").hint_char1 {
-          direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-          current_line_only = true,
-        }
-      end, {})
-      vim.keymap.set("", "F", function()
-        require("hop").hint_char1 {
-          direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-          current_line_only = true,
-        }
-      end, {})
-      vim.keymap.set("", "t", function()
-        require("hop").hint_char1 {
-          direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-          current_line_only = true,
-          hint_offset = -1,
-        }
-      end, {})
-      vim.keymap.set("", "T", function()
-        require("hop").hint_char1 {
-          direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-          current_line_only = true,
-          hint_offset = 1,
-        }
-      end, {})
-      local map = {
-        name = "+Hop",
-        l = {
-          function()
-            require("hop").hint_lines_skip_whitespace()
-          end,
-          "Hop Line",
-        },
-        p = {
-          function()
-            require("hop").hint_patterns()
-          end,
-          "HopPattern",
-        },
-        w = {
-          function()
-            require("hop").hint_words()
-          end,
-          "HopWord",
-        },
-        t = {
-          function()
-            require("tsht").move { side = "start" }
-          end,
-          "Treehopper",
-        },
-      }
-      lvim.builtin.which_key.mappings["h"] = map
-      lvim.builtin.which_key.vmappings["h"] = map
+      require('flit').setup()
     end,
   },
   -- Provide yank ring
