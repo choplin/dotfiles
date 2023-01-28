@@ -99,6 +99,7 @@ lvim.builtin.terminal.execs = {
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.renderer.group_empty = true
 lvim.builtin.dap.on_config_done = function()
   lvim.builtin.which_key.mappings["dU"] = {
     function()
