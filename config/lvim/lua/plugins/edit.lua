@@ -124,7 +124,7 @@ return {
           require("yanky").init_ring("p", event.register, event.count, event.vmode:match "[vV�]")
         end,
       }
-      vim.keymap.set("x", "s", function()
+      vim.keymap.set("x", "p", function()
         require("substitute").visual()
       end)
     end,
