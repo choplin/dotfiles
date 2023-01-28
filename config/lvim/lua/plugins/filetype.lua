@@ -55,7 +55,7 @@ return {
       require("lvim.core.lualine").setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      metals_config.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+      metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
       require("dap").configurations.scala = {
         {
           type = "scala",
