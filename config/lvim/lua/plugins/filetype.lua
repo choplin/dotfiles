@@ -93,4 +93,6 @@ return {
   { "towolf/vim-helm" },
   -- Zig
   { "ziglang/zig.vim" },
+  -- Java
+  { "mfussenegger/nvim-jdtls", ft = "java" },
 }

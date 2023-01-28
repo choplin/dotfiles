@@ -154,6 +154,7 @@ lvim.builtin.bufferline.options.always_show_bufferline = true
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
   "rust_analyzer", -- Use rust-tools instead
   "yamlls", -- With additional options, setup in ftplugin
+  "jdtls", -- Use nvim-jdtls instead
 })
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
