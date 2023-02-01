@@ -18,7 +18,6 @@ vim.opt.listchars:remove "tab"
 vim.opt.listchars:append "tab:￫ "
 vim.opt.listchars:append "extends:»"
 vim.opt.listchars:append "precedes:«"
-vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 vim.opt.timeoutlen = 250
 vim.opt.guifont = "HackGen35 Console NFJ:h18"
 vim.opt.cmdheight = 1
@@ -147,6 +146,10 @@ lvim.builtin.indentlines.on_config_done = function()
 end
 
 lvim.builtin.bufferline.options.always_show_bufferline = true
+
+lvim.builtin.project.on_config_done = function()
+  vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
+end
 
 -- generic LSP settings
 
