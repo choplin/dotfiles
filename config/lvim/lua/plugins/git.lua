@@ -70,4 +70,10 @@ return {
       require("gitlinker").setup()
     end,
   },
+  {
+    'dinhhuy258/git.nvim',
+    config = function()
+      require('git').setup()
+    end
+  }
 }
