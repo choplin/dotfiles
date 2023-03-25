@@ -182,4 +182,7 @@ return {
       require("marks").setup()
     end,
   },
+  {
+    "github/copilot.vim",
+  },
 }
