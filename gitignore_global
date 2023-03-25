@@ -73,6 +73,7 @@ todo.md
 
 pyrightconfig.json
 compile_commands.json
+compile_flags.txt
 
 memo.md
 
@@ -81,5 +82,12 @@ memo.md
 .mind/
 
 .factorypath
-.project
 .settings
+
+.ammonite
+
+# jdtls
+.project
+.classpath
+
+.cache/
