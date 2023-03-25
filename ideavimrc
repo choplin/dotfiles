@@ -6,7 +6,7 @@ set ideajoin
 
 nnoremap <Space><Space> :<C-u>action AceAction<CR>
 
-" nnoremap / :<C-u>action Find<CR>
+nnoremap / :<C-u>action Find<CR>
 
 nnoremap <C-o> :<C-u>action Back<CR>
 nnoremap <C-i> :<C-u>action Forward<CR>
@@ -25,3 +25,11 @@ nnoremap K :<C-u>action QuickJavaDoc<CR>
 nnoremap <M-S-t> :<C-u>action ActivateTerminalToolWindow<CR>
 nnoremap <Space>P :<C-u>action ManageRecentProjects<CR>
 
+set sneak
+
+let mapleader=","
+set easymotion
+map <Leader> <Plug>(easymotion-prefix)
+
+Plug 'machakann/vim-highlightedyank'
+Plug 'preservim/nerdtree'
