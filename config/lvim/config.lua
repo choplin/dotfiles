@@ -72,13 +72,13 @@ lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq li
 lvim.builtin.which_key.mappings["s/"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current Buffer Fuzzy Find" }
 lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 lvim.builtin.which_key.setup.plugins.presets = {
-  operators = true, -- adds help for operators like d, y, ...
-  motions = true, -- adds help for motions
+  operators = true,    -- adds help for operators like d, y, ...
+  motions = true,      -- adds help for motions
   text_objects = true, -- help for text objects triggered after entering an operator
-  windows = true, -- default bindings on <c-w>
-  nav = true, -- misc bindings to work with windows
-  z = true, -- bindings for folds, spelling and others prefixed with z
-  g = false, -- bindings for prefixed with g
+  windows = true,      -- default bindings on <c-w>
+  nav = true,          -- misc bindings to work with windows
+  z = true,            -- bindings for folds, spelling and others prefixed with z
+  g = false,           -- bindings for prefixed with g
 }
 lvim.builtin.which_key.mappings["B"] = lvim.builtin.which_key.mappings["b"]
 lvim.builtin.which_key.mappings["b"] = {
@@ -92,10 +92,10 @@ lvim.builtin.which_key.mappings["b"] = {
 
 lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
-  { "tig", "<c-\\><c-t>", "Tig", "float" },
+  { "tig",        "<c-\\><c-t>", "Tig",        "float" },
   { "tig status", "<c-\\><c-s>", "Tig Status", "float" },
-  { "tig refs", "<c-\\><c-b>", "Tig Branch", "float" },
-  { "git diff", "<c-\\><c-d>", "Git Diff", "float" },
+  { "tig refs",   "<c-\\><c-b>", "Tig Branch", "float" },
+  { "git diff",   "<c-\\><c-d>", "Git Diff",   "float" },
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -156,8 +156,8 @@ end
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
   "rust_analyzer", -- Use rust-tools instead
-  "yamlls", -- With additional options, setup in ftplugin
-  "jdtls", -- Use nvim-jdtls instead
+  "yamlls",        -- With additional options, setup in ftplugin
+  "jdtls",         -- Use nvim-jdtls instead
 })
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
