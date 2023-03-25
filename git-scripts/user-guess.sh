@@ -9,9 +9,9 @@ email=choplin.choplin@gmail.com
 
 remote=$(git remote -v | awk '/\(push\)$/ {print $2}')
 
-if [ $(echo $remote | grep 'alpacahq') ]; then
+if [ $(echo $remote | grep 'scalar-labs') ]; then
   name="Akihiro Okuno"
-  email=akihiro.okuno@alpaca.markets
+  email=akihiro.okuno@scalar-labs.com
 fi
 
 echo "Configuring user.name as $name"
