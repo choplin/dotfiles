@@ -9,6 +9,7 @@
   excludesfile = ~/.gitignore_global
   editor = lvim
   pager = LESS= delta
+  ignorecase = false
 
 [color]
   ui = auto
@@ -29,6 +30,9 @@
 [merge]
   ff = false
   conflictstyle = diff3
+
+[rebase]
+  autosquash = true
 
 [diff]
   colorMoved = default
