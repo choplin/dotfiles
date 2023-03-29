@@ -211,7 +211,6 @@ local open_broot = function()
   term:toggle(lvim.builtin.terminal.size)
 end
 
--- vim.api.nvim_create_user_command("GitBlame", term_with_buf_file("tig blame", 0), {})
 vim.api.nvim_create_user_command("GitFileHistory", term_with_buf_file("tig", 0), {})
 vim.api.nvim_create_user_command("Broot", open_broot, { desc = "Broot" })
 
