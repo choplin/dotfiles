@@ -163,11 +163,12 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
 })
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
-do
-  local mason_package = require "mason-core.package"
+lvim.builtin.mason.on_config_done = function()
+  local mason_package = require("mason-core.package")
 
   local formatter_sources = {}
   local linter_sources = {}
+
   for _, package in ipairs(require("mason-registry").get_installed_packages()) do
     for _, category in ipairs(package.spec.categories) do
       if category == mason_package.Cat.Formatter then
