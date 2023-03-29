@@ -2,7 +2,7 @@ return {
   -- neotest provides funcy test interfaces
   {
     "nvim-neotest/neotest",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "antoinemadec/FixCursorHold.nvim",
@@ -83,7 +83,7 @@ return {
   -- Provide settings for Go delve
   {
     "leoluz/nvim-dap-go",
-    requires = { "mfussenegger/nvim-dap" },
+    dependencies = { "mfussenegger/nvim-dap" },
     config = function()
       require("dap-go").setup()
     end,

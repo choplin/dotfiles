@@ -3,10 +3,10 @@ return {
   -- :Octo
   {
     "pwntester/octo.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("octo").setup()
@@ -26,7 +26,7 @@ return {
   -- Provide :Neogit, which
   {
     "TimUntersberger/neogit",
-    requires = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
     config = function()
       require("neogit").setup {
         kind = "vsplit",
@@ -43,7 +43,7 @@ return {
   -- :DiffviewOpen, :DiffviewFileHistory provides neat diff UI
   {
     "sindrets/diffview.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       local lazy = require "diffview.lazy"
       local diffview = lazy.require "diffview"
@@ -65,7 +65,7 @@ return {
   -- gitlinker generates a file permalink
   {
     "ruifm/gitlinker.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("gitlinker").setup()
     end,

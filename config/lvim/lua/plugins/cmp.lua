@@ -2,7 +2,7 @@ return {
   -- Enable command line completion
   {
     "hrsh7th/cmp-cmdline",
-    require = { "hrsh7th/nvim-cmp" },
+    dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
       local cmp = require "cmp"
       cmp.setup.cmdline(":", {
@@ -16,7 +16,7 @@ return {
   -- Enable completion of symobols for "/" search
   {
     "hrsh7th/cmp-nvim-lsp-document-symbol",
-    require = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-cmdline" },
+    dependencies = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-cmdline" },
     config = function()
       local cmp = require "cmp"
       cmp.setup.cmdline("/", {
@@ -38,7 +38,7 @@ return {
     end,
   },
   -- Provide AI code completion with Tabnine
-  { "tzachar/cmp-tabnine", event = "InsertEnter", run = "./install.sh", requires = "hrsh7th/nvim-cmp" },
+  { "tzachar/cmp-tabnine", event = "InsertEnter", build = "./install.sh", dependencies = "hrsh7th/nvim-cmp" },
   -- Lookup dictionary
   {
     "octaltree/cmp-look",

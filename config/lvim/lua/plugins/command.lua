@@ -16,17 +16,17 @@ return {
         ["style"] = "minimal",
       }
     end,
-    disable = true,
+    enabled = false,
   },
   -- :SnipRun runs code instantly
-  { "michaelb/sniprun", run = "bash ./install.sh", cmd = "SnipRun" },
+  { "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
   -- :Neogen generates documentation comments
   {
     "danymat/neogen",
     config = function()
       require("neogen").setup { snippet_engine = "luasnip" }
     end,
-    requires = "nvim-treesitter/nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   -- :Trouble provides a pretty list of quickfix, diagnostics, telescopes etc.
   {
@@ -62,7 +62,7 @@ return {
   {
     "phaazon/mind.nvim",
     branch = "v2.2",
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("mind").setup()
       lvim.builtin.which_key.mappings["M"] = {

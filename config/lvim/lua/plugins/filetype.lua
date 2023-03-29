@@ -1,6 +1,6 @@
 return {
   -- Provide markdown preview in browser
-  { "iamcco/markdown-preview.nvim", run = "cd app && yarn install", ft = "markdown" },
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install", ft = "markdown" },
   -- Markdown table
   { "dhruvasagar/vim-table-mode", ft = "markdown" },
   --Rust
@@ -32,7 +32,7 @@ return {
   -- Flutter
   {
     "akinsho/flutter-tools.nvim",
-    requires = "nvim-lua/plenary.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
     ft = "dart",
     config = function()
       require("flutter-tools").setup {}
@@ -42,7 +42,7 @@ return {
   {
     "scalameta/nvim-metals",
     ft = { "scala", "sbt" },
-    requires = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local metals_config = require("metals").bare_config()
       metals_config.settings = {

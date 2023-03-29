@@ -2,7 +2,7 @@ return {
   -- Show current context at the top of the windows as virtual text
   {
     "lewis6991/nvim-treesitter-context",
-    requires = "nvim-treesitter/nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("treesitter-context").setup()
     end,
@@ -40,7 +40,7 @@ return {
   {
     "yioneko/nvim-yati",
     evnet = "InsertEnter",
-    requires = "nvim-treesitter/nvim-treesitter",
+    dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup { yati = { enable = true } }
     end,

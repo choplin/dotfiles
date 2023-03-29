@@ -97,7 +97,7 @@ return {
         "Frecency Global",
       }
     end,
-    requires = { "kkharji/sqlite.lua" },
+    dependencies = { "kkharji/sqlite.lua" },
   },
   -- Provide Telescope symbols
   { "nvim-telescope/telescope-symbols.nvim" },
