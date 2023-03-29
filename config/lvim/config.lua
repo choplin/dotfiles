@@ -151,6 +151,8 @@ lvim.builtin.project.on_config_done = function()
   vim.opt.titlestring = [[%{luaeval('require("title_string").title_string()')} - %{v:progname}]]
 end
 
+lvim.builtin.cmp.cmdline.enable = true
+
 -- generic LSP settings
 
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
