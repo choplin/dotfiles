@@ -14,10 +14,10 @@ lvim.format_on_save = true
 lvim.colorscheme = "tokyonight-moon"
 
 vim.opt.list = true
-vim.opt.listchars:remove "tab"
-vim.opt.listchars:append "tab:￫ "
-vim.opt.listchars:append "extends:»"
-vim.opt.listchars:append "precedes:«"
+vim.opt.listchars:remove("tab")
+vim.opt.listchars:append("tab:￫ ")
+vim.opt.listchars:append("extends:»")
+vim.opt.listchars:append("precedes:«")
 vim.opt.timeoutlen = 250
 vim.opt.guifont = "HackGen35 Console NFJ:h18"
 vim.opt.cmdheight = 1
@@ -42,7 +42,7 @@ vim.keymap.set("n", "<Up>", "gk", {})
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
 do
-  local actions = require "telescope.actions"
+  local actions = require("telescope.actions")
   lvim.builtin.telescope = vim.tbl_deep_extend("keep", {
     defaults = {
       layout_config = {
@@ -72,30 +72,30 @@ lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope ghq list<cr>", "ghq li
 lvim.builtin.which_key.mappings["s/"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", "Current Buffer Fuzzy Find" }
 lvim.builtin.which_key.setup.plugins.presets.text_objects = true
 lvim.builtin.which_key.setup.plugins.presets = {
-  operators = true,    -- adds help for operators like d, y, ...
-  motions = true,      -- adds help for motions
+  operators = true, -- adds help for operators like d, y, ...
+  motions = true, -- adds help for motions
   text_objects = true, -- help for text objects triggered after entering an operator
-  windows = true,      -- default bindings on <c-w>
-  nav = true,          -- misc bindings to work with windows
-  z = true,            -- bindings for folds, spelling and others prefixed with z
-  g = false,           -- bindings for prefixed with g
+  windows = true, -- default bindings on <c-w>
+  nav = true, -- misc bindings to work with windows
+  z = true, -- bindings for folds, spelling and others prefixed with z
+  g = false, -- bindings for prefixed with g
 }
 lvim.builtin.which_key.mappings["B"] = lvim.builtin.which_key.mappings["b"]
 lvim.builtin.which_key.mappings["b"] = {
   function()
-    require("telescope.builtin").buffers {
+    require("telescope.builtin").buffers({
       initial_mode = "insert",
-    }
+    })
   end,
   "Find Buffer",
 }
 
 lvim.builtin.terminal.open_mapping = "<M-t>"
 lvim.builtin.terminal.execs = {
-  { "tig",        "<c-\\><c-t>", "Tig",        "float" },
+  { "tig", "<c-\\><c-t>", "Tig", "float" },
   { "tig status", "<c-\\><c-s>", "Tig Status", "float" },
-  { "tig refs",   "<c-\\><c-b>", "Tig Branch", "float" },
-  { "git diff",   "<c-\\><c-d>", "Git Diff",   "float" },
+  { "tig refs", "<c-\\><c-b>", "Tig Branch", "float" },
+  { "git diff", "<c-\\><c-d>", "Git Diff", "float" },
 }
 
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -114,8 +114,8 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.indent.enable = false -- use yati instead
 
 do
-  local components = require "lvim.core.lualine.components"
-  local branch = require "lualine_branch"
+  local components = require("lvim.core.lualine.components")
+  local branch = require("lualine_branch")
   lvim.builtin.lualine.sections.lualine_a = { components.mode }
   lvim.builtin.lualine.sections.lualine_b = { { branch, color = { gui = "bold" } }, components.diff }
   lvim.builtin.lualine.sections.lualine_c = { components.diagnostics }
@@ -141,8 +141,8 @@ lvim.builtin.indentlines.options.space_char_highlight_list = {
 }
 lvim.builtin.indentlines.options.show_trailing_blankline_indent = false
 lvim.builtin.indentlines.on_config_done = function()
-  vim.cmd [[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]]
-  vim.cmd [[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]]
+  vim.cmd([[highlight IndentBlanklineIndent1 guibg=#24283b gui=nocombine]])
+  vim.cmd([[highlight IndentBlanklineIndent2 guibg=#1f2335 gui=nocombine]])
 end
 
 lvim.builtin.bufferline.options.always_show_bufferline = true
@@ -158,8 +158,8 @@ lvim.builtin.cmp.cmdline.enable = true
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
   "rust_analyzer", -- Use rust-tools instead
-  "yamlls",        -- With additional options, setup in ftplugin
-  "jdtls",         -- Use nvim-jdtls instead
+  "yamlls", -- With additional options, setup in ftplugin
+  "jdtls", -- Use nvim-jdtls instead
 })
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
@@ -184,14 +184,14 @@ lvim.builtin.mason.on_config_done = function()
 end
 
 lvim.plugins = require("util").concatLists(
-  require "plugins/base",
-  require "plugins/cmp",
-  require "plugins/command",
-  require "plugins/debug",
-  require "plugins/edit",
-  require "plugins/filetype",
-  require "plugins/git",
-  require "plugins/treesitter"
+  require("plugins/base"),
+  require("plugins/cmp"),
+  require("plugins/command"),
+  require("plugins/debug"),
+  require("plugins/edit"),
+  require("plugins/filetype"),
+  require("plugins/git"),
+  require("plugins/treesitter")
 )
 
 -- Commnads
@@ -200,14 +200,14 @@ local term_with_buf_file = function(cmd, bufnr)
     local name = vim.api.nvim_buf_get_name(bufnr)
     local cmd_with_name = cmd .. " " .. name
     local Terminal = require("toggleterm.terminal").Terminal
-    local term = Terminal:new { cmd = cmd_with_name, close_on_exit = true }
+    local term = Terminal:new({ cmd = cmd_with_name, close_on_exit = true })
     term:toggle()
   end
 end
 
 local open_broot = function()
   local Terminal = require("toggleterm.terminal").Terminal
-  local term = Terminal:new { cmd = "broot", direction = "float", env = { EDITOR = "nvr -l" } }
+  local term = Terminal:new({ cmd = "broot", direction = "float", env = { EDITOR = "nvr -l" } })
   term:toggle(lvim.builtin.terminal.size)
 end
 
@@ -232,8 +232,8 @@ do
     group = augroup,
     nested = true,
     callback = function()
-      if vim.fn.winnr "$" == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
-        vim.cmd "quit"
+      if vim.fn.winnr("$") == 1 and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr() then
+        vim.cmd("quit")
       end
     end,
   })
@@ -275,8 +275,8 @@ do
   })
 end
 
-vim.filetype.add {
+vim.filetype.add({
   filename = {
     ["Tiltfile"] = "tiltfile",
   },
-}
+})
