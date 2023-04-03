@@ -1,58 +1,10 @@
 local wezterm = require "wezterm"
+local util = require "util"
+local padding = require "padding"
+
 local act = wezterm.action
 
-local function recompute_padding(window)
-  local window_dims = window:get_dimensions()
-  local overrides = window:get_config_overrides() or {}
-
-  if not window_dims.is_full_screen then
-    if not overrides.window_padding then
-      -- not changing anything
-      return
-    end
-    overrides.window_padding = nil
-  else
-    -- Add a top padding to avoid overlap with MacBook's notch
-    local new_padding = {
-      left = 5,
-      right = 5,
-      top = 30,
-      bottom = 0,
-    }
-    if overrides.window_padding and new_padding.left == overrides.window_padding.left then
-      -- padding is same, avoid triggering further changes
-      return
-    end
-    overrides.window_padding = new_padding
-  end
-  window:set_config_overrides(overrides)
-end
-
-wezterm.on("window-resized", function(window, _)
-  recompute_padding(window)
-end)
-
-wezterm.on("window-config-reloaded", function(window)
-  recompute_padding(window)
-end)
-
-local function merge(...)
-  local l = {}
-  for _, list in ipairs { ... } do
-    for _, v in ipairs(list) do
-      table.insert(l, v)
-    end
-  end
-  return l
-end
-
-local function map(list, f)
-  local l = {}
-  for _, v in ipairs(list) do
-    table.insert(l, f(v))
-  end
-  return l
-end
+padding.setup(wezterm)
 
 local config = {}
 if wezterm.config_builder then
@@ -70,8 +22,6 @@ config.font = wezterm.font_with_fallback {
   "Broot Icons Visual Studio Code",
 }
 config.font_size = 16.0
--- color_scheme = "OneHalfDark"
--- color_scheme = "nord"
 config.color_scheme = "tokyonight"
 config.use_ime = true
 config.hide_tab_bar_if_only_one_tab = true
@@ -109,7 +59,7 @@ local direction_keys = {
   { key = "k", direction = "Up" },
   { key = "j", direction = "Down" },
 }
-config.keys = merge(
+config.keys = util.merge(
   {
     {
       key = "J",
@@ -156,7 +106,7 @@ config.keys = merge(
     { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
     { key = "Enter", mods = "ALT", action = act.Nop },
   },
-  map(direction_keys, function(e)
+  util.map(direction_keys, function(e)
     return {
       key = e.key,
       mods = "LEADER",
@@ -166,7 +116,7 @@ config.keys = merge(
       },
     }
   end),
-  map(direction_keys, function(e)
+  util.map(direction_keys, function(e)
     return {
       key = e.key,
       mods = "LEADER|SHIFT",
@@ -194,7 +144,7 @@ config.key_tables = {
     { key = "Enter", action = "PopKeyTable" },
     { key = "[", mods = "CTRL", action = "PopKeyTable" },
   },
-  copy_mode = merge(wezterm.gui.default_key_tables().copy_mode, {
+  copy_mode = util.merge(wezterm.gui.default_key_tables().copy_mode, {
     { key = "Backspace", mods = "NONE", action = act.CopyMode "MoveLeft" },
     { key = "z", mods = "NONE", action = act.CopyMode { MoveForwardZoneOfType = "Output" } },
     { key = "Z", mods = "NONE", action = act.CopyMode { MoveBackwardZoneOfType = "Output" } },
