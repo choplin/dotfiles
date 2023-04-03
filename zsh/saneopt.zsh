@@ -47,19 +47,19 @@ fi
 # watch for everyone but me and root
 #watch=(notme root)
 # automatically remove duplicates from these arrays
-#typeset -U path cdpath fpath manpath
+typeset -U path cdpath fpath manpath
 
 # import new commands from the history file also in other zsh-session
-#setopt share_history
+setopt share_history
 # If a new command line being added to the history list duplicates an older
 # one, the older command is removed from the list
-#setopt histignorealldups
+setopt histignorealldups
 # remove command lines from the history list when the first character on the
 # line is a space
-#setopt histignorespace
+setopt histignorespace
 # if a command is issued that can't be executed as a normal command, and the
 # command is the name of a directory, perform the cd command to that directory.
-#setopt auto_cd
+setopt auto_cd
 
 
 # Don't send SIGHUP to background processes when the shell exits.
