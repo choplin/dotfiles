@@ -104,7 +104,7 @@ config.keys = util.merge(
     },
     { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
     { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
-    { key = "Enter", mods = "ALT", action = act.Nop },
+    { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
   },
   util.map(direction_keys, function(e)
     return {
