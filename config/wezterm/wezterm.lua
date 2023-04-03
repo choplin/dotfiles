@@ -47,7 +47,7 @@ config.window_padding = {
 
 config.unix_domains = { { name = "unix" } }
 -- Do not start multiplexing on startup because it causes significant performance degradation
-config.default_gui_startup_args = { "connect", "unix" }
+-- config.default_gui_startup_args = { "connect", "unix" }
 
 config.send_composed_key_when_right_alt_is_pressed = false
 
