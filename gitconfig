@@ -5,9 +5,8 @@
 [core]
   autocrlf = false
   pager = less
-  editor = vim
   excludesfile = ~/.gitignore_global
-  editor = lvim
+  editor = nvim
   pager = LESS= delta
   ignorecase = false
 
