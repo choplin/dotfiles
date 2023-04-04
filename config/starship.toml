@@ -34,3 +34,6 @@ symbol = "🦬 "
 
 [gcloud]
 format = '[$symbol$account(@$domain)(\($region\)) ]($style)'
+
+[scala]
+disabled = true
