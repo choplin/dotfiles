@@ -1,4 +1,6 @@
 return {
+  -- Override the default settings.
+  -- Adapt externals tools to LSP
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = {
@@ -6,6 +8,7 @@ return {
       sources = {},
     },
   },
+  -- Automatically setup null-ls for tolls installed via mason.nvim
   {
     "jay-babu/mason-null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },

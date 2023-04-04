@@ -14,6 +14,8 @@ local function neotree_h(state)
 end
 
 return {
+  -- Override the default settings.
+  -- File browser on the side bar
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
