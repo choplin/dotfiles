@@ -35,4 +35,9 @@ return {
       templates = { "builtin" },
     },
   },
+  -- Provide :Linediff to compare the selection areas
+  {
+    "AndrewRadev/linediff.vim",
+    cmd = "Linediff",
+  },
 }
