@@ -40,4 +40,9 @@ return {
     "AndrewRadev/linediff.vim",
     cmd = "Linediff",
   },
+  -- Provide a fancy UI for json
+  {
+    "gennaro-tedesco/nvim-jqx",
+    cmd = { "JqxList", "JqxQuery" },
+  },
 }
