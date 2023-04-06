@@ -27,4 +27,12 @@ return {
       show_guides = true,
     },
   },
+  -- Task Runner
+  {
+    "stevearc/overseer.nvim",
+    cmd = "OverseerRun",
+    opts = {
+      templates = { "builtin" },
+    },
+  },
 }
