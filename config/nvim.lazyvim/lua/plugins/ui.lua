@@ -4,6 +4,13 @@ return {
     "s1n7ax/nvim-window-picker",
     main = "window-picker",
   },
+  -- Enable per-tab buffers
+  {
+    "tiagovla/scope.nvim",
+    config = function()
+      require("scope").setup()
+    end,
+  },
   -- Show scrollbar
   {
     "petertriho/nvim-scrollbar",
