@@ -10,4 +10,21 @@ return {
     end,
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
+  -- Aerial to display symbol outline
+  {
+    "stevearc/aerial.nvim",
+    cmd = { "AerialToggle", "AerialOpen" },
+    keys = {
+      {
+        "<leader>co",
+        function()
+          require("aerial").toggle()
+        end,
+        desc = "Symbols Outline",
+      },
+    },
+    opts = {
+      show_guides = true,
+    },
+  },
 }
