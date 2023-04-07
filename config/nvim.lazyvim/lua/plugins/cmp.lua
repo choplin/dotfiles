@@ -12,6 +12,31 @@ local source_names = {
   look = "(Look)",
 }
 
+local cmdline_select_next_item = function()
+  if cmp.visible() then
+    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+  else
+    cmp.complete()
+  end
+end
+
+local cmdline_select_prev_item = function()
+  if cmp.visible() then
+    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+  else
+    cmp.complete()
+  end
+end
+
+local cmdline_keymap = {
+  ["<C-j>"] = cmp.mapping(cmdline_select_next_item, { "c" }),
+  ["<C-k>"] = cmp.mapping(cmdline_select_prev_item, { "c" }),
+  ["<Tab>"] = cmp.mapping(cmdline_select_next_item, { "c" }),
+  ["<S-Tab>"] = cmp.mapping(cmdline_select_prev_item, { "c" }),
+  ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "c" }),
+  ["<C-y>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "c" }),
+}
+
 return {
   -- Enable command line completion
   {
@@ -19,7 +44,7 @@ return {
     lazy = true,
     config = function()
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdline_keymap,
         sources = {
           { name = "cmdline", keyword_length = 1 },
         },
@@ -32,7 +57,7 @@ return {
     lazy = true,
     config = function()
       cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdline_keymap,
         sources = cmp.config.sources({
           { name = "nvim_lsp_document_symbol" },
           { name = "buffer" },
@@ -64,25 +89,25 @@ return {
       "tzachar/cmp-tabnine",
     },
     opts = function(_, opts)
+      local select_next_item = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      local select_prev_item = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+
       opts.completion = {
         completeopt = "menu,menuone,noinsert,noselect",
       }
-      opts.mapping = vim.tbl_deep_extend(
-        "force",
-        opts.mapping,
-        cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-          ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-          ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-          ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-        })
-      )
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        ["<C-j>"] = cmp.mapping(select_next_item, { "i" }),
+        ["<C-k>"] = cmp.mapping(select_prev_item, { "i" }),
+        ["<C-n>"] = cmp.mapping(select_next_item, { "i" }),
+        ["<C-p>"] = cmp.mapping(select_prev_item, { "i" }),
+        ["<Down>"] = cmp.mapping(select_next_item, { "i" }),
+        ["<Up>"] = cmp.mapping(select_prev_item, { "i" }),
+        ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+        ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i" }),
+        ["<C-e>"] = cmp.mapping(cmp.mapping.abort(), { "i" }),
+        ["<C-y>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i" }),
+      })
       opts.sources = {
         { name = "nvim_lsp" },
         { name = "buffer" },
