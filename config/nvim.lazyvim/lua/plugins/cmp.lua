@@ -71,6 +71,14 @@ return {
     lazy = true,
     build = "./install.sh",
   },
+  -- Cmp sources for Git
+  {
+    "petertriho/cmp-git",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("cmp_git").setup()
+    end,
+  },
   -- Auto completion
   {
     "hrsh7th/nvim-cmp",
@@ -113,11 +121,12 @@ return {
         { name = "buffer" },
         { name = "path" },
         { name = "luasnip" },
-        { name = "emoji" },
         { name = "treesitter" },
         { name = "look" },
         { name = "cmp_tabnine" },
         { name = "copilot" },
+        { name = "git" },
+        { name = "emoji", max_item_count = 5, priority = 0 },
       }
       opts.formatting = {
         format = function(entry, item)
