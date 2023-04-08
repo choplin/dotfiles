@@ -66,4 +66,17 @@ return {
       end
     end,
   },
+  -- Better Quickfix UI
+  {
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    dependencies = {
+      "junegunn/fzf",
+    },
+    opts = {
+      preview = {
+        win_height = 32,
+      },
+    },
+  },
 }
