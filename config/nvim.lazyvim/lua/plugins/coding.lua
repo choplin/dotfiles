@@ -35,4 +35,15 @@ return {
       }
     end,
   },
+  -- Expand <C-a> funcionality
+  {
+    "monaqa/dial.nvim",
+    keys = { { "<c-a>" }, { "<c-x>" }, { "g<c-a>" }, { "g<c-a>" } },
+    config = function()
+      vim.keymap.set({ "n", "v" }, "<c-a>", require("dial.map").inc_normal())
+      vim.keymap.set({ "n", "v" }, "<c-x>", require("dial.map").dec_normal())
+      vim.keymap.set("v", "g<c-a>", require("dial.map").inc_gvisual())
+      vim.keymap.set("v", "g<c-x>", require("dial.map").dec_gvisual())
+    end,
+  },
 }
