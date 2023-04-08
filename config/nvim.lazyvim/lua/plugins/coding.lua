@@ -15,4 +15,24 @@ return {
       require("yanky").setup()
     end,
   },
+  -- Provide substitute operator
+  {
+    "gbprod/substitute.nvim",
+    dependencies = {
+      "gbprod/yanky.nvim",
+    },
+    -- Set keyamp with "keys" does not work as expected
+    init = function()
+      vim.keymap.set("x", "p", function()
+        require("substitute").visual()
+      end)
+    end,
+    opts = function()
+      return {
+        on_substitute = function(event)
+          require("yanky").init_ring("p", event.register, event.count, event.vmode:match("[vV�]"))
+        end,
+      }
+    end,
+  },
 }
