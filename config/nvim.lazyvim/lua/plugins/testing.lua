@@ -2,7 +2,6 @@ return {
   -- neotest provides funcy test interfaces
   {
     "nvim-neotest/neotest",
-    lazy = false,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
