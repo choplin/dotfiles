@@ -10,4 +10,9 @@ return {
     cmd = { "Octo" },
     opts = {},
   },
+  -- Provide better conflict UI and commands for resolving it
+  {
+    "akinsho/git-conflict.nvim",
+    opts = {},
+  },
 }
