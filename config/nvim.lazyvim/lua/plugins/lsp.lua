@@ -32,4 +32,35 @@ return {
       library = { plugins = { "nvim-dap-ui" }, types = true },
     },
   },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "simrat39/rust-tools.nvim",
+    },
+    ---@class PluginLspOpts
+    opts = {
+      ---@type lspconfig.options
+      servers = {
+        rust_analyzer = {},
+      },
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      setup = {
+        rust_analyzer = function(_, opts)
+          require("rust-tools").setup({
+            server = opts,
+            tools = {
+              autoSetHints = true,
+              -- hover_with_actions = true,
+              inlay_hints = {
+                show_parameter_hints = true,
+              },
+            },
+          })
+          return true
+        end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+      },
+    },
+  },
 }
