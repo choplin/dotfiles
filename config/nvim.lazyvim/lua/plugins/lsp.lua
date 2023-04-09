@@ -36,12 +36,14 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "simrat39/rust-tools.nvim",
+      "mfussenegger/nvim-jdtls",
     },
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
       servers = {
         rust_analyzer = {},
+        jdtls = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
@@ -56,6 +58,10 @@ return {
               },
             },
           })
+          return true
+        end,
+        jdtls = function()
+          require("plugins.lsp.nvim-jdtls").setup()
           return true
         end,
         -- Specify * to use this function as a fallback for any server
