@@ -15,4 +15,6 @@ return {
     "akinsho/git-conflict.nvim",
     opts = {},
   },
+  -- Provide fancy UI of git commit
+  { "rhysd/committia.vim" },
 }
