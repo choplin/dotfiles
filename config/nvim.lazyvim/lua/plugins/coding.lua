@@ -21,12 +21,15 @@ return {
     dependencies = {
       "gbprod/yanky.nvim",
     },
-    -- Set keyamp with "keys" does not work as expected
-    init = function()
-      vim.keymap.set("x", "p", function()
-        require("substitute").visual()
-      end)
-    end,
+    keys = {
+      {
+        "p",
+        function()
+          require("substitute").visual()
+        end,
+        mode = "x",
+      },
+    },
     opts = function()
       return {
         on_substitute = function(event)
