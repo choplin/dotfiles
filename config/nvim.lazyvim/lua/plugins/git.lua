@@ -17,4 +17,6 @@ return {
   },
   -- Provide fancy UI of git commit
   { "rhysd/committia.vim" },
+  -- Automatically show diff in interactive git rebase window
+  { "hotwatermorning/auto-git-diff" },
 }
