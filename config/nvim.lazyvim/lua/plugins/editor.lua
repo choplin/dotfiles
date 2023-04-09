@@ -116,4 +116,11 @@ return {
       },
     },
   },
+  -- Better mark experience
+  {
+    "chentoast/marks.nvim",
+    config = function()
+      require("marks").setup()
+    end,
+  },
 }
