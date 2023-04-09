@@ -72,11 +72,22 @@ return {
     ft = "qf",
     dependencies = {
       "junegunn/fzf",
+      "gabrielpoca/replacer.nvim",
     },
     opts = {
       preview = {
         win_height = 32,
       },
     },
+  },
+  -- Replace via quickfix window
+  {
+    "gabrielpoca/replacer.nvim",
+    lazy = true,
+    init = function()
+      vim.api.nvim_create_user_command("Replacer", function()
+        require("replacer").run()
+      end, {})
+    end,
   },
 }
