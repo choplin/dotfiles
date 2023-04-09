@@ -112,6 +112,7 @@ M.setup = function()
   local config = {
     cmd = cmd,
     cmd_env = cmd_env,
+    filetypes = { "java" },
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
