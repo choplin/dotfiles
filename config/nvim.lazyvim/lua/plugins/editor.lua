@@ -105,4 +105,15 @@ return {
       },
     },
   },
+  -- Dims inactive portions of the code you're editing
+  {
+    "folke/twilight.nvim",
+    event = { "InsertEnter", "CmdlineEnter" },
+    opts = {
+      expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+        "function",
+        "method",
+      },
+    },
+  },
 }
