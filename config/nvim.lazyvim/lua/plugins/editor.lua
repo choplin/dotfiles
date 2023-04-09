@@ -92,4 +92,17 @@ return {
       },
     },
   },
+  -- Distraction-free coding for Neovim
+  {
+    "folke/zen-mode.nvim",
+    keys = {
+      {
+        "<space>Z",
+        function()
+          require("zen-mode").toggle({})
+        end,
+        desc = "Zen Mode",
+      },
+    },
+  },
 }
