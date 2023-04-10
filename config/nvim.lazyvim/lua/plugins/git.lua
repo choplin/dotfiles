@@ -107,4 +107,10 @@ return {
       mappings = nil,
     },
   },
+  -- Provide :Git command
+  {
+    "dinhhuy258/git.nvim",
+    cmd = { "Git", "GitBlame", "GitDiff", "GitCreatePullRequest", "GitRevert", "GitRevertFile" },
+    opts = {},
+  },
 }
