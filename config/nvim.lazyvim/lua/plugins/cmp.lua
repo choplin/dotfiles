@@ -75,6 +75,7 @@ return {
   {
     "petertriho/cmp-git",
     dependencies = "nvim-lua/plenary.nvim",
+    lazy = true,
     main = "cmp_git",
     opts = {},
   },
@@ -94,6 +95,7 @@ return {
       "ray-x/cmp-treesitter",
       "octaltree/cmp-look",
       "tzachar/cmp-tabnine",
+      "petertriho/cmp-git",
     },
     opts = function(_, opts)
       local select_next_item = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })

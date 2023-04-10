@@ -117,6 +117,7 @@ return {
   -- Better mark experience
   {
     "chentoast/marks.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
 }

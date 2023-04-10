@@ -3,10 +3,12 @@ return {
   {
     "s1n7ax/nvim-window-picker",
     main = "window-picker",
+    event = { "BufReadPost", "BufNewFile" },
   },
   -- Enable per-tab buffers
   {
     "tiagovla/scope.nvim",
+    event = { "VeryLazy" },
     opts = {},
   },
   -- Show scrollbar

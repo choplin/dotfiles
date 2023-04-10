@@ -13,12 +13,13 @@ return {
   -- Provide better conflict UI and commands for resolving it
   {
     "akinsho/git-conflict.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
   -- Provide fancy UI of git commit
-  { "rhysd/committia.vim" },
+  { "rhysd/committia.vim", event = { "BufReadPre" } },
   -- Automatically show diff in interactive git rebase window
-  { "hotwatermorning/auto-git-diff" },
+  { "hotwatermorning/auto-git-diff", event = { "BufReadPost", "BufNewFile" } },
   -- Provide :Neogit, which
   {
     "TimUntersberger/neogit",
