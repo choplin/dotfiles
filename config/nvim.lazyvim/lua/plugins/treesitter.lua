@@ -18,4 +18,10 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
+  -- Show current context at the closed brackets
+  {
+    "haringsrob/nvim_context_vt",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {},
+  },
 }
