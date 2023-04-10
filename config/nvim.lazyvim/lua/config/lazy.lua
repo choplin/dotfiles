@@ -13,7 +13,7 @@ require("lazy").setup({
     { import = "plugins" },
   },
   defaults = {
-    lazy = false,
+    lazy = true, -- Lazy-load all plugins by default
     version = false, -- always use the latest git commit
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
