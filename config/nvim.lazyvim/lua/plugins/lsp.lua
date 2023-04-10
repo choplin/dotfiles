@@ -42,6 +42,7 @@ return {
       servers = {
         rust_analyzer = {},
         jdtls = {},
+        clangd = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
@@ -61,6 +62,9 @@ return {
         jdtls = function()
           require("plugins.lsp.nvim-jdtls").setup()
           return true
+        end,
+        clangd = function(_, opts)
+          opts.capabilities.offsetEncoding = { "utf-16" }
         end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
