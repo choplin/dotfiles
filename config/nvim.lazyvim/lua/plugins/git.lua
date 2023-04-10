@@ -19,4 +19,22 @@ return {
   { "rhysd/committia.vim" },
   -- Automatically show diff in interactive git rebase window
   { "hotwatermorning/auto-git-diff" },
+  -- Provide :Neogit, which
+  {
+    "TimUntersberger/neogit",
+    dependencies = { "nvim-lua/plenary.nvim", "sindrets/diffview.nvim" },
+    keys = {
+      {
+        "<leader>G",
+        function()
+          require("neogit").open()
+        end,
+        desc = "Neogit",
+      },
+    },
+    opts = {
+      kind = "vsplit",
+      integrations = { diffview = true },
+    },
+  },
 }
