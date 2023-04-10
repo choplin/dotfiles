@@ -1,6 +1,9 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
+
+local Util = require("lazyvim.util")
+
 vim.keymap.set("n", "*", function()
   vim.cmd("normal! *")
   local res = vim.fn.searchcount()
@@ -23,5 +26,13 @@ vim.keymap.set("c", "<C-b>", "<Left>", {})
 vim.keymap.set("c", "<C-f>", "<Right>", {})
 vim.keymap.set("c", "<C-d>", "<Del>", {})
 
+-- Moving between tabs
 vim.keymap.set("n", "<leader><tab>j", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab>k", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
+-- Broot
+local open_broot = function()
+  Util.float_term({ "broot" }, { env = { EDITOR = "nvr -l" } })
+end
+vim.api.nvim_create_user_command("Broot", open_broot, {})
+vim.keymap.set("n", "<leader>F", open_broot, { desc = "Broot" })
