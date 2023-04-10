@@ -17,7 +17,12 @@ return {
       "jose-elias-alvarez/null-ls.nvim",
     },
     opts = {
-      ensure_installed = {},
+      ensure_installed = {
+        "stylua",
+        "shfmt",
+        "luacheck",
+        "prettierd",
+      },
       automatic_installation = false,
       automatic_setup = true,
       handlers = {},
