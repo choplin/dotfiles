@@ -61,4 +61,50 @@ return {
       },
     },
   },
+  -- gitlinker generates a file permalink
+  {
+    "ruifm/gitlinker.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    keys = {
+      {
+        "<leader>gy",
+        function()
+          require("gitlinker").get_buf_range_url("n")
+        end,
+        desc = "Yank git",
+      },
+      {
+        "<leader>gy",
+        function()
+          require("gitlinker").get_buf_range_url("v")
+        end,
+        mode = "v",
+        desc = "Yank git",
+      },
+      {
+        "<leader>gb",
+        function()
+          require("gitlinker").get_buf_range_url(
+            "n",
+            { action_callback = require("gitlinker.actions").open_in_browser }
+          )
+        end,
+        desc = "Open in browser",
+      },
+      {
+        "<leader>gb",
+        function()
+          require("gitlinker").get_buf_range_url(
+            "v",
+            { action_callback = require("gitlinker.actions").open_in_browser }
+          )
+        end,
+        mode = "v",
+        desc = "Open in browser",
+      },
+    },
+    opts = {
+      mappings = nil,
+    },
+  },
 }
