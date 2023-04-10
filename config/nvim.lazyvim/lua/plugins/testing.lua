@@ -169,21 +169,24 @@ return {
         })
       end
 
-      local icon = require("config.icon")
-      vim.fn.sign_define("DapBreakpoint", {
-        text = icon.Bug,
-        texthl = "DiagnosticSignError",
-      })
-      vim.fn.sign_define("DapBreakpointRejected", {
-        text = icon.Bug,
-        texthl = "DiagnosticSignError",
-      })
-      vim.fn.sign_define("DapStopped", {
-        text = icon.BoldArrowRight,
-        texthl = "DiagnosticSignWarn",
-        linehl = "Visual",
-        numhl = "DiagnosticSignWarn",
-      })
+      local Util = require("lazyvim.util")
+      Util.on_very_lazy(function()
+        local icons = require("lazyvim.config").icons
+        vim.fn.sign_define("DapBreakpoint", {
+          text = icons.custom.Bug,
+          texthl = "DiagnosticSignError",
+        })
+        vim.fn.sign_define("DapBreakpointRejected", {
+          text = icons.custom.Bug,
+          texthl = "DiagnosticSignError",
+        })
+        vim.fn.sign_define("DapStopped", {
+          text = icons.custom.BoldArrowRight,
+          texthl = "DiagnosticSignWarn",
+          linehl = "Visual",
+          numhl = "DiagnosticSignWarn",
+        })
+      end)
     end,
     keys = {
       { "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
