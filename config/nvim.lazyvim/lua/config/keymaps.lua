@@ -16,3 +16,9 @@ vim.keymap.set("n", "#", function()
     vim.cmd("normal! N")
   end
 end, { silent = true })
+
+-- emacs-like bindings for command line
+vim.keymap.set("c", "<C-a>", "<C-b>", {})
+vim.keymap.set("c", "<C-b>", "<Left>", {})
+vim.keymap.set("c", "<C-f>", "<Right>", {})
+vim.keymap.set("c", "<C-d>", "<Del>", {})
