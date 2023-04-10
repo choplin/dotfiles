@@ -22,3 +22,6 @@ vim.keymap.set("c", "<C-a>", "<C-b>", {})
 vim.keymap.set("c", "<C-b>", "<Left>", {})
 vim.keymap.set("c", "<C-f>", "<Right>", {})
 vim.keymap.set("c", "<C-d>", "<Del>", {})
+
+vim.keymap.set("n", "<leader><tab>j", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set("n", "<leader><tab>k", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
