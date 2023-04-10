@@ -65,7 +65,7 @@ return {
           return true
         end,
         jdtls = function()
-          require("plugins.lsp.nvim-jdtls").setup()
+          -- Set jdtls in ftplugin to enable it only for java files
           return true
         end,
         clangd = function(_, opts)
