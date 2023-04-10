@@ -24,4 +24,22 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
+  -- Automatically close html tag
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "html",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+      "tsx",
+      "jsx",
+      "rescript",
+      "xml",
+    },
+    opts = {},
+  },
 }
