@@ -11,6 +11,14 @@ return {
         })
         vim.cmd.colorscheme("catppuccin")
       end,
+      icons = {
+        custom = {
+          Bug = "",
+          BoldArrowRight = "",
+          Tree = "",
+          Copilot = "",
+        },
+      },
     },
   },
   -- Tracking coding activities
