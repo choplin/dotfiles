@@ -90,4 +90,13 @@ return {
       end, {})
     end,
   },
+  -- Bufferline
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        always_show_bufferline = true,
+      },
+    },
+  },
 }
