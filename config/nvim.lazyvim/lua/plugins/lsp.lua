@@ -48,6 +48,11 @@ return {
         rust_analyzer = {},
         jdtls = {},
         clangd = {},
+        gopls = {},
+        jsonls = {},
+        lua_ls = {},
+        pyright = {},
+        tsserver = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
