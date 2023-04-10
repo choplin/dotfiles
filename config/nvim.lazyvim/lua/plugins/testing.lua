@@ -100,9 +100,7 @@ return {
   {
     "theHamsta/nvim-dap-virtual-text",
     lazy = true,
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end,
+    opts = {},
   },
   -- Fancy UI for nvim-dap
   {
@@ -142,9 +140,8 @@ return {
   {
     "leoluz/nvim-dap-go",
     lazy = true,
-    config = function()
-      require("dap-go").setup()
-    end,
+    main = "dap-go",
+    opts = {},
   },
   -- Provide dap settings for python with debugpy
   {

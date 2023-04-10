@@ -75,9 +75,8 @@ return {
   {
     "petertriho/cmp-git",
     dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("cmp_git").setup()
-    end,
+    main = "cmp_git",
+    opts = {},
   },
   -- Auto completion
   {

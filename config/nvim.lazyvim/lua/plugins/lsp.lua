@@ -16,14 +16,12 @@ return {
       "williamboman/mason.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
-    config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = {},
-        automatic_installation = false,
-        automatic_setup = true,
-        handlers = {},
-      })
-    end,
+    opts = {
+      ensure_installed = {},
+      automatic_installation = false,
+      automatic_setup = true,
+      handlers = {},
+    },
   },
   {
     "folke/neodev.nvim",

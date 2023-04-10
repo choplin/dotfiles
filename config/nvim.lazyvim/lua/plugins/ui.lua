@@ -7,9 +7,7 @@ return {
   -- Enable per-tab buffers
   {
     "tiagovla/scope.nvim",
-    config = function()
-      require("scope").setup()
-    end,
+    opts = {},
   },
   -- Show scrollbar
   {

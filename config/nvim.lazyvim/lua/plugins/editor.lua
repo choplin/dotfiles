@@ -5,9 +5,7 @@ return {
   {
     "danymat/neogen",
     cmd = "Neogen",
-    config = function()
-      require("neogen").setup({ snippet_engine = "luasnip" })
-    end,
+    opts = { snippet_engine = "luasnip" },
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
   -- Aerial to display symbol outline
@@ -119,8 +117,6 @@ return {
   -- Better mark experience
   {
     "chentoast/marks.nvim",
-    config = function()
-      require("marks").setup()
-    end,
+    opts = {},
   },
 }

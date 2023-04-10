@@ -11,9 +11,7 @@ return {
       { "<c-p>", "<Plug>(YankyCycleBackward)", "n" },
       { "y", "<Plug>(YankyYank)", { "n", "x" } },
     },
-    config = function()
-      require("yanky").setup()
-    end,
+    opts = {},
   },
   -- Provide substitute operator
   {
