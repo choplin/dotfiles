@@ -57,6 +57,7 @@ return {
         lua_ls = {},
         pyright = {},
         tsserver = {},
+        kotlin_language_server = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
