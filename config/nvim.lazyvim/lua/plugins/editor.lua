@@ -120,4 +120,12 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
+  -- Project-local configuration
+  {
+    "klen/nvim-config-local",
+    config = function()
+      require("config-local").setup()
+    end,
+    event = { "VeryLazy" },
+  },
 }
