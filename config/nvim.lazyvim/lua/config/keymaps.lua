@@ -37,6 +37,7 @@ end
 vim.api.nvim_create_user_command("Broot", open_broot, {})
 vim.keymap.set("n", "<leader>F", open_broot, { desc = "Broot" })
 
+-- GitFileHistory
 vim.api.nvim_create_user_command("GitFileHistory", function()
   local name = vim.api.nvim_buf_get_name(0)
   Util.float_term({ "tig", name }, {})
