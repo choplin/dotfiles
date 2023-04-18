@@ -76,6 +76,17 @@ return {
     opts = function(_, opts)
       local icons = require("lazyvim.config").icons
 
+      opts.sections.lualine_b = {
+        require("lualine_branch"),
+        {
+          "diff",
+          symbols = {
+            added = icons.git.added,
+            modified = icons.git.modified,
+            removed = icons.git.removed,
+          },
+        },
+      }
       opts.sections.lualine_x = {
         -- stylua: ignore
         {
@@ -90,14 +101,6 @@ return {
           color = fg("Constant") ,
         },
         { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
-        {
-          "diff",
-          symbols = {
-            added = icons.git.added,
-            modified = icons.git.modified,
-            removed = icons.git.removed,
-          },
-        },
         treesitter(icons),
         lsp(icons),
       }
