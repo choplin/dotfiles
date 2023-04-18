@@ -41,6 +41,10 @@ return {
       "simrat39/rust-tools.nvim",
       "mfussenegger/nvim-jdtls",
     },
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = { "<c-k>", false }
+    end,
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
