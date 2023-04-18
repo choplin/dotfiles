@@ -128,4 +128,12 @@ return {
     end,
     event = { "VeryLazy" },
   },
+  -- Add key mappings to the default settings of mini.bufremov
+  {
+    "echasnovski/mini.bufremove",
+    -- stylua: ignore
+    keys = {
+      { "<leader>c", function() require("mini.bufremove").delete(0, false) end, desc = "Delete Buffer" },
+    },
+  },
 }
