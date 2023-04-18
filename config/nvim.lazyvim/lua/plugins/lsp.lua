@@ -58,6 +58,7 @@ return {
         pyright = {},
         tsserver = {},
         kotlin_language_server = {},
+        zls = {},
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
