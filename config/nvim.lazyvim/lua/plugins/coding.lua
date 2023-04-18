@@ -47,4 +47,36 @@ return {
       vim.keymap.set("v", "g<c-x>", require("dial.map").dec_gvisual())
     end,
   },
+  -- copilot
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = { "InsertEnter", "CmdlineEnter" },
+    build = ":Copilot auth",
+    opts = {
+      panel = {
+        enabled = false,
+      },
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        keymap = {
+          accept = "<M-Tab>",
+        },
+      },
+    },
+    config = function(_, opts)
+      require("copilot").setup(opts)
+      local ok, cmp = pcall(require, "cmp")
+      if ok then
+        cmp.event:on("menu_opened", function()
+          vim.b.copilot_suggestion_hidden = true
+        end)
+
+        cmp.event:on("menu_closed", function()
+          vim.b.copilot_suggestion_hidden = false
+        end)
+      end
+    end,
+  },
 }

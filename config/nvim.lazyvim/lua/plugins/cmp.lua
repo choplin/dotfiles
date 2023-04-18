@@ -7,7 +7,6 @@ local source_names = {
   cmp_tabnine = "(Tabnine)",
   luasnip = "(Snippet)",
   buffer = "(Buffer)",
-  copilot = "(Copilot)",
   treesitter = "(TreeSitter)",
   look = "(Look)",
 }
@@ -125,7 +124,6 @@ return {
         { name = "treesitter" },
         { name = "look" },
         { name = "cmp_tabnine" },
-        { name = "copilot" },
         { name = "git" },
         { name = "emoji", max_item_count = 5, priority = 0 },
       }
