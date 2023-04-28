@@ -61,7 +61,7 @@ return {
         enabled = true,
         auto_trigger = true,
         keymap = {
-          accept = "<M-Tab>",
+          accept = "<c-f>",
         },
       },
     },
