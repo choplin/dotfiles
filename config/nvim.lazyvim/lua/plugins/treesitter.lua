@@ -38,7 +38,7 @@ return {
   },
   -- Show current context at the top of the windows as virtual text
   {
-    "lewis6991/nvim-treesitter-context",
+    "nvim-treesitter/nvim-treesitter-context",
     dependencies = "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
