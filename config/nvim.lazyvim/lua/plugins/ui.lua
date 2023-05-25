@@ -21,13 +21,13 @@ return {
     },
     event = { "BufWinEnter" },
     config = function()
-      local colors = require("tokyonight.colors").setup()
+      local palette = require("palette").palette
       require("scrollbar").setup({
         marks = {
-          GitAdd = { text = { "▎" }, color = colors.green, priority = 5 },
-          GitDelete = { text = { "▎" }, color = colors.red, priority = 5 },
-          GitChange = { text = { "▎" }, color = colors.blue, priority = 5 },
-          GitChangeDelete = { text = { "▎" }, color = colors.orange, priority = 5 },
+          GitAdd = { text = { "▎" }, color = palette.green, priority = 5 },
+          GitDelete = { text = { "▎" }, color = palette.red, priority = 5 },
+          GitChange = { text = { "▎" }, color = palette.blue, priority = 5 },
+          GitChangeDelete = { text = { "▎" }, color = palette.orange, priority = 5 },
           Error = { text = { "🮇" } },
           Info = { text = { "🮇" } },
           Warn = { text = { "🮇" } },
@@ -98,5 +98,31 @@ return {
         always_show_bufferline = true,
       },
     },
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = true,
+    opts = {
+      char = "",
+      char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+      },
+      space_char_highlight_list = {
+        "IndentBlanklineIndent1",
+        "IndentBlanklineIndent2",
+      },
+      show_trailing_blankline_indent = false,
+      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+      show_current_context = false,
+      show_end_of_line = true,
+      space_char_blankline = " ",
+    },
+    config = function(_, opts)
+      local palette = require("palette").palette
+      vim.cmd.highlight("IndentBlanklineIndent1", "guibg=" .. palette.bg, "gui=nocombine")
+      vim.cmd.highlight("IndentBlanklineIndent2", "guibg=" .. palette.bg_dark, "gui=nocombine")
+      require("indent_blankline").setup(opts)
+    end,
   },
 }

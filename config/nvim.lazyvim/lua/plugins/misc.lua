@@ -9,6 +9,7 @@ return {
             enabled = true,
           },
         })
+        require("palette").setup_catpuccin()
         vim.cmd.colorscheme("catppuccin")
       end,
       icons = {
