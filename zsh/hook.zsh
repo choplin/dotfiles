@@ -1,16 +1,18 @@
 function prompt_pwd() {
     local current_dir
-    local git_root=${PWD}
+    local project_root=${PWD}
     while true; do
-        if [[ -e ${git_root}/.git ]]; then
-            current_dir="${PWD#${git_root:h}/}"
+        if [[ -e ${project_root}/.git ]] \
+            || [[ -e ${project_root}/settings.gradle ]] \
+            || [[ -e ${project_root}/settings.gradle.kts ]]; then
+            current_dir="${PWD#${project_root:h}/}"
             break
         fi
-        if [[ ${git_root} == / ]]; then
+        if [[ ${project_root} == / ]]; then
             current_dir=${(%):-%~}
             break
         fi
-        git_root=${git_root:h}
+        project_root=${project_root:h}
     done
 
     local separator=/
@@ -36,7 +38,10 @@ add-zsh-hook precmd precmd_hook
 
 excluded_cmd=("ls" "cd" "pwd")
 function preexec_hook() {
-    if ! (($excluded_cmd[(Ie)${1}])); then
+    local cmd="${1[(w)1]}"
+    if [[ "${cmd}" = "vim" ]]; then
+        echo -ne "\e]0;vim:$(prompt_pwd $(pwd))\a"
+    elif ! (($excluded_cmd[(Ie)${cmd}])); then
         echo -ne "\e]0;${1}\a"
     fi
 }
