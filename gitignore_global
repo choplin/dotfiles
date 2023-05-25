@@ -91,3 +91,5 @@ memo.md
 .classpath
 
 .cache/
+
+.tool-versions
