@@ -58,7 +58,10 @@ return {
         pyright = {},
         tsserver = {},
         kotlin_language_server = {},
-        zls = {},
+        zls = {
+          mason = false,
+          cmd = { vim.loop.os_homedir() .. "/ghq/github.com/zigtools/zls/zig-out/bin/zls" },
+        },
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
