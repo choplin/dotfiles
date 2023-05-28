@@ -7,6 +7,8 @@ opt.listchars:remove("tab")
 opt.listchars:append("tab:￫ ")
 opt.listchars:append("extends:»")
 opt.listchars:append("precedes:«")
+opt.listchars:append("space:⋅")
+opt.listchars:append("eol:↴")
 opt.timeoutlen = 250
 opt.guifont = "HackGen35 Console NFJ:h18"
 
