@@ -57,14 +57,14 @@ return {
         desc = "Toggle the summary window",
       },
       {
-        "[T",
+        "]T",
         function()
           require("neotest").jump.prev({ status = "failed" })
         end,
         desc = "Next failed test",
       },
       {
-        "]T",
+        "[T",
         function()
           require("neotest").jump.next({ status = "failed" })
         end,
