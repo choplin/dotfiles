@@ -143,10 +143,11 @@ return {
       local builtin = require("statuscol.builtin")
       require("statuscol").setup({
         relculright = true,
+        ft_ignore = { "NvimTree", "packer", "dashboard", "help", "startify" },
         segments = {
           { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
           {
-            sign = { name = { "Diagnostic" }, maxwidth = 2, auto = true },
+            sign = { name = { "Diagnostic" }, maxwidth = 1, colwidth = 1, auto = false },
             click = "v:lua.ScSa",
           },
           { text = { " ", builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
