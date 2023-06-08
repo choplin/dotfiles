@@ -1,5 +1,5 @@
 return {
-  -- neotest provides funcy test interfaces
+  -- neotest provides fancy test interfaces
   {
     "nvim-neotest/neotest",
     dependencies = {
@@ -130,7 +130,7 @@ return {
           },
         },
       })
-      -- Open dapui automatially when dubug starts
+      -- Open dapui automatically when dubug starts
       require("dap").listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
