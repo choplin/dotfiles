@@ -11,7 +11,7 @@ opt.listchars:append("space:⋅")
 opt.listchars:append("eol:↴")
 opt.timeoutlen = 250
 opt.guifont = "HackGen35 Console NFJ:h18"
-opt.spell = true
+opt.spell = false
 
 vim.filetype.add({
   filename = {
