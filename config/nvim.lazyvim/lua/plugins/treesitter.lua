@@ -67,24 +67,6 @@ return {
     },
     opts = {},
   },
-  -- Provide treesitter based text object with text hint
-  {
-    "mfussenegger/nvim-treehopper",
-    keys = {
-      {
-        "m",
-        ":<C-U>lua require('tsht').nodes()<CR>",
-        mode = "o",
-        desc = "Select region with treesitter",
-      },
-      {
-        "m",
-        ":lua require('tsht').nodes()<CR>",
-        mode = { "o", "v" },
-        desc = "Select region with treesitter",
-      },
-    },
-  },
   {
     "nvim-treesitter/playground",
     cmd = {
