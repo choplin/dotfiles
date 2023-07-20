@@ -62,6 +62,9 @@ return {
           mason = false,
           cmd = { vim.loop.os_homedir() .. "/ghq/github.com/zigtools/zls/zig-out/bin/zls" },
         },
+        java_language_server = {
+          mason = false,
+        },
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
@@ -84,6 +87,9 @@ return {
         end,
         clangd = function(_, opts)
           opts.capabilities.offsetEncoding = { "utf-16" }
+        end,
+        java_language_server = function()
+          return true
         end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
