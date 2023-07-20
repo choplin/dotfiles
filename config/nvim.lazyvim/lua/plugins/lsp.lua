@@ -22,6 +22,7 @@ return {
         "shfmt",
         "luacheck",
         "prettierd",
+        "hadolint",
       },
       automatic_installation = false,
       automatic_setup = true,
