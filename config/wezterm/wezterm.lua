@@ -94,7 +94,7 @@ config.keys = util.merge(
       action = act.QuickSelectArgs {
         label = "open url",
         patterns = {
-          "https?://\\S+",
+          [[https?://[^ \s↴\)]+]],
         },
         action = wezterm.action_callback(function(window, pane)
           local url = window:get_selection_text_for_pane(pane)
