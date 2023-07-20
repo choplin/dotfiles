@@ -41,7 +41,6 @@ M.setup = function()
   }
 
   local on_attach = function()
-    require("jdtls.setup").add_commands()
     require("jdtls").setup_dap({ hotcodereplace = "auto" })
   end
 
