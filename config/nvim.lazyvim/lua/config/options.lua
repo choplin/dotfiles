@@ -14,6 +14,9 @@ opt.guifont = "HackGen35 Console NFJ:h18"
 opt.spell = false
 
 vim.filetype.add({
+  extension = {
+    ["h"] = "c",
+  },
   filename = {
     ["Tiltfile"] = "tiltfile",
   },
