@@ -114,6 +114,8 @@ return {
   {
     "dinhhuy258/git.nvim",
     cmd = { "Git", "GitBlame", "GitDiff", "GitCreatePullRequest", "GitRevert", "GitRevertFile" },
-    opts = {},
+    opts = {
+      default_mappings = false,
+    },
   },
 }
