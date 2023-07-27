@@ -10,6 +10,11 @@ return {
     "scalameta/nvim-metals",
     ft = { "scala", "sbt" },
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = require("plugins.lsp.nvim-metals").setup,
+    init = function()
+      require("plugins.lsp.nvim-metals").setup_autocmd()
+    end,
+    config = function()
+      require("plugins.lsp.nvim-metals").setup_dap()
+    end,
   },
 }
