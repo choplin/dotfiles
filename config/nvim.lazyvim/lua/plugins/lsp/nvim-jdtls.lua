@@ -8,6 +8,8 @@ M.setup = function()
     JDTLS_JVM_ARGS = os.getenv("JDTLS_JVM_ARGS"),
   }
 
+  local local_env = require("local_env")
+
   local cache_dir = util.path.join(env.XDG_CACHE_HOME or util.path.join(env.HOME, ".cache"), "jdtls")
   local config_dir = util.path.join(cache_dir, "config")
   local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
@@ -37,7 +39,7 @@ M.setup = function()
   }
 
   local cmd_env = {
-    JAVA_HOME = env.HOME .. "/.asdf/installs/java/adoptopenjdk-19.0.1+10/",
+    JAVA_HOME = local_env.java.java_home_19,
   }
 
   local on_attach = function()
@@ -91,11 +93,11 @@ M.setup = function()
         runtimes = {
           {
             name = "JavaSE-11",
-            path = env.HOME .. "/.asdf/installs/java/adoptopenjdk-11.0.15+10/",
+            path = local_env.java.java_home_11,
           },
           {
             name = "JavaSE-19",
-            path = env.HOME .. "/.asdf/installs/java/adoptopenjdk-19.0.1+10/",
+            path = local_env.java.java_home_19,
           },
         },
       },

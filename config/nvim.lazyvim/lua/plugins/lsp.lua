@@ -58,7 +58,9 @@ return {
         lua_ls = {},
         pyright = {},
         tsserver = {},
-        kotlin_language_server = {},
+        kotlin_language_server = {
+          cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
+        },
         zls = {
           mason = false,
           cmd = { vim.loop.os_homedir() .. "/ghq/github.com/zigtools/zls/zig-out/bin/zls" },
