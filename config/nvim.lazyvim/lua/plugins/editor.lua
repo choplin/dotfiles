@@ -126,7 +126,7 @@ return {
     config = function()
       require("config-local").setup()
     end,
-    event = { "VeryLazy" },
+    lazy = false,
   },
   -- Add key mappings to the default settings of mini.bufremov
   {
@@ -138,7 +138,7 @@ return {
   },
   {
     "luukvbaal/statuscol.nvim",
-    event = { "VeryLazy" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       local builtin = require("statuscol.builtin")
       require("statuscol").setup({

@@ -8,7 +8,7 @@ return {
   -- Enable per-tab buffers
   {
     "tiagovla/scope.nvim",
-    event = { "VeryLazy" },
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
   -- Show scrollbar
@@ -19,7 +19,7 @@ return {
       "kevinhwang91/nvim-hlslens",
       "lewis6991/gitsigns.nvim",
     },
-    event = { "BufWinEnter" },
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       local palette = require("palette").palette
       require("scrollbar").setup({
