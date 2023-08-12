@@ -42,6 +42,7 @@ return {
     dependencies = {
       "simrat39/rust-tools.nvim",
       "mfussenegger/nvim-jdtls",
+      "b0o/schemastore.nvim",
     },
     init = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
@@ -56,6 +57,7 @@ return {
         clangd = {},
         gopls = {},
         jsonls = {},
+        yamlls = {},
         lua_ls = {},
         pyright = {},
         tsserver = {},
@@ -94,6 +96,40 @@ return {
         end,
         java_language_server = function()
           return true
+        end,
+        jsonls = function(_, opts)
+          opts.settings = {
+            json = {
+              schemas = require("schemastore").json.schemas({
+                ignore = {
+                  "Red-DiscordBot Cog",
+                  "Red-DiscordBot Cog Repo",
+                },
+                extra = {
+                  {
+                    name = "QMK configuration",
+                    fileMatch = { "info.json" },
+                    url = vim.uri_from_fname(
+                      vim.loop.os_homedir() .. "/qmk/qmk_firmware/data/schemas/keyboard.jsonschema"
+                    ),
+                  },
+                },
+              }),
+              validate = { enable = true },
+            },
+          }
+        end,
+        yamlls = function(_, opts)
+          opts.settings = {
+            yaml = {
+              schemaStore = {
+                enable = false, -- disable build-in schemaStore support
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = "",
+              },
+              schemas = require("schemastore").yaml.schemas(),
+            },
+          }
         end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
