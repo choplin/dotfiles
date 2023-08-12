@@ -23,6 +23,7 @@ return {
         "luacheck",
         "prettierd",
         "hadolint",
+        "ktlint",
       },
       automatic_installation = false,
       automatic_setup = true,
