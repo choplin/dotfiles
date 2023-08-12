@@ -109,6 +109,7 @@ return {
                   {
                     name = "QMK configuration",
                     fileMatch = { "info.json" },
+                    folderUri = vim.loop.os_homedir() .. "/qmk",
                     url = vim.uri_from_fname(
                       vim.loop.os_homedir() .. "/qmk/qmk_firmware/data/schemas/keyboard.jsonschema"
                     ),
