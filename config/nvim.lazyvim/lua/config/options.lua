@@ -21,3 +21,5 @@ vim.filetype.add({
     ["Tiltfile"] = "tiltfile",
   },
 })
+
+vim.lsp.set_log_level("off")
