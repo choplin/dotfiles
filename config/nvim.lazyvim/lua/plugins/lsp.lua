@@ -72,6 +72,14 @@ return {
           mason = false,
         },
       },
+      capabilities = {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         rust_analyzer = function(_, opts)

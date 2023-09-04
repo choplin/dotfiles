@@ -12,6 +12,10 @@ opt.listchars:append("eol:↴")
 opt.timeoutlen = 250
 opt.guifont = "HackGen35 Console NFJ:h18"
 opt.spell = false
+opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true
 
 vim.filetype.add({
   extension = {
