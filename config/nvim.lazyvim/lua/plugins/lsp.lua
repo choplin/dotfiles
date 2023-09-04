@@ -24,6 +24,7 @@ return {
         "prettierd",
         "hadolint",
         "ktlint",
+        "google-java-format",
       },
       automatic_installation = false,
       automatic_setup = true,
