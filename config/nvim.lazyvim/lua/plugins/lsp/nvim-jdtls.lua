@@ -12,8 +12,7 @@ M.setup = function()
 
   local cache_dir = util.path.join(env.XDG_CACHE_HOME or util.path.join(env.HOME, ".cache"), "jdtls")
   local config_dir = util.path.join(cache_dir, "config")
-  local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
-  local root_dir = require("jdtls.setup").find_root({ ".git", "gradlew", "mvnw" }, bufname)
+  local root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1])
 
   local function get_workspace_dir()
     local p = vim.fn.fnamemodify(root_dir, ":~:gs?/?_?")
