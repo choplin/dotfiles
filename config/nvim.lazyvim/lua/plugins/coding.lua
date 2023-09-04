@@ -55,7 +55,8 @@ return {
     build = ":Copilot auth",
     opts = {
       panel = {
-        enabled = false,
+        enabled = true,
+        auto_refresh = true,
       },
       suggestion = {
         enabled = true,
