@@ -38,11 +38,11 @@ M.setup = function()
   }
 
   local cmd_env = {
-    JAVA_HOME = local_env.java.java_home_19,
+    JAVA_HOME = local_env.java.java_home_17,
   }
 
   local on_attach = function()
-    require("jdtls").setup_dap({ hotcodereplace = "auto" })
+    require("jdtls").setup_dap({ config_overrides = {}, hotcodereplace = "auto" })
   end
 
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -90,21 +90,30 @@ M.setup = function()
       },
       configuration = {
         runtimes = {
+          -- Java 8 and 21 seems not be supported by jdtls
+          -- {
+          --   name = "JavaSE-8",
+          --   path = local_env.java.java_home_8,
+          -- },
           {
             name = "JavaSE-11",
             path = local_env.java.java_home_11,
           },
           {
-            name = "JavaSE-19",
-            path = local_env.java.java_home_19,
+            name = "JavaSE-17",
+            path = local_env.java.java_home_17,
           },
+          -- {
+          --   name = "JavaSE-21",
+          --   path = local_env.java.java_home_21,
+          -- },
         },
       },
     },
   }
 
   local on_init = function(client, _)
-    client.notify("workspace/didChangeConfiguration", { settings = settings })
+    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
   end
 
   local init_options = {}
