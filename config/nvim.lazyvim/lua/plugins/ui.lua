@@ -103,26 +103,26 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     enabled = true,
     opts = {
-      char = "",
-      char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
+      indent = {
+        highlight = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+        },
+        char = "",
       },
-      space_char_highlight_list = {
-        "IndentBlanklineIndent1",
-        "IndentBlanklineIndent2",
+      whitespace = {
+        highlight = {
+          "IndentBlanklineIndent1",
+          "IndentBlanklineIndent2",
+        },
+        remove_blankline_trail = false,
       },
-      show_trailing_blankline_indent = false,
-      filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-      show_current_context = false,
-      show_end_of_line = true,
-      space_char_blankline = " ",
     },
     config = function(_, opts)
       local palette = require("palette").palette
       vim.cmd.highlight("IndentBlanklineIndent1", "guibg=" .. palette.bg, "gui=nocombine")
       vim.cmd.highlight("IndentBlanklineIndent2", "guibg=" .. palette.bg_dark, "gui=nocombine")
-      require("indent_blankline").setup(opts)
+      require("ibl").setup(opts)
     end,
   },
 }
