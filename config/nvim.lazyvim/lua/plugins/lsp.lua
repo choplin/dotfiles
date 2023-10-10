@@ -104,7 +104,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "simrat39/rust-tools.nvim",
       "mfussenegger/nvim-jdtls",
       "b0o/schemastore.nvim",
     },
@@ -118,7 +117,6 @@ return {
       autoformat = not require("lazyvim.util").has("conform.nvim"),
       ---@type lspconfig.options
       servers = {
-        rust_analyzer = {},
         jdtls = {},
         clangd = {},
         jsonls = {},
@@ -146,19 +144,6 @@ return {
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        rust_analyzer = function(_, opts)
-          require("rust-tools").setup({
-            server = opts,
-            tools = {
-              autoSetHints = true,
-              -- hover_with_actions = true,
-              inlay_hints = {
-                show_parameter_hints = true,
-              },
-            },
-          })
-          return true
-        end,
         jdtls = function()
           -- Set jdtls in ftplugin to enable it only for java files
           return true
