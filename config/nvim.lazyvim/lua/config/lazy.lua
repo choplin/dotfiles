@@ -10,6 +10,7 @@ require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "lazyvim.plugins.extras.formatting.conform" },
+    { import = "lazyvim.plugins.extras.linting.nvim-lint" },
     { import = "plugins" },
   },
   defaults = {

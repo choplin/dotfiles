@@ -65,6 +65,13 @@ local lsp = function(icons)
         vim.list_extend(buf_client_names, conform_formatter_names)
       end
 
+      -- linters
+      local lint_ok, lint = pcall(require, "lint")
+      if lint_ok then
+        local lint_linters = lint.linters_by_ft[buf_ft] or {}
+        vim.list_extend(buf_client_names, lint_linters)
+      end
+
       -- remove duplicates
       local unique_client_names = vim.fn.uniq(buf_client_names) or {}
 

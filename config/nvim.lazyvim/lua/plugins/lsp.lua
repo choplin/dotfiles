@@ -17,6 +17,7 @@ return {
       ensure_installed = {
         -- linters
         "luacheck",
+        "shellcheck",
         "ktlint",
         "hadolint",
         -- formatters
@@ -29,6 +30,7 @@ return {
       },
     },
   },
+  -- Formatters
   {
     "stevearc/conform.nvim",
     keys = {
@@ -80,6 +82,19 @@ return {
       },
     },
   },
+  -- Linters
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters_by_ft = {
+        lua = { "luacheck" },
+        sh = { "shellcheck" },
+        kotlin = { "ktlint" },
+        dockerfile = { "hadolint" },
+      },
+    },
+  },
+  -- Better suppor for editing init.lua and plugin development
   {
     "folke/neodev.nvim",
     lazy = true,
