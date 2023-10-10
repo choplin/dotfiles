@@ -31,11 +31,30 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    opts = {
-      format_on_save = {
-        lsp_fallback = true,
-        timeout_ms = 500,
+    keys = {
+      {
+        "<leader>uf",
+        function()
+          if vim.g.disable_autoformat then
+            vim.g.disable_autoformat = false
+            vim.notify("Enabled format on save", vim.log.levels.INFO, { title = "Format" })
+          else
+            vim.g.disable_autoformat = true
+            vim.notify("Disabled format on save", vim.log.levels.WARN, { title = "Format" })
+          end
+        end,
+        "n",
+        desc = "Toggle format on Save with conform",
       },
+    },
+    opts = {
+      format_on_save = function(bufnr)
+        -- Disable with a global or buffer-local variable
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
 
       formatters_by_ft = {
         lua = { "stylua" },
@@ -81,7 +100,8 @@ return {
     end,
     ---@class PluginLspOpts
     opts = {
-      autoformat = false,
+      -- use auto formatting with conform.nvim if available
+      autoformat = not require("lazyvim.util").has("conform.nvim"),
       ---@type lspconfig.options
       servers = {
         rust_analyzer = {},
