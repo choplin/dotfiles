@@ -121,7 +121,6 @@ return {
         rust_analyzer = {},
         jdtls = {},
         clangd = {},
-        gopls = {},
         jsonls = {},
         yamlls = {},
         lua_ls = {},
