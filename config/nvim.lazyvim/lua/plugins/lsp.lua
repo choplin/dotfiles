@@ -32,6 +32,11 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
+      format_on_save = {
+        lsp_fallback = true,
+        timeout_ms = 500,
+      },
+
       formatters_by_ft = {
         lua = { "stylua" },
         sh = { "shfmt" },
@@ -53,8 +58,8 @@ return {
         ["markdown.mdx"] = { { "prettierd", "prettier" } },
         graphql = { { "prettierd", "prettier" } },
         handlebars = { { "prettierd", "prettier" } },
-      }
-    }
+      },
+    },
   },
   {
     "folke/neodev.nvim",
@@ -76,6 +81,7 @@ return {
     end,
     ---@class PluginLspOpts
     opts = {
+      autoformat = false,
       ---@type lspconfig.options
       servers = {
         rust_analyzer = {},
