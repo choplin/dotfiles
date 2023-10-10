@@ -5,31 +5,56 @@ return {
     "nvimtools/none-ls.nvim",
     opts = {
       root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+      enabled = false,
       sources = {},
     },
   },
-  -- Automatically setup null-ls for tolls installed via mason.nvim
   {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
-    },
+    "williamboman/mason.nvim",
     opts = {
+      -- List linters and formatters to install here.
+      -- LSP should be listed as opts.servers of nvim-lspconfig.
       ensure_installed = {
+        -- linters
+        "luacheck",
+        "ktlint",
+        "hadolint",
+        -- formatters
         "stylua",
         "shfmt",
-        "luacheck",
-        "prettierd",
-        "hadolint",
-        "ktlint",
         "google-java-format",
+        "black",
+        "isort",
+        "prettierd",
       },
-      automatic_installation = false,
-      automatic_setup = true,
-      handlers = {},
     },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        sh = { "shfmt" },
+        java = { "google-java-format" },
+        python = { "black", "isort" },
+        javascript = { { "prettierd", "prettier" } },
+        javascriptreact = { { "prettierd", "prettier" } },
+        typescript = { { "prettierd", "prettier" } },
+        typescriptreact = { { "prettierd", "prettier" } },
+        vue = { { "prettierd", "prettier" } },
+        css = { { "prettierd", "prettier" } },
+        scss = { { "prettierd", "prettier" } },
+        less = { { "prettierd", "prettier" } },
+        html = { { "prettierd", "prettier" } },
+        json = { { "prettierd", "prettier" } },
+        jsonc = { { "prettierd", "prettier" } },
+        yaml = { { "prettierd", "prettier" } },
+        markdown = { { "prettierd", "prettier" } },
+        ["markdown.mdx"] = { { "prettierd", "prettier" } },
+        graphql = { { "prettierd", "prettier" } },
+        handlebars = { { "prettierd", "prettier" } },
+      }
+    }
   },
   {
     "folke/neodev.nvim",
