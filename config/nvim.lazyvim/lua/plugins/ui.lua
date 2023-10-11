@@ -17,7 +17,6 @@ return {
     dependencies = {
       "lewis6991/gitsigns.nvim",
       "kevinhwang91/nvim-hlslens",
-      "lewis6991/gitsigns.nvim",
     },
     event = { "BufReadPost", "BufNewFile" },
     config = function()
