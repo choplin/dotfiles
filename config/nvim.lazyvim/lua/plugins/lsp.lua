@@ -120,7 +120,6 @@ return {
         jsonls = {},
         yamlls = {},
         lua_ls = {},
-        tsserver = {},
         kotlin_language_server = {
           cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
         },
