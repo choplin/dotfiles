@@ -1,14 +1,13 @@
 local colors = {
   green = "#98be65",
   red = "#ec5f67",
+  white = "#FFFFFF",
 }
 
 local function fg(name)
-  return function()
-    ---@type {fg?:number}?
-    local hl = vim.api.nvim_get_hl(0, { name = name })
-    return hl and hl.fg and { fg = string.format("#%06x", hl.fg) }
-  end
+  ---@type {fg?:number}?
+  local hl = vim.api.nvim_get_hl(0, { name = name })
+  return hl and hl.fg and { fg = string.format("#%06x", hl.fg) }
 end
 
 local treesitter = function(icons)
@@ -26,22 +25,17 @@ local treesitter = function(icons)
   }
 end
 
-local lsp = function(icons)
+local lsp = function()
   return {
     function()
       local buf_clients = vim.lsp.get_active_clients()
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
-      local copilot_active = false
 
       -- add lsp client
       for _, client in pairs(buf_clients) do
         if client.name ~= "null-ls" and client.name ~= "copilot" then
           table.insert(buf_client_names, client.name)
-        end
-
-        if client.name == "copilot" then
-          copilot_active = true
         end
       end
 
@@ -75,11 +69,6 @@ local lsp = function(icons)
       -- remove duplicates
       local unique_client_names = vim.fn.uniq(buf_client_names) or {}
 
-      -- append copilot icon
-      if copilot_active then
-        table.insert(unique_client_names, icons.custom.Copilot)
-      end
-
       if next(unique_client_names) == nil then
         return "LS Inactive"
       end
@@ -89,6 +78,40 @@ local lsp = function(icons)
     separator = { left = nil },
     padding = { left = 0, right = 1 },
     color = { gui = "bold" },
+  }
+end
+
+local copilot_colors = {
+  [""] = { fg = colors.white },
+  ["Normal"] = { fg = colors.white },
+  ["Warning"] = fg("DiagnosticError"),
+  ["InProgress"] = fg("DiagnosticWarn"),
+}
+
+local copilot = function()
+  return {
+    function()
+      local icon = require("lazyvim.config").icons.kinds.Copilot
+      local status = require("copilot.api").status.data
+      return icon .. (status.message or "")
+    end,
+    cond = function()
+      if not package.loaded["copilot"] then
+        return
+      end
+      local ok, clients = pcall(require("lazyvim.util").get_clients, { name = "copilot", bufnr = 0 })
+      if not ok then
+        return false
+      end
+      return ok and #clients > 0
+    end,
+    color = function()
+      if not package.loaded["copilot"] then
+        return
+      end
+      local status = require("copilot.api").status.data
+      return copilot_colors[status.status] or copilot_colors[""]
+    end,
   }
 end
 
@@ -125,7 +148,8 @@ return {
         },
         { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = fg("Special") },
         treesitter(icons),
-        lsp(icons),
+        lsp(),
+        copilot(),
       }
       opts.extensions = { "neo-tree", "lazy", "aerial", "nvim-dap-ui", "quickfix" }
     end,
