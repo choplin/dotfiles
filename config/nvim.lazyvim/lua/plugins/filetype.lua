@@ -23,4 +23,9 @@ return {
       require("plugins.lsp.nvim-metals").setup_dap()
     end,
   },
+  -- python
+  {
+    "linux-cultist/venv-selector.nvim",
+    keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv", ft = { "python" } } },
+  },
 }
