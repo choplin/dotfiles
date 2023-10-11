@@ -110,6 +110,7 @@ return {
     init = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = { "<c-k>", false }
+      keys[#keys + 1] = { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" }
     end,
     ---@class PluginLspOpts
     opts = {
