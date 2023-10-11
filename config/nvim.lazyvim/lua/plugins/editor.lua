@@ -152,7 +152,7 @@ return {
           },
           { text = { " ", builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
           {
-            sign = { name = { "Git.*" }, colwidth = 1, auto = true, wrap = true },
+            sign = { namespace = { "gitsigns_extmark_signs_" }, colwidth = 1, auto = true, wrap = true },
             click = "v:lua.ScSa",
           },
           {
