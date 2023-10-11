@@ -118,13 +118,11 @@ return {
       ---@type lspconfig.options
       servers = {
         jsonls = {},
-        lua_ls = {},
         kotlin_language_server = {
           cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
         },
         zls = {
           mason = true,
-          --cmd = { vim.loop.os_homedir() .. "/ghq/github.com/zigtools/zls/zig-out/bin/zls" },
         },
       },
       capabilities = {
