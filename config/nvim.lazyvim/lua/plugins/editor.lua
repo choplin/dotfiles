@@ -156,7 +156,7 @@ return {
             click = "v:lua.ScSa",
           },
           {
-            sign = { name = { "Dap.*" }, colwidth = 1, auto = true, wrap = true },
+            sign = { name = { "Dap" }, colwidth = 1, auto = true, wrap = true },
             click = "v:lua.ScSa",
           },
           {
