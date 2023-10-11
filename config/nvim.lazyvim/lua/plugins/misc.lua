@@ -14,8 +14,6 @@ return {
       end,
       icons = {
         custom = {
-          Bug = "",
-          BoldArrowRight = "",
           Tree = "",
           Copilot = "",
         },

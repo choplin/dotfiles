@@ -18,27 +18,4 @@ return {
       },
     },
   },
-  -- Debug Adapter Protocol client
-  {
-    "mfussenegger/nvim-dap",
-    init = function()
-      require("lazyvim.util").on_very_lazy(function()
-        local icons = require("lazyvim.config").icons
-        vim.fn.sign_define("DapBreakpoint", {
-          text = icons.custom.Bug,
-          texthl = "DiagnosticSignError",
-        })
-        vim.fn.sign_define("DapBreakpointRejected", {
-          text = icons.custom.Bug,
-          texthl = "DiagnosticSignError",
-        })
-        vim.fn.sign_define("DapStopped", {
-          text = icons.custom.BoldArrowRight,
-          texthl = "DiagnosticSignWarn",
-          linehl = "Visual",
-          numhl = "DiagnosticSignWarn",
-        })
-      end)
-    end,
-  },
 }
