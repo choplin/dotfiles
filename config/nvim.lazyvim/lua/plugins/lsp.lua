@@ -119,7 +119,6 @@ return {
       ---@type lspconfig.options
       servers = {
         jdtls = {},
-        clangd = {},
         jsonls = {},
         yamlls = {},
         lua_ls = {},
@@ -145,9 +144,6 @@ return {
         jdtls = function()
           -- Set jdtls in ftplugin to enable it only for java files
           return true
-        end,
-        clangd = function(_, opts)
-          opts.capabilities.offsetEncoding = { "utf-16" }
         end,
         jsonls = function(_, opts)
           opts.settings = {
