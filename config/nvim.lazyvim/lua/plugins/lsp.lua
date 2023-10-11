@@ -118,7 +118,6 @@ return {
       ---@type lspconfig.options
       servers = {
         jsonls = {},
-        yamlls = {},
         lua_ls = {},
         kotlin_language_server = {
           cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
@@ -158,18 +157,6 @@ return {
                 },
               }),
               validate = { enable = true },
-            },
-          }
-        end,
-        yamlls = function(_, opts)
-          opts.settings = {
-            yaml = {
-              schemaStore = {
-                enable = false, -- disable build-in schemaStore support
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                url = "",
-              },
-              schemas = require("schemastore").yaml.schemas(),
             },
           }
         end,
