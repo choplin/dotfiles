@@ -104,7 +104,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "mfussenegger/nvim-jdtls",
       "b0o/schemastore.nvim",
     },
     init = function()
@@ -118,7 +117,6 @@ return {
       autoformat = not require("lazyvim.util").has("conform.nvim"),
       ---@type lspconfig.options
       servers = {
-        jdtls = {},
         jsonls = {},
         yamlls = {},
         lua_ls = {},
@@ -141,10 +139,6 @@ return {
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        jdtls = function()
-          -- Set jdtls in ftplugin to enable it only for java files
-          return true
-        end,
         jsonls = function(_, opts)
           opts.settings = {
             json = {

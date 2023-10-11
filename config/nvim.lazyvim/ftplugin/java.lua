@@ -1,1 +1,1 @@
-require("plugins.lsp.nvim-jdtls").setup()
+--require("plugins.lsp.nvim-jdtls").setup()
