@@ -131,9 +131,6 @@ return {
           mason = true,
           --cmd = { vim.loop.os_homedir() .. "/ghq/github.com/zigtools/zls/zig-out/bin/zls" },
         },
-        java_language_server = {
-          mason = false,
-        },
       },
       capabilities = {
         textDocument = {
@@ -151,9 +148,6 @@ return {
         end,
         clangd = function(_, opts)
           opts.capabilities.offsetEncoding = { "utf-16" }
-        end,
-        java_language_server = function()
-          return true
         end,
         jsonls = function(_, opts)
           opts.settings = {
