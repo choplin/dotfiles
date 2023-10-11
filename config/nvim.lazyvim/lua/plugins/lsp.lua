@@ -104,7 +104,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "b0o/schemastore.nvim",
+      "b0o/SchemaStore.nvim",
     },
     init = function()
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
