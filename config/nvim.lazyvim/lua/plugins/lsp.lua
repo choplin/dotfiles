@@ -117,7 +117,38 @@ return {
       autoformat = not require("lazyvim.util").has("conform.nvim"),
       ---@type lspconfig.options
       servers = {
-        jsonls = {},
+        jsonls = {
+          -- lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(
+              new_config.settings.json.schemas,
+              require("schemastore").json.schemas({
+                ignore = {
+                  "Red-DiscordBot Cog",
+                  "Red-DiscordBot Cog Repo",
+                },
+                extra = {
+                  {
+                    name = "QMK configuration",
+                    fileMatch = { "info.json" },
+                    folderUri = vim.loop.os_homedir() .. "/qmk",
+                    url = vim.uri_from_fname(
+                      vim.loop.os_homedir() .. "/qmk/qmk_firmware/data/schemas/keyboard.jsonschema"
+                    ),
+                  },
+                },
+              })
+            )
+          end,
+          settings = {
+            json = {
+              format = { enable = true },
+              validate = { enable = true },
+              schemas = {},
+            },
+          },
+        },
         kotlin_language_server = {
           cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
         },
@@ -135,29 +166,6 @@ return {
       },
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        jsonls = function(_, opts)
-          opts.settings = {
-            json = {
-              schemas = require("schemastore").json.schemas({
-                ignore = {
-                  "Red-DiscordBot Cog",
-                  "Red-DiscordBot Cog Repo",
-                },
-                extra = {
-                  {
-                    name = "QMK configuration",
-                    fileMatch = { "info.json" },
-                    folderUri = vim.loop.os_homedir() .. "/qmk",
-                    url = vim.uri_from_fname(
-                      vim.loop.os_homedir() .. "/qmk/qmk_firmware/data/schemas/keyboard.jsonschema"
-                    ),
-                  },
-                },
-              }),
-              validate = { enable = true },
-            },
-          }
-        end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
