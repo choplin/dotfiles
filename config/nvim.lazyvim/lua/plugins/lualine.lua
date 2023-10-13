@@ -89,7 +89,7 @@ local copilot = function()
       if not package.loaded["copilot"] then
         return
       end
-      local ok, clients = pcall(require("lazyvim.util").get_clients, { name = "copilot", bufnr = 0 })
+      local ok, clients = pcall(require("lazyvim.util").lsp.get_clients, { name = "copilot", bufnr = 0 })
       if not ok then
         return false
       end
