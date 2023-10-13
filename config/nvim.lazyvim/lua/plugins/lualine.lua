@@ -34,19 +34,9 @@ local lsp = function()
 
       -- add lsp client
       for _, client in pairs(buf_clients) do
-        if client.name ~= "null-ls" and client.name ~= "copilot" then
+        if client.name ~= "copilot" then
           table.insert(buf_client_names, client.name)
         end
-      end
-
-      -- null-ls sources
-      local null_ls_ok, _ = pcall(require, "null-ls")
-      if null_ls_ok then
-        local null_ls_sources = require("null-ls.sources").get_available(buf_ft)
-        local null_ls_source_names = vim.tbl_map(function(s)
-          return s.name
-        end, null_ls_sources)
-        vim.list_extend(buf_client_names, null_ls_source_names)
       end
 
       -- formatters
