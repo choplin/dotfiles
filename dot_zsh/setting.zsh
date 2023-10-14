@@ -20,10 +20,6 @@ if test -d $HOME/.cargo; then
     source "$HOME/.cargo/env"
 fi
 
-if test -d $HOME/.sdkman; then
-    zsh-defer source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
-
 if type direnv > /dev/null; then
     eval "$(direnv hook zsh)"
 fi
