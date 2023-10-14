@@ -1,0 +1,3 @@
+--follow
+--smart-case
+--glob=!git/*

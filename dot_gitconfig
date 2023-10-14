@@ -1,0 +1,80 @@
+[user]
+  name = Akihiro Okuno
+  email = choplin.choplin@gmail.com
+
+[core]
+  autocrlf = false
+  pager = less
+  excludesfile = ~/.gitignore_global
+  editor = nvim
+  pager = LESS= delta
+  ignorecase = false
+
+[color]
+  ui = auto
+
+[push]
+  default = current
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[fetch]
+  prune = true
+
+[branch]
+  autosetuprebase = always
+
+[merge]
+  ff = false
+  conflictstyle = diff3
+
+[rebase]
+  autosquash = true
+
+[diff]
+  colorMoved = default
+
+[interactive]
+  diffFilter = delta --color-only
+
+[add.interactive]
+  useBuiltin = false # required for git 2.37.0
+
+[alias]
+  co = checkout
+  st = !tig status
+  br = !tig refs
+
+  fixup = commit --amend --no-edit
+
+  user-guess = !sh -c '~/.git-scripts/user-guess.sh'
+
+  delete-merged-branches = !git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %
+
+[http]
+  sslVerify = true
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+
+[github]
+  user = choplin
+
+[http "https://gopkg.in"]
+  followRedirects = true
+
+[delta]
+  side-by-side = true
+  navigate = true  # use n and N to move between diff sections
+  light = false
+  paging = always
+
+[include]
+  path = .gitconfig.local
+
+# vim:ft=gitconfig shiftwidth=2

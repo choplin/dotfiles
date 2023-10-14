@@ -1,0 +1,22 @@
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+charset = utf-8
+
+[Makefile]
+indent_style = tab
+
+[*.go]
+indent_style = tab
+
+[*.{yml,yaml,json,html,tmpl,rb,cson,scala,sc,coffee,tag,tex,re,tf,md,ts,tsx,js,jsx,lua,java}]
+indent_size = 2
+
+[{.gitconfig,.firebaserc}]
+indent_size = 2

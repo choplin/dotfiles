@@ -1,0 +1,91 @@
+###############################################################
+# This file contains the verb definitions for broot
+#
+# Doc at https://dystroy.org/broot/verbs/
+###############################################################
+{
+
+    verbs: [
+        {
+            name: touch
+            invocation: touch {new_file}
+            external: "touch {directory}/{new_file}"
+            leave_broot: false
+        }
+        {
+            invocation: edit
+            shortcut: e
+            key: ctrl-e
+            external: "$EDITOR +{line} {file}"
+            leave_broot: false
+            apply_to: file
+        }
+        {
+            invocation: edit_leave
+            shortcut: el
+            key: enter
+            external: "$EDITOR +{line} {file}"
+            leave_broot: true
+            apply_to: file
+        }
+
+        {
+            key: ctrl-o
+            external: "cd {file}"
+            leave_broot: true
+            from_shell: true
+            appply_to: directory
+        }
+
+        {
+            invocation: create {subpath}
+            external: "$EDITOR {directory}/{subpath}"
+            leave_broot: false
+        }
+
+        {
+            invocation: git_diff
+            shortcut: gd
+            leave_broot: false
+            external: "git diff {file}"
+        }
+
+        {
+            invocation: "backup {version}"
+            key: ctrl-b
+            leave_broot: false
+            auto_exec: false
+            external: "cp -r {file} {parent}/{file-stem}-{version}{file-dot-extension}"
+        }
+
+        {
+            invocation: terminal
+            key: ctrl-t
+            execution: "$SHELL"
+            set_working_dir: true
+            leave_broot: false
+        }
+
+        {
+            key: ctrl-k
+            internal: ":line_up"
+        }
+        {
+            key: ctrl-j
+            internal: ":line_down"
+        }
+        {
+            key: ctrl-u
+            internal: ":page_up"
+        }
+        {
+            key: ctrl-d
+            internal: ":page_down"
+        }
+        {
+            key: ctrl-h
+            internal: ":root_up"
+        }
+    ]
+
+}

@@ -1,0 +1,39 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+format = """$all\
+$kubernetes\
+$sudo\
+$cmd_duration\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$container\
+$shell\
+$character"""
+
+[kubernetes]
+disabled = false
+format = '[$symbol$context( \($namespace\)) ]($style)'
+
+[kubernetes.context_aliases]
+"kind-kind" = "kind"
+"gke_.*_(?P<var_cluster>[\\w-]+)" = "gke-$var_cluster"
+
+[env_var.DEVBOX_SHELL_ENABLED]
+format = "📦[devbox](bold fg:green)"
+
+[golang]
+format = "[$symbol($version )]($style)"
+
+[buf]
+format = '[$symbol($version )]($style)'
+symbol = "🦬 "
+
+[gcloud]
+format = '[$symbol$account(@$domain)(\($region\)) ]($style)'
+
+[scala]
+disabled = true

@@ -1,0 +1,95 @@
+# CTAGS
+
+tags
+tags-ja
+
+# GTAGS
+
+GTAGS
+GRTAGS
+GPATH
+HTML # Mac
+
+.DS_Store
+
+# c/c++
+
+*.o
+
+# Intellij idea
+
+.idea
+.idea_modules
+*.iml
+
+# bunlder
+
+vendor/bundle
+.bundle
+
+# script for configure
+
+config.sh
+
+# maven etc.
+#
+target
+
+# local memo
+memo.local
+
+# vagrant
+.vagrant
+
+# vim
+.*.un~
+
+*.pyc
+
+# visual studio code
+
+.vscode
+
+# venv
+
+venv/
+
+.ipynb_checkpoints
+
+.envrc
+.envrc-e
+
+.local.vimrc
+
+.mypy_cache/
+.bloop/
+.metals/
+.history/
+.env
+metals.sbt
+todo.md
+
+/vendor/
+
+pyrightconfig.json
+compile_commands.json
+compile_flags.txt
+
+memo.md
+
+.vimrc.lua
+.nlsp-settings
+.mind/
+
+.factorypath
+.settings
+
+.ammonite
+
+# jdtls
+.project
+.classpath
+
+.cache/
+
+.tool-versions
