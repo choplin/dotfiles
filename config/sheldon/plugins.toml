@@ -35,14 +35,6 @@ github = "zsh-users/zsh-completions"
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
-[plugins.asdf]
-github = "asdf-vm/asdf"
-
-[plugins.asdf-completion]
-github = "asdf-vm/asdf"
-dir = "completions"
-apply = ["fpath"]
-
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
@@ -66,4 +58,5 @@ use = [
     "history.zsh",
     "osc133.zsh",
     "broot.zsh",
+    "rtx.zsh",
 ]
