@@ -42,21 +42,30 @@ github = "olets/zsh-abbr"
 github = "b4b4r07/enhancd"
 apply = ["defer"]
 
+[plugins.dotfiles]
+local = "~/.zsh"
+use = ["saneopt.zsh", "zstyle.zsh", "env.zsh", "history.zsh", "starship.zsh"]
+
 [plugins.dotfiles-defers]
 local = "~/.zsh"
+apply = ["defer"]
 use = [
-    "alias.zsh",
-    "fzf.zsh",
-    "keybinding.zsh",
-    "saneopt.zsh",
-    "setting.zsh",
-    "zstyle.zsh",
-    "zoxide.zsh",
-    "hook.zsh",
-    "local.zsh",
-    "env.zsh",
-    "history.zsh",
-    "osc133.zsh",
-    "broot.zsh",
-    "rtx.zsh",
+  "alias.zsh",
+  "fzf.zsh",
+  "keybinding.zsh",
+  "setting.zsh",
+  "zoxide.zsh",
+  "hook.zsh",
+  "local.zsh",
+  "env.zsh",
+  "history.zsh",
+  "osc133.zsh",
+  "broot.zsh",
+  "rtx.zsh",
+  "chezmoi.zsh",
+  "cargo.zsh",
+  "go.zsh",
+  "direnv.zsh",
+  "google-cloud-sdk.zsh",
+  "krew.zsh",
 ]
