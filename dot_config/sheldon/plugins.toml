@@ -20,9 +20,6 @@ defer = """{% for file in files %}
 zsh-defer source "{{ file }}"
 {% endfor %}"""
 
-[plugins.compinit]
-inline = 'autoload -Uz compinit && zsh-defer compinit'
-
 [plugins.bindkey]
 inline = 'bindkey -e'
 
@@ -69,3 +66,6 @@ use = [
   "google-cloud-sdk.zsh",
   "krew.zsh",
 ]
+
+[plugins.compinit]
+inline = 'autoload -Uz compinit && zsh-defer compinit'
