@@ -93,3 +93,5 @@ memo.md
 .cache/
 
 .tool-versions
+
+.rtx.toml
