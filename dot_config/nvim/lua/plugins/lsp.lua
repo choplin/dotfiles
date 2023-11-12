@@ -100,7 +100,8 @@ return {
           cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
         },
         zls = {
-          mason = true,
+          mason = false,
+          cmd = { require("local_env").zls_path or "zls" },
         },
       },
       capabilities = {
