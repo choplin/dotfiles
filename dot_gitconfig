@@ -4,10 +4,9 @@
 
 [core]
   autocrlf = false
-  pager = less
   excludesfile = ~/.gitignore_global
   editor = nvim
-  pager = LESS= delta
+  pager = delta
   ignorecase = false
 
 [color]
