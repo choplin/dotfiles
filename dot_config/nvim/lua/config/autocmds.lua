@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     vim.api.nvim_buf_create_user_command(0, "Glow", function()
       local name = vim.api.nvim_buf_get_name(0)
-      Util.float_term({ "glow", "-p", name }, {})
+      Util.terminal.open({ "glow", "-p", name }, {})
     end, {})
   end,
 })
