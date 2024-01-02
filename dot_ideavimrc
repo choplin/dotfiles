@@ -103,6 +103,7 @@ nmap <Leader>de <Action>(EditBreakpoint)
 " Tests keymaps
 nmap <Leader>tr <Action>(RunClass)
 nmap <Leader>td <Action>(DebugClass)
+nmap <Leader>tt <Action>(Rerun)
 
 " Keymaps to move lines of code up and down
 ap <A-j> :m .+1<CR>==
