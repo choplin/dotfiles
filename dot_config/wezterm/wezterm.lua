@@ -18,10 +18,11 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 end
 
 config.font = wezterm.font_with_fallback({
+  "UDEV Gothic NF",
   "HackGen35 Console NF",
   "Broot Icons Visual Studio Code",
 })
-config.font_size = 16.0
+config.font_size = 18.0
 config.color_scheme = "tokyonight"
 config.use_ime = true
 config.hide_tab_bar_if_only_one_tab = true
