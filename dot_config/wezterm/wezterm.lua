@@ -1,6 +1,6 @@
-local wezterm = require "wezterm"
-local util = require "util"
-local padding = require "padding"
+local wezterm = require("wezterm")
+local util = require("util")
+local padding = require("padding")
 
 local act = wezterm.action
 
@@ -17,10 +17,10 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { "wsl.exe", "~", "-d", "Ubuntu" }
 end
 
-config.font = wezterm.font_with_fallback {
+config.font = wezterm.font_with_fallback({
   "HackGen35 Console NF",
   "Broot Icons Visual Studio Code",
-}
+})
 config.font_size = 16.0
 config.color_scheme = "tokyonight"
 config.use_ime = true
@@ -32,7 +32,7 @@ config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
 config.window_decorations = "RESIZE"
 config.window_frame = {
-  font = wezterm.font { family = "Roboto", weight = "Bold" },
+  font = wezterm.font({ family = "Roboto", weight = "Bold" }),
   font_size = 14.0,
   active_titlebar_bg = "#333333",
   inactive_titlebar_bg = "#111111",
@@ -74,24 +74,24 @@ config.keys = util.merge(
     {
       key = "v",
       mods = "LEADER",
-      action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
+      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
     },
     {
       key = "d",
       mods = "SUPER",
-      action = act.SplitHorizontal { domain = "CurrentPaneDomain" },
+      action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
     },
     {
       key = "s",
       mods = "LEADER",
-      action = act.SplitVertical { domain = "CurrentPaneDomain" },
+      action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
     },
-    { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection "Next" },
-    { key = "w", mods = "CMD", action = act.CloseCurrentPane { confirm = true } },
+    { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection("Next") },
+    { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
     {
       key = "P",
       mods = "CTRL",
-      action = act.QuickSelectArgs {
+      action = act.QuickSelectArgs({
         label = "open url",
         patterns = {
           [[https?://[^ \s↴\)]+]],
@@ -100,7 +100,7 @@ config.keys = util.merge(
           local url = window:get_selection_text_for_pane(pane)
           wezterm.open_with(url)
         end),
-      },
+      }),
     },
     { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
     { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
@@ -110,45 +110,45 @@ config.keys = util.merge(
     return {
       key = e.key,
       mods = "LEADER",
-      action = act.Multiple {
+      action = act.Multiple({
         act.ActivatePaneDirection(e.direction),
-        act.ActivateKeyTable { name = "pane", one_shot = false },
-      },
+        act.ActivateKeyTable({ name = "pane", one_shot = false }),
+      }),
     }
   end),
   util.map(direction_keys, function(e)
     return {
       key = e.key,
       mods = "LEADER|SHIFT",
-      action = act.Multiple {
-        act.AdjustPaneSize { e.direction, 5 },
-        act.ActivateKeyTable { name = "pane", one_shot = false },
-      },
+      action = act.Multiple({
+        act.AdjustPaneSize({ e.direction, 5 }),
+        act.ActivateKeyTable({ name = "pane", one_shot = false }),
+      }),
     }
   end)
 )
 
 config.key_tables = {
   pane = {
-    { key = "h", action = act.ActivatePaneDirection "Left" },
-    { key = "l", action = act.ActivatePaneDirection "Right" },
-    { key = "k", action = act.ActivatePaneDirection "Up" },
-    { key = "j", action = act.ActivatePaneDirection "Down" },
+    { key = "h", action = act.ActivatePaneDirection("Left") },
+    { key = "l", action = act.ActivatePaneDirection("Right") },
+    { key = "k", action = act.ActivatePaneDirection("Up") },
+    { key = "j", action = act.ActivatePaneDirection("Down") },
 
-    { key = "H", mods = "SHIFT", action = act.AdjustPaneSize { "Left", 5 } },
-    { key = "J", mods = "SHIFT", action = act.AdjustPaneSize { "Down", 5 } },
-    { key = "K", mods = "SHIFT", action = act.AdjustPaneSize { "Up", 5 } },
-    { key = "L", mods = "SHIFT", action = act.AdjustPaneSize { "Right", 5 } },
+    { key = "H", mods = "SHIFT", action = act.AdjustPaneSize({ "Left", 5 }) },
+    { key = "J", mods = "SHIFT", action = act.AdjustPaneSize({ "Down", 5 }) },
+    { key = "K", mods = "SHIFT", action = act.AdjustPaneSize({ "Up", 5 }) },
+    { key = "L", mods = "SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
 
     { key = "Escape", action = "PopKeyTable" },
     { key = "Enter", action = "PopKeyTable" },
     { key = "[", mods = "CTRL", action = "PopKeyTable" },
   },
   copy_mode = util.merge(wezterm.gui.default_key_tables().copy_mode, {
-    { key = "Backspace", mods = "NONE", action = act.CopyMode "MoveLeft" },
-    { key = "z", mods = "NONE", action = act.CopyMode { MoveForwardZoneOfType = "Output" } },
-    { key = "Z", mods = "NONE", action = act.CopyMode { MoveBackwardZoneOfType = "Output" } },
-    { key = "z", mods = "CTRL", action = act.CopyMode { SetSelectionMode = "SemanticZone" } },
+    { key = "Backspace", mods = "NONE", action = act.CopyMode("MoveLeft") },
+    { key = "z", mods = "NONE", action = act.CopyMode({ MoveForwardZoneOfType = "Output" }) },
+    { key = "Z", mods = "NONE", action = act.CopyMode({ MoveBackwardZoneOfType = "Output" }) },
+    { key = "z", mods = "CTRL", action = act.CopyMode({ SetSelectionMode = "SemanticZone" }) },
   }),
 }
 
