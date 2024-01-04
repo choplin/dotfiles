@@ -35,9 +35,9 @@ github = "zsh-users/zsh-autosuggestions"
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
-[plugins.enhancd]
-github = "b4b4r07/enhancd"
-apply = ["defer"]
+#[plugins.enhancd]
+#github = "b4b4r07/enhancd"
+#apply = ["defer"]
 
 [plugins.dotfiles]
 local = "~/.zsh"
