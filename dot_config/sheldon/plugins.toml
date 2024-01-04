@@ -58,7 +58,7 @@ use = [
     "history.zsh",
     "osc133.zsh",
     "broot.zsh",
-    "rtx.zsh",
+    "mise.zsh",
     "chezmoi.zsh",
     "cargo.zsh",
     "go.zsh",
