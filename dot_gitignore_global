@@ -94,4 +94,5 @@ memo.md
 
 .tool-versions
 
-.rtx.toml
+.mise.local.toml
+.mise.*.local.toml
