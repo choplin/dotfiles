@@ -11,23 +11,6 @@ return {
       vim.g.zig_fmt_autosave = 0
     end,
   },
-  -- Scala
-  {
-    "scalameta/nvim-metals",
-    ft = { "scala", "sbt" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    init = function()
-      require("plugins.lsp.nvim-metals").setup_autocmd()
-    end,
-    config = function()
-      require("plugins.lsp.nvim-metals").setup_dap()
-    end,
-  },
-  -- python
-  {
-    "linux-cultist/venv-selector.nvim",
-    keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv", ft = { "python" } } },
-  },
   -- Java
   {
     "mfussenegger/nvim-jdtls",

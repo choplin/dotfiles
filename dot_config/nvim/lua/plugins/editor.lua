@@ -1,13 +1,6 @@
 return {
   -- :SnipRun runs code instantly
   { "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
-  -- :Neogen generates documentation comments
-  {
-    "danymat/neogen",
-    cmd = "Neogen",
-    opts = { snippet_engine = "luasnip" },
-    dependencies = "nvim-treesitter/nvim-treesitter",
-  },
   -- Task Runner
   {
     "stevearc/overseer.nvim",
