@@ -1,3 +1,4 @@
+local local_env = require("local_env")
 return {
   {
     "williamboman/mason.nvim",
@@ -97,7 +98,7 @@ return {
           },
         },
         kotlin_language_server = {
-          cmd_env = { JAVA_HOME = require("local_env").java.java_home_19 },
+          cmd_env = { JAVA_HOME = local_env.java and local_env.java.java_home_19 },
         },
         zls = {
           mason = false,
