@@ -16,6 +16,7 @@ opt.foldcolumn = "1"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
+opt.conceallevel = 0
 
 vim.filetype.add({
   extension = {

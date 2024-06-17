@@ -2,7 +2,14 @@ return {
   -- Provide markdown preview in browser
   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install", ft = "markdown" },
   -- Markdown table
-  { "dhruvasagar/vim-table-mode", ft = "markdown" },
+  {
+    "dhruvasagar/vim-table-mode",
+    ft = "markdown",
+    config = function()
+      -- vim.g.table_mode_disable_mappings = true
+      -- vim.g.table_mode_always_active = true
+    end,
+  },
   -- Zig
   {
     "ziglang/zig.vim",

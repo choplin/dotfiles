@@ -30,9 +30,9 @@
   conflictstyle = diff3
 
 [rebase]
-	autosquash = true
-	autostash = true
-	abbreviateCommands = true
+  autosquash = true
+  autostash = true
+  abbreviateCommands = true
 
 [diff]
   colorMoved = default
