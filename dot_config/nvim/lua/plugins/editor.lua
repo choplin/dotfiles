@@ -25,10 +25,7 @@ return {
     init = function()
       local ok, wk = pcall(require, "which-key")
       if ok then
-        wk.register({
-          mode = { "x" },
-          ["<leader>A"] = { name = "+Align" },
-        })
+        wk.add({ "<leader>A", group = "Align", mode = "x" })
       end
     end,
     keys = {
