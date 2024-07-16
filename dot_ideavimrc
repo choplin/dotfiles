@@ -23,8 +23,6 @@ set ideamarks
 set surround
 set matchit
 set NERDTree
-set sneak
-set easymotion
 set commentary
 set highlightedyank
 set argtextobj
@@ -123,6 +121,5 @@ let g:NERDTreeMapActivateNode="l"
 let g:NERDTreeMapCloseDir="h"
 
 " Plugins keymaps
-map \ <Plug>(easymotion-prefix)
 let g:WhichKey_ProcessUnknownMappings = "false"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
