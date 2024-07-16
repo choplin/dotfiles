@@ -51,7 +51,7 @@ return {
           if hunks then
             for _, hunk in ipairs(hunks) do
               hunk.vend = math.min(hunk.added.start, hunk.removed.start) + hunk.added.count + hunk.removed.count
-              local signs = gitsign_hunks.calc_signs(hunk, 0, nb_lines)
+              local signs = gitsign_hunks.calc_signs(hunk, nil, 0, nb_lines, true)
               for _, sign in ipairs(signs) do
                 table.insert(lines, {
                   line = sign.lnum,
