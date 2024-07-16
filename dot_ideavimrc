@@ -125,3 +125,8 @@ let g:WhichKey_ProcessUnknownMappings = "false"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
 let g:WhichKey_SortCaseSensitive = "false"
 
+" Keymaps for AceJump
+nmap f <Action>(AceAction)
+nmap F <Action>(AceTargetAction)
+nmap s <Action>(AceForwardAction)
+nmap S <Action>(AceBackwardAction)
