@@ -18,3 +18,10 @@ mysql = "8.0"
 awscli = "latest"
 ruby = "3.3.4"
 azure-cli = "latest"
+
+[alias.java]
+8 = "zulu-8"
+11 = "adoptopenjdk-11.0.20+101"
+17 = "openjdk-17"
+19 = "openjdk-19"
+21 = "openjdk-21"
