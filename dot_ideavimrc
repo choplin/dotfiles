@@ -120,6 +120,8 @@ nmap <Leader>ir <Action>(IdeaVim.ReloadVimRc.reload)
 let g:NERDTreeMapActivateNode="l"
 let g:NERDTreeMapCloseDir="h"
 
-" Plugins keymaps
+" WhichKey settings
 let g:WhichKey_ProcessUnknownMappings = "false"
 let g:WhichKey_SortOrder = "by_key_prefix_first"
+let g:WhichKey_SortCaseSensitive = "false"
+
