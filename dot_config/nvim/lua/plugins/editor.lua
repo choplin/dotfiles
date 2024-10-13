@@ -1,14 +1,6 @@
 return {
   -- :SnipRun runs code instantly
   { "michaelb/sniprun", build = "bash ./install.sh", cmd = "SnipRun" },
-  -- Task Runner
-  {
-    "stevearc/overseer.nvim",
-    cmd = "OverseerRun",
-    opts = {
-      templates = { "builtin" },
-    },
-  },
   -- Provide :Linediff to compare the selection areas
   {
     "AndrewRadev/linediff.vim",
