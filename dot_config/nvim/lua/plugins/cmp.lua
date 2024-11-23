@@ -125,18 +125,6 @@ return {
         { name = "git" },
         { name = "emoji", max_item_count = 5, priority = 0 },
       }
-      -- opts.formatting = {
-      --   format = function(entry, item)
-      --     local icons = require("lazyvim.config").icons.kinds
-      --     if icons[item.kind] then
-      --       item.kind = icons[item.kind] .. item.kind
-      --     end
-      --     if source_names[entry.source.name] then
-      --       item.menu = source_names[entry.source.name]
-      --     end
-      --     return item
-      --   end,
-      -- }
     end,
   },
 }
