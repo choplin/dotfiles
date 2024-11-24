@@ -24,7 +24,7 @@ return {
       {
         "<leader>Aa",
         function()
-          require("align").align_to_char(1, true)
+          require("align").align_to_char({ length = 1 }, 1, true)
         end,
         mode = { "x" },
         desc = "Aligns to 1 character, looking left",
