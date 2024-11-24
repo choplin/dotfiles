@@ -4,7 +4,7 @@ local source_names = {
   nvim_lsp = "(LSP)",
   emoji = "(Emoji)",
   path = "(Path)",
-  cmp_tabnine = "(Tabnine)",
+  --cmp_tabnine = "(Tabnine)",
   buffer = "(Buffer)",
   treesitter = "(TreeSitter)",
   look = "(Look)",
@@ -64,11 +64,11 @@ return {
     end,
   },
   -- Provide AI code completion with Tabnine
-  {
-    "tzachar/cmp-tabnine",
-    lazy = true,
-    build = "./install.sh",
-  },
+  -- {
+  --   "tzachar/cmp-tabnine",
+  --   lazy = true,
+  --   build = "./install.sh",
+  -- },
   -- Cmp sources for Git
   {
     "petertriho/cmp-git",
