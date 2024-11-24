@@ -83,7 +83,7 @@ nmap <C-/> <Action>(ActivateTerminalToolWindow)
 nmap <Leader>ca <Action>(ShowIntentionActions)
 nmap <Leader>cr <Action>(RenameElement)
 nmap <Leader>cf <Action>(ReformatCode)
-"nmap <Leader>cf <Action>(com.github.ragurney.spotless.actions.ReformatAllFilesAction)
+nmap <Leader>cF <Action>(com.github.ragurney.spotless.actions.ReformatAllFilesAction)
 nmap <Leader>cg <Action>(Generate)
 nmap <Leader>cl <Action>(ShowErrorDescription)
 nmap <Leader>co <Action>(OptimizeImports)
@@ -102,6 +102,7 @@ nmap <Leader>de <Action>(EditBreakpoint)
 nmap <Leader>tr <Action>(RunClass)
 nmap <Leader>td <Action>(DebugClass)
 nmap <Leader>tt <Action>(Rerun)
+nmap <Leader>tl <Action>(ChooseRunConfiguration)
 
 " Keymaps to move lines of code up and down
 nmap <A-k> :m .-2<CR>==
