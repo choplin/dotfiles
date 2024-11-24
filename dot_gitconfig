@@ -30,8 +30,8 @@
   conflictstyle = diff3
 
 [rebase]
-  autosquash = true
-  autostash = true
+  autosquash = false
+  autostash = false
   abbreviateCommands = true
 
 [diff]
