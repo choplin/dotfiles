@@ -15,7 +15,7 @@ indent_style = tab
 [*.go]
 indent_style = tab
 
-[*.{yml,yaml,json,html,tmpl,rb,cson,scala,sc,coffee,tag,tex,re,tf,md,ts,tsx,js,jsx,lua,java}]
+[*.{yml,yaml,json,html,tmpl,rb,cson,scala,sc,coffee,tag,tex,re,tf,md,ts,tsx,js,jsx,lua,java,proto}]
 indent_size = 2
 
 [{.gitconfig,.firebaserc}]
