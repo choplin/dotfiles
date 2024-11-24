@@ -73,6 +73,16 @@ config.keys = util.merge(
       action = act.ActivateTabRelative(-1),
     },
     {
+      key = "J",
+      mods = "CTRL|ALT",
+      action = act.MoveTabRelative(1),
+    },
+    {
+      key = "K",
+      mods = "CTRL|ALT",
+      action = act.MoveTabRelative(-1),
+    },
+    {
       key = "v",
       mods = "LEADER",
       action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
