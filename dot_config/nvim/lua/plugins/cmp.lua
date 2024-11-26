@@ -1,15 +1,5 @@
 local cmp = require("cmp")
 
-local source_names = {
-  nvim_lsp = "(LSP)",
-  emoji = "(Emoji)",
-  path = "(Path)",
-  --cmp_tabnine = "(Tabnine)",
-  buffer = "(Buffer)",
-  treesitter = "(TreeSitter)",
-  look = "(Look)",
-}
-
 local cmdline_select_next_item = function()
   if cmp.visible() then
     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
