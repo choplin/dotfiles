@@ -28,7 +28,7 @@ end
 local lsp = function()
   return {
     function()
-      local buf_clients = vim.lsp.get_active_clients()
+      local buf_clients = vim.lsp.get_clients()
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
 
@@ -56,14 +56,11 @@ local lsp = function()
         vim.list_extend(buf_client_names, lint_linters)
       end
 
-      -- remove duplicates
-      local unique_client_names = vim.fn.uniq(buf_client_names) or {}
-
-      if next(unique_client_names) == nil then
+      if next(buf_client_names) == nil then
         return "LS Inactive"
       end
 
-      return "[" .. table.concat(unique_client_names, ", ") .. "]"
+      return "[" .. table.concat(buf_client_names, ", ") .. "]"
     end,
     separator = { left = nil },
     padding = { left = 0, right = 1 },
@@ -125,17 +122,17 @@ return {
       }
       opts.sections.lualine_x = {
         -- stylua: ignore
-        {
-          function() return require("noice").api.status.command.get() end,
-          cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-          color = fg("Statement")
-        },
-        -- stylua: ignore
-        {
-          function() return require("noice").api.status.mode.get() end,
-          cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-          color = fg("Constant"),
-        },
+        -- {
+        --   function() return require("noice").api.status.command.get() end,
+        --   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+        --   color = fg("Statement")
+        -- },
+        -- -- stylua: ignore
+        -- {
+        --   function() return require("noice").api.status.mode.get() end,
+        --   cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+        --   color = fg("Constant"),
+        -- },
         -- stylua: ignore
         {
           function() return "  " .. require("dap").status() end,
