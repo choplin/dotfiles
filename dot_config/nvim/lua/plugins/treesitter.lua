@@ -43,18 +43,4 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {},
   },
-  {
-    "nvim-treesitter/playground",
-    cmd = {
-      "TSPlaygroundToggle",
-      "TSCaptureUnderCursor",
-      "TSNodeUnderCursor",
-      "TSHighlightCapturesUnderCursor",
-    },
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        playground = {},
-      })
-    end,
-  },
 }
