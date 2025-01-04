@@ -18,6 +18,10 @@ opt.foldlevelstart = 99
 opt.foldenable = true
 opt.conceallevel = 0
 
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = false
+end
+
 vim.filetype.add({
   extension = {
     ["h"] = "c",
@@ -28,3 +32,5 @@ vim.filetype.add({
 })
 
 vim.lsp.set_log_level("off")
+
+vim.g.snacks_scroll = false

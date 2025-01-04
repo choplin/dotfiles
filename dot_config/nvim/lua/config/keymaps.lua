@@ -2,8 +2,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local Util = require("lazyvim.util")
-
 vim.keymap.set("n", "*", function()
   vim.cmd("normal! *")
   local res = vim.fn.searchcount()
@@ -32,7 +30,7 @@ vim.keymap.set("n", "<leader><tab>k", "<cmd>tabprevious<cr>", { desc = "Previous
 
 -- Broot
 local open_broot = function()
-  Util.terminal.open({ "broot" }, { env = { EDITOR = "nvr -l" } })
+  Snacks.terminal.open({ "broot" }, { env = { EDITOR = "nvr -l" } })
 end
 vim.api.nvim_create_user_command("Broot", open_broot, {})
 vim.keymap.set("n", "<leader>F", open_broot, { desc = "Broot" })
@@ -40,5 +38,5 @@ vim.keymap.set("n", "<leader>F", open_broot, { desc = "Broot" })
 -- GitFileHistory
 vim.api.nvim_create_user_command("GitFileHistory", function()
   local name = vim.api.nvim_buf_get_name(0)
-  Util.terminal.open({ "tig", name }, {})
+  Snacks.terminal.open({ "tig", name }, {})
 end, {})

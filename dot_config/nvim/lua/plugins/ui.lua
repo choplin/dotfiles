@@ -79,16 +79,6 @@ return {
       },
     },
   },
-  -- Replace via quickfix window
-  {
-    "gabrielpoca/replacer.nvim",
-    lazy = true,
-    init = function()
-      vim.api.nvim_create_user_command("Replacer", function()
-        require("replacer").run()
-      end, {})
-    end,
-  },
   -- Bufferline
   {
     "akinsho/bufferline.nvim",
@@ -97,32 +87,5 @@ return {
         always_show_bufferline = true,
       },
     },
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    enabled = true,
-    tag = "v3.8.2", -- Use the old version temporarily as it has some issues
-    opts = {
-      indent = {
-        highlight = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-        char = "",
-      },
-      whitespace = {
-        highlight = {
-          "IndentBlanklineIndent1",
-          "IndentBlanklineIndent2",
-        },
-        remove_blankline_trail = false,
-      },
-    },
-    config = function(_, opts)
-      local palette = require("palette").palette
-      vim.cmd.highlight("IndentBlanklineIndent1", "guibg=" .. palette.bg, "gui=nocombine")
-      vim.cmd.highlight("IndentBlanklineIndent2", "guibg=" .. palette.bg_dark, "gui=nocombine")
-      require("ibl").setup(opts)
-    end,
   },
 }

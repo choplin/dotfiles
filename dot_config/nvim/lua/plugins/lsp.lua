@@ -7,7 +7,6 @@ return {
       -- LSP should be listed as opts.servers of nvim-lspconfig.
       ensure_installed = {
         -- linters
-        "luacheck",
         "shellcheck",
         "ktlint",
         "hadolint",
@@ -36,7 +35,6 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
-        lua = { "luacheck" },
         sh = { "shellcheck" },
         kotlin = { "ktlint" },
         dockerfile = { "hadolint" },
@@ -55,32 +53,8 @@ return {
     end,
     ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
         jsonls = {
-          -- lazy-load schemastore when needed
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(
-              new_config.settings.json.schemas,
-              require("schemastore").json.schemas({
-                ignore = {
-                  "Red-DiscordBot Cog",
-                  "Red-DiscordBot Cog Repo",
-                },
-                extra = {
-                  {
-                    name = "QMK configuration",
-                    fileMatch = { "info.json" },
-                    folderUri = vim.loop.os_homedir() .. "/qmk",
-                    url = vim.uri_from_fname(
-                      vim.loop.os_homedir() .. "/qmk/qmk_firmware/data/schemas/keyboard.jsonschema"
-                    ),
-                  },
-                },
-              })
-            )
-          end,
           settings = {
             json = {
               format = { enable = true },
@@ -104,11 +78,6 @@ return {
             lineFoldingOnly = true,
           },
         },
-      },
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-      setup = {
-        -- Specify * to use this function as a fallback for any server
-        -- ["*"] = function(server, opts) end,
       },
     },
   },
