@@ -32,6 +32,7 @@ config.audible_bell = "Disabled"
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
 config.window_decorations = "RESIZE"
+config.window_background_opacity = 0.9
 config.window_frame = {
   font = wezterm.font({ family = "Roboto", weight = "Bold" }),
   font_size = 14.0,
