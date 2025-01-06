@@ -35,3 +35,5 @@ vim.lsp.set_log_level("off")
 
 -- Disable UI animation by Snacks
 vim.g.snacks_animate = false
+-- Do not handle Copilot suggestion by blink.cmp
+vim.g.ai_cmp = false
