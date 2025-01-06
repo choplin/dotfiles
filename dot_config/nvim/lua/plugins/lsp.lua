@@ -46,14 +46,13 @@ return {
     dependencies = {
       "b0o/SchemaStore.nvim",
     },
-    init = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "<c-k>", false }
-      keys[#keys + 1] = { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" }
-    end,
     ---@class PluginLspOpts
-    opts = {
-      servers = {
+    opts = function(_, opts)
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = { "<c-k>", false, mode = "i" }
+      keys[#keys + 1] = { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" }
+
+      opts.servers = vim.tbl_extend("force", opts.servers, {
         jsonls = {
           settings = {
             json = {
@@ -70,15 +69,18 @@ return {
           mason = false,
           cmd = { require("local_env").zls_path or "zls" },
         },
-      },
-      capabilities = {
+      })
+      opts.capabilities = vim.tbl_extend("force", opts.capabilities, {
         textDocument = {
           foldingRange = {
             dynamicRegistration = false,
             lineFoldingOnly = true,
           },
         },
-      },
-    },
+      })
+      opts.codelens = {
+        enabled = true,
+      }
+    end,
   },
 }
