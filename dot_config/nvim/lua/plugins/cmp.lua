@@ -1,33 +1,49 @@
 return {
   {
     "saghen/blink.cmp",
-    dependencies = {
-      "mikavilpas/blink-ripgrep.nvim",
-    },
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
       keymap = {
-        preset = "super-tab",
+        preset = "enter",
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
-        ["<CR>"] = { "accept", "fallback" },
       },
       completion = {
         list = {
           selection = "auto_insert",
         },
         ghost_text = {
-          enabled = true,
+          enabled = false,
         },
         menu = {
           auto_show = true,
         },
       },
       sources = {
-        default = {
-          "ripgrep",
-        },
+        cmdline = function()
+          local type = vim.fn.getcmdtype()
+          if type == "/" or type == "?" then
+            return { "buffer" }
+          end
+          if type == ":" or type == "@" then
+            return { "cmdline" }
+          end
+          return {}
+        end,
+      },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "mikavilpas/blink-ripgrep.nvim",
+    },
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      sources = {
+        default = { "ripgrep" },
         providers = {
           ripgrep = {
             module = "blink-ripgrep",
