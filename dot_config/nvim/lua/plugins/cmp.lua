@@ -8,6 +8,11 @@ return {
         preset = "enter",
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
+        cmdline = {
+          preset = "super-tab",
+          ["<C-j>"] = { "select_next", "fallback" },
+          ["<C-k>"] = { "select_prev", "fallback" },
+        },
       },
       completion = {
         list = {
