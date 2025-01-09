@@ -16,7 +16,12 @@ return {
       },
       completion = {
         list = {
-          selection = "auto_insert",
+          selection = {
+            auto_insert = true,
+            preselect = function(ctx)
+              return ctx.mode == "cmdline"
+            end,
+          },
         },
         ghost_text = {
           enabled = false,
