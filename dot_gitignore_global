@@ -37,6 +37,7 @@ target
 
 # local memo
 memo.local
+memo.local.md
 
 # vagrant
 .vagrant
@@ -96,3 +97,5 @@ memo.md
 
 .mise.local.toml
 .mise.*.local.toml
+
+.cursorrules
