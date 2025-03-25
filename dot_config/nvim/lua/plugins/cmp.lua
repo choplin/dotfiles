@@ -4,23 +4,11 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = {
-        preset = "enter",
-        ["<C-j>"] = { "select_next", "fallback" },
-        ["<C-k>"] = { "select_prev", "fallback" },
-        cmdline = {
-          preset = "super-tab",
-          ["<C-j>"] = { "select_next", "fallback" },
-          ["<C-k>"] = { "select_prev", "fallback" },
-        },
-      },
       completion = {
         list = {
           selection = {
             auto_insert = true,
-            preselect = function(ctx)
-              return ctx.mode == "cmdline"
-            end,
+            preselect = false,
           },
         },
         ghost_text = {
@@ -30,8 +18,20 @@ return {
           auto_show = true,
         },
       },
-      sources = {
-        cmdline = function()
+      keymap = {
+        preset = "default",
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+      },
+      cmdline = {
+        enabled = true,
+        keymap = {
+          preset = "cmdline",
+          ["<CR>"] = { "select_accept_and_enter", "fallback" },
+          ["<C-j>"] = { "select_next" },
+          ["<C-k>"] = { "select_prev" },
+        },
+        sources = function()
           local type = vim.fn.getcmdtype()
           if type == "/" or type == "?" then
             return { "buffer" }
@@ -41,6 +41,20 @@ return {
           end
           return {}
         end,
+        completion = {
+          list = {
+            selection = {
+              auto_insert = true,
+              preselect = false,
+            },
+          },
+          menu = {
+            auto_show = true,
+          },
+          ghost_text = {
+            enabled = true,
+          },
+        },
       },
     },
   },
