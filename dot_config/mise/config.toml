@@ -25,6 +25,8 @@ eksctl = "latest"
 azure-cli = "latest"
 mill = "latest"
 zig = "ref:master"
+deno = "latest"
+bun = "latest"
 
 [alias.java.versions]
 8 = "zulu-8"
