@@ -12,7 +12,7 @@ function zoxide-widget() {
     fi
 
     if [ -n "$res" ]; then
-        BUFFER="cd $res"
+        BUFFER="cd \"$res\""
         zle accept-line
     fi
     zle reset-prompt
