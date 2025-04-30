@@ -2,6 +2,11 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+if vim.g.vscode then
+  require("config/vscode/keymaps")
+  return
+end
+
 vim.keymap.set("n", "*", function()
   vim.cmd("normal! *")
   local res = vim.fn.searchcount()

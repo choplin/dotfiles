@@ -2,6 +2,11 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+if vim.g.vscode then
+  require("config/vscode/options")
+  return
+end
+
 local opt = vim.opt
 opt.listchars:remove("tab")
 opt.listchars:append("tab:￫ ")
