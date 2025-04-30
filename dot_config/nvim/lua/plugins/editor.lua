@@ -98,6 +98,9 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
+      source_selector = {
+        winbar = true,
+      },
       filesystem = {
         group_empty_dirs = true,
       },
