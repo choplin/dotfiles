@@ -28,6 +28,8 @@ zig = "ref:master"
 deno = "latest"
 bun = "latest"
 biome = "latest"
+ruff = "latest"
+uv = "latest"
 
 [alias.java.versions]
 8 = "zulu-8"
