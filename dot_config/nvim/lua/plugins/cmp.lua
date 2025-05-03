@@ -20,6 +20,7 @@ return {
       },
       keymap = {
         preset = "default",
+        ["<CR>"] = { "select_and_accept", "fallback" },
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
       },
@@ -28,8 +29,8 @@ return {
         keymap = {
           preset = "cmdline",
           ["<CR>"] = { "select_accept_and_enter", "fallback" },
-          ["<C-j>"] = { "select_next" },
-          ["<C-k>"] = { "select_prev" },
+          ["<C-j>"] = { "select_next", "fallback" },
+          ["<C-k>"] = { "select_prev", "fallback" },
         },
         sources = function()
           local type = vim.fn.getcmdtype()
