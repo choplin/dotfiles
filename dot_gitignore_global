@@ -105,3 +105,6 @@ memo.md
 # Claude Code
 CLAUDE.md
 .claude
+
+# Git worktree
+.worktrees/
