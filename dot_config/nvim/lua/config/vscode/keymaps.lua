@@ -75,7 +75,7 @@ local vscode_keymaps = {
   { "n", "zM", { "editor.foldAll" }, { desc = "Fold All" } },
   { "n", "zR", { "editor.unfoldAll" }, { desc = "Unfold All" } },
   -- Terminal
-  { "n", "<leader>ft", { "workbench.action.terminal.toggleTerminal" }, { desc = "Toggle Terminal" } },
+  { "n", "<leader>ft", { "workbench.action.createTerminalEditorSameGroup" }, { desc = "Toggle Terminal" } },
   { "n", "<c-/>", { "workbench.action.terminal.toggleTerminal" }, { desc = "Toggle Terminal" } },
   -- Search
   { "n", "<leader>sg", { "workbench.action.findInFiles" }, { desc = "Search in Files" } },
