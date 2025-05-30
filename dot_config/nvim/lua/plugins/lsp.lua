@@ -40,6 +40,14 @@ return {
         dockerfile = { "hadolint" },
       },
     },
+    config = function()
+      require("lint").linters.markdownlint.args = {
+        "--disable",
+        "MD013",
+        "MD007",
+        "--", -- Required
+      }
+    end,
   },
   {
     "neovim/nvim-lspconfig",
