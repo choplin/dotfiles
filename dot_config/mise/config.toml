@@ -4,6 +4,7 @@ java = [
     "adoptopenjdk-11.0.20+101",
     "openjdk-19",
     "openjdk-21",
+    "openjdk-24",
     "zulu-8",
 ]
 go = "latest"
@@ -24,7 +25,7 @@ awscli = "latest"
 eksctl = "latest"
 azure-cli = "latest"
 mill = "latest"
-zig = "ref:master"
+zig = ["0.14", "ref:master"]
 deno = "latest"
 bun = "latest"
 biome = "latest"
@@ -37,3 +38,7 @@ uv = "latest"
 17 = "openjdk-17"
 19 = "openjdk-19"
 21 = "openjdk-21"
+24 = "openjdk-24"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
