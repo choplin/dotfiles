@@ -101,3 +101,7 @@ memo.md
 .cursorrules
 .cursor/
 .zed/
+
+# Claude Code
+CLAUDE.md
+.claude
