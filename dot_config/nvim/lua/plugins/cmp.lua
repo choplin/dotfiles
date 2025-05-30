@@ -28,7 +28,7 @@ return {
         enabled = true,
         keymap = {
           preset = "cmdline",
-          ["<CR>"] = { "select_accept_and_enter", "fallback" },
+          --["<CR>"] = { "select_accept_and_enter", "fallback" },
           ["<C-j>"] = { "select_next", "fallback" },
           ["<C-k>"] = { "select_prev", "fallback" },
         },
