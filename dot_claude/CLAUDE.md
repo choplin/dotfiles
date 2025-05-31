@@ -27,6 +27,7 @@ When user describes a new issue or feature to work on:
 2. **Plan the implementation**
 3. **Set up branch** (use `~/.claude/scripts/setup-worktree.sh <branch-name>`)
 4. **Begin implementation** in the new worktree
+5. **Send completion notification** (use `~/.claude/scripts/notify.sh "message" ["title"]`) when finished
 
 ### Git Workflow
 
@@ -47,6 +48,8 @@ Follow conventional commit style with single-line messages:
 
 Module name is optional for changes affecting entire project.
 
+**Do NOT include Claude attribution** (e.g., "Generated with Claude Code" or "Co-Authored-By: Claude").
+
 ## Common Commands
 
 ### Command Preferences
@@ -64,5 +67,6 @@ Module name is optional for changes affecting entire project.
 - Use `~/.claude/scripts/setup-worktree.sh <branch-name>` to set up branches
 - Use `~/.claude/scripts/fix-newlines.sh [directory]` to ensure all files end with newline
 - Use `~/.claude/scripts/fix-trailing-whitespace.sh [directory]` to remove trailing whitespace
+- Use `~/.claude/scripts/notify.sh [message] [title]` to send desktop notifications
 
 <!-- Add more workflow automation scripts here -->
