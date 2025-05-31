@@ -106,5 +106,9 @@ memo.md
 CLAUDE.md
 .claude
 
-# Git worktree
+# Git worktree (made by Claude)
 .worktrees/
+
+# Draft of Pull Request (made by Claude)
+pr-description.md
+
