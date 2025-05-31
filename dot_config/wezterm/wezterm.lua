@@ -1,10 +1,8 @@
 local wezterm = require("wezterm")
+
+require("event").setup(wezterm)
+
 local util = require("util")
-local padding = require("padding")
-
-local act = wezterm.action
-
-padding.setup(wezterm)
 
 local config = {}
 if wezterm.config_builder then
@@ -28,11 +26,13 @@ config.use_ime = true
 config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 config.audible_bell = "Disabled"
+config.notification_handling = "AlwaysShow"
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.85
+config.macos_window_background_blur = 15
 config.window_frame = {
   font = wezterm.font({ family = "Roboto", weight = "Bold" }),
   font_size = 14.0,
@@ -61,6 +61,8 @@ local direction_keys = {
   { key = "k", direction = "Up" },
   { key = "j", direction = "Down" },
 }
+
+local act = wezterm.action
 config.keys = util.merge(
   {
     {

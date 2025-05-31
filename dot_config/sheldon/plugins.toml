@@ -65,6 +65,7 @@ use = [
     "direnv.zsh",
     "google-cloud-sdk.zsh",
     "krew.zsh",
+    "wezterm.zsh",
 ]
 
 [plugins.compinit]
