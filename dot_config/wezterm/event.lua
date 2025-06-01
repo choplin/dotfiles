@@ -38,7 +38,7 @@ end
 
 local function setup_bell(wezterm)
   wezterm.on("bell", function(window, pane)
-    window:toast_notification("Bell", "A bell was received from pane " .. pane:get_id(), nil, 2000)
+    window:toast_notification("Bell", "A bell was received", nil, 2000)
   end)
 end
 
@@ -56,9 +56,12 @@ local function setup_user_var(wezterm)
 end
 
 function M.setup(wezterm)
-  setup_recomute_padding(wezterm)
-  setup_bell(wezterm)
-  setup_user_var(wezterm)
+  if not _G.event_hanndler_initialized then
+    setup_recomute_padding(wezterm)
+    setup_bell(wezterm)
+    setup_user_var(wezterm)
+    _G.event_hanndler_initialized = true
+  end
 end
 
 return M
