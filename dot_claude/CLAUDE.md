@@ -1,37 +1,42 @@
 # Claude Code Global Memory
 
-## Core Instructions
+## Basic Configuration
 
-### Language
+### Language Settings
 
 - Use **English** for all code comments, documentation
 - Use **Japanese** for chat responses
+- When user instructs in English, correct any grammatical errors or unnatural expressions after completing the work, without interrupting the workflow
 
-### File Management
+### Core Principles
 
 - Do what has been asked; nothing more, nothing less
 - Never create files unless necessary; prefer editing existing files
 - NEVER proactively create documentation (*.md) or README files unless explicitly requested
+- Always propose a plan before starting actual work and wait for user confirmation
+- Prioritize test-first development approach whenever possible
+- Do not create a git commit unless explicitly requested
 
-### File Formatting
+## Development Workflow
 
-- ALWAYS insert blank line after headings and lists in Markdown files
-- ALWAYS add newline at end of all text files
-- DO NOT allow trailing white spacing in each line
-
-### Development Workflow
+### Standard Process
 
 When user describes a new issue or feature to work on:
 
 1. **Understand the requirements**
 2. **Plan the implementation**
 3. **Set up branch** (use `~/.claude/scripts/setup-worktree.sh <branch-name>`)
-4. **Begin implementation** in the new worktree
-5. **Send completion notification** (use `~/.claude/scripts/notify.sh "message" ["title"]`) when finished
+4. **Document context and plan** in worktree CLAUDE.md (background, requirements, implementation plan)
+5. **Begin implementation** in the new worktree
+
+### Pull Request Workflow
+
+- When asked to create a PR, draft description in `pr-description.md` at repository root
+- Do not create actual PR unless explicitly requested
 
 ### Git Workflow
 
-- Use git worktree: `{repo_root}/.worktrees/{repo_name}-{branch_name}/`
+- Use git worktree: `{repo_root}/.worktrees/{branch_name}/`
 - For new CLAUDE.md in subdirectories: create in original tree, symlink in worktree
 
 ### Commit Messages
@@ -48,9 +53,13 @@ Follow conventional commit style with single-line messages:
 
 Module name is optional for changes affecting entire project.
 
-**Do NOT include Claude attribution** (e.g., "Generated with Claude Code" or "Co-Authored-By: Claude").
+**DO NOT include Claude attribution** (e.g., "Generated with Claude Code" or "Co-Authored-By: Claude").
 
-## Common Commands
+## Technical Configuration
+
+### File Formatting
+
+- File formatting (newlines, trailing whitespace) handled automatically by pre-commit hooks
 
 ### Command Preferences
 
@@ -58,15 +67,15 @@ Module name is optional for changes affecting entire project.
 - Use `fd` instead of `find` for finding files and directories
 - Avoid using bash search commands; use Grep, Glob, or Task tools instead
 
-## Project-Specific Information
+## Filetype Specific Rules
 
-<!-- Add project-specific information here -->
+### Markdown Files
+
+- ALWAYS insert blank line before and after headings and lists
 
 ## Automation Scripts
 
 - Use `~/.claude/scripts/setup-worktree.sh <branch-name>` to set up branches
-- Use `~/.claude/scripts/fix-newlines.sh [directory]` to ensure all files end with newline
-- Use `~/.claude/scripts/fix-trailing-whitespace.sh [directory]` to remove trailing whitespace
+- Use `~/.claude/scripts/pr-checkout.sh <pr-number>` to checkout PR and create worktree
+- Use `~/.claude/scripts/rebase-branch.sh <original-branch> <commit-range>` to rebase from main
 - Use `~/.claude/scripts/notify.sh [message] [title]` to send desktop notifications
-
-<!-- Add more workflow automation scripts here -->

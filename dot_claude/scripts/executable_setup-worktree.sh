@@ -19,7 +19,7 @@ fi
 
 BRANCH_NAME="$1"
 REPO_NAME=$(basename "$(git rev-parse --show-toplevel)")
-WORKTREE_NAME="${REPO_NAME}-${BRANCH_NAME}"
+WORKTREE_NAME="${BRANCH_NAME}"
 ORIGINAL_REPO=$(git rev-parse --show-toplevel)
 WORKTREE_PATH="${ORIGINAL_REPO}/.worktrees/${WORKTREE_NAME}"
 
@@ -28,10 +28,18 @@ echo "Repository: $REPO_NAME"
 echo "Worktree path: $WORKTREE_PATH"
 
 # 1. Create branch and worktree
-echo "Creating branch and worktree..."
-git checkout -b "$BRANCH_NAME"
-git checkout main
-git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+echo "Setting up worktree..."
+
+# Check if branch exists
+if git show-ref --verify --quiet refs/heads/"$BRANCH_NAME"; then
+    echo "Branch '$BRANCH_NAME' already exists, using existing branch"
+    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+else
+    echo "Creating new branch '$BRANCH_NAME'"
+    git checkout -b "$BRANCH_NAME"
+    git checkout main
+    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+fi
 
 # 2. Create worktree CLAUDE.md
 echo "Creating worktree CLAUDE.md..."
