@@ -50,3 +50,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end, {})
   end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local ft = vim.bo[ev.buf].filetype
+    if ft == "DiffviewFiles" or ft == "DiffviewFilePanel" or ft == "DiffviewFileHistoryPanel" then
+      vim.lsp.buf_detach_client(ev.buf, ev.data.client_id)
+    end
+  end,
+})
