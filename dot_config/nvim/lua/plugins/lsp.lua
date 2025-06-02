@@ -77,6 +77,12 @@ return {
           mason = false,
           cmd = { require("local_env").zls_path or "zls" },
         },
+        denols = {
+          root_dir = function(fname)
+            return require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "deps.ts")(fname)
+          end,
+          workspace_required = true,
+        },
       })
       opts.capabilities = vim.tbl_extend("force", opts.capabilities, {
         textDocument = {
