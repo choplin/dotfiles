@@ -1,6 +1,7 @@
 [user]
-  name = Akihiro Okuno
-  email = choplin.choplin@gmail.com
+	name = Akihiro Okuno
+	email = choplin.choplin@gmail.com
+	signingKey = 
 
 [core]
   autocrlf = false
@@ -89,3 +90,13 @@
   path = .gitconfig.local
 
 # vim:ft=gitconfig shiftwidth=2
+[gpg]
+	format = openpgp
+	program = gpg
+[commit]
+	gpgSign = false
+[tag]
+	forceSignAnnotated = false
+[gpg "ssh"]
+	program = 
+	allowedSignersFile = 
