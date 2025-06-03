@@ -63,10 +63,10 @@ EOF
             --border-label '🌴 Worktrees ' \
             --height=40% --layout=reverse --info=inline \
             --with-nth=2 \
+            --accept-nth=1 \
             --delimiter='\t' \
             --preview-window="bottom" \
-            --preview="$preview" |
-        awk -F '\t' '{print $2}')
+            --preview="$preview")
 
     # Change directory if a worktree was selected
     if [ -n "$selected_worktree" ]; then
