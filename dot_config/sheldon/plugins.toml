@@ -35,6 +35,9 @@ github = "zsh-users/zsh-autosuggestions"
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
 
+[plugins.fzf-git]
+github = "junegunn/fzf-git.sh"
+
 #[plugins.enhancd]
 #github = "b4b4r07/enhancd"
 #apply = ["defer"]
@@ -66,6 +69,7 @@ use = [
     "google-cloud-sdk.zsh",
     "krew.zsh",
     "wezterm.zsh",
+    "jira.zsh",
 ]
 
 [plugins.compinit]

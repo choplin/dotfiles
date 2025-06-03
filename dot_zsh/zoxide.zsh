@@ -1,4 +1,4 @@
-if type zoxide > /dev/null; then
+if type zoxide >/dev/null; then
     eval "$(zoxide init zsh)"
 
 fi
@@ -19,4 +19,4 @@ function zoxide-widget() {
 }
 
 zle -N zoxide-widget
-bindkey '^g' zoxide-widget
+bindkey '^g^g' zoxide-widget
