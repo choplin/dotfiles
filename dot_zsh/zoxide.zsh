@@ -3,7 +3,7 @@ if type zoxide >/dev/null; then
 
 fi
 
-function zoxide-widget() {
+function __fzf_zoxide() {
     local res
     if [ -n "$LBUFFER" ]; then
         res=$(zoxide query -i -- ${LBUFFER})
@@ -18,5 +18,5 @@ function zoxide-widget() {
     zle reset-prompt
 }
 
-zle -N zoxide-widget
-bindkey '^g^g' zoxide-widget
+zle -N __fzf_zoxide
+bindkey '^g^g' __fzf_zoxide

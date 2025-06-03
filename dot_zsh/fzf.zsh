@@ -17,7 +17,7 @@ export FZF_CTRL_T_OPTS=$(
 EOF
 )
 
-function ghq-fzf() {
+function __fzf_ghq() {
     local fzf_options=('--select-1' '--exit-0')
     local root=$(ghq root)
     local selected_dir=$(ghq list | fzf --query="$LBUFFER" $fzf_options --preview="ls ${root}/{}")
@@ -30,10 +30,10 @@ function ghq-fzf() {
     zle reset-prompt
 }
 
-zle -N ghq-fzf
-bindkey "^]" ghq-fzf
+zle -N __fzf_ghq
+bindkey "^]" __fzf_ghq
 
-function git-worktree-fzf() {
+function __fzf_my_git_worktrees() {
     # Check if current directory is in a git repository
     if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
         # Print error message in red and start a new prompt
@@ -77,13 +77,13 @@ EOF
     zle reset-prompt
 }
 
-zle -N git-worktree-fzf
-bindkey "^\\" git-worktree-fzf
+zle -N __fzf_my_git_worktrees
+bindkey "^\\" __fzf_my_git_worktrees
 
 # Function to search files using ripgrep with fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
-function rg-fzf() {
-    rm -f /tmp/rg-fzf-{r,f}
+function __fzf_rg_fzf() {
+    rm -f /tmp/__fzf_rg_fzf-{r,f}
     local rg_prefix="rg --column --line-number --no-heading --color=always --smart-case "
     local initial_query="$LBUFFER"
     BUFFER=""
@@ -92,8 +92,8 @@ function rg-fzf() {
         --bind "start:reload:$rg_prefix {q}" \
         --bind "change:reload:sleep 0.1; $rg_prefix {q} || true" \
         --bind 'ctrl-t:transform:[[ ! $FZF_PROMPT =~ ripgrep ]] &&
-      echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/rg-fzf-f; cat /tmp/rg-fzf-r" ||
-      echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/rg-fzf-r; cat /tmp/rg-fzf-f"' \
+      echo "rebind(change)+change-prompt(1. ripgrep> )+disable-search+transform-query:echo \{q} > /tmp/__fzf_rg_fzf-f; cat /tmp/__fzf_rg_fzf-r" ||
+      echo "unbind(change)+change-prompt(2. fzf> )+enable-search+transform-query:echo \{q} > /tmp/__fzf_rg_fzf-r; cat /tmp/__fzf_rg_fzf-f"' \
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --prompt '1. ripgrep> ' \
         --delimiter : \
@@ -103,5 +103,5 @@ function rg-fzf() {
         --bind 'enter:become(nvim {1} +{2})'
 }
 
-zle -N rg-fzf
-bindkey "^s" rg-fzf
+zle -N __fzf_rg_fzf
+bindkey "^s" __fzf_rg_fzf
