@@ -42,20 +42,30 @@ function git-worktree-fzf() {
         return 1
     fi
 
+    local preview=$(
+        cat <<EOF
+    local dir={1}
+    echo \$dir
+    git -C "\$dir" -c color.status=$(__fzf_git_color .) status --short --branch
+    echo
+    git -C "\$dir" log --oneline --graph --date=short --color=$(__fzf_git_color .) --pretty='format:%C(auto)%cd %h%d %s'
+EOF
+    )
+
     # Get the git repository root
     local git_root=$(git rev-parse --show-toplevel)
 
     # Get worktrees and format them for display
     # First line in git worktree list is the main worktree
-    local worktrees_data=$(git worktree list)
-    local selected_worktree=$(echo "$worktrees_data" |
-        awk '{print $1}' |
-        sed -E '1s|.+|(main) \t&|; 2,$s|.*/\.worktrees/(.*)|\1 \t&|' |
+    local selected_worktree=$(git worktree list |
+        awk '{print $1 "\t" $3}' |
         fzf --query="$LBUFFER" \
+            --border-label '🌴 Worktrees ' \
             --height=40% --layout=reverse --info=inline \
-            --with-nth=1 \
+            --with-nth=2 \
             --delimiter='\t' \
-            --preview='ls -la $(echo {2})' |
+            --preview-window="bottom" \
+            --preview="$preview" |
         awk -F '\t' '{print $2}')
 
     # Change directory if a worktree was selected
