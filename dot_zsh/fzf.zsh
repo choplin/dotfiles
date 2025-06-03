@@ -6,6 +6,16 @@ fi
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--height=40% --info=inline --layout=reverse"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS=$(
+    cat <<EOF | tr -d '\n'
+    --prompt 'Files> '
+    --header 'CTRL-T: Switch between Files/Directories'
+    --bind 'ctrl-t:transform:[[ ! \$FZF_PROMPT =~ Files ]] &&
+              echo "change-prompt(Files> )+reload(fd --type file)" ||
+              echo "change-prompt(Directories> )+reload(fd --type directory)"'
+    --preview '[[ \$FZF_PROMPT =~ Files ]] && bat --color=always {} || tree -C {}'
+EOF
+)
 
 function ghq-fzf() {
   local fzf_options=('--select-1' '--exit-0')
