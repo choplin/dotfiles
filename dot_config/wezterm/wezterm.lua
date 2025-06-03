@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 
 require("event").setup(wezterm)
-
 local util = require("util")
 
 local config = {}
