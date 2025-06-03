@@ -18,53 +18,53 @@ EOF
 )
 
 function ghq-fzf() {
-  local fzf_options=('--select-1' '--exit-0')
-  local root=$(ghq root)
-  local selected_dir=$(ghq list | fzf --query="$LBUFFER" $fzf_options --preview="ls ${root}/{}")
+    local fzf_options=('--select-1' '--exit-0')
+    local root=$(ghq root)
+    local selected_dir=$(ghq list | fzf --query="$LBUFFER" $fzf_options --preview="ls ${root}/{}")
 
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${root}/${selected_dir}"
-    zle accept-line
-  fi
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${root}/${selected_dir}"
+        zle accept-line
+    fi
 
-  zle reset-prompt
+    zle reset-prompt
 }
 
 zle -N ghq-fzf
 bindkey "^]" ghq-fzf
 
 function git-worktree-fzf() {
-  # Check if current directory is in a git repository
-  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    # Print error message in red and start a new prompt
-    echo "\033[31mError: Not in a git repository\033[0m"
-    zle send-break
-    return 1
-  fi
+    # Check if current directory is in a git repository
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        # Print error message in red and start a new prompt
+        echo "\033[31mError: Not in a git repository\033[0m"
+        zle send-break
+        return 1
+    fi
 
-  # Get the git repository root
-  local git_root=$(git rev-parse --show-toplevel)
+    # Get the git repository root
+    local git_root=$(git rev-parse --show-toplevel)
 
-  # Get worktrees and format them for display
-  # First line in git worktree list is the main worktree
-  local worktrees_data=$(git worktree list)
-  local selected_worktree=$(echo "$worktrees_data" |
-    awk '{print $1}' |
-    sed -E '1s|.+|(main) \t&|; 2,$s|.*/\.worktrees/(.*)|\1 \t&|' |
-    fzf --query="$LBUFFER" \
-        --height=40% --layout=reverse --info=inline \
-        --with-nth=1 \
-        --delimiter='\t' \
-        --preview='ls -la $(echo {2})' |
-    awk -F '\t' '{print $2}')
+    # Get worktrees and format them for display
+    # First line in git worktree list is the main worktree
+    local worktrees_data=$(git worktree list)
+    local selected_worktree=$(echo "$worktrees_data" |
+        awk '{print $1}' |
+        sed -E '1s|.+|(main) \t&|; 2,$s|.*/\.worktrees/(.*)|\1 \t&|' |
+        fzf --query="$LBUFFER" \
+            --height=40% --layout=reverse --info=inline \
+            --with-nth=1 \
+            --delimiter='\t' \
+            --preview='ls -la $(echo {2})' |
+        awk -F '\t' '{print $2}')
 
-  # Change directory if a worktree was selected
-  if [ -n "$selected_worktree" ]; then
-    BUFFER="cd ${selected_worktree}"
-    zle accept-line
-  fi
+    # Change directory if a worktree was selected
+    if [ -n "$selected_worktree" ]; then
+        BUFFER="cd ${selected_worktree}"
+        zle accept-line
+    fi
 
-  zle reset-prompt
+    zle reset-prompt
 }
 
 zle -N git-worktree-fzf
