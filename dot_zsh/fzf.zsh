@@ -9,10 +9,13 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=$(
     cat <<EOF | tr -d '\n'
     --prompt 'Files> '
-    --header 'CTRL-T: Switch between Files/Directories'
+    --header 'CTRL-E: Etit / CTRL-V: View / CTRL-O Open in browser / CTRL-T: Toggle Files/Directories'
     --bind 'ctrl-t:transform:[[ ! \$FZF_PROMPT =~ Files ]] &&
               echo "change-prompt(Files> )+reload(fd --type file)" ||
               echo "change-prompt(Directories> )+reload(fd --type directory)"'
+    --bind 'ctrl-e:execute(\$EDITOR {})'
+    --bind 'ctrl-v:execute(bat --plain --paging=always {})'
+    --bind 'ctrl-o:execute-silent(gh browse {})'
     --preview '[[ \$FZF_PROMPT =~ Files ]] && bat --color=always {} || tree -C {}'
 EOF
 )
