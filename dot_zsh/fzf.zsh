@@ -100,10 +100,13 @@ function __fzf_rg_fzf() {
         --color "hl:-1:underline,hl+:-1:underline:reverse" \
         --prompt '1. ripgrep> ' \
         --delimiter : \
-        --header 'CTRL-T: Switch between ripgrep/fzf' \
+        --header 'CTRL-E EDIT / CTRL-V View / CTRL-O Open in browser / CTRL-T: Switch between ripgrep/fzf' \
         --preview 'bat --color=always {1} --highlight-line {2}' \
         --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
-        --bind 'enter:become(nvim {1} +{2})'
+        --bind 'enter:become(nvim {1} +{2})' \
+        --bind 'ctrl-e:execute($EDITOR {1} +{2})' \
+        --bind 'ctrl-v:execute(bat --plain --paging=always {1})' \
+        --bind 'ctrl-o:execute-silent(gh browse {1})'
 }
 
 zle -N __fzf_rg_fzf
