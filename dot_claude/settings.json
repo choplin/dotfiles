@@ -1,0 +1,26 @@
+{
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(ls:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(timeout:*)",
+      "Bash(git commit:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(gh pr view:*)",
+      "Bash(bun:*)",
+      "Bash(gradle:*)",
+      "WebFetch(domain:bun.sh)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": []
+  },
+  "enableAllProjectMcpServers": true,
+  "includeCoAuthoredBy": false
+}
