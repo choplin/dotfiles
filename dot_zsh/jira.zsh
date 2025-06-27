@@ -43,5 +43,3 @@ jira-issues() {
         --bind "ctrl-e:execute(jira issue edit {2})+accept" \
         --bind "ctrl-t:execute(jira issue transition {2})+accept"
 }
-
-abbr --session ji="jira-issues"

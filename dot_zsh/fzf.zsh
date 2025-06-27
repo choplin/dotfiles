@@ -20,6 +20,8 @@ export FZF_CTRL_T_OPTS=$(
 EOF
 )
 
+# ghq integration
+# Function to select a repository using fzf
 function __fzf_ghq() {
     local fzf_options=('--select-1' '--exit-0')
     local root=$(ghq root)
@@ -36,52 +38,35 @@ function __fzf_ghq() {
 zle -N __fzf_ghq
 bindkey "^]" __fzf_ghq
 
-function __fzf_my_git_worktrees() {
-    # Check if current directory is in a git repository
-    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+# Amux integration
+# Function to select a workspace using fzf
+function __fzf_amux_workspace() {
+    # Check if current directory is in a amux directory
+    if ! amux status >/dev/null 2>&1; then
         # Print error message in red and start a new prompt
-        echo "\033[31mError: Not in a git repository\033[0m"
+        echo "\033[31mError: Not in a amux directory\033[0m"
         zle send-break
         return 1
     fi
 
-    local preview=$(
-        cat <<EOF
-    local dir={1}
-    echo \$dir
-    git -C "\$dir" -c color.status=$(__fzf_git_color .) status --short --branch
-    echo
-    git -C "\$dir" log --oneline --graph --date=short --color=$(__fzf_git_color .) --pretty='format:%C(auto)%cd %h%d %s'
-EOF
-    )
-
-    # Get the git repository root
-    local git_root=$(git rev-parse --show-toplevel)
-
-    # Get worktrees and format them for display
-    # First line in git worktree list is the main worktree
-    local selected_worktree=$(git worktree list |
-        awk '{print $1 "\t" $3}' |
-        fzf --query="$LBUFFER" \
-            --border-label '🌴 Worktrees ' \
+    # Get workspaces and format them for display
+    # First three line in git worktree list is the main worktree
+    local selected_index=$(amux workspace list |
+        fzf --header-lines 3 \
             --height=40% --layout=reverse --info=inline \
-            --with-nth=2 \
-            --accept-nth=1 \
-            --delimiter='\t' \
             --preview-window="bottom" \
-            --preview="$preview")
+            --preview="amux ws show {1}" \
+            --accept-nth 1)
 
-    # Change directory if a worktree was selected
-    if [ -n "$selected_worktree" ]; then
-        BUFFER="cd ${selected_worktree}"
+    if [ -n "$selected_index" ]; then
+        BUFFER="cd \$(amux ws show $selected_index --format json | jq -r .path)"
         zle accept-line
     fi
-
     zle reset-prompt
 }
 
-zle -N __fzf_my_git_worktrees
-bindkey "^\\" __fzf_my_git_worktrees
+zle -N __fzf_amux_workspace
+bindkey "^\\" __fzf_amux_workspace
 
 # Function to search files using ripgrep with fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
@@ -111,3 +96,34 @@ function __fzf_rg_fzf() {
 
 zle -N __fzf_rg_fzf
 bindkey "^s" __fzf_rg_fzf
+
+
+# Zoxide integration
+# Function to search directories using zoxide with fzf
+function __fzf_zoxide() {
+    local res
+    if [ -n "$LBUFFER" ]; then
+        res=$(zoxide query -i -- ${LBUFFER})
+    else
+        res=$(zoxide query -i)
+    fi
+
+    if [ -n "$res" ]; then
+        BUFFER="cd \"$res\""
+        zle accept-line
+    fi
+    zle reset-prompt
+}
+
+zle -N __fzf_zoxide
+bindkey '^g^g' __fzf_zoxide
+
+# wezterm integration
+
+function __fzf_wezterm() {
+    wezterm cli list | fzf \
+        --height=40% \
+        --layout=reverse \
+        --info=inline \
+        --preview="wezterm cli get-text {3}"
+}
