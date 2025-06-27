@@ -1,2 +1,33 @@
 gui:
   scrollHeight: 10
+# git:
+#   paging:
+#     colorArg: always
+#     pager: delta --dark --paging=never
+promptToReturnFromSubprocess: false
+customCommands:
+  - key: "D"
+    context: "commits"
+    command: "git show {{.SelectedLocalCommit.Hash}} | delta"
+    description: "選択中コミットのdiffをdeltaで表示"
+    output: terminal
+  - key: "D"
+    context: "commitFiles"
+    command: "git show {{.SelectedCommit.Sha}} -- {{.SelectedCommitFile.Name}} | delta"
+    description: "コミット内のファイル差分をdeltaで表示"
+    output: terminal
+  - key: "D"
+    context: "localBranches"
+    command: "git diff {{.SelectedLocalBranch.Name}} | delta"
+    description: "選択中のローカルブランチとの差分をdeltaで表示"
+    output: terminal
+  - key: "R"
+    context: "remoteBranches"
+    command: "git diff origin/{{.SelectedRemoteBranch.Name}} | delta"
+    description: "選択中のリモートブランチとの差分をdeltaで表示"
+    output: terminal
+  - key: "D"
+    context: "files"
+    command: "git diff HEAD | delta"
+    description: "HEADとの全差分をdeltaで表示"
+    output: terminal
