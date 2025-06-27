@@ -5,17 +5,17 @@ format = """$all\
 $kubernetes\
 $sudo\
 $cmd_duration\
+$time\
 $line_break\
 $jobs\
 $battery\
-$time\
 $status\
 $container\
 $shell\
 $character"""
 
 [kubernetes]
-disabled = false
+disabled = true
 format = '[$symbol$context( \($namespace\)) ]($style)'
 
 [kubernetes.context_aliases]
@@ -32,8 +32,15 @@ format = "[$symbol($version )]($style)"
 format = '[$symbol($version )]($style)'
 symbol = "🦬 "
 
+[aws]
+disabled = true
+
 [gcloud]
 format = '[$symbol$account(@$domain)(\($region\)) ]($style)'
+disabled = true
 
 [scala]
 disabled = true
+
+[time]
+disabled = false
