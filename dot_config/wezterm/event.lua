@@ -37,8 +37,38 @@ local function setup_recomute_padding(wezterm)
 end
 
 local function setup_bell(wezterm)
+  local function is_claude(pane)
+    local process = pane:get_foreground_process_info()
+    if not process or not process.name or not process.argv then
+      return false
+    end
+    for _, arg in ipairs(process.argv) do
+      if arg:find("claude") then
+        return true
+      end
+    end
+  end
+
+  local function get_tab_id(window, pane)
+    local mux_window = window:mux_window()
+    for i, tab_info in ipairs(mux_window:tabs_with_info()) do
+      for _, p in ipairs(tab_info.tab:panes()) do
+        if p:pane_id() == pane:pane_id() then
+          return i
+        end
+      end
+    end
+  end
+
   wezterm.on("bell", function(window, pane)
-    window:toast_notification("Bell", "A bell was received", nil, 2000)
+    if is_claude(pane) then
+      local tab_id = get_tab_id(window, pane)
+      window:toast_notification("Claude", "A bell was received from Claude on tab " .. tab_id, nil, 4000)
+      if wezterm.target_triple:find("darwin") then
+        -- wezterm.background_child_process({ "say", "Claude is calling your" })
+        wezterm.background_child_process({ "afplay", "-v", "5", "/System/Library/Sounds/Submarine.aiff" })
+      end
+    end
   end)
 end
 
