@@ -33,6 +33,7 @@ github = "zsh-users/zsh-completions"
 github = "zsh-users/zsh-autosuggestions"
 
 [plugins.zsh-abbr]
+#apply = ["defer"]
 github = "olets/zsh-abbr"
 
 [plugins.fzf-git]
@@ -44,33 +45,37 @@ github = "junegunn/fzf-git.sh"
 
 [plugins.dotfiles]
 local = "~/.zsh"
-use = ["saneopt.zsh", "zstyle.zsh", "env.zsh", "history.zsh", "starship.zsh"]
+use = [
+    "alias.zsh",
+    "amux.zsh",
+    "autosuggest.zsh",
+    "broot.zsh",
+    "cargo.zsh",
+    "chezmoi.zsh",
+    "direnv.zsh",
+    "env.zsh",
+    "fzf.zsh",
+    "go.zsh",
+    "google-cloud-sdk.zsh",
+    "history.zsh",
+    "hook.zsh",
+    "jira.zsh",
+    "keybinding.zsh",
+    "krew.zsh",
+    "local.zsh",
+    "osc133.zsh",
+    "saneopt.zsh",
+    "setting.zsh",
+    "starship.zsh",
+    "wezterm.zsh",
+    "zoxide.zsh",
+    "zstyle.zsh",
+]
 
 [plugins.dotfiles-defers]
 local = "~/.zsh"
 apply = ["defer"]
-use = [
-    "alias.zsh",
-    "fzf.zsh",
-    "keybinding.zsh",
-    "setting.zsh",
-    "zoxide.zsh",
-    "hook.zsh",
-    "local.zsh",
-    "env.zsh",
-    "history.zsh",
-    "osc133.zsh",
-    "broot.zsh",
-    "mise.zsh",
-    "chezmoi.zsh",
-    "cargo.zsh",
-    "go.zsh",
-    "direnv.zsh",
-    "google-cloud-sdk.zsh",
-    "krew.zsh",
-    "wezterm.zsh",
-    "jira.zsh",
-]
+use = ["mise.zsh", "abbr.zsh"]
 
 [plugins.compinit]
-inline = 'autoload -Uz compinit && zsh-defer compinit'
+inline = 'autoload -Uz compinit && compinit -C'
