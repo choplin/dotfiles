@@ -103,9 +103,14 @@ memo.md
 .zed/
 
 # Claude Code
-CLAUDE.md
-.claude
+.claude/settings.local.json
 .mcp.json
+CLAUDE.local.md
+
+# Claude working memory
+.claude/context/*
+.claude/archive/*
+.claude/planning/*
 
 # Git worktree (made by Claude)
 .worktrees/
@@ -113,3 +118,7 @@ CLAUDE.md
 # Draft of Pull Request (made by Claude)
 pr-description.md
 
+# Lefthook
+lefthook-local.yml
+
+.amux
