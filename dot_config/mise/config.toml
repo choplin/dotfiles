@@ -23,15 +23,15 @@ krew = "latest"
 
 awscli = "latest"
 eksctl = "latest"
-azure-cli = "latest"
 mill = "latest"
 zig = ["0.14", "ref:master"]
 deno = "latest"
 bun = "latest"
-biome = "latest"
 ruff = "latest"
 uv = "latest"
 lefthook = "latest"
+yamlfmt = "latest"
+azure-cli = "latest"
 
 [alias.java.versions]
 8 = "zulu-8"
