@@ -12,6 +12,8 @@ config.term = "wezterm"
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { "wsl.exe", "~", "-d", "Ubuntu" }
+elseif util.exists("/opt/homebrew/bin/zsh") then
+  config.default_prog = { "/opt/homebrew/bin/zsh", "-l" }
 end
 
 config.font = wezterm.font_with_fallback({
@@ -26,6 +28,9 @@ config.hide_tab_bar_if_only_one_tab = true
 config.adjust_window_size_when_changing_font_size = false
 config.audible_bell = "Disabled"
 config.notification_handling = "AlwaysShow"
+
+config.send_composed_key_when_left_alt_is_pressed = true
+config.send_composed_key_when_right_alt_is_pressed = true
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
@@ -163,6 +168,21 @@ config.key_tables = {
     { key = "Z", mods = "NONE", action = act.CopyMode({ MoveBackwardZoneOfType = "Output" }) },
     { key = "z", mods = "CTRL", action = act.CopyMode({ SetSelectionMode = "SemanticZone" }) },
   }),
+}
+
+config.mouse_bindings = {
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action_callback(function(window, pane)
+      local selection = window:get_selection_text_for_pane(pane)
+      if selection ~= "" then
+        return
+      else
+        window:perform_action(wezterm.action.OpenLinkAtMouseCursor, pane)
+      end
+    end),
+  },
 }
 
 return config
