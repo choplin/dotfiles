@@ -1,3 +1,5 @@
+#zmodload zsh/zprof
+
 case ${OSTYPE} in
   darwin*)
     if test -d /opt/homebrew; then
@@ -14,3 +16,5 @@ esac
 bindkey -d
 
 eval "$(sheldon source)"
+
+#zprof > prof
