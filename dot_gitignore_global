@@ -111,6 +111,7 @@ CLAUDE.local.md
 .claude/context/*
 .claude/archive/*
 .claude/planning/*
+.claude/cclsp.json
 
 # Git worktree (made by Claude)
 .worktrees/
@@ -122,3 +123,4 @@ pr-description.md
 lefthook-local.yml
 
 .amux
+
