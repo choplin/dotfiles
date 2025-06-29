@@ -51,22 +51,70 @@ function __fzf_amux_workspace() {
 
     # Get workspaces and format them for display
     # First three line in git worktree list is the main worktree
-    local selected_index=$(amux workspace list |
-        fzf --header-lines 3 \
+    local result=$(
+        (
+            echo "Enter: Change directory, CTRL-D: Delete workspace" &&
+            amux workspace list
+        ) | fzf --header-lines 3 \
             --height=40% --layout=reverse --info=inline \
             --preview-window="bottom" \
             --preview="amux ws show {1}" \
+            --bind 'enter:accept' \
+            --bind 'ctrl-d:print(__delete)+accept' \
             --accept-nth 1)
 
-    if [ -n "$selected_index" ]; then
-        BUFFER="cd \$(amux ws show $selected_index --format json | jq -r .path)"
+    if [[ $result == __delete* ]]; then
+        local LF=$'\n'
+        local target_index=${result#*$LF}
+        BUFFER="amux ws rm $target_index"
+        zle accept-line
+    elif [ -n "$result" ]; then
+        BUFFER="cd \$(amux ws show $result --format json | jq -r .path)"
         zle accept-line
     fi
     zle reset-prompt
 }
 
 zle -N __fzf_amux_workspace
-bindkey "^\\" __fzf_amux_workspace
+bindkey "^o^w" __fzf_amux_workspace
+
+# Function to select a workspace using fzf
+function __fzf_amux_session() {
+    # Check if current directory is in a amux directory
+    if ! amux status >/dev/null 2>&1; then
+        # Print error message in red and start a new prompt
+        echo "\033[31mError: Not in a amux directory\033[0m"
+        zle send-break
+        return 1
+    fi
+
+    # Get session and format them for display
+    # First three line in git worktree list is the main worktree
+    local result=$(
+        (
+            echo "CTRL-D: Delete workspace" &&
+            amux session list
+        ) | fzf --header-lines 3 \
+            --height=40% --layout=reverse --info=inline \
+            --preview-window="bottom" \
+            --preview="amux session logs {1}" \
+            --bind 'enter:accept' \
+            --bind 'ctrl-d:print(__delete)+accept' \
+            --accept-nth 1)
+
+    if [[ $result == __delete* ]]; then
+        local LF=$'\n'
+        local target_index=${result#*$LF}
+        BUFFER="amux session rm $target_index"
+        zle accept-line
+    elif [ -n "$result" ]; then
+        BUFFER="$result"
+    fi
+    zle reset-prompt
+}
+
+zle -N __fzf_amux_session
+bindkey "^o^s" __fzf_amux_session
 
 # Function to search files using ripgrep with fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
