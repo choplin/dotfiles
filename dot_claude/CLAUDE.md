@@ -19,7 +19,7 @@
 #### Documentation Principles
 
 - NEVER proactively create documentation (\*.md) or README files unless explicitly requested
-- **Follow doc-first development for user-facing features** - When developing features that users will interact with, write documentation (README, docs) explaining how users will use the feature BEFORE implementation. This ensures clear user experience design
+- **Follow doc-first development for user-facing features when explicitly requested** - When developing features that users will interact with and documentation is requested, write documentation (README, docs) explaining how users will use the feature BEFORE implementation. This ensures clear user experience design
 - **WRITE ONLY FACTS IN DOCUMENTATION** - Do not include assumptions, guesses, or opinions unless explicitly requested by the user
 - **ALWAYS run `date` command before describing current date or time** - Ensure accurate timestamps in documentation
 
@@ -149,7 +149,7 @@ Conventional commit style: `type(module): description`
 - Use `rg` over `grep`, `fd` over `find`
 - Use Grep/Glob/Task tools instead of bash search
 - Pre-commit hooks handle file formatting
-- **NEVER use `sed`** - sed is broken on macOS, use other tools for text manipulation
+- **NEVER use `sed`** - sed is broken on macOS, use awk, perl, or Edit/MultiEdit tools instead for text manipulation
 
 ### Library Selection
 
@@ -205,3 +205,44 @@ Conventional commit style: `type(module): description`
 - Prefer immutable data structures
 - Use for-comprehensions over nested maps/flatMaps
 - Leverage type system and avoid runtime exceptions
+
+### Go
+
+#### Package Management & Tooling
+- Use `go mod` for dependency management
+- Use Go 1.24's `go tool` for installing and running development tools
+- Use `gofumpts` for code formatting (stricter than gofmt)
+- Use `golangci-lint` for comprehensive linting
+- Use `go test` with table-driven tests
+- Use `testify` for test assertions when needed
+
+#### Error Handling
+- **NEVER use panic** unless explicitly requested by user
+- Define custom error types instead of using `fmt.Errorf`
+- Use `errors.As()` and `errors.Is()` for error checking
+- Always return errors instead of panicking
+- Wrap errors with context when propagating
+
+#### Code Style & Conventions
+- Follow Effective Go and Go Code Review Comments
+- Naming conventions:
+  - Use MixedCaps or mixedCaps, not underscores
+  - Acronyms should be all caps (URL, HTTP, ID)
+  - Interface names should end with `-er` suffix when appropriate
+- Keep interfaces small and focused
+- Prefer composition over inheritance
+
+#### Project Structure
+- Use standard Go project layout:
+  - `/cmd` for main applications
+  - `/internal` for private application code
+  - `/pkg` for public libraries (optional, use sparingly)
+  - Keep `go.mod` at repository root
+- One package per directory
+- Package names should be lowercase, single-word
+
+#### Best Practices
+- Use goroutines and channels idiomatically
+- Avoid goroutine leaks with proper cancellation
+- Benchmark performance-critical code
+- Write idiomatic Go code, not translations from other languages
