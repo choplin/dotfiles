@@ -1,6 +1,7 @@
 {
   "model": "opus",
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(mkdir:*)",
       "Bash(mv:*)",
