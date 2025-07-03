@@ -10,12 +10,16 @@ I will:
 
 3. **Display workspace information**: Show the current workspace details using `mcp__amux__resource_workspace_show`
 
-4. **Summarize the context**: Provide a brief overview of:
+4. **Summarize understanding**: After reading `work-context.md`, provide a comprehensive summary to confirm full understanding:
 
-   - What we were working on
-   - What was completed
-   - What remains to be done
-   - Any important decisions or context
+   - **Task Overview**: What we were working on and why
+   - **Technical Context**: Key technical decisions, patterns, and conventions
+   - **Progress Status**: What was completed with specific details
+   - **Remaining Work**: What remains to be done with clear next steps
+   - **Important Notes**: Any gotchas, dependencies, or critical context
+   - **Work Documents**: List all referenced documents and their purposes
+
+   This summary ensures no knowledge gaps exist before resuming work.
 
 5. **Prepare to continue**: Set up the todo list based on remaining tasks
 
