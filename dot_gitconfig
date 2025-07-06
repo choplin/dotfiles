@@ -100,3 +100,5 @@
 [gpg "ssh"]
 	program = 
 	allowedSignersFile = 
+[init]
+	defaultBranch = main
