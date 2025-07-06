@@ -104,6 +104,20 @@ return {
       filesystem = {
         group_empty_dirs = true,
       },
+      window = {
+        mappings = {
+          ["<space>"] = "none", -- Disable space key to avoid conflicts with other plugins
+          ["Y"] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = require("context").normalize_path(node:get_id())
+              vim.fn.setreg("+", path, "c")
+              vim.notify("Copied: " .. path)
+            end,
+            desc = "Copy Path to Clipboard",
+          },
+        },
+      },
     },
   },
 }
