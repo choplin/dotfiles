@@ -12,9 +12,16 @@ nvdiff() {
         echo "Not a git repository."
         return 1
     fi
-    echo "Opening diff view for $1"
+
+    local target_branch=$1
+    if [ -z "$target_branch" ]; then
+        target_branch="main"
+    fi
+
+    echo "Opening diff view for $target_branch"
+
 
     # We have to open some existing file avoid an error that 
     # occurs when involing DiffviewOpen from an empty buffer.
-    nvim -c "DiffviewOpen $1 --imply-local" "$git_dir/HEAD"
+    nvim -c "DiffviewOpen $target_branch --imply-local" "$git_dir/HEAD"
 }
