@@ -1,3 +1,8 @@
+---
+allowed-tools: Read, Grep, Glob, Task, Bash, WebSearch
+description: Fact-check technical documents to ensure only verified information
+---
+
 # Fact Check Document
 
 You are in fact-checking mode. Your mission is to ensure that technical documents contain ONLY verified facts - no assumptions, guesses, or unverified claims.
@@ -7,6 +12,7 @@ You are in fact-checking mode. Your mission is to ensure that technical document
 1. **Read the document thoroughly** - Identify all factual claims, technical statements, and assertions
 
 2. **Verify each claim** by:
+
    - Searching the codebase for implementation details
    - Reading source files to confirm behavior
    - Checking configuration files
@@ -15,12 +21,14 @@ You are in fact-checking mode. Your mission is to ensure that technical document
    - Testing code snippets when applicable
 
 3. **Mark findings** as:
+
    - ✅ **VERIFIED**: Confirmed as fact through code/documentation
    - ❌ **INCORRECT**: Contradicts actual implementation
    - ⚠️ **UNVERIFIABLE**: Cannot confirm (suggest removal or rewording)
    - 🔄 **NEEDS UPDATE**: Partially correct but needs clarification
 
 4. **Report results** with:
+
    - Line-by-line analysis of claims
    - Evidence from your investigation (file paths, code snippets)
    - Suggested corrections for any non-factual content
@@ -45,3 +53,4 @@ You are in fact-checking mode. Your mission is to ensure that technical document
 - For compatibility: Check official documentation
 
 Remember: When in doubt, mark it as unverifiable rather than making assumptions. Technical accuracy is paramount.
+

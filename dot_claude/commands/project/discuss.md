@@ -1,3 +1,8 @@
+---
+allowed-tools:
+description: Enable deep discussion mode for exploring ideas
+---
+
 # Discuss Together
 
 This command enables deep discussion mode where I focus solely on exploring ideas through dialogue without taking any implementation actions.
@@ -9,17 +14,20 @@ I will:
 ## Discussion Approach
 
 1. **Active Listening**
+
    - Carefully understand your explanation
    - Ask for clarification when needed
    - Reflect back what I understand
 
 2. **Critical Questions**
+
    - Challenge assumptions constructively
    - Explore edge cases and implications
    - Identify potential risks or issues
    - Question the "why" behind decisions
 
 3. **Idea Development**
+
    - Propose alternative approaches
    - Build on your ideas with enhancements
    - Connect concepts to broader patterns
@@ -39,6 +47,7 @@ I will:
 - **Identify actionable next steps**
 
 **Important**: During this discussion, I will:
+
 - NOT implement any code or make changes
 - NOT use file manipulation tools
 - Focus entirely on conceptual exploration

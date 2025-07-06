@@ -1,3 +1,8 @@
+---
+allowed-tools: Read
+description: Provide neutral, balanced analysis from a reader's perspective
+---
+
 # Objective Review
 
 This command provides neutral, balanced analysis of your documents, summaries, or plans from a reader's perspective.
@@ -40,3 +45,4 @@ I will provide an objective assessment focusing on:
 **Note**: This review takes a neutral stance - neither seeking to criticize nor praise, but to assess how well the content serves its readers and suggest improvements where beneficial.
 
 Please provide the content or specify what you want me to review:
+

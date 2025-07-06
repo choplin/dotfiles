@@ -1,3 +1,8 @@
+---
+allowed-tools: Bash(git *)
+description: Help rebase onto a base branch with rewritten history
+---
+
 # Rebase onto Rewritten History
 
 This command helps rebase your current branch onto a base branch that has rewritten its history (e.g., through squash-and-merge or force-push).

@@ -1,3 +1,8 @@
+---
+allowed-tools: WebSearch
+description: Suggest optimal project names considering core value
+---
+
 # Name Project
 
 This command helps you find the perfect name for your project by considering its core value and checking for conflicts.

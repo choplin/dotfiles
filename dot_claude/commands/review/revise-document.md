@@ -1,3 +1,8 @@
+---
+allowed-tools: Read, Write, Edit, MultiEdit
+description: Comprehensively revise documents for clarity, structure, and completeness
+---
+
 # Revise Document
 
 This command provides comprehensive revision of documents for clarity, structure, and completeness.
@@ -9,18 +14,21 @@ I will perform thorough revision across multiple dimensions:
 ## Revision Areas
 
 1. **Content Quality**
+
    - Clarity and coherence of ideas
    - Logical flow and organization
    - Completeness and accuracy
    - Removal of redundancy
 
 2. **Structure and Format**
+
    - Hierarchical organization
    - Consistent formatting
    - Proper headings and sections
    - Visual readability
 
 3. **Language and Style**
+
    - Grammar and syntax
    - Word choice and precision
    - Tone consistency
