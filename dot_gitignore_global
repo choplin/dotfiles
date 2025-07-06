@@ -122,5 +122,8 @@ pr-description.md
 # Lefthook
 lefthook-local.yml
 
+# AMUX
 .amux
 
+# Mill (Scala)
+mill-bsp*
