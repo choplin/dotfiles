@@ -66,7 +66,7 @@ local function setup_bell(wezterm)
       window:toast_notification("Claude", "A bell was received from Claude on tab " .. tab_id, nil, 4000)
       if wezterm.target_triple:find("darwin") then
         -- wezterm.background_child_process({ "say", "Claude is calling your" })
-        wezterm.background_child_process({ "afplay", "-v", "5", "/System/Library/Sounds/Submarine.aiff" })
+        wezterm.background_child_process({ "afplay", "-v", "1", "/System/Library/Sounds/Submarine.aiff" })
       end
     end
   end)
