@@ -1,8 +1,27 @@
+---
+allowed-tools: mcp__amux__*, Bash(git *), Write, Read, LS, TodoRead
+description: Save current work context for later resumption
+---
+
 # Suspend Workspace
 
-This command saves the current work context to the AMUX workspace storage for later resumption.
+This command saves the current work context for later resumption.
 
-I will use `mcp__amux__resource_workspace_show` to get workspace information and document:
+## Save Location
+
+The `work-context.md` file will be saved in the following priority order:
+
+1. **AMUX workspace storage** (if running under AMUX management)
+2. **Git repository root** (if in a git repository)
+3. **Current directory** (as fallback)
+
+## Process
+
+I will gather workspace information using available tools:
+
+- Try AMUX MCP tools first (`mcp__amux__resource_workspace_show`)
+- Fall back to git commands (`git status`, `git branch`, `git rev-parse --show-toplevel`)
+- Use file system commands if needed (`pwd`, file operations)
 
 1. **Workspace Information**:
    - Branch name
@@ -30,7 +49,11 @@ I will use `mcp__amux__resource_workspace_show` to get workspace information and
    - References to design documents, specs, or notes created during work
    - Paths to temporary files or drafts related to the task
 
-The context will be saved to `work-context.md` in the AMUX workspace storage using `mcp__amux__workspace_storage_write`.
+## Implementation Details
+
+- **AMUX environment**: Use `mcp__amux__resource_workspace_show` and `mcp__amux__workspace_storage_write`
+- **Non-AMUX environment**: Use git commands and file system operations
+- The context will be saved to `work-context.md` in the determined location
 
 **IMPORTANT**: The `work-context.md` must be comprehensive and self-contained. When resuming work later, reading only this file should provide ALL necessary context without any knowledge gaps. Include:
 
