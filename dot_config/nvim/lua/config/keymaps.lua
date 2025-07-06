@@ -45,3 +45,30 @@ vim.api.nvim_create_user_command("GitFileHistory", function()
   local name = vim.api.nvim_buf_get_name(0)
   Snacks.terminal.open({ "tig", name }, {})
 end, {})
+
+-- Copy file location
+vim.keymap.set("n", "<leader>cy", function()
+  require("context").copy_file_location()
+end, { desc = "Copy file location" })
+
+-- Copy file context with count (e.g., 3<leader>cY copies 3 lines before and after)
+vim.keymap.set("n", "<leader>cY", function()
+  local count = vim.v.count
+  require("context").copy_file_context(count > 0 and count or 0)
+end, { desc = "Copy file context with lines" })
+
+-- Visual mode: copy location
+vim.keymap.set("v", "<leader>cy", function()
+  require("context").copy_visual_location()
+end, { desc = "Copy visual selection location" })
+
+-- Visual mode: copy context
+vim.keymap.set("v", "<leader>cY", function()
+  require("context").copy_visual_context()
+end, { desc = "Copy visual selection with context" })
+
+vim.keymap.set("i", "<C-f>", function()
+  if require("copilot.suggestion").is_visible() then
+    require("copilot.suggestion").accept()
+  end
+end)
