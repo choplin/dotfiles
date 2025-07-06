@@ -1,7 +1,6 @@
 {
-  "model": "opus",
+  "includeCoAuthoredBy": false,
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash(mkdir:*)",
       "Bash(mv:*)",
@@ -20,8 +19,13 @@
       "WebFetch(domain:bun.sh)",
       "WebFetch(domain:github.com)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "plan"
   },
+  "model": "opus",
   "enableAllProjectMcpServers": true,
-  "includeCoAuthoredBy": false
+  "env": {
+    "MAX_THINKING_TOKENS": "31999",
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "true"
+  }
 }
