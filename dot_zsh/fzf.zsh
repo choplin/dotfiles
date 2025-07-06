@@ -4,7 +4,7 @@ if test -d $HOMEBREW_PREFIX/opt/fzf; then
 fi
 
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS="--height=40% --info=inline --layout=reverse"
+export FZF_DEFAULT_OPTS="--height=40% --info=inline --layout=reverse --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS=$(
     cat <<EOF | tr -d '\n'
