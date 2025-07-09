@@ -25,7 +25,6 @@
   "model": "opus",
   "enableAllProjectMcpServers": true,
   "env": {
-    "MAX_THINKING_TOKENS": "31999",
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "true"
   }
 }
