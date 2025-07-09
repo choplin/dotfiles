@@ -141,6 +141,8 @@ Conventional commit style: `type(module): description`
 
 - `feat`, `fix`, `refactor`, `build`, `docs`, `test`, `chore`
 - Module name optional for project-wide changes
+- **ONLY include actual changes in commit messages** - Do not include work-in-progress details or unrelated implementation details
+- Focus on what was changed and why, not intermediate steps
 
 ## Technical
 
