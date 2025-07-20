@@ -30,6 +30,7 @@ end
 vim.filetype.add({
   extension = {
     ["h"] = "c",
+    ["mdx"] = "markdown",
   },
   filename = {
     ["Tiltfile"] = "tiltfile",
