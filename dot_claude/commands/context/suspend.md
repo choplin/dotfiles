@@ -1,5 +1,5 @@
 ---
-allowed-tools: mcp__amux__*, Bash(git *), Write, Read, LS, TodoRead
+allowed-tools: Bash(git *), Read, LS, TodoRead, mcp__vault__vault_set
 description: Save current work context for later resumption
 ---
 
@@ -9,28 +9,20 @@ This command saves the current work context for later resumption.
 
 ## Save Location
 
-The `work-context.md` file will be saved in the following priority order:
-
-1. **AMUX workspace storage** (if running under AMUX management)
-2. **Git repository root** (if in a git repository)
-3. **Current directory** (as fallback)
+The work context will be saved to the vault MCP with key `work-context` in branch scope, making it accessible from any directory within the current repository or workspace while on the same branch.
 
 ## Process
 
-I will gather workspace information using available tools:
-
-- Try AMUX MCP tools first (`mcp__amux__resource_workspace_show`)
-- Fall back to git commands (`git status`, `git branch`, `git rev-parse --show-toplevel`)
-- Use file system commands if needed (`pwd`, file operations)
+I will gather workspace information and save comprehensive context:
 
 1. **Workspace Information**:
-   - Branch name
+   - Branch name (if in git repository)
    - Directory path
    - Repository details
+
 2. **Context & Background**: What we're working on and why
 
 3. **Discussions & Decisions**: Key points discussed and decisions made
-
    - Include links to any discussion documents written during work
    - Reference decision documents, analysis, or rationale files created
 
@@ -39,7 +31,6 @@ I will gather workspace information using available tools:
 5. **Remaining Tasks**: What still needs to be done
 
 6. **Current State**:
-
    - Active files being edited
    - Any uncommitted changes
    - Environment setup details
@@ -51,11 +42,13 @@ I will gather workspace information using available tools:
 
 ## Implementation Details
 
-- **AMUX environment**: Use `mcp__amux__resource_workspace_show` and `mcp__amux__workspace_storage_write`
-- **Non-AMUX environment**: Use git commands and file system operations
-- The context will be saved to `work-context.md` in the determined location
+- Use `git rev-parse --show-toplevel` to find repository root (if in git repo) for workspace information
+- Save context to vault using `mcp__vault__vault_set` with:
+  - Key: `work-context`
+  - Branch: Current branch (branch scope)
+  - Content: Markdown-formatted work context
 
-**IMPORTANT**: The `work-context.md` must be comprehensive and self-contained. When resuming work later, reading only this file should provide ALL necessary context without any knowledge gaps. Include:
+**IMPORTANT**: The work context must be comprehensive and self-contained. When resuming work later, reading only this context should provide ALL necessary information without any knowledge gaps. Include:
 
 - All technical decisions and their rationale
 - Code patterns and conventions discovered
