@@ -127,3 +127,11 @@ lefthook-local.yml
 
 # Mill (Scala)
 mill-bsp*
+
+work-context.md
+
+# Backlog.md
+backlog/
+
+# code-review.nvim
+.code-review/
