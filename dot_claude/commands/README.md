@@ -38,6 +38,7 @@ Document review and improvement
 
 Development workflow commands
 
+- `adr.md` - Record Architecture Decision Records for important decisions
 - `rebase-onto-rewritten.md` - Rebase onto force-pushed branches
 
 ## Usage
