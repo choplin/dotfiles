@@ -56,13 +56,28 @@ Create a comprehensive technical design document that includes:
 
 Format as a standard design doc with appropriate sections.
 
-**IMPORTANT**: Use diagrams extensively - include Mermaid, PlantUML, or ASCII art diagrams for:
+**Visual Representation Guidelines**:
 
-- System architecture
-- Component relationships
-- Data flow
-- Sequence diagrams for key interactions
-- State diagrams where applicable
+1. **Prefer Markdown when possible**:
+   - Tables for structured data (API endpoints, data models, configurations)
+   - Lists for hierarchies and relationships
+   - Code blocks for interfaces and examples
+   - Blockquotes for important notes
+
+2. **Use diagrams when Markdown is insufficient**:
+   - Mermaid/PlantUML for complex flows and interactions:
+     - System architecture with multiple components
+     - Sequence diagrams for multi-step processes
+     - State machines with transitions
+     - Complex data flows
+   - ASCII art for simple diagrams when appropriate
+
+3. **Examples**:
+   - API endpoints → Markdown table
+   - Simple hierarchy → Markdown nested lists
+   - Database schema → Markdown table
+   - Complex component interactions → Mermaid diagram
+   - Multi-service flow → Sequence diagram
 
 ### Step 3: Request User Approval
 
