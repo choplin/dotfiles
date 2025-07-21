@@ -82,15 +82,20 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - Maximum 3 levels deep
 - **IMPORTANT: Use Markdown checkbox format for ALL leaf tasks**: `- [ ] task description`
 - Only leaf tasks (lowest level) should have checkboxes
-- Each leaf task should be 2-4 hours
-- Include time estimates and requirement references
+- Each leaf task should be sized as S/M/L
+- Include size estimates and requirement references
 - **Mark PR breakpoints with special notation**: `--- PR #1: Foundation ---`
 
 **Task Format (MUST follow exactly)**:
 
 - Parent sections: `### 1.0 Section Name` (no checkbox)
 - Sub-sections: `#### 1.1 Sub-section Name` (no checkbox)
-- Leaf tasks: `- [ ] 1.1.1 Task description (2h) [REQ-001]` (WITH checkbox)
+- Leaf tasks: `- [ ] 1.1.1 Task description [S] [REQ-001]` (WITH checkbox)
+
+**Size Guidelines**:
+- **S (Small)**: Simple, straightforward tasks
+- **M (Medium)**: Standard complexity tasks  
+- **L (Large)**: Complex tasks requiring more effort
 
 **TDD Approach**:
 
@@ -126,13 +131,13 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 #### 1.1 Project Configuration
 
-- [ ] 1.1.1 Set up feature flag for {feature} (0.5h)
-- [ ] 1.1.2 Update dependencies if needed (0.5h)
+- [ ] 1.1.1 Set up feature flag for {feature} [S]
+- [ ] 1.1.2 Update dependencies if needed [S]
 
 #### 1.2 Data Models
 
-- [ ] 1.2.1 Write tests for User model changes (1h) [REQ-001]
-- [ ] 1.2.2 Implement User model changes (1h) [REQ-001]
+- [ ] 1.2.1 Write tests for User model changes [M] [REQ-001]
+- [ ] 1.2.2 Implement User model changes [M] [REQ-001]
 
 --- PR #1: Foundation (Tasks 1.1-1.2) ---
 
@@ -140,8 +145,8 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 #### 2.1 API Implementation
 
-- [ ] 2.1.1 Write tests for GET /api/feature (2h) [REQ-002]
-- [ ] 2.1.2 Implement GET /api/feature (2h) [REQ-002]
+- [ ] 2.1.1 Write tests for GET /api/feature [M] [REQ-002]
+- [ ] 2.1.2 Implement GET /api/feature [M] [REQ-002]
 ```
 
 ### Step 4: Request User Approval
