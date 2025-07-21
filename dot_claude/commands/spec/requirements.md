@@ -44,32 +44,77 @@ Create requirements document with this structure:
 
 #### Acceptance Criteria
 
-[Write acceptance criteria in EARS format]
+[Write acceptance criteria in EARS format - include both normal and error cases]
 
 ### Requirement 2, 3, ...
 
 [Continue with additional requirements following the same pattern]
+
+## MECE Coverage Check
+
+### Input Coverage
+- Valid inputs: [list covered scenarios]
+- Invalid inputs: [list covered scenarios]
+- Edge cases: [list covered scenarios]
+
+### Missing Scenarios
+[List any potentially missing scenarios to discuss with user]
 ```
 
 **Requirements must be**:
 
 - User-centric with clear user stories
 - **TESTABLE** - Each EARS criterion must translate to specific test cases for TDD
+- **MECE** - Cover all scenarios without overlap:
+  - Normal behavior (what the system SHALL do)
+  - Unwanted behavior (what the system SHALL NOT do or SHALL reject)
+  - Edge cases and boundary conditions
 - Aligned with steering context and system constraints
 
-### Step 3: Request User Approval
+**EARS Format Examples**:
+- Normal: WHEN user provides valid email THEN system SHALL create account
+- Error: WHEN user provides invalid email THEN system SHALL reject with error message
+- Edge: WHEN user provides email at maximum length THEN system SHALL accept it
+
+### Step 3: MECE Review
+
+Before requesting approval, perform MECE check:
+
+1. Review all requirements for completeness
+2. Identify any missing error scenarios
+3. Check for requirement overlaps
+4. Ensure edge cases are covered
+
+Present findings:
+```
+## MECE Analysis
+
+✓ Covered scenarios: [count]
+⚠ Potential gaps: [list if any]
+⚠ Possible overlaps: [list if any]
+
+The requirements appear to be [MECE/not fully MECE].
+```
+
+### Step 4: Request User Approval
 
 Present generated requirements and ask:
 
 ```
 Requirements generation complete. Please review the requirements document.
 
+Key points:
+- Total requirements: [count]
+- Normal behavior cases: [count]
+- Error/unwanted behavior cases: [count]
+- Edge cases: [count]
+
 Do you approve these requirements?
 - If yes: I will save to vault and update approval status
 - If no: Please provide feedback for revision
 ```
 
-### Step 4: Handle User Response
+### Step 5: Handle User Response
 
 **If approved**:
 
@@ -83,7 +128,7 @@ Do you approve these requirements?
 **If revision needed**:
 
 1. Update requirements based on feedback (keep in memory)
-2. Return to Step 3
+2. Return to Step 3 (MECE Review)
 
 **Continue iterating until approval**
 
