@@ -60,11 +60,14 @@ Present the execution plan:
 
 **Execution Steps**:
 1. [Create/Switch to branch if needed]
-2. Write tests for: [specific requirements]
-3. Implement: [components/functions]
-4. Verify all tests pass
-5. Run code quality checks
-6. Commit changes
+2. TDD Cycle (t-wada style):
+   - Red: Write failing test
+   - Green: Minimal code to pass
+   - Refactor: Clean up
+   - Repeat for each acceptance criterion
+3. Verify all tests pass
+4. Run code quality checks
+5. Commit changes
 
 **Test Files to Create**:
 - [test file paths]
@@ -103,19 +106,21 @@ Identify:
 - Design specifications for this component
 - Existing patterns to follow
 
-### Step 6: Write Tests First (TDD)
+### Step 6: Implement with t-wada Style TDD
 
-1. Based on requirement's EARS-format acceptance criteria
-2. Create test file(s) that verify the requirement
-3. Run tests to confirm they fail (red phase)
-4. Show test implementation to user
+1. Follow t-wada style TDD strictly (Red-Green-Refactor cycle)
+2. Based on requirement's EARS-format acceptance criteria
+3. **IMPORTANT**: Complete full cycle including Refactor phase before any commits
+4. Continue cycles until all acceptance criteria are covered
 
-### Step 7: Implement Feature
+### Step 7: Complete Implementation
 
-1. Write minimal code to make the new tests pass
-2. Follow patterns from steering documents
-3. Align with design specifications
-4. Run new tests until they pass (green phase)
+After TDD cycles are complete:
+
+1. Ensure all acceptance criteria are covered by tests
+2. Verify implementation follows patterns from steering documents
+3. Check alignment with design specifications
+4. Run full test suite one final time
 
 ### Step 8: Verify All Tests
 
@@ -148,9 +153,10 @@ Do you approve this implementation?
 
 **If approved**:
 
-1. Create commit with conventional format
-2. Update tasks in vault (mark completed with [x])
-3. Proceed to Step 10
+1. Verify all TDD cycles are complete (including Refactor phase)
+2. Create commit with conventional format
+3. Update tasks in vault (mark completed with [x])
+4. Proceed to Step 12
 
 **If changes needed**:
 
