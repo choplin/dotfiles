@@ -31,28 +31,41 @@ Create comprehensive design document based on approved requirements:
 
 ### Step 1: Gather Context
 
-Retrieve from vault:
+1. **Retrieve from vault**:
+   - Approved requirements from `specs/$ARGUMENTS/requirements`
+   - Spec metadata from `specs/$ARGUMENTS/metadata` (for language)
+   - Steering documents if available (`steering/structure`, `steering/tech`, `steering/product`)
 
-- Approved requirements from `specs/$ARGUMENTS/requirements`
-- Spec metadata from `specs/$ARGUMENTS/metadata` (for language)
-- Steering documents if available (`steering/structure`, `steering/tech`, `steering/product`)
+2. **Analyze existing implementation** (CRITICAL):
+   - Search for related existing code and features
+   - Identify current patterns and architectures
+   - Document dependencies and integration points
+   - Note any constraints from existing system
 
 ### Step 2: Generate Design Document
 
 Create a comprehensive technical design document that includes:
 
-**Context & Goals** (when appropriate):
+**Context & Goals**:
 
 - Overview and background
 - Goals and non-goals
 - Success criteria
+- **Existing System Analysis**:
+  - Current implementation overview
+  - Integration points with existing features
+  - Backward compatibility requirements
 
 **Technical Design**:
 
 - How to implement the approved requirements
-- Architecture and system design
-- API and data model specifications
+- Architecture and system design **aligned with existing patterns**
+- API and data model specifications **compatible with current schemas**
 - Security, performance, and testing considerations
+- **Regression Prevention**:
+  - List of existing features that must continue working
+  - Potential impact areas
+  - Mitigation strategies for identified risks
 
 Format as a standard design doc with appropriate sections.
 
