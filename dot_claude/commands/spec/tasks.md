@@ -105,12 +105,14 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - **M (Medium)**: Standard complexity tasks
 - **L (Large)**: Complex tasks requiring more effort
 
-**TDD Approach**:
+**t-wada Style TDD Approach**:
 
-- For each feature task, create a corresponding test task FIRST
-- Test tasks should verify the requirement's acceptance criteria
-- Pattern: "Write test for [requirement]" → "Implement [feature]"
-- Tests must be written based on EARS-format acceptance criteria from requirements
+- **DO NOT create separate test and implementation tasks**
+- Each task represents a complete TDD cycle (Red-Green-Refactor)
+- Task name should describe the behavior being implemented
+- Example: "Implement user registration with email validation [M] [REQ-001/AC-001.1]"
+  - This task includes writing tests AND implementation in TDD cycles
+- Tasks should be sized to complete within reasonable TDD cycles
 
 **Include tasks for**:
 
@@ -154,8 +156,8 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 #### 1.2 Data Models
 
-- [ ] 1.2.1 Write tests for User model changes [M] [REQ-001/AC-001.1]
-- [ ] 1.2.2 Implement User model changes [M] [REQ-001/AC-001.1]
+- [ ] 1.2.1 Implement User model with validation [M] [REQ-001/AC-001.1]
+- [ ] 1.2.2 Implement error handling for invalid user data [S] [REQ-001/AC-001.3]
 
 --- PR #1: Foundation (Tasks 1.1-1.2) ---
 
@@ -163,8 +165,8 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 #### 2.1 API Implementation
 
-- [ ] 2.1.1 Write tests for GET /api/feature [M] [REQ-002]
-- [ ] 2.1.2 Implement GET /api/feature [M] [REQ-002]
+- [ ] 2.1.1 Implement GET /api/feature endpoint [M] [REQ-002/AC-002.1]
+- [ ] 2.1.2 Implement input validation for API requests [S] [REQ-002/AC-002.2]
 ```
 
 ### Step 4: Verify MECE Coverage
@@ -186,6 +188,8 @@ Before requesting approval, verify:
    - Normal flows: Y tasks
    - Error handling: Z tasks
    - Edge cases: W tasks
+
+   Note: Each task includes both test writing and implementation (t-wada TDD style)
    ```
 
 ### Step 5: Request User Approval
