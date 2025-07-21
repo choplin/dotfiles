@@ -44,7 +44,10 @@ Create requirements document with this structure:
 
 #### Acceptance Criteria
 
-[Write acceptance criteria in EARS format - include both normal and error cases]
+- WHEN [condition] THEN [system behavior]
+- IF [condition] THEN [system behavior]
+- WHEN [invalid condition] THEN [system SHALL reject/handle error]
+- WHEN [edge case] THEN [specific behavior]
 
 ### Requirement 2, 3, ...
 
@@ -71,10 +74,14 @@ Create requirements document with this structure:
   - Edge cases and boundary conditions
 - Aligned with steering context and system constraints
 
-**EARS Format Examples**:
-- Normal: WHEN user provides valid email THEN system SHALL create account
-- Error: WHEN user provides invalid email THEN system SHALL reject with error message
-- Edge: WHEN user provides email at maximum length THEN system SHALL accept it
+**EARS Format Guidelines**:
+- Keep each criterion on a single line for clarity
+- Use bullet points for list formatting
+- Include mix of normal, error, and edge cases
+- Examples:
+  - Normal: `WHEN user provides valid email THEN system SHALL create account`
+  - Error: `WHEN user provides invalid email THEN system SHALL reject with error message`
+  - Edge: `WHEN user provides email at maximum length THEN system SHALL accept it`
 
 ### Step 3: MECE Review
 
