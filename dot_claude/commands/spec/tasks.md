@@ -99,20 +99,28 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - Sub-sections: `#### 1.1 Sub-section Name` (no checkbox)
 - Leaf tasks: `- [ ] 1.1.1 Task description [S] [REQ-001]` (WITH checkbox)
 
+**Task Granularity (CRITICAL)**:
+
+- **Each task = One commit after Red-Green-Refactor cycle**
+- Break down features into smallest testable behaviors
+- If a task feels too large, split it into smaller behaviors
+
 **Size Guidelines**:
 
-- **S (Small)**: Simple, straightforward tasks
-- **M (Medium)**: Standard complexity tasks
-- **L (Large)**: Complex tasks requiring more effort
+- **S (Small)**: Single behavior, 1-2 test cases
+- **M (Medium)**: Related behavior, 3-5 test cases
+- **L (Large)**: Complex behavior, 6+ test cases (consider splitting)
 
 **t-wada Style TDD Approach**:
 
 - **DO NOT create separate test and implementation tasks**
-- Each task represents a complete TDD cycle (Red-Green-Refactor)
-- Task name should describe the behavior being implemented
-- Example: "Implement user registration with email validation [M] [REQ-001/AC-001.1]"
-  - This task includes writing tests AND implementation in TDD cycles
-- Tasks should be sized to complete within reasonable TDD cycles
+- Each task represents ONE complete TDD cycle ending in a commit
+- Task name should describe ONE specific behavior
+- Examples:
+  - "Implement email format validation [S] [REQ-001/AC-001.2]"
+  - "Handle duplicate email registration error [S] [REQ-001/AC-001.3]"
+  - "Store user data with encrypted password [M] [REQ-001/AC-001.1]"
+- Avoid broad tasks like "Implement user registration" - break it down
 
 **Include tasks for**:
 
@@ -154,19 +162,24 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - [ ] 1.1.1 Set up feature flag for {feature} [S]
 - [ ] 1.1.2 Update dependencies if needed [S]
 
-#### 1.2 Data Models
+#### 1.2 User Registration
 
-- [ ] 1.2.1 Implement User model with validation [M] [REQ-001/AC-001.1]
-- [ ] 1.2.2 Implement error handling for invalid user data [S] [REQ-001/AC-001.3]
+- [ ] 1.2.1 Validate email format [S] [REQ-001/AC-001.2]
+- [ ] 1.2.2 Reject invalid email with error message [S] [REQ-001/AC-001.3]
+- [ ] 1.2.3 Create user record with valid email [S] [REQ-001/AC-001.1]
+- [ ] 1.2.4 Hash password before storing [S] [REQ-001/AC-001.4]
+- [ ] 1.2.5 Handle duplicate email error [S] [REQ-001/AC-001.5]
 
 --- PR #1: Foundation (Tasks 1.1-1.2) ---
 
 ### 2.0 Core Features
 
-#### 2.1 API Implementation
+#### 2.1 API Endpoints
 
-- [ ] 2.1.1 Implement GET /api/feature endpoint [M] [REQ-002/AC-002.1]
-- [ ] 2.1.2 Implement input validation for API requests [S] [REQ-002/AC-002.2]
+- [ ] 2.1.1 Return 200 for valid GET request [S] [REQ-002/AC-002.1]
+- [ ] 2.1.2 Return user data in JSON format [S] [REQ-002/AC-002.1]
+- [ ] 2.1.3 Return 400 for missing parameters [S] [REQ-002/AC-002.2]
+- [ ] 2.1.4 Return 404 for non-existent user [S] [REQ-002/AC-002.3]
 ```
 
 ### Step 4: Verify MECE Coverage
