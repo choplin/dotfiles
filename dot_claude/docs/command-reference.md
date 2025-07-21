@@ -14,6 +14,8 @@ title: Spec-Driven Development Command Reference
 **Usage**: `/spec:init {feature-name}`
 
 **Actions**:
+- Interprets brief project descriptions
+- Presents interpretation for approval
 - Creates initial metadata in vault
 - Sets up specification structure
 - Tracks approval states
@@ -32,11 +34,13 @@ title: Spec-Driven Development Command Reference
 
 **Actions**:
 - Analyzes feature goals
-- Creates testable requirements
-- Uses EARS format (WHEN/IF/WHILE...THEN)
+- Creates testable requirements with REQ-* labels
+- Uses EARS format with AC-* labels for acceptance criteria
+- Includes normal, error, and edge cases
+- Performs MECE coverage check
 - Requests user approval
 
-**Output**: Requirements document for review
+**Output**: Requirements document with coverage analysis
 
 ---
 
@@ -49,32 +53,38 @@ title: Spec-Driven Development Command Reference
 **Prerequisites**: Requirements must be approved
 
 **Actions**:
-- Creates architecture overview
-- Generates diagrams (Mermaid/PlantUML/ASCII)
+- Analyzes existing implementation for consistency
+- Creates architecture overview aligned with patterns
+- Prefers Markdown, uses diagrams when necessary
 - Defines components and interfaces
-- Documents implementation approach
+- Documents implementation approach with regression prevention
+- Maps design elements to requirements
 - Requests user approval
 
-**Output**: Comprehensive design document
+**Output**: Comprehensive design document with requirement traceability
 
 ---
 
 ### /spec:tasks
 
-**Purpose**: Generate task breakdown (WBS)
+**Purpose**: Generate task breakdown (WBS) with branch strategy
 
 **Usage**: `/spec:tasks {feature-name}`
 
 **Prerequisites**: Design must be approved
 
 **Actions**:
+- Proposes branch strategy and PR breakpoints
 - Creates Work Breakdown Structure
 - Maximum 3 levels deep
-- 2-4 hour task estimates
-- Embeds TDD approach
+- S/M/L size estimates (no hours)
+- Each task includes tests AND implementation (t-wada TDD)
+- Maps tasks to requirements/acceptance criteria
+- Verifies MECE coverage
+- Marks PR submission points
 - Requests user approval
 
-**Output**: Structured task list
+**Output**: Structured task list with coverage matrix
 
 ---
 
@@ -89,14 +99,15 @@ title: Spec-Driven Development Command Reference
 **Actions**:
 1. Selects next unchecked task
 2. Shows implementation plan for approval
-3. Creates feature branch
-4. Writes tests first
-5. Implements feature
-6. Verifies tests pass
-7. Commits changes
-8. Updates task status
+3. Manages branches per task strategy
+4. Implements using t-wada style TDD (Red-Green-Refactor)
+5. Commits only after Refactor phase complete
+6. Updates task status and work log
+7. Notifies at PR breakpoints
+8. Analyzes and suggests steering updates
+9. Prompts next action based on remaining tasks
 
-**Output**: Completed task with commit info
+**Output**: Completed task with commit info, work log, and next steps
 
 ---
 

@@ -20,6 +20,8 @@ The spec-driven development workflow guides you through creating comprehensive s
 ```
 
 Creates initial specification structure in vault with metadata tracking.
+- Interprets brief project descriptions
+- Presents interpretation for approval before proceeding
 
 ### 2. Requirements Definition
 
@@ -29,11 +31,11 @@ Creates initial specification structure in vault with metadata tracking.
 
 Generates requirements in EARS format (Event-driven Actionable Requirements Syntax):
 
-- WHEN [trigger] THEN [system response]
-- IF [condition] THEN [system behavior]
-- WHILE [state] THE SYSTEM SHALL [behavior]
-
-Each requirement includes testable acceptance criteria.
+- Requirements labeled as REQ-001, REQ-002, etc.
+- Acceptance criteria labeled as AC-001.1, AC-001.2, etc.
+- Includes normal behavior, error handling, and edge cases
+- MECE (Mutually Exclusive, Collectively Exhaustive) coverage check
+- Each requirement includes testable acceptance criteria
 
 ### 3. Technical Design
 
@@ -43,11 +45,13 @@ Each requirement includes testable acceptance criteria.
 
 Creates comprehensive technical design including:
 
-- Architecture overview
-- Component interactions (with diagrams)
-- Data models
+- Analysis of existing implementation for consistency
+- Architecture overview aligned with current patterns
+- Component interactions (prefer Markdown, use diagrams when necessary)
+- Data models compatible with existing schemas
 - API specifications
-- Implementation approach
+- Implementation approach with regression prevention
+- Requirement traceability showing which components handle which requirements
 
 ### 4. Task Breakdown
 
@@ -59,9 +63,10 @@ Generates Work Breakdown Structure (WBS) with branch strategy:
 
 - Determines optimal PR breakpoints for review
 - Maximum 3 levels deep  
-- Each task estimated at 2-4 hours
-- Test-first approach embedded
-- Clear dependencies identified
+- Tasks sized as S/M/L (no time estimates)
+- Each task includes both tests and implementation (t-wada TDD style)
+- Requirements-task mapping with MECE coverage verification
+- Tasks reference specific requirements and acceptance criteria
 - Marks PR submission points in task list
 
 ### 5. Implementation
@@ -73,14 +78,14 @@ Generates Work Breakdown Structure (WBS) with branch strategy:
 Executes tasks one at a time:
 
 1. Shows implementation plan for approval
-2. Creates feature branch
-3. Writes tests first (TDD)
-4. Implements feature
-5. Verifies all tests pass
-6. Commits changes
-7. Updates task status
+2. Manages branches per task strategy
+3. Implements using t-wada style TDD (Red-Green-Refactor)
+4. Commits only after Refactor phase is complete
+5. Updates task status and work log
+6. Notifies when PR breakpoint reached
+7. Analyzes and suggests steering updates if needed
 
-Repeat until all tasks complete.
+Repeat until all tasks complete. Prompts for next action based on remaining tasks.
 
 ### 6. Completion
 
@@ -162,6 +167,7 @@ specs/{feature}/
 3. **Incremental Progress**: Work in small, verifiable chunks
 4. **Documentation**: Keep docs current throughout the process
 5. **Fact-Based**: Document only what is implemented, not assumptions
+6. **Review-Friendly**: Tasks grouped into manageable PRs for easier review
 
 ## Typical Flow
 
