@@ -76,6 +76,13 @@ Wait for approval before proceeding.
 
 Create a WBS (Work Breakdown Structure) based on the approved design and requirements.
 
+**CRITICAL: Requirements-Task Mapping**:
+
+1. First, list all requirements from the spec
+2. Ensure EVERY requirement has corresponding tasks
+3. Map each task to specific requirement(s)
+4. Verify no requirements are left without implementation tasks
+
 **WBS Structure**:
 
 - Use hierarchical numbering (1.0 → 1.1 → 1.1.1)
@@ -93,8 +100,9 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - Leaf tasks: `- [ ] 1.1.1 Task description [S] [REQ-001]` (WITH checkbox)
 
 **Size Guidelines**:
+
 - **S (Small)**: Simple, straightforward tasks
-- **M (Medium)**: Standard complexity tasks  
+- **M (Medium)**: Standard complexity tasks
 - **L (Large)**: Complex tasks requiring more effort
 
 **TDD Approach**:
@@ -118,6 +126,16 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 ```markdown
 # Implementation Tasks: {feature-name}
 
+## Requirements Coverage Matrix
+
+| Requirement                | Acceptance Criteria      | Tasks        | Coverage |
+| -------------------------- | ------------------------ | ------------ | -------- |
+| REQ-001: User Registration | AC-001.1 (normal flow)   | 1.2.1, 1.2.2 | ✓        |
+|                            | AC-001.2 (validation)    | 2.1.1, 2.1.2 | ✓        |
+|                            | AC-001.3 (error case)    | 2.3.1        | ✓        |
+| REQ-002: Email Validation  | AC-002.1 (format check)  | 1.3.1, 1.3.2 | ✓        |
+|                            | AC-002.2 (invalid email) | 1.3.3        | ✓        |
+
 ## Branch Strategy
 
 - Main feature branch: feature/{feature-name}
@@ -136,8 +154,8 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 #### 1.2 Data Models
 
-- [ ] 1.2.1 Write tests for User model changes [M] [REQ-001]
-- [ ] 1.2.2 Implement User model changes [M] [REQ-001]
+- [ ] 1.2.1 Write tests for User model changes [M] [REQ-001/AC-001.1]
+- [ ] 1.2.2 Implement User model changes [M] [REQ-001/AC-001.1]
 
 --- PR #1: Foundation (Tasks 1.1-1.2) ---
 
@@ -149,7 +167,28 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - [ ] 2.1.2 Implement GET /api/feature [M] [REQ-002]
 ```
 
-### Step 4: Request User Approval
+### Step 4: Verify MECE Coverage
+
+Before requesting approval, verify:
+
+1. **Completeness Check**: Every requirement has at least one task
+2. **Coverage Check**: All acceptance criteria (normal, error, edge) are covered
+3. **No Overlap**: Tasks don't duplicate effort
+4. **Present Coverage Summary**:
+
+   ```
+   ## Requirements Coverage Summary
+
+   Total Requirements: X
+   Covered Requirements: X (100%)
+
+   Coverage by Type:
+   - Normal flows: Y tasks
+   - Error handling: Z tasks
+   - Edge cases: W tasks
+   ```
+
+### Step 5: Request User Approval
 
 Present generated tasks and ask:
 
@@ -161,7 +200,7 @@ Do you approve these tasks?
 - If no: Please provide feedback for revision
 ```
 
-### Step 5: Handle User Response
+### Step 6: Handle User Response
 
 **If approved**:
 
@@ -176,7 +215,7 @@ Do you approve these tasks?
 **If revision needed**:
 
 1. Update tasks based on feedback (keep in memory)
-2. Return to Step 4
+2. Return to Step 4 (Verify MECE Coverage)
 
 **Continue iterating until approval**
 

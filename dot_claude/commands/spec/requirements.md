@@ -38,18 +38,18 @@ Create requirements document with this structure:
 
 ## Requirements
 
-### Requirement 1
+### REQ-001: [Requirement Title]
 
 **User Story:** As a [user type], I want to [do something], so that I can [achieve some goal]
 
 #### Acceptance Criteria
 
-- WHEN [condition] THEN [system behavior]
-- IF [condition] THEN [system behavior]
-- WHEN [invalid condition] THEN [system SHALL reject/handle error]
-- WHEN [edge case] THEN [specific behavior]
+- AC-001.1: WHEN [condition] THEN [system behavior]
+- AC-001.2: IF [condition] THEN [system behavior]
+- AC-001.3: WHEN [invalid condition] THEN [system SHALL reject/handle error]
+- AC-001.4: WHEN [edge case] THEN [specific behavior]
 
-### Requirement 2, 3, ...
+### REQ-002: [Requirement Title]
 
 [Continue with additional requirements following the same pattern]
 
@@ -78,10 +78,11 @@ Create requirements document with this structure:
 - Keep each criterion on a single line for clarity
 - Use bullet points for list formatting
 - Include mix of normal, error, and edge cases
+- **Label Format**: `AC-XXX.Y` where XXX is requirement number, Y is criterion number
 - Examples:
-  - Normal: `WHEN user provides valid email THEN system SHALL create account`
-  - Error: `WHEN user provides invalid email THEN system SHALL reject with error message`
-  - Edge: `WHEN user provides email at maximum length THEN system SHALL accept it`
+  - Normal: `AC-001.1: WHEN user provides valid email THEN system SHALL create account`
+  - Error: `AC-001.2: WHEN user provides invalid email THEN system SHALL reject with error message`
+  - Edge: `AC-001.3: WHEN user provides email at maximum length THEN system SHALL accept it`
 
 ### Step 3: MECE Review
 

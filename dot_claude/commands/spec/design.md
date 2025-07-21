@@ -59,6 +59,8 @@ Create a comprehensive technical design document that includes:
 **Technical Design**:
 
 - How to implement the approved requirements
+  - Map design elements to specific requirements (REQ-001, REQ-002, etc.)
+  - Ensure all requirements are addressed in the design
 - Architecture and system design **aligned with existing patterns**
 - API and data model specifications **compatible with current schemas**
 - Security, performance, and testing considerations
@@ -66,6 +68,10 @@ Create a comprehensive technical design document that includes:
   - List of existing features that must continue working
   - Potential impact areas
   - Mitigation strategies for identified risks
+
+**Requirement Traceability**:
+- Include a section showing which design components address which requirements
+- Example: "The UserService handles REQ-001 (User Registration) and REQ-003 (Authentication)"
 
 Format as a standard design doc with appropriate sections.
 
