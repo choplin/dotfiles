@@ -48,6 +48,7 @@ Before generating tasks, determine the branching and PR strategy:
 3. Group related work into logical PR units
 
 Present strategy for approval:
+
 ```
 ## Branch & PR Strategy
 
@@ -79,10 +80,17 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 
 - Use hierarchical numbering (1.0 → 1.1 → 1.1.1)
 - Maximum 3 levels deep
-- Only leaf tasks (lowest level) should have checkboxes: `- [ ]`
+- **IMPORTANT: Use Markdown checkbox format for ALL leaf tasks**: `- [ ] task description`
+- Only leaf tasks (lowest level) should have checkboxes
 - Each leaf task should be 2-4 hours
 - Include time estimates and requirement references
 - **Mark PR breakpoints with special notation**: `--- PR #1: Foundation ---`
+
+**Task Format (MUST follow exactly)**:
+
+- Parent sections: `### 1.0 Section Name` (no checkbox)
+- Sub-sections: `#### 1.1 Sub-section Name` (no checkbox)
+- Leaf tasks: `- [ ] 1.1.1 Task description (2h) [REQ-001]` (WITH checkbox)
 
 **TDD Approach**:
 
@@ -101,10 +109,12 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 - Documentation
 
 **Example Structure**:
+
 ```markdown
 # Implementation Tasks: {feature-name}
 
 ## Branch Strategy
+
 - Main feature branch: feature/{feature-name}
 - PR #1 after tasks 1.1-1.3
 - PR #2 after tasks 2.1-2.4
@@ -113,18 +123,23 @@ Create a WBS (Work Breakdown Structure) based on the approved design and require
 ## Tasks
 
 ### 1.0 Foundation Setup
+
 #### 1.1 Project Configuration
+
 - [ ] 1.1.1 Set up feature flag for {feature} (0.5h)
 - [ ] 1.1.2 Update dependencies if needed (0.5h)
 
 #### 1.2 Data Models
+
 - [ ] 1.2.1 Write tests for User model changes (1h) [REQ-001]
 - [ ] 1.2.2 Implement User model changes (1h) [REQ-001]
 
 --- PR #1: Foundation (Tasks 1.1-1.2) ---
 
 ### 2.0 Core Features
+
 #### 2.1 API Implementation
+
 - [ ] 2.1.1 Write tests for GET /api/feature (2h) [REQ-002]
 - [ ] 2.1.2 Implement GET /api/feature (2h) [REQ-002]
 ```
@@ -171,9 +186,10 @@ After tasks are approved:
    - `specs/$ARGUMENTS/tasks` - Approved task list
    - `specs/$ARGUMENTS/metadata` - Updated with approval status
 3. Present completion message:
+
    ```
    All specifications are now approved and ready for implementation!
-   
+
    Next step: Start implementing the first task
    Run: /spec:implement {feature-name}
    ```
