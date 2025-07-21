@@ -224,16 +224,38 @@ Save using `mcp__vault__vault_set`.
 
 ### Step 15: Check for Steering Updates
 
-Ask user:
+Analyze the implementation for steering-worthy changes:
+
+1. **Check for new patterns or conventions**:
+   - New coding patterns introduced
+   - New file/folder structures created
+   - New naming conventions adopted
+
+2. **Check for technical decisions**:
+   - New libraries or frameworks added
+   - New architectural patterns implemented
+   - New integration approaches
+
+3. **Check for product impacts**:
+   - New user-facing capabilities
+   - Changes to core value proposition
+
+If any of the above are detected, present findings:
 
 ```
-Task completed. Does this implementation introduce changes that should be reflected in steering documents?
-(New patterns, technologies, or architectural decisions)
+## Steering Update Analysis
 
-Update steering documents? (yes/no)
+I've identified the following changes that may warrant steering updates:
+
+[List specific changes detected]
+
+Recommendation: Run `/steering:update` to document these changes.
 ```
 
-If yes, suggest running `/steering:update`.
+If no significant changes detected:
+```
+No significant steering changes detected in this implementation.
+```
 
 ---
 
