@@ -25,9 +25,9 @@ Use `mcp__vault__vault_get` to retrieve each steering document if available.
 
 **SCOPE**: This command initializes the specification structure in vault based on the detailed project description provided.
 
-### 1. Analyze Project Description
+### 1. Interpret Project Description
 
-From the provided description ($ARGUMENTS), extract:
+From the provided input ($ARGUMENTS), interpret and expand:
 
 - Project purpose and goals
 - Key features and functionality
@@ -35,11 +35,35 @@ From the provided description ($ARGUMENTS), extract:
 - Technical requirements or constraints
 - Any specific implementation details mentioned
 
-### 2. Generate Feature Name
+**Note**: User inputs are often brief. Expand and clarify based on context and steering documents.
 
-Based on the analysis, create a concise, descriptive feature name that captures the essence of the project.
+### 2. Present Interpretation for Approval
 
-### 3. Initialize Metadata in Vault
+Before proceeding, present your interpretation:
+
+```
+## Project Interpretation
+
+Based on your input: "$ARGUMENTS"
+
+I understand this as:
+- **Purpose**: [expanded description of what the project aims to achieve]
+- **Key Features**: [list of interpreted features]
+- **Target Users**: [who will use this]
+- **Technical Scope**: [inferred technical requirements]
+
+**Proposed Feature Name**: {suggested-feature-name}
+
+Is this interpretation correct? (yes/no/modify)
+```
+
+Wait for user approval or clarification before proceeding.
+
+### 3. Generate Feature Name
+
+Based on the approved interpretation, finalize the feature name.
+
+### 4. Initialize Metadata in Vault
 
 Save initial metadata to vault key `specs/{generated-feature-name}/metadata`:
 
@@ -56,7 +80,7 @@ Save initial metadata to vault key `specs/{generated-feature-name}/metadata`:
 
 ## Project Description
 
-$ARGUMENTS
+[The approved interpretation from Step 2]
 
 ## Approvals
 
