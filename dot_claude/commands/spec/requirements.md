@@ -7,6 +7,9 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 **Feature**: $ARGUMENTS
 
+# Check arguments and list specs if needed
+`~/.claude/scripts/spec-common.sh requirements`
+
 ## Task: Generate Detailed Requirements
 
 **SCOPE**: This command ONLY generates requirements. It does not:

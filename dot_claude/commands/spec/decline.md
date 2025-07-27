@@ -7,6 +7,9 @@ allowed-tools: mcp__vault__vault_set, mcp__vault__vault_get, mcp__vault__vault_l
 
 **Feature**: $ARGUMENTS
 
+# Check arguments and list specs if needed
+`~/.claude/scripts/spec-common.sh decline`
+
 ## Prerequisites Check
 
 Check if spec exists at `specs/$ARGUMENTS/metadata`.

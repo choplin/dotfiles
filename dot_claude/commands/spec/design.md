@@ -7,6 +7,9 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 **Feature**: $ARGUMENTS
 
+# Check arguments and list specs if needed
+`~/.claude/scripts/spec-common.sh design`
+
 ## Prerequisites Check
 
 **CRITICAL**: Verify requirements are approved before proceeding.
