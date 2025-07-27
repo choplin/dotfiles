@@ -66,7 +66,7 @@ Filename format: `ADR-{number}-{slug}.md`
 
 ```markdown
 ---
-date: { YYYY-MM-DD }
+created: { YYYY-MM-DD }
 ---
 
 # ADR-{number}: {title}
@@ -101,4 +101,3 @@ date: { YYYY-MM-DD }
 ```
 
 Let's begin creating an ADR.
-
