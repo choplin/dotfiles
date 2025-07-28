@@ -5,6 +5,8 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 # Requirements Generation
 
+@~/.claude/references/spec-common.md - Vault structure and common operations
+
 **Feature**: $ARGUMENTS
 
 # Check arguments and list specs if needed
@@ -25,8 +27,8 @@ Create comprehensive requirements document based on the metadata stored in vault
 
 Retrieve from vault:
 
-- Spec metadata from `specs/$ARGUMENTS/metadata` (for language and project description)
-- Steering documents if available (`steering/structure`, `steering/tech`, `steering/product`)
+- Spec metadata (for language and project description)
+- Steering documents if available
 
 ### Step 2: Generate Requirements Document
 
@@ -72,9 +74,15 @@ Create requirements document with this structure:
 - User-centric with clear user stories
 - **TESTABLE** - Each EARS criterion must translate to specific test cases for TDD
 - **MECE** - Cover all scenarios without overlap:
-  - Normal behavior (what the system SHALL do)
-  - Unwanted behavior (what the system SHALL NOT do or SHALL reject)
+  - Normal behavior (what users observe)
+  - Unwanted behavior (what users should not experience)
   - Edge cases and boundary conditions
+- **SMART** - Follow SMART criteria:
+  - **Specific**: Clear and unambiguous
+  - **Measurable**: Observable and verifiable outcomes
+  - **Achievable**: Technically feasible
+  - **Relevant**: Aligned with user needs
+  - **Time-bound**: Clear conditions for when criteria are met
 - Aligned with steering context and system constraints
 
 **EARS Format Guidelines**:
@@ -82,10 +90,28 @@ Create requirements document with this structure:
 - Use bullet points for list formatting
 - Include mix of normal, error, and edge cases
 - **Label Format**: `AC-XXX.Y` where XXX is requirement number, Y is criterion number
-- Examples:
-  - Normal: `AC-001.1: WHEN user provides valid email THEN system SHALL create account`
-  - Error: `AC-001.2: WHEN user provides invalid email THEN system SHALL reject with error message`
-  - Edge: `AC-001.3: WHEN user provides email at maximum length THEN system SHALL accept it`
+
+**CRITICAL: User-Observable Behavior Only**:
+- Focus on **what users can observe**, not how the system implements it
+- **AVOID implementation details** such as:
+  - Database operations ("mark in database", "add column", "update flag")
+  - Internal system mechanisms ("system SHALL", "remove flag")
+  - Technical tool names ("vault_archive tool", "MCP client")
+- **USE observable outcomes** such as:
+  - What appears/disappears in user interfaces
+  - What errors or messages users see
+  - What actions become available/unavailable
+  - What data users can access or not access
+
+**Good Examples (SMART + User-Observable)**:
+- Normal: `AC-001.1: WHEN user archives an entry THEN entry no longer appears in default listings`
+- Error: `AC-001.2: WHEN user archives non-existent entry THEN user sees "Entry not found" error`
+- Edge: `AC-001.3: WHEN user archives already archived entry THEN no change occurs (idempotent)`
+
+**Bad Examples (avoid these)**:
+- ❌ `WHEN user archives entry THEN system SHALL mark as archived in database`
+- ❌ `WHEN user unarchives entry THEN system SHALL remove archive flag`
+- ❌ `WHEN migration runs THEN system SHALL add archived_at column`
 
 ### Step 3: MECE Review
 
@@ -129,8 +155,8 @@ Do you approve these requirements?
 
 **If approved**:
 
-1. Save requirements to `specs/$ARGUMENTS/requirements`
-2. Update metadata at `specs/$ARGUMENTS/metadata`:
+1. Save requirements to vault
+2. Update metadata in vault:
    - Phase: requirements-approved
    - Approvals > Requirements > Generated: true
    - Approvals > Requirements > Approved: true
@@ -151,8 +177,8 @@ After requirements are approved:
 
 1. Display confirmation: "Requirements approved ✓"
 2. Show updated vault keys:
-   - `specs/$ARGUMENTS/requirements` - Approved requirements
-   - `specs/$ARGUMENTS/metadata` - Updated with approval status
+   - Requirements document saved
+   - Metadata updated with approval status
 3. Present next step:
    ```
    You can now proceed to design phase:

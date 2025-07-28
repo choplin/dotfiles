@@ -5,19 +5,21 @@ allowed-tools: Bash, Read, Write, Glob, mcp__vault__vault_set, mcp__vault__vault
 
 # Spec Initialization
 
+@~/.claude/references/spec-common.md - Vault structure and common operations
+
 **Project Description**: $ARGUMENTS
 
 ## Steering Context Validation
 
 ### Check Steering Documents from Vault
 
-Check for steering documents in vault with keys:
+Check for steering documents in vault:
 
 - `steering/structure` - Structure context
 - `steering/tech` - Technical constraints
 - `steering/product` - Product context
 
-Use `mcp__vault__vault_get` to retrieve each steering document if available.
+Retrieve each steering document from vault if available.
 
 **FLEXIBILITY**: For new features or empty projects, steering documents are recommended but not required. If steering keys are not found in vault, you may proceed directly to spec generation phase.
 
@@ -65,7 +67,7 @@ Based on the approved interpretation, finalize the feature name.
 
 ### 4. Initialize Metadata in Vault
 
-Save initial metadata to vault key `specs/{generated-feature-name}/metadata`:
+Save initial metadata to vault as `specs/{generated-feature-name}/metadata`:
 
 ```markdown
 # Spec Metadata
@@ -104,7 +106,7 @@ Save initial metadata to vault key `specs/{generated-feature-name}/metadata`:
 - Ready for Implementation: false
 ```
 
-Use `mcp__vault__vault_set` to save this metadata.
+Save this metadata to vault.
 
 ## Output Format
 

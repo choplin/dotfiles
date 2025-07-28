@@ -5,6 +5,8 @@ allowed-tools: mcp__vault__vault_set, mcp__vault__vault_get, mcp__vault__vault_l
 
 # Decline Feature Specification
 
+@~/.claude/references/spec-common.md - Vault structure and common operations
+
 **Feature**: $ARGUMENTS
 
 # Check arguments and list specs if needed
@@ -12,7 +14,7 @@ allowed-tools: mcp__vault__vault_set, mcp__vault__vault_get, mcp__vault__vault_l
 
 ## Prerequisites Check
 
-Check if spec exists at `specs/$ARGUMENTS/metadata`.
+Check if spec exists in vault.
 
 **STOP** if spec doesn't exist. The feature specification must exist to be declined.
 
@@ -22,7 +24,7 @@ Check if spec exists at `specs/$ARGUMENTS/metadata`.
 
 ### Step 1: Gather Current Status
 
-1. Retrieve metadata from `specs/$ARGUMENTS/metadata`
+1. Retrieve metadata from vault
 2. Check current phase and completion status
 3. Display current state:
 
@@ -76,7 +78,7 @@ If yes, collect:
 
 ### Step 4: Update Metadata
 
-Update `specs/$ARGUMENTS/metadata` with decline information:
+Update metadata in vault with decline information:
 
 ```yaml
 # Spec Metadata
@@ -119,10 +121,11 @@ The specification for {feature-name} has been marked as declined.
 
 ### Preserved Data
 All work remains in vault for future reference:
-- Requirements: specs/{feature-name}/requirements
-- Design: specs/{feature-name}/design
-- Tasks: specs/{feature-name}/tasks
-- Metadata: specs/{feature-name}/metadata
+- Requirements document
+- Design document
+- Task list
+- Metadata
+- Work log (if exists)
 
 ### Reason Documented
 {decline-reason}

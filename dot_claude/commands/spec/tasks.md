@@ -5,6 +5,8 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 # Implementation Tasks
 
+@~/.claude/references/spec-common.md - Vault structure and common operations
+
 **Feature**: $ARGUMENTS
 
 # Check arguments and list specs if needed
@@ -14,7 +16,7 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 **CRITICAL**: Verify both requirements and design are approved before proceeding.
 
-Check metadata at `specs/$ARGUMENTS/metadata` for:
+Check metadata from vault for:
 
 - **Approvals > Requirements > Approved**: must be true
 - **Approvals > Design > Approved**: must be true
@@ -37,10 +39,10 @@ Create comprehensive implementation plan based on approved requirements and desi
 
 Retrieve from vault:
 
-- Approved requirements from `specs/$ARGUMENTS/requirements`
-- Approved design from `specs/$ARGUMENTS/design`
-- Spec metadata from `specs/$ARGUMENTS/metadata` (for language)
-- Steering documents if available (`steering/structure`, `steering/tech`, `steering/product`)
+- Approved requirements
+- Approved design
+- Spec metadata (for language)
+- Steering documents if available
 
 ### Step 2: Determine Branch Strategy
 
@@ -235,8 +237,8 @@ Do you approve these tasks?
 
 **If approved**:
 
-1. Save tasks to `specs/$ARGUMENTS/tasks`
-2. Update metadata at `specs/$ARGUMENTS/metadata`:
+1. Save tasks to vault
+2. Update metadata in vault:
    - Phase: ready-for-implementation
    - Approvals > Tasks > Generated: true
    - Approvals > Tasks > Approved: true
@@ -258,8 +260,8 @@ After tasks are approved:
 
 1. Display confirmation: "Implementation tasks approved ✓"
 2. Show updated vault keys:
-   - `specs/$ARGUMENTS/tasks` - Approved task list
-   - `specs/$ARGUMENTS/metadata` - Updated with approval status
+   - Task list saved
+   - Metadata updated with approval status
 3. Present completion message:
 
    ```

@@ -5,6 +5,8 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 # Complete Feature Implementation
 
+@~/.claude/references/spec-common.md - Vault structure and common operations
+
 **Feature**: $ARGUMENTS
 
 # Check arguments and list specs if needed
@@ -14,7 +16,7 @@ allowed-tools: Bash, Read, Write, Edit, MultiEdit, mcp__vault__vault_set, mcp__v
 
 **CRITICAL**: Verify all tasks are completed before proceeding.
 
-Check tasks at `specs/$ARGUMENTS/tasks` for:
+Retrieve tasks from vault and check for:
 - All tasks marked with `[x]`
 - No remaining `[ ]` tasks
 
@@ -29,7 +31,7 @@ Check tasks at `specs/$ARGUMENTS/tasks` for:
 
 ### Step 1: Verify Requirements Coverage
 
-1. Retrieve requirements from `specs/$ARGUMENTS/requirements`
+1. Retrieve requirements from vault
 2. For each requirement:
    - Identify corresponding test files
    - Verify test exists for each acceptance criterion
@@ -102,7 +104,7 @@ Save design doc? (yes/no)
 ```
 
 If yes:
-1. Retrieve design from `specs/$ARGUMENTS/design`
+1. Retrieve design from vault
 2. Save to `docs/design/{feature-name}.md`
 3. Add frontmatter with date and feature name
 
@@ -129,7 +131,8 @@ Please run `/workflow:adr` to create ADRs for:
 
 ### Step 8: Update Vault Metadata
 
-Update `specs/$ARGUMENTS/metadata`:
+1. Retrieve current metadata from vault
+2. Update the metadata with the following information:
 ```yaml
 # Spec Metadata
 ## Feature
@@ -156,6 +159,8 @@ Update `specs/$ARGUMENTS/metadata`:
 ## Phase
 - Current: completed
 ```
+
+3. Save the updated metadata back to vault.
 
 ### Step 9: Identify Outstanding Items
 
