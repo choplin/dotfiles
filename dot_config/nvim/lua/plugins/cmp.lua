@@ -94,7 +94,7 @@ return {
   {
     "saghen/blink.cmp",
     opts = function(_, opts)
-      vim.g.completion = false
+      vim.g.completion = true
 
       Snacks.toggle({
         name = "Completion",

@@ -38,6 +38,7 @@ target
 # local memo
 memo.local
 memo.local.md
+.memo/
 
 # vagrant
 .vagrant
@@ -103,21 +104,9 @@ memo.md
 .zed/
 
 # Claude Code
-.claude/settings.local.json
+.claude/
 .mcp.json
 CLAUDE.local.md
-
-# Claude working memory
-.claude/context/*
-.claude/archive/*
-.claude/planning/*
-.claude/cclsp.json
-
-# Git worktree (made by Claude)
-.worktrees/
-
-# Draft of Pull Request (made by Claude)
-pr-description.md
 
 # Lefthook
 lefthook-local.yml
@@ -128,10 +117,20 @@ lefthook-local.yml
 # Mill (Scala)
 mill-bsp*
 
-work-context.md
-
-# Backlog.md
-backlog/
-
 # code-review.nvim
 .code-review/
+dot_code-review
+
+# codex
+AGENTS.md
+
+# speckit
+.specify/
+
+# AI-agent working files and directories
+.agents/
+work-context.md
+EXECPLAN.md
+
+# MCP
+.serena

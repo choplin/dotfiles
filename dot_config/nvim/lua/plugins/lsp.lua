@@ -1,7 +1,7 @@
 local local_env = require("local_env")
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       -- List linters and formatters to install here.
       -- LSP should be listed as opts.servers of nvim-lspconfig.
@@ -56,11 +56,7 @@ return {
     },
     ---@class PluginLspOpts
     opts = function(_, opts)
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-      keys[#keys + 1] = { "<c-k>", false, mode = "i" }
-      keys[#keys + 1] = { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" }
-
-      opts.servers = vim.tbl_extend("force", opts.servers, {
+      opts.servers = vim.tbl_extend("force", opts.servers or {}, {
         jsonls = {
           settings = {
             json = {
@@ -83,12 +79,18 @@ return {
           end,
           workspace_required = true,
         },
-      })
-      opts.capabilities = vim.tbl_extend("force", opts.capabilities, {
-        textDocument = {
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
+        ["*"] = {
+          keys = {
+            { "<c-k>", false, mode = "i" },
+            { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" },
+          },
+          capabilities = {
+            textDocument = {
+              foldingRange = {
+                dynamicRegistration = false,
+                lineFoldingOnly = true,
+              },
+            },
           },
         },
       })

@@ -47,12 +47,10 @@ github = "junegunn/fzf-git.sh"
 local = "~/.zsh"
 use = [
     "alias.zsh",
-    "amux.zsh",
     "autosuggest.zsh",
     "broot.zsh",
     "cargo.zsh",
     "chezmoi.zsh",
-    "direnv.zsh",
     "env.zsh",
     "fzf.zsh",
     "go.zsh",

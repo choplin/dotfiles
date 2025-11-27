@@ -2,6 +2,7 @@ local wezterm = require("wezterm")
 
 require("event").setup(wezterm)
 local util = require("util")
+local action = require("action")
 
 local config = {}
 if wezterm.config_builder then
@@ -35,7 +36,8 @@ config.send_composed_key_when_right_alt_is_pressed = true
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.85
+-- config.window_background_opacity = 0.85
+config.window_background_opacity = 0.98
 -- config.window_background_opacity = 1
 config.macos_window_background_blur = 15
 config.window_frame = {
@@ -104,6 +106,22 @@ config.keys = util.merge(
       key = "s",
       mods = "LEADER",
       action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+    },
+    {
+      key = "y",
+      mods = "CMD",
+      action = wezterm.action_callback(function(window, pane)
+        local new_pane = action.spawn_tab_next_to_current(window, pane)
+        new_pane:send_text("yazi\n")
+      end),
+    },
+    {
+      key = "Y",
+      mods = "CMD",
+      action = wezterm.action_callback(function(window, pane)
+        window:perform_action(act.SplitHorizontal({ domain = "CurrentPaneDomain" }), pane)
+        window:active_pane():send_text("yazi\n")
+      end),
     },
     { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection("Next") },
     { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
@@ -183,6 +201,18 @@ config.mouse_bindings = {
         window:perform_action(wezterm.action.OpenLinkAtMouseCursor, pane)
       end
     end),
+  },
+  -- Prevent automatic copy on double click (word selection only)
+  {
+    event = { Up = { streak = 2, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor("Word"),
+  },
+  -- Prevent automatic copy on triple click (line selection only)
+  {
+    event = { Up = { streak = 3, button = "Left" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor("Line"),
   },
 }
 

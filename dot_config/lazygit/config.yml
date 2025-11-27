@@ -1,5 +1,11 @@
 gui:
   scrollHeight: 10
+  showIcons: true
+  theme:
+    selectedLineBgColor:
+      #- "#666666"
+      - default
+      - bold
 # git:
 #   paging:
 #     colorArg: always

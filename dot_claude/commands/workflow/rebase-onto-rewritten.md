@@ -31,10 +31,14 @@ I will:
 
 4. **Cherry-pick commits**:
 
-   - Apply all commits from the specified commit to HEAD
+   - **Apply commits ONE AT A TIME** (not as a range)
+   - This is critical for commits involving directory restructuring or file moves
+   - Git can better track changes when applied incrementally
    - If conflicts arise, I'll stop and show you the conflicting files
    - Wait for your instructions on how to resolve conflicts
    - Show progress during the process
+
+   **Why one-by-one?** When cherry-picking multiple commits at once (e.g., `git cherry-pick A..B`), Git may fail to properly track directory renames and file moves across commits, causing unnecessary conflicts. Applying commits individually allows Git to correctly recognize and apply each structural change sequentially.
 
 5. **Finalize**:
    - Rename branches to preserve the original branch name

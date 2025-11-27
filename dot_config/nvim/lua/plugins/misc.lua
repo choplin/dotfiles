@@ -15,10 +15,18 @@ return {
   },
   {
     "folke/snacks.nvim",
+    ---@type snacks.Config
     opts = {
       dim = {
         animate = {
           enabled = false,
+        },
+      },
+      ---@type table<string, snacks.win.Config>
+      styles = {
+        lazygit = {
+          width = 0.99,
+          height = 0.99,
         },
       },
     },

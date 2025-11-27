@@ -9,7 +9,7 @@ java = [
 ]
 go = "latest"
 python = "3.11"
-node = "20"
+node = "24"
 ruby = "3.3.4"
 
 mysql = "8.0"
@@ -32,6 +32,12 @@ uv = "latest"
 lefthook = "latest"
 yamlfmt = "latest"
 azure-cli = "latest"
+dbmate = "latest"
+just = "latest"
+"npm:@openai/codex" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@github/copilot" = "latest"
+"npm:@ast-grep/napi" = "latest"
 
 [alias.java.versions]
 8 = "zulu-8"
