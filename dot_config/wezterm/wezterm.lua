@@ -35,6 +35,7 @@ config.send_composed_key_when_right_alt_is_pressed = true
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = true
+config.switch_to_last_active_tab_when_closing_tab = true
 config.window_decorations = "RESIZE"
 -- config.window_background_opacity = 0.85
 config.window_background_opacity = 0.98
@@ -59,6 +60,9 @@ config.unix_domains = { { name = "unix" } }
 -- config.default_gui_startup_args = { "connect", "unix" }
 
 config.send_composed_key_when_right_alt_is_pressed = false
+
+config.command_palette_font_size = 18
+config.command_palette_bg_color = wezterm.color.from_hsla(223, 0.15, 0.14, 0.7)
 
 config.leader = { key = "Y", mods = "CTRL", timeout_milliseconds = 1000 }
 
@@ -138,6 +142,11 @@ config.keys = util.merge(
           wezterm.open_with(url)
         end),
       }),
+    },
+    {
+      key = "P",
+      mods = "SUPER",
+      action = act.ActivateCommandPalette,
     },
     { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
     { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
