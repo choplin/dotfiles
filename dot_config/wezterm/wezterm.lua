@@ -115,16 +115,34 @@ config.keys = util.merge(
       key = "y",
       mods = "CMD",
       action = wezterm.action_callback(function(window, pane)
-        local new_pane = action.spawn_tab_next_to_current(window, pane)
-        new_pane:send_text("yazi\n")
+        action.spawn_command_in_tab_next_to_current(window, pane, action.with_shell({ "yazi" }))
+      end),
+    },
+    {
+      key = "l",
+      mods = "CMD",
+      action = wezterm.action_callback(function(window, pane)
+        action.spawn_command_in_tab_next_to_current(window, pane, action.with_shell({ "lazygit" }))
       end),
     },
     {
       key = "Y",
       mods = "CMD",
       action = wezterm.action_callback(function(window, pane)
-        window:perform_action(act.SplitHorizontal({ domain = "CurrentPaneDomain" }), pane)
-        window:active_pane():send_text("yazi\n")
+        window:perform_action(
+          act.SplitHorizontal({ domain = "CurrentPaneDomain", args = action.with_shell({ "yazi" }) }),
+          pane
+        )
+      end),
+    },
+    {
+      key = "L",
+      mods = "CMD",
+      action = wezterm.action_callback(function(window, pane)
+        window:perform_action(
+          act.SplitHorizontal({ domain = "CurrentPaneDomain", args = action.with_shell({ "lazygit" }) }),
+          pane
+        )
       end),
     },
     { key = "O", mods = "LEADER|CTRL", action = act.ActivatePaneDirection("Next") },
