@@ -2,3 +2,4 @@
 ~/.config/nvim/lazy-lock.json
 ~/.zsh/local.zsh
 ~/.config/broot/launcher
+.code-review
