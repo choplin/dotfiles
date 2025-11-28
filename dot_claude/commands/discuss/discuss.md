@@ -14,20 +14,17 @@ I will:
 ## Discussion Approach
 
 1. **Active Listening**
-
    - Carefully understand your explanation
    - Ask for clarification when needed
    - Reflect back what I understand
 
 2. **Critical Questions**
-
    - Challenge assumptions constructively
    - Explore edge cases and implications
    - Identify potential risks or issues
    - Question the "why" behind decisions
 
 3. **Idea Development**
-
    - Propose alternative approaches
    - Build on your ideas with enhancements
    - Connect concepts to broader patterns
