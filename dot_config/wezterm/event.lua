@@ -85,11 +85,34 @@ local function setup_user_var(wezterm)
   end)
 end
 
+local function setup_command_palette(wezterm)
+  local session = require("session")
+  wezterm.on("augment-command-palette", function(window, pane)
+    return {
+      {
+        brief = "Save Session",
+        icon = "md_content_save",
+        action = wezterm.action_callback(function(win, p)
+          session.save(win)
+        end),
+      },
+      {
+        brief = "Restore Session",
+        icon = "md_restore",
+        action = wezterm.action_callback(function(win, p)
+          session.restore(win, p)
+        end),
+      },
+    }
+  end)
+end
+
 function M.setup(wezterm)
   if not _G.event_hanndler_initialized then
     setup_recomute_padding(wezterm)
     setup_bell(wezterm)
     setup_user_var(wezterm)
+    setup_command_palette(wezterm)
     _G.event_hanndler_initialized = true
   end
 end
