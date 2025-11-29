@@ -95,29 +95,40 @@ return {
       },
     },
   },
+  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+  ---@type LazySpec
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      source_selector = {
-        winbar = true,
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+    },
+    keys = {
+      {
+        "<leader>e",
+        mode = { "n", "v" },
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
       },
-      filesystem = {
-        group_empty_dirs = true,
+      {
+        -- Open in the current working directory
+        "<leader>E",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
       },
-      window = {
-        mappings = {
-          ["<space>"] = "none", -- Disable space key to avoid conflicts with other plugins
-          ["Y"] = {
-            function(state)
-              local node = state.tree:get_node()
-              local path = require("context").normalize_path(node:get_id())
-              vim.fn.setreg("+", path, "c")
-              vim.notify("Copied: " .. path)
-            end,
-            desc = "Copy Path to Clipboard",
-          },
-        },
+      {
+        "<c-up>",
+        "<cmd>Yazi toggle<cr>",
+        desc = "Resume the last yazi session",
       },
     },
+    ---@type YaziConfig | {}
+    opts = {
+      open_for_directories = true,
+    },
+    init = function()
+      -- mark netrw as loaded so it's not loaded at all.
+      vim.g.loaded_netrwPlugin = 1
+    end,
   },
 }
