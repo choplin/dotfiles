@@ -44,3 +44,7 @@ disabled = true
 
 [time]
 disabled = false
+
+[env_var.YAZI]
+variable = "YAZI_LEVEL"
+format = "🦆Yazi\\($env_value\\) "
