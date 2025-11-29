@@ -124,7 +124,8 @@ return {
     },
     ---@type YaziConfig | {}
     opts = {
-      open_for_directories = true,
+      open_for_directories = false,
+      floating_window_scaling_factor = 1,
     },
     init = function()
       -- mark netrw as loaded so it's not loaded at all.
