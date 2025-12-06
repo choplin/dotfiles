@@ -79,6 +79,13 @@ return {
           end,
           workspace_required = true,
         },
+        nil_ls = {
+          settings = {
+            ["nil"] = {
+              formatting = { command = { "alejandra" } },
+            },
+          },
+        },
         ["*"] = {
           keys = {
             { "<c-k>", false, mode = "i" },
