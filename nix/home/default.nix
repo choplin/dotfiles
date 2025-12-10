@@ -1,5 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  username,
+  homeDirectory,
+  ...
+}: {
   home = {
+    inherit username homeDirectory;
     stateVersion = "25.11";
 
     packages = with pkgs; [
