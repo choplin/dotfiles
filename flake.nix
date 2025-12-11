@@ -13,6 +13,18 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.nix-darwin.follows = "nix-darwin";
+      inputs.brew-api.follows = "brew-api";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    brew-api = {
+      url = "github:BatteredBunny/brew-api";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -20,6 +32,8 @@
     nixpkgs,
     nix-darwin,
     home-manager,
+    brew-nix,
+    brew-api,
   }: let
     machines = import ./machines.nix;
 
@@ -27,10 +41,12 @@
       nix-darwin.lib.darwinSystem {
         inherit (machine) system;
         specialArgs = {
+          inherit brew-nix;
           inherit (machine) username hostname homeDirectory;
         };
         modules = [
           ./nix/darwin
+          brew-nix.darwinModules.default
           home-manager.darwinModules.home-manager
           {
             home-manager = {

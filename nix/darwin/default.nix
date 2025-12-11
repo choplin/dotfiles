@@ -11,15 +11,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # System-level packages
-  environment.systemPackages = with pkgs; [
-    zsh
-  ];
-
   # Define users
   users.users.${username} = {
     home = homeDirectory;
-    shell = pkgs.zsh;
   };
 
   # Create symlink /etc/nix-darwin -> ~/.dotfiles
@@ -34,7 +28,15 @@
   # Enable user specific activation
   system.primaryUser = "${username}";
 
+  environment.systemPackages = [
+    pkgs._1password-gui
+    pkgs.daisydisk
+    pkgs.google-chrome
+    pkgs.google-cloud-sdk
+  ];
+
   imports = [
     ./homebrew.nix
+    ./brew-nix.nix
   ];
 }
