@@ -39,4 +39,11 @@
 
   # Used for backwards compatibility
   system.stateVersion = 5;
+
+  # Enable user specific activation
+  system.primaryUser = "${username}";
+
+  imports = [
+    ./homebrew.nix
+  ];
 }
