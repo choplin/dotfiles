@@ -25,15 +25,21 @@
       url = "github:BatteredBunny/brew-api";
       flake = false;
     };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = {
+  outputs = inputs @ {
     nix-darwin,
     home-manager,
     brew-nix,
     ...
   }: let
     machines = import ./machines.nix;
+
+    overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
 
     mkDarwin = name: machine:
       nix-darwin.lib.darwinSystem {
@@ -46,6 +52,7 @@
           brew-nix.darwinModules.default
           home-manager.darwinModules.home-manager
           {
+            nixpkgs.overlays = overlays;
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
