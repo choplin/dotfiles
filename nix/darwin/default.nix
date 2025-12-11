@@ -30,7 +30,7 @@
 
   environment.systemPackages = [
     pkgs._1password-gui
-    pkgs.daisydisk
+    #pkgs.daisydisk
     pkgs.google-chrome
     pkgs.google-cloud-sdk
   ];
