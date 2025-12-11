@@ -28,12 +28,10 @@
   };
 
   outputs = {
-    self,
-    nixpkgs,
     nix-darwin,
     home-manager,
     brew-nix,
-    brew-api,
+    ...
   }: let
     machines = import ./machines.nix;
 
@@ -41,7 +39,6 @@
       nix-darwin.lib.darwinSystem {
         inherit (machine) system;
         specialArgs = {
-          inherit brew-nix;
           inherit (machine) username hostname homeDirectory;
         };
         modules = [
