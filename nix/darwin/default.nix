@@ -16,9 +16,6 @@
     home = homeDirectory;
   };
 
-  # Create symlink /etc/nix-darwin -> ~/.dotfiles
-  environment.etc."nix-darwin".source = "${homeDirectory}/.dotfiles";
-
   # Set hostname
   networking.hostName = hostname;
 
@@ -28,11 +25,14 @@
   # Enable user specific activation
   system.primaryUser = "${username}";
 
-  environment.systemPackages = [
-    pkgs._1password-gui
-    #pkgs.daisydisk
-    pkgs.google-chrome
-    pkgs.google-cloud-sdk
+  # Create symlink /etc/nix-darwin -> ~/.dotfiles
+  environment.etc."nix-darwin".source = "${homeDirectory}/.dotfiles";
+
+  environment.systemPackages = with pkgs; [
+    _1password-gui
+    #daisydisk
+    google-chrome
+    google-cloud-sdk
   ];
 
   fonts.packages = with pkgs; [
