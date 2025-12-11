@@ -35,6 +35,16 @@
     pkgs.google-cloud-sdk
   ];
 
+  fonts.packages = with pkgs; [
+    hackgen-font
+    hackgen-nf-font
+    plemoljp
+    plemoljp-nf
+    plemoljp-hs
+    udev-gothic
+    udev-gothic-nf
+  ];
+
   imports = [
     ./homebrew.nix
     ./brew-nix.nix
