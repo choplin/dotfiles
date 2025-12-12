@@ -4,6 +4,10 @@
   homeDirectory,
   ...
 }: {
+  imports = [
+    ./files.nix
+  ];
+
   programs.home-manager.enable = true;
 
   home = {
