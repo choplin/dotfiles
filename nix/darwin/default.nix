@@ -47,7 +47,6 @@
   ];
 
   imports = [
-    ./homebrew.nix
     ./brew-nix.nix
     ./system.nix
   ];
