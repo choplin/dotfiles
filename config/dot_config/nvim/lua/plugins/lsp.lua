@@ -1,4 +1,8 @@
-local local_env = require("local_env")
+local function safe_require(modname)
+  local ok, mod = pcall(require, modname)
+  return ok and mod or {}
+end
+local local_env = safe_require("local_env")
 return {
   {
     "mason-org/mason.nvim",
@@ -71,7 +75,7 @@ return {
         },
         zls = {
           mason = false,
-          cmd = { require("local_env").zls_path or "zls" },
+          cmd = { local_env.zls_path or "zls" },
         },
         denols = {
           root_dir = function(fname)
