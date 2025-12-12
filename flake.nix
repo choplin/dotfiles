@@ -53,22 +53,31 @@
         modules = [
           ./nix/darwin
           brew-nix.darwinModules.default
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = overlays;
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${machine.username} = import ./nix/home;
-              extraSpecialArgs = {
-                inherit rootDir;
-                inherit (machine) username homeDirectory;
-              };
-            };
-          }
         ];
       };
+    mkHome = name: machine: let
+      rootDir = "${machine.homeDirectory}/.dotfiles";
+    in
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = import inputs.nixpkgs {
+          inherit (machine) system;
+          inherit overlays;
+        };
+        extraSpecialArgs = {
+          inherit rootDir;
+          inherit (machine) username homeDirectory;
+        };
+        modules = [./nix/home];
+      };
+    # Rekeyed machines with "username@hostname" for homeConfigurations
+    homeMachines = builtins.listToAttrs (
+      builtins.map (name: {
+        name = "${machines.${name}.username}@${machines.${name}.hostname}";
+        value = machines.${name};
+      }) (builtins.attrNames machines)
+    );
   in {
     darwinConfigurations = builtins.mapAttrs mkDarwin machines;
+    homeConfigurations = builtins.mapAttrs mkHome homeMachines;
   };
 }

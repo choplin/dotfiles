@@ -2,6 +2,7 @@
   pkgs,
   username,
   homeDirectory,
+  rootDir,
   ...
 }: {
   imports = [
@@ -9,6 +10,9 @@
   ];
 
   programs.home-manager.enable = true;
+
+  # Allow `home-manager switch` without --flake
+  xdg.configFile."home-manager".source = ../..;
 
   home = {
     inherit username homeDirectory;
