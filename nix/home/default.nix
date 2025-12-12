@@ -2,7 +2,6 @@
   pkgs,
   username,
   homeDirectory,
-  rootDir,
   ...
 }: {
   imports = [
@@ -17,6 +16,9 @@
   home = {
     inherit username homeDirectory;
     stateVersion = "25.11";
+
+    # Whether to make programs use XDG directories whenever supported.
+    preferXdgDirectories = true;
 
     packages = with pkgs; [
       ast-grep

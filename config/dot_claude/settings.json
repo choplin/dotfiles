@@ -28,7 +28,6 @@
     "defaultMode": "plan"
   },
   "enableAllProjectMcpServers": true,
-{{- if eq .chezmoi.os "darwin" }}
   "hooks": {
     "Stop": [
       {
@@ -42,7 +41,6 @@
       }
     ]
   },
-{{- end }}
   "statusLine": {
     "type": "command",
     "command": "npx ccusage@latest statusline"
