@@ -47,4 +47,40 @@
     # Launch quick notes on the bottom right corner
     wvous-br-corner = 14;
   };
+
+  system.defaults.controlcenter = {
+    # Apple menu > System Preferences > Control Center > Battery. Show a battery percentage in menu bar.
+    BatteryShowPercentage = true;
+    # Apple menu > System Preferences > Control Center > Bluetooth. Show a bluetooth control in menu bar.
+    Bluetooth = false;
+    # Apple menu > System Preferences > Control Center > Display. Show a Screen Brightness control in menu bar
+    Display = false;
+  };
+
+  system.defaults.NSGlobalDomain = {
+    # Use F1, F2, etc. keys as standard function keys.
+    "com.apple.keyboard.fnState" = true;
+    # Configures the trackpad tap behavior. Mode 1 enables tap to click.
+    "com.apple.mouse.tapBehavior" = 1;
+    # Whether to enable "Natural" scrolling direction. The default is true.
+    "com.apple.swipescrolldirection" = false;
+    # Whether to enable trackpad secondary click. The default is true.
+    "com.apple.trackpad.enableSecondaryClick" = true;
+    # Whether to enable trackpad force click.
+    "com.apple.trackpad.forceClick" = true;
+    # How long you must hold down the key before it starts repeating.
+    InitialKeyRepeat = 15;
+    # How fast it repeats once it starts.
+    KeyRepeat = 2;
+  };
+
+  system.defaults.".GlobalPreferences" = {
+    "com.apple.mouse.scaling" = 0.5;
+  };
+
+  security.pam.services.sudo_local = {
+    enable = true;
+    reattach = true;
+    touchIdAuth = true;
+  };
 }
