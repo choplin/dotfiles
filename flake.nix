@@ -41,10 +41,13 @@
       inputs.neovim-nightly-overlay.overlays.default
     ];
 
-    mkDarwin = name: machine:
+    mkDarwin = name: machine: let
+      rootDir = "${machine.homeDirectory}/.dotfiles";
+    in
       nix-darwin.lib.darwinSystem {
         inherit (machine) system;
         specialArgs = {
+          inherit rootDir;
           inherit (machine) username hostname homeDirectory;
         };
         modules = [
@@ -58,8 +61,8 @@
               useUserPackages = true;
               users.${machine.username} = import ./nix/home;
               extraSpecialArgs = {
+                inherit rootDir;
                 inherit (machine) username homeDirectory;
-                configDir = ./config;
               };
             };
           }

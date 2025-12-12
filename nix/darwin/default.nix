@@ -3,6 +3,7 @@
   username,
   hostname,
   homeDirectory,
+  rootDir,
   ...
 }: {
   # Let Determinate manage Nix
@@ -26,7 +27,7 @@
   system.primaryUser = "${username}";
 
   # Create symlink /etc/nix-darwin -> ~/.dotfiles
-  environment.etc."nix-darwin".source = "${homeDirectory}/.dotfiles";
+  environment.etc."nix-darwin".source = rootDir;
 
   environment.systemPackages = with pkgs; [
     _1password-gui
