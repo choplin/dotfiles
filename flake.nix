@@ -59,6 +59,7 @@
               users.${machine.username} = import ./nix/home;
               extraSpecialArgs = {
                 inherit (machine) username homeDirectory;
+                configDir = ./config;
               };
             };
           }

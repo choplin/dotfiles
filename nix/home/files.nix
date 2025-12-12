@@ -1,6 +1,4 @@
-{homeDirectory, ...}: let
-  configDir = "${homeDirectory}/.dotfiles/config";
-in {
+{configDir, ...}: {
   # ~/.config/* -> config/dot_config/*
   xdg.configFile = {
     "broot".source = "${configDir}/dot_config/broot";
