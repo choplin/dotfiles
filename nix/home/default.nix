@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./files.nix
+    ./darwin.nix
   ];
 
   programs.home-manager.enable = true;
