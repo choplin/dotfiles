@@ -8,6 +8,7 @@
     };
 
     casks = [
+      "1password"
       "daisydisk"
       "karabiner-elements"
     ];

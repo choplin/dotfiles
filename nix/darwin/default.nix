@@ -30,7 +30,6 @@
   environment.etc."nix-darwin".source = rootDir;
 
   environment.systemPackages = with pkgs; [
-    _1password-gui
     google-chrome
     google-cloud-sdk
     wezterm
