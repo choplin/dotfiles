@@ -32,7 +32,6 @@
   environment.systemPackages = with pkgs; [
     google-chrome
     google-cloud-sdk
-    mas
     wezterm
     wezterm.terminfo
   ];

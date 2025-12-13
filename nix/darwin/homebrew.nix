@@ -6,6 +6,9 @@
       autoUpdate = true;
       cleanup = "uninstall";
     };
+    brews = [
+      "mas"
+    ];
 
     casks = [
       "1password"
