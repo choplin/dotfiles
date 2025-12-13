@@ -31,7 +31,6 @@
 
   environment.systemPackages = with pkgs; [
     _1password-gui
-    #daisydisk
     google-chrome
     google-cloud-sdk
     wezterm

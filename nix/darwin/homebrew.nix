@@ -8,6 +8,7 @@
     };
 
     casks = [
+      "daisydisk"
       "karabiner-elements"
     ];
   };
