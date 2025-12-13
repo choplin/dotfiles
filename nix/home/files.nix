@@ -19,6 +19,7 @@ in {
     "wezterm".source = link "${configDir}/dot_config/wezterm";
     "yazi".source = link "${configDir}/dot_config/yazi";
     "zsh".source = link "${configDir}/dot_config/zsh";
+    "karabiner".source = link "${configDir}/dot_config/karabiner";
   };
 
   # ~/* -> config/dot_*
