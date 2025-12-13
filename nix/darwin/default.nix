@@ -34,6 +34,7 @@
     #daisydisk
     google-chrome
     google-cloud-sdk
+    wezterm
   ];
 
   fonts.packages = with pkgs; [
