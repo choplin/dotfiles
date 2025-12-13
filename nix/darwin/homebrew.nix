@@ -12,5 +12,9 @@
       "daisydisk"
       "karabiner-elements"
     ];
+
+    masApps = {
+      Amphetamine = 937984704;
+    };
   };
 }
