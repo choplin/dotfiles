@@ -104,6 +104,15 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": false
+                },
+                {
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        }
+                    ]
                 }
             ],
             "name": "Default profile",
