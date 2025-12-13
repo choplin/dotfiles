@@ -34,6 +34,7 @@
     google-cloud-sdk
     mas
     wezterm
+    wezterm.terminfo
   ];
 
   fonts.packages = with pkgs; [
@@ -45,6 +46,10 @@
     udev-gothic
     udev-gothic-nf
   ];
+
+  launchd.user.envVariables = {
+    TERMINFO_DIRS = "/run/current-system/sw/share/terminfo::";
+  };
 
   imports = [
     ./brew-nix.nix
