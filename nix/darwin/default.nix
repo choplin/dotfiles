@@ -53,6 +53,7 @@
 
   imports = [
     ./brew-nix.nix
+    ./hotkeys.nix
     ./system.nix
     ./homebrew.nix
   ];
