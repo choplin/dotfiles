@@ -5,7 +5,6 @@
                 "rules": [
                     {
                         "description": "全角スペース->半角スペース",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
