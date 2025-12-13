@@ -7,7 +7,9 @@ __JIRA_FZF_OPTS=(
 )
 
 __jira_host() {
-    cat "$HOME/.config/.jira/.config.yml" | yq .server
+    if [ -e "$HOME/.config/.jira/.config.yml" ]; then
+        cat "$HOME/.config/.jira/.config.yml" | yq .server
+    fi
 }
 
 __jira_open_browser_bind_cmd=$(cat <<EOF
