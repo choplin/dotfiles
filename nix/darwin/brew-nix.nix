@@ -7,6 +7,7 @@
     blackhole-2ch
     contexts
     devtoys
+    discord
     ghostty
     github
     gitkraken-cli
