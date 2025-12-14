@@ -46,6 +46,10 @@
 
     # Launch quick notes on the bottom right corner
     wvous-br-corner = 14;
+
+    # Whether to group windows by application in Mission Control's Exposé.
+    # Recommended for aerospace
+    expose-group-apps = true;
   };
 
   system.defaults.controlcenter = {
