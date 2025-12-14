@@ -1,0 +1,20 @@
+font-family = "PlemolJP Console NF"
+font-size = 18
+
+theme = GitHub Dark High Contrast
+background-opacity = 1
+background-blur = 20
+window-padding-x = 10
+
+shell-integration = zsh
+auto-update = check
+
+keybind = super+d=new_split:right
+keybind = ctrl+shift+y>o=goto_split:next
+keybind = ctrl+shift+y>ctrl+shift+o=goto_split:next
+
+keybind = ctrl+shift+j=next_tab
+keybind = ctrl+shift+k=previous_tab
+
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+

@@ -21,6 +21,10 @@ in {
     "zsh".source = link "${configDir}/dot_config/zsh";
     "karabiner".source = link "${configDir}/dot_config/karabiner";
     "zed".source = link "${configDir}/dot_config/zed";
+    "glow".source = link "${configDir}/dot_config/glow";
+    "ghostty".source = link "${configDir}/dot_config/ghostty";
+    "gh".source = link "${configDir}/dot_config/gh";
+    "delta".source = link "${configDir}/dot_config/delta";
   };
 
   # ~/* -> config/dot_*
