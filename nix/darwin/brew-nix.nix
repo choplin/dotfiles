@@ -5,6 +5,7 @@
     alt-tab
     bartender
     blackhole-2ch
+    chatgpt-atlas
     contexts
     devtoys
     discord
