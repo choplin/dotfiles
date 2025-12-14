@@ -1,0 +1,105 @@
+[
+  {
+    "context": "Workspace || Editor",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-j": "editor::ContextMenuNext",
+      "ctrl-k": "editor::ContextMenuPrevious"
+    }
+  },
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-h": null,
+      "ctrl-j": null,
+      "ctrl-k": null,
+      "ctrl-l": null
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "r": "project_panel::Rename",
+      "a": "project_panel::NewFile",
+      "shift-a": "project_panel::NewDirectory",
+      "escape": "workspace::ToggleLeftDock",
+      "ctrl-[": "workspace::ToggleLeftDock"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "escape": "git_panel::Close",
+      "ctrl-[": "git_panel::Close"
+    }
+  },
+  {
+    "context": "GitDiff > Editor",
+    "bindings": {
+      "space": "git::ToggleStaged"
+    }
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "ctrl-[": "editor::Cancel"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "space space": "command_palette::Toggle",
+      "space e": "project_panel::ToggleFocus",
+      "space g g": ["task::Spawn", { "task_name": "LazyGit" }],
+      "space g p": "git_panel::ToggleFocus",
+      "space f f": "file_finder::Toggle",
+      "ctrl-/": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "j": ["vim::Down", { "display_lines": true }],
+      "k": ["vim::Up", { "display_lines": true }],
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePreviousItem",
+      "ctrl-space": "editor::SelectLargerSyntaxNode"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == visual && !menu",
+    "bindings": {
+      "ctrl-space": "editor::SelectLargerSyntaxNode",
+      "backspace": "editor::SelectSmallerSyntaxNode"
+    }
+  },
+  {
+    "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
+    "bindings": {
+      "q": "vim::AnyQuotes",
+      "b": "vim::AnyBrackets"
+    }
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "space": null
+    }
+  }
+]

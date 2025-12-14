@@ -20,6 +20,7 @@ in {
     "yazi".source = link "${configDir}/dot_config/yazi";
     "zsh".source = link "${configDir}/dot_config/zsh";
     "karabiner".source = link "${configDir}/dot_config/karabiner";
+    "zed".source = link "${configDir}/dot_config/zed";
   };
 
   # ~/* -> config/dot_*
