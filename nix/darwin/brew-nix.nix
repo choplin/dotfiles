@@ -5,6 +5,7 @@
     bartender
     blackhole-2ch
     chatgpt-atlas
+    cleanshot
     contexts
     devtoys
     discord
