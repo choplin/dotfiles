@@ -9,9 +9,11 @@
     contexts
     devtoys
     discord
+    elgato-stream-deck
     ghostty
     github
     gitkraken-cli
+    insta360-link-controller
     jetbrains-toolbox
     kap
     keycastr
