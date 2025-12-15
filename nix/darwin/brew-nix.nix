@@ -2,7 +2,6 @@
   brew-nix.enable = true;
 
   environment.systemPackages = with pkgs.brewCasks; [
-    alt-tab
     bartender
     blackhole-2ch
     chatgpt-atlas
