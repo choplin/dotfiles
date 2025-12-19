@@ -6,6 +6,8 @@
   rootDir,
   ...
 }: {
+  nixpkgs.config.allowUnfree = true;
+
   imports = [
     ./files.nix
     ./darwin.nix
