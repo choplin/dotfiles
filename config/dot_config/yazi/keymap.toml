@@ -1,48 +1,48 @@
 [[mgr.prepend_keymap]]
-on   = [ "g", "c" ]
-run  = "plugin git-files"
+on = ["g", "c"]
+run = "plugin git-files"
 desc = "Show Git file changes"
 
 [[mgr.prepend_keymap]]
-on   = [ "g", "r" ]
-run  = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'
+on = ["g", "r"]
+run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"'
 desc = "Go to Git repository root"
 
 [[mgr.prepend_keymap]]
-on   = "l"
-run  = "plugin smart-enter"
+on = "l"
+run = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[mgr.prepend_keymap]]
-on = [ "L" ]
+on = ["L"]
 run = "plugin bypass"
 desc = "Recursively enter child directory, skipping children with only a single subdirectory"
 
 [[mgr.prepend_keymap]]
-on = [ "H" ]
+on = ["H"]
 run = "plugin bypass reverse"
 desc = "Recursively enter parent directory, skipping parents with only a single subdirectory"
 
 [[mgr.prepend_keymap]]
-on   = "<Enter>"
-run  = "plugin smart-enter"
+on = "<Enter>"
+run = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[mgr.prepend_keymap]]
-on   = "!"
-for  = "unix"
-run  = 'shell "$SHELL" --block'
+on = "!"
+for = "unix"
+run = 'shell "$SHELL" --block'
 desc = "Open $SHELL here"
 
 [[mgr.prepend_keymap]]
-on   = "!"
-for  = "windows"
-run  = 'shell "powershell.exe" --block'
+on = "!"
+for = "windows"
+run = 'shell "powershell.exe" --block'
 desc = "Open PowerShell here"
 
 [[mgr.prepend_keymap]]
-on   = "p"
-run  = "plugin smart-paste"
+on = "p"
+run = "plugin smart-paste"
 desc = "Paste into the hovered directory or CWD"
 
 [[mgr.prepend_keymap]]
@@ -58,7 +58,12 @@ run = ["toggle", "arrow next"]
 on = "<C-p>"
 run = "spot"
 
+[[mgr.prepend_keymap]]
+on = ["c", "r"]
+run = "plugin path-from-root"
+desc = "Copies path from git root"
+
 [[input.prepend_keymap]]
-on   = "<Esc>"
-run  = "close"
+on = "<Esc>"
+run = "close"
 desc = "Cancel input"
