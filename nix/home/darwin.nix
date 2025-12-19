@@ -9,7 +9,7 @@
       AppleLocale = "en_JP";
     };
 
-    packages = with pkgs; [
+    home.packages = with pkgs; [
       m1ddc
     ];
   };
