@@ -31,6 +31,7 @@
       bat
       bottom
       broot
+      claude-code
       delta
       difftastic
       dust
