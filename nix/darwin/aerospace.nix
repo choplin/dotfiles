@@ -29,7 +29,7 @@ in {
         "Mail" # Q
         "Slack" # W
         "Obsidian" # E
-        "R"
+        "Notion" # R
         "T"
 
         "Atlas" # A
@@ -65,7 +65,7 @@ in {
         "alt-q" = "workspace Mail";
         "alt-w" = "workspace Slack";
         "alt-e" = "workspace Obsidian";
-        "alt-r" = "workspace R";
+        "alt-r" = "workspace Notion";
         "alt-t" = "workspace T";
 
         "alt-a" = "workspace Atlas";
@@ -83,7 +83,7 @@ in {
         "alt-shift-q" = "move-node-to-workspace Mail";
         "alt-shift-w" = "move-node-to-workspace Slack";
         "alt-shift-e" = "move-node-to-workspace Obsidian";
-        "alt-shift-r" = "move-node-to-workspace R";
+        "alt-shift-r" = "move-node-to-workspace Notion";
         "alt-shift-t" = "move-node-to-workspace T";
 
         "alt-shift-a" = "move-node-to-workspace Atlas";
@@ -99,7 +99,7 @@ in {
         "alt-shift-b" = "move-node-to-workspace Terminal";
 
         "alt-tab" = "workspace-back-and-forth";
-        "alt-shift-tab" = "move-workspace-to-monitor --wrap-around next";
+        "alt-esc" = "focus-monitor --wrap-around next";
         "alt-shift-n" = "mode service";
       };
 
@@ -121,6 +121,7 @@ in {
         (app_id_to_workspace "com.tinyspeck.slackmacgap" "Slack")
         (app_id_to_workspace "com.hnc.Discord" "Slack")
         (app_id_to_workspace "md.obsidian" "Obsidian")
+        (app_id_to_workspace "notion.id" "Notion")
 
         (app_id_to_workspace "com.openai.atlas" "Atlas")
         (app_id_to_workspace "ai.perplexity.comet" "Comet")
