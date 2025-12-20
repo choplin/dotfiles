@@ -8,12 +8,17 @@
     };
     brews = [
       "mas"
+      "choplin/tap/wtm"
     ];
 
     casks = [
       "1password"
       "daisydisk"
       "karabiner-elements"
+    ];
+
+    taps = [
+      "choplin/tap"
     ];
 
     masApps = {
