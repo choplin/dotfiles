@@ -14,6 +14,7 @@
     casks = [
       "1password"
       "daisydisk"
+      "drawio"
       "karabiner-elements"
     ];
 
