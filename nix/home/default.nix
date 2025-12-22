@@ -4,6 +4,7 @@
   username,
   homeDirectory,
   rootDir,
+  neovim-wrapped,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -56,7 +57,6 @@
       marp-cli
       minikube
       navi
-      neovim
       pgcli
       procs
       pueue
@@ -75,14 +75,8 @@
       yt-dlp
       zellij
       zoxide
-
-      # install them temporarily to install LSP servers via mason
-      # Once finding the way to use locally installed LSP, stop using them.
-      go
-      nodejs_24
-      rustc
-      cargo
-      alejandra
+    ] ++ [
+      neovim-wrapped
     ];
   };
 }

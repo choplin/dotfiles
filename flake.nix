@@ -27,6 +27,15 @@
     };
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    neovim-wrapped = {
+      url = "path:./flakes/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.neovim-nightly-overlay.follows = "neovim-nightly-overlay";
+    };
   };
 
   outputs = inputs @ {
@@ -57,15 +66,17 @@
       };
     mkHome = name: machine: let
       rootDir = "${machine.homeDirectory}/.dotfiles";
+      system = machine.system;
     in
       home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs {
-          inherit (machine) system;
+          inherit system;
           inherit overlays;
         };
         extraSpecialArgs = {
           inherit rootDir;
           inherit (machine) username homeDirectory;
+          neovim-wrapped = inputs.neovim-wrapped.packages.${system}.default;
         };
         modules = [./nix/home];
       };
