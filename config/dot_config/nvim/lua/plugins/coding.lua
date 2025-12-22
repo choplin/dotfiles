@@ -22,14 +22,4 @@ return {
       }
     end,
   },
-  -- copilot
-  {
-    "zbirenbaum/copilot.lua",
-    opts = {
-      panel = {
-        enabled = true,
-        auto_refresh = true,
-      },
-    },
-  },
 }
