@@ -63,6 +63,7 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
+          "neovim-wrapped",
           "neovim-nightly-overlay",
           "nixpkgs"
         ]
@@ -139,12 +140,8 @@
     },
     "neovim-wrapped": {
       "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "neovim-nightly-overlay": [
-          "neovim-nightly-overlay"
-        ],
+        "flake-parts": "flake-parts",
+        "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -231,9 +228,7 @@
       "inputs": {
         "brew-api": "brew-api",
         "brew-nix": "brew-nix",
-        "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "neovim-nightly-overlay": "neovim-nightly-overlay",
         "neovim-wrapped": "neovim-wrapped",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2"

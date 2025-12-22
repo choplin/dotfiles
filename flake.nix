@@ -26,15 +26,9 @@
       flake = false;
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     neovim-wrapped = {
       url = "path:./flakes/neovim";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.neovim-nightly-overlay.follows = "neovim-nightly-overlay";
     };
   };
 
@@ -45,10 +39,6 @@
     ...
   }: let
     machines = import ./machines.nix;
-
-    overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
-    ];
 
     mkDarwin = name: machine: let
       rootDir = "${machine.homeDirectory}/.dotfiles";
@@ -71,7 +61,6 @@
       home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs {
           inherit system;
-          inherit overlays;
         };
         extraSpecialArgs = {
           inherit rootDir;
