@@ -4,7 +4,6 @@
   username,
   homeDirectory,
   rootDir,
-  neovim-wrapped,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -12,6 +11,7 @@
   imports = [
     ./files.nix
     ./darwin.nix
+    ./neovim.nix
   ];
 
   programs.home-manager.enable = true;
@@ -75,8 +75,6 @@
       yt-dlp
       zellij
       zoxide
-    ] ++ [
-      neovim-wrapped
     ];
   };
 }

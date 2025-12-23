@@ -26,8 +26,8 @@
       flake = false;
     };
 
-    neovim-wrapped = {
-      url = "path:./flakes/neovim";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -61,11 +61,11 @@
       home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs {
           inherit system;
+          overlays = [inputs.neovim-nightly-overlay.overlays.default];
         };
         extraSpecialArgs = {
           inherit rootDir;
           inherit (machine) username homeDirectory;
-          neovim-wrapped = inputs.neovim-wrapped.packages.${system}.default;
         };
         modules = [./nix/home];
       };
