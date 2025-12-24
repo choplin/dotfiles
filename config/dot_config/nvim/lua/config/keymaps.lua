@@ -66,9 +66,3 @@ end, { desc = "Copy visual selection location" })
 vim.keymap.set("v", "<leader>cY", function()
   require("context").copy_visual_context()
 end, { desc = "Copy visual selection with context" })
-
-vim.keymap.set("i", "<C-f>", function()
-  if require("copilot.suggestion").is_visible() then
-    require("copilot.suggestion").accept()
-  end
-end)
