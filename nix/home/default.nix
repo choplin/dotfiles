@@ -12,6 +12,7 @@
     ./files.nix
     ./darwin.nix
     ./neovim.nix
+    ./programs.nix
   ];
 
   programs.home-manager.enable = true;
