@@ -1,0 +1,4 @@
+#!/bin/bash
+git add --intent-to-add flake.nix flake.lock
+git update-index --assume-unchanged flake.nix flake.lock
+echo "flake.nix and flake.lock are now hidden from git status"

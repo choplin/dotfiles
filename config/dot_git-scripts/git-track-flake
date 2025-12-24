@@ -1,0 +1,4 @@
+#!/bin/bash
+git update-index --no-assume-unchanged flake.nix flake.lock
+git rm --cached flake.nix flake.lock
+echo "flake.nix and flake.lock are now fully untracked from index"
