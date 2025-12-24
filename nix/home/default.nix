@@ -35,6 +35,7 @@
       broot
       claude-code
       delta
+      devenv
       difftastic
       dust
       fd
