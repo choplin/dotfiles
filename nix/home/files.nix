@@ -36,7 +36,6 @@ in {
     ".claude/docs".source = link "${configDir}/dot_claude/docs";
     ".claude/languages".source = link "${configDir}/dot_claude/languages";
     ".claude/references".source = link "${configDir}/dot_claude/references";
-    ".claude/scripts".source = link "${configDir}/dot_claude/scripts";
     ".claude/settings.json".source = link "${configDir}/dot_claude/settings.json";
     ".direnvrc".source = link "${configDir}/dot_direnvrc";
     ".editorconfig".source = link "${configDir}/dot_editorconfig";
