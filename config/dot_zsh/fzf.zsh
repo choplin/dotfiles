@@ -1,8 +1,3 @@
-if test -d $HOMEBREW_PREFIX/opt/fzf; then
-    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
-fi
-
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS="--height=40% --info=inline --layout=reverse --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -19,6 +14,10 @@ export FZF_CTRL_T_OPTS=$(
     --preview '[[ \$FZF_PROMPT =~ Files ]] && bat --color=always {} || tree -C {}'
 EOF
 )
+
+if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --zsh)"
+fi
 
 # ghq integration
 # Function to select a repository using fzf
