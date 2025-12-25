@@ -16,4 +16,8 @@ return {
       vim.g.zig_fmt_autosave = 0
     end,
   },
+  {
+    "scalameta/nvim-metals",
+    ft = { "scala", "sbt" },
+  },
 }
