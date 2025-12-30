@@ -16,6 +16,7 @@
       "daisydisk"
       "drawio"
       "karabiner-elements"
+      "superwhisper"
     ];
 
     taps = [
