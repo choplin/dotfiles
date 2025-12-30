@@ -1,0 +1,37 @@
+#!/bin/bash
+# Hide specified files from git status using --assume-unchanged flag
+
+set -euo pipefail
+
+usage() {
+  cat <<EOF
+Usage: git track <file>...
+
+Hide specified files from git status using --skip-worktree flag.
+Files are added to index with --intent-to-add first.
+
+Options:
+  -h, --help    Show this help message
+EOF
+}
+
+# Show help if requested
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+# Require at least one file argument
+if [[ $# -eq 0 ]]; then
+  echo "Error: No files specified" >&2
+  usage >&2
+  exit 1
+fi
+
+# Process each file
+for file in "$@"; do
+  git add --intent-to-add "$file"
+  git update-index --skip-worktree "$file"
+done
+
+echo "Specified files are now hidden from git status"
