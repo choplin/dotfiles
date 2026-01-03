@@ -7,8 +7,10 @@
     chatgpt-atlas
     cleanshot
     contexts
+    deskpad
     devtoys
     discord
+    drawio
     elgato-stream-deck
     ghostty
     github
@@ -26,6 +28,7 @@
     qmk-toolbox
     raycast
     slack
+    superwhisper
     visual-studio-code
     zed
   ];
