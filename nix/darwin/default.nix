@@ -46,10 +46,6 @@
     udev-gothic-nf
   ];
 
-  launchd.user.envVariables = {
-    TERMINFO_DIRS = "/run/current-system/sw/share/terminfo::";
-  };
-
   imports = [
     ./brew-nix.nix
     ./hotkeys.nix

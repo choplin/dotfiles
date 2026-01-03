@@ -9,14 +9,17 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-config.term = "wezterm"
-
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { "wsl.exe", "~", "-d", "Ubuntu" }
-elseif util.exists("/opt/homebrew/bin/zsh") then
-  config.default_prog = { "/opt/homebrew/bin/zsh", "-l" }
+elseif wezterm.target_triple == "aarch64-apple-darwin" then
+  if util.exists("/run/current-system/sw/share/terminfo") then
+    config.set_environment_variables = {
+      TERMINFO_DIRS = "/run/current-system/sw/share/terminfo::",
+    }
+  end
 end
 
+config.term = "wezterm"
 config.font = wezterm.font_with_fallback({
   "UDEV Gothic NF",
   "HackGen35 Console NF",
