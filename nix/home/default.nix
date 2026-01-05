@@ -9,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./claude-code.nix
     ./files.nix
     ./darwin.nix
     ./neovim.nix
@@ -33,7 +34,6 @@
       bat
       bottom
       broot
-      claude-code
       delta
       devenv
       difftastic
