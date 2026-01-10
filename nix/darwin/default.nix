@@ -52,6 +52,5 @@
     ./system.nix
     ./homebrew.nix
     ./services.nix
-    ./aerospace.nix
   ];
 }

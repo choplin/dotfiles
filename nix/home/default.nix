@@ -9,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./aerospace.nix
     ./claude-code.nix
     ./files.nix
     ./darwin.nix
@@ -18,6 +19,8 @@
   ];
 
   programs.home-manager.enable = true;
+
+  xdg.enable = true;
 
   # Allow `home-manager switch` without --flake
   xdg.configFile."home-manager".source = config.lib.file.mkOutOfStoreSymlink rootDir;

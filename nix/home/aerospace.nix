@@ -15,8 +15,9 @@
     run = ["move-node-to-workspace ${workspace}"];
   };
 in {
-  services.aerospace = {
+  programs.aerospace = {
     enable = true;
+    launchd.enable = true;
     settings = {
       config-version = 2;
 
