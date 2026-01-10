@@ -29,6 +29,7 @@
     raycast
     slack
     superwhisper
+    ticktick
     visual-studio-code
     zed
   ];
