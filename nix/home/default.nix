@@ -14,6 +14,7 @@
     ./darwin.nix
     ./neovim.nix
     ./programs.nix
+    ./sketchybar.nix
   ];
 
   programs.home-manager.enable = true;

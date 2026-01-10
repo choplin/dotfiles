@@ -20,7 +20,24 @@ in {
     settings = {
       config-version = 2;
 
+      # Trigger sketchybar update on workspace change
+      exec-on-workspace-change = [
+        "/bin/bash"
+        "-c"
+        "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
+      ];
+
       accordion-padding = 60;
+
+      # Gaps for sketchybar
+      gaps = {
+        outer.top = 40; # sketchybar height (32) + padding
+        outer.bottom = 8;
+        outer.left = 8;
+        outer.right = 8;
+        inner.horizontal = 8;
+        inner.vertical = 8;
+      };
 
       enable-normalization-flatten-containers = true;
       enable-normalization-opposite-orientation-for-nested-containers = true;
