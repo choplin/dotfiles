@@ -1,4 +1,4 @@
-{...}: let
+{pkgs, ...}: let
   app_id_to_workspace = app_id: workspace: {
     "if".app-id = app_id;
     run = ["move-node-to-workspace ${workspace}"];
@@ -16,7 +16,7 @@
   };
 in {
   programs.aerospace = {
-    enable = true;
+    enable = pkgs.stdenv.isDarwin;
     launchd.enable = true;
     settings = {
       config-version = 2;

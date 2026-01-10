@@ -99,7 +99,7 @@
     else builtins.substring 0 1 ws;
 in {
   programs.sketchybar = {
-    enable = true;
+    enable = pkgs.stdenv.isDarwin;
     extraPackages = with pkgs; [jq];
     config = ''
       #!/bin/bash

@@ -9,13 +9,11 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    ./aerospace.nix
     ./claude-code.nix
+    ./darwin
     ./files.nix
-    ./darwin.nix
     ./neovim.nix
     ./programs.nix
-    ./sketchybar.nix
   ];
 
   programs.home-manager.enable = true;
@@ -59,7 +57,6 @@
       lazydocker
       lazygit
       lsd
-      m1ddc
       marp-cli
       minikube
       navi
