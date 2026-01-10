@@ -8,6 +8,7 @@
         wrapProgram $out/bin/claude \
           --prefix PATH : ${pkgs.lib.makeBinPath [
           pkgs.nodejs
+          pkgs.bun
         ]}
       '';
       meta.mainProgram = "claude";
