@@ -1,102 +1,225 @@
 {pkgs, ...}: let
-  # Color definitions
+  # Color definitions (Glass style)
   colors = {
-    bg = "0x80333333";
-    leftBorder = "0xff61afef";
-    centerBorder = "0xff98c379";
-    rightBorder = "0xffc678dd";
-    active = "0xffffffff";
-    inactive = "0x80ffffff";
-    transparent = "0x00000000";
+    bar = "0x40000000"; # Black, 25% opacity
+    text = "0xffffffff"; # White
+    textDim = "0x99ffffff"; # Dim white
+    accent = "0xff61afef"; # Blue accent
+    # Load-based colors
+    low = "0xffffffff"; # White (0-50%)
+    medium = "0xffe5c07b"; # Yellow (50-80%)
+    high = "0xffe06c75"; # Red (80%+)
   };
 
-  # Plugin scripts
-  aerospacePlugin = pkgs.writeShellScript "aerospace.sh" ''
-    if [ "$1" = "$FOCUSED_WORKSPACE" ]; then
-      sketchybar --set "$NAME" background.drawing=on label.color=${colors.active}
+  # SF Symbols icons
+  icons = {
+    cpu = "􀧓";
+    memory = "􀫦";
+    batteryFull = "􀛨";
+    batteryCharging = "􀢋";
+    clock = "􀐫";
+    music = "􀑪";
+    pomodoro = "􀐱";
+    workspace = "􀏟";
+    play = "􀊄";
+    pause = "􀊆";
+  };
+
+  # Plugin: Current workspace + app names
+  workspacePlugin = pkgs.writeShellScript "workspace.sh" ''
+    AEROSPACE="/Users/aki/.nix-profile/bin/aerospace"
+
+    # Get current focused workspace
+    WORKSPACE=$($AEROSPACE list-workspaces --focused 2>/dev/null)
+    if [ -z "$WORKSPACE" ]; then
+      WORKSPACE="?"
+    fi
+
+    # Get apps in current workspace (show first 3)
+    APPS=$($AEROSPACE list-windows --workspace focused --format "%{app-name}" 2>/dev/null | sort -u | head -3 | tr '\n' ' ' | xargs)
+
+    if [ -n "$APPS" ]; then
+      sketchybar --set workspace icon="$WORKSPACE" label="$APPS"
     else
-      sketchybar --set "$NAME" background.drawing=off label.color=${colors.inactive}
+      sketchybar --set workspace icon="$WORKSPACE" label=""
     fi
   '';
 
-  frontAppPlugin = pkgs.writeShellScript "front_app.sh" ''
-    sketchybar --set "$NAME" label="$INFO"
+  # Plugin: CPU with load-based color
+  cpuPlugin = pkgs.writeShellScript "cpu.sh" ''
+    CPU=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | tr -d '%' | cut -d. -f1)
+    CPU=''${CPU:-0}
+
+    if [ "$CPU" -ge 80 ]; then
+      COLOR="${colors.high}"
+    elif [ "$CPU" -ge 50 ]; then
+      COLOR="${colors.medium}"
+    else
+      COLOR="${colors.low}"
+    fi
+
+    sketchybar --set "$NAME" label="''${CPU}%" icon.color="$COLOR"
   '';
 
+  # Plugin: Memory with load-based color
+  memoryPlugin = pkgs.writeShellScript "memory.sh" ''
+    MEM=$(memory_pressure 2>/dev/null | grep "System-wide memory free percentage" | awk '{print 100-$5}' | cut -d. -f1)
+    MEM=''${MEM:-0}
+
+    if [ "$MEM" -ge 80 ]; then
+      COLOR="${colors.high}"
+    elif [ "$MEM" -ge 50 ]; then
+      COLOR="${colors.medium}"
+    else
+      COLOR="${colors.low}"
+    fi
+
+    sketchybar --set "$NAME" label="''${MEM}%" icon.color="$COLOR"
+  '';
+
+  # Plugin: Battery
+  batteryPlugin = pkgs.writeShellScript "battery.sh" ''
+    PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | head -1 | tr -d '%')
+    CHARGING=$(pmset -g batt | grep -c "AC Power")
+
+    if [ "$CHARGING" -gt 0 ]; then
+      ICON="${icons.batteryCharging}"
+    else
+      ICON="${icons.batteryFull}"
+    fi
+
+    sketchybar --set "$NAME" icon="$ICON" label="''${PERCENTAGE}%"
+  '';
+
+  # Plugin: Clock
+  clockPlugin = pkgs.writeShellScript "clock.sh" ''
+    sketchybar --set "$NAME" label="$(date '+%a %b %d %H:%M')"
+  '';
+
+  # Plugin: YouTube Music (via Now Playing)
+  mediaPlugin = pkgs.writeShellScript "media.sh" ''
+    STATE=$(echo "$INFO" | jq -r '.state // empty')
+    APP=$(echo "$INFO" | jq -r '.app // empty')
+
+    if [ "$STATE" = "playing" ]; then
+      ARTIST=$(echo "$INFO" | jq -r '.artist // empty')
+      TITLE=$(echo "$INFO" | jq -r '.title // empty')
+
+      # Truncate if too long
+      if [ ''${#TITLE} -gt 30 ]; then
+        TITLE="''${TITLE:0:27}..."
+      fi
+
+      if [ -n "$ARTIST" ] && [ -n "$TITLE" ]; then
+        sketchybar --set "$NAME" label="$ARTIST - $TITLE" icon="${icons.play}" drawing=on
+      else
+        sketchybar --set "$NAME" drawing=off
+      fi
+    else
+      sketchybar --set "$NAME" drawing=off
+    fi
+  '';
+
+  # Plugin: Task input
   taskPlugin = pkgs.writeShellScript "task.sh" ''
     TASK_FILE="$HOME/.local/share/sketchybar/task.txt"
     mkdir -p "$(dirname "$TASK_FILE")"
     CURRENT=$(cat "$TASK_FILE" 2>/dev/null || echo "")
-    NEW=$(osascript -e 'text returned of (display dialog "今やること:" default answer "'"$CURRENT"'")')
+    NEW=$(osascript -e 'text returned of (display dialog "Task:" default answer "'"$CURRENT"'")')
     if [ -n "$NEW" ]; then
       echo "$NEW" > "$TASK_FILE"
       sketchybar --set task label="$NEW"
     fi
   '';
 
+  # Plugin: Task update
   taskUpdatePlugin = pkgs.writeShellScript "task_update.sh" ''
     TASK_FILE="$HOME/.local/share/sketchybar/task.txt"
     if [ -f "$TASK_FILE" ]; then
       TASK=$(cat "$TASK_FILE")
-      sketchybar --set "$NAME" label="$TASK"
+      if [ -n "$TASK" ]; then
+        sketchybar --set "$NAME" label="$TASK"
+      else
+        sketchybar --set "$NAME" label="No task"
+      fi
     else
-      sketchybar --set "$NAME" label="Click to set"
+      sketchybar --set "$NAME" label="No task"
     fi
   '';
 
-  mediaPlugin = pkgs.writeShellScript "media.sh" ''
-    STATE=$(echo "$INFO" | jq -r '.state')
-    if [ "$STATE" = "playing" ]; then
-      ARTIST=$(echo "$INFO" | jq -r '.artist')
-      TITLE=$(echo "$INFO" | jq -r '.title')
-      sketchybar --set "$NAME" label="$ARTIST - $TITLE" drawing=on
-    else
-      sketchybar --set "$NAME" drawing=off
+  # Plugin: Pomodoro
+  pomodoroClickPlugin = pkgs.writeShellScript "pomodoro_click.sh" ''
+    POMO_DIR="$HOME/.local/share/sketchybar"
+    POMO_FILE="$POMO_DIR/pomodoro"
+    mkdir -p "$POMO_DIR"
+
+    STATE=$(cat "$POMO_FILE" 2>/dev/null | head -1 || echo "idle")
+
+    case "$STATE" in
+      idle)
+        # Start work session (25 min)
+        END_TIME=$(($(date +%s) + 25 * 60))
+        echo "work" > "$POMO_FILE"
+        echo "$END_TIME" >> "$POMO_FILE"
+        ;;
+      work|break)
+        # Stop/reset
+        echo "idle" > "$POMO_FILE"
+        ;;
+    esac
+
+    # Trigger update
+    sketchybar --trigger pomodoro_update
+  '';
+
+  pomodoroUpdatePlugin = pkgs.writeShellScript "pomodoro_update.sh" ''
+    POMO_FILE="$HOME/.local/share/sketchybar/pomodoro"
+
+    if [ ! -f "$POMO_FILE" ]; then
+      sketchybar --set "$NAME" icon="${icons.pomodoro}" label="--:--" icon.color="${colors.textDim}"
+      exit 0
     fi
+
+    STATE=$(head -1 "$POMO_FILE" 2>/dev/null || echo "idle")
+    END_TIME=$(tail -1 "$POMO_FILE" 2>/dev/null || echo "0")
+    NOW=$(date +%s)
+
+    case "$STATE" in
+      work)
+        REMAINING=$((END_TIME - NOW))
+        if [ "$REMAINING" -le 0 ]; then
+          # Work done, start break (5 min)
+          END_TIME=$((NOW + 5 * 60))
+          echo "break" > "$POMO_FILE"
+          echo "$END_TIME" >> "$POMO_FILE"
+          osascript -e 'display notification "Time for a break!" with title "Pomodoro"' 2>/dev/null || true
+          REMAINING=$((5 * 60))
+          COLOR="${colors.accent}"
+        else
+          COLOR="${colors.high}"
+        fi
+        MINS=$((REMAINING / 60))
+        SECS=$((REMAINING % 60))
+        sketchybar --set "$NAME" icon="${icons.pomodoro}" label="$(printf '%02d:%02d' $MINS $SECS)" icon.color="$COLOR"
+        ;;
+      break)
+        REMAINING=$((END_TIME - NOW))
+        if [ "$REMAINING" -le 0 ]; then
+          # Break done
+          echo "idle" > "$POMO_FILE"
+          osascript -e 'display notification "Break over! Ready to work?" with title "Pomodoro"' 2>/dev/null || true
+          sketchybar --set "$NAME" icon="${icons.pomodoro}" label="--:--" icon.color="${colors.textDim}"
+        else
+          MINS=$((REMAINING / 60))
+          SECS=$((REMAINING % 60))
+          sketchybar --set "$NAME" icon="${icons.pomodoro}" label="$(printf '%02d:%02d' $MINS $SECS)" icon.color="${colors.accent}"
+        fi
+        ;;
+      *)
+        sketchybar --set "$NAME" icon="${icons.pomodoro}" label="--:--" icon.color="${colors.textDim}"
+        ;;
+    esac
   '';
-
-  cpuPlugin = pkgs.writeShellScript "cpu.sh" ''
-    CPU=$(top -l 1 | grep "CPU usage" | awk '{print $3}' | tr -d '%')
-    sketchybar --set "$NAME" icon="CPU" label="''${CPU}%"
-  '';
-
-  memoryPlugin = pkgs.writeShellScript "memory.sh" ''
-    MEM=$(memory_pressure | grep "System-wide memory free percentage" | awk '{print 100-$5}')
-    sketchybar --set "$NAME" icon="MEM" label="''${MEM}%"
-  '';
-
-  clockPlugin = pkgs.writeShellScript "clock.sh" ''
-    sketchybar --set "$NAME" label="$(date '+%m/%d %H:%M')"
-  '';
-
-  timerPlugin = pkgs.writeShellScript "timer.sh" ''
-    # macOS timer state (placeholder for future extension)
-    sketchybar --set "$NAME" label=""
-  '';
-
-  batteryPlugin = pkgs.writeShellScript "battery.sh" ''
-    PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | head -1)
-    CHARGING=$(pmset -g batt | grep -c "AC Power")
-    if [ "$CHARGING" -gt 0 ]; then
-      ICON="⚡"
-    else
-      ICON="🔋"
-    fi
-    sketchybar --set "$NAME" icon="$ICON" label="$PERCENTAGE"
-  '';
-
-  # Workspace list (sync with aerospace.nix)
-  workspaces = ["Mail" "Slack" "Obsidian" "Notion" "T" "Atlas" "S" "Comet" "Browser" "Browser-work" "Z" "X" "C" "Zed" "Terminal"];
-
-  # Short label for workspace
-  shortLabel = ws:
-    if ws == "Browser-work"
-    then "Bw"
-    else if ws == "Obsidian"
-    then "Obs"
-    else if ws == "Terminal"
-    then "Term"
-    else builtins.substring 0 1 ws;
 in {
   programs.sketchybar = {
     enable = pkgs.stdenv.isDarwin;
@@ -104,108 +227,103 @@ in {
     config = ''
       #!/bin/bash
 
-      # Bar settings
+      # Bar settings (glass style - background on entire bar)
       sketchybar --bar \
         height=32 \
-        color=${colors.transparent} \
+        color=${colors.bar} \
+        blur_radius=30 \
+        corner_radius=10 \
         position=top \
         sticky=on \
-        padding_left=8 \
-        padding_right=8
+        margin=8 \
+        padding_left=12 \
+        padding_right=12 \
+        y_offset=2
 
-      # Default item settings
+      # Default item settings (no background on items)
       sketchybar --default \
-        background.height=26 \
-        background.corner_radius=8 \
-        background.color=${colors.bg} \
-        background.border_width=2 \
-        padding_left=4 \
-        padding_right=4 \
-        icon.padding_left=6 \
+        background.drawing=off \
+        icon.font="SF Pro:Semibold:14.0" \
+        icon.color=${colors.text} \
+        icon.padding_left=8 \
         icon.padding_right=4 \
+        label.font="SF Pro:Medium:13.0" \
+        label.color=${colors.text} \
         label.padding_left=4 \
-        label.padding_right=6
+        label.padding_right=8 \
+        padding_left=0 \
+        padding_right=0
 
-      # === Left section (blue border) ===
+      # === Events ===
       sketchybar --add event aerospace_workspace_change
+      sketchybar --add event pomodoro_update
 
-      ${builtins.concatStringsSep "\n" (map (ws: ''
-          sketchybar --add item space.${ws} left \
-            --subscribe space.${ws} aerospace_workspace_change \
-            --set space.${ws} \
-              background.border_color=${colors.leftBorder} \
-              background.drawing=off \
-              label="${shortLabel ws}" \
-              click_script="aerospace workspace ${ws}" \
-              script="${aerospacePlugin} ${ws}"
-        '')
-        workspaces)}
+      # === Left section ===
+      # Current workspace + app names
+      sketchybar --add item workspace left \
+        --subscribe workspace aerospace_workspace_change \
+        --set workspace \
+          label.font="SF Pro:Bold:14.0" \
+          script="${workspacePlugin}"
 
-      # Front app
-      sketchybar --add item front_app left \
-        --subscribe front_app front_app_switched \
-        --set front_app \
-          background.border_color=${colors.leftBorder} \
-          icon.drawing=off \
-          script="${frontAppPlugin}"
-
-      # === Center section (green border) ===
+      # === Center section ===
       # Current task
       sketchybar --add item task center \
         --set task \
-          background.border_color=${colors.centerBorder} \
-          icon="📌" \
-          label="Click to set" \
+          icon="${icons.workspace}" \
+          label="No task" \
           update_freq=60 \
           click_script="${taskPlugin}" \
           script="${taskUpdatePlugin}"
 
-      # Now Playing
-      sketchybar --add item media center \
-        --subscribe media media_change \
-        --set media \
-          background.border_color=${colors.centerBorder} \
-          icon="♪" \
-          label="Not Playing" \
-          drawing=off \
-          script="${mediaPlugin}"
+      # Pomodoro timer
+      sketchybar --add item pomodoro center \
+        --subscribe pomodoro pomodoro_update \
+        --set pomodoro \
+          icon="${icons.pomodoro}" \
+          icon.color=${colors.textDim} \
+          label="--:--" \
+          update_freq=1 \
+          click_script="${pomodoroClickPlugin}" \
+          script="${pomodoroUpdatePlugin}"
 
-      # === Right section (purple border) ===
-      # Battery (rightmost)
+      # === Right section ===
+      # Clock (rightmost)
+      sketchybar --add item clock right \
+        --set clock \
+          icon="${icons.clock}" \
+          update_freq=10 \
+          script="${clockPlugin}"
+
+      # Battery
       sketchybar --add item battery right \
         --subscribe battery power_source_change system_woke \
         --set battery \
-          background.border_color=${colors.rightBorder} \
+          icon="${icons.batteryFull}" \
           update_freq=60 \
           script="${batteryPlugin}"
-
-      # Timer
-      sketchybar --add item timer right \
-        --set timer \
-          background.border_color=${colors.rightBorder} \
-          drawing=off \
-          script="${timerPlugin}"
-
-      # Clock
-      sketchybar --add item clock right \
-        --set clock \
-          background.border_color=${colors.rightBorder} \
-          update_freq=10 \
-          script="${clockPlugin}"
 
       # Memory
       sketchybar --add item memory right \
         --set memory \
-          background.border_color=${colors.rightBorder} \
+          icon="${icons.memory}" \
           update_freq=10 \
           script="${memoryPlugin}"
 
       # CPU
       sketchybar --add item cpu right \
         --set cpu \
-          background.border_color=${colors.rightBorder} \
+          icon="${icons.cpu}" \
           update_freq=5 \
           script="${cpuPlugin}"
+
+      # YouTube Music / Now Playing
+      sketchybar --add item media right \
+        --subscribe media media_change \
+        --set media \
+          icon="${icons.music}" \
+          drawing=off \
+          script="${mediaPlugin}"
 
       sketchybar --update
     '';

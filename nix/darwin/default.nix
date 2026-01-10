@@ -44,6 +44,7 @@
     plemoljp-hs
     udev-gothic
     udev-gothic-nf
+    sketchybar-app-font
   ];
 
   imports = [

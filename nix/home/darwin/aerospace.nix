@@ -30,9 +30,8 @@ in {
 
       accordion-padding = 60;
 
-      # Gaps for sketchybar
       gaps = {
-        outer.top = 35; # sketchybar height (32) + padding (3)
+        outer.top = 36;
         outer.bottom = 0;
         outer.left = 0;
         outer.right = 0;

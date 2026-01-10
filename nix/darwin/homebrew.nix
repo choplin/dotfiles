@@ -15,6 +15,7 @@
       "1password"
       "daisydisk"
       "karabiner-elements"
+      "sf-symbols"
     ];
 
     taps = [
