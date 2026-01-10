@@ -32,12 +32,12 @@ in {
 
       # Gaps for sketchybar
       gaps = {
-        outer.top = 40; # sketchybar height (32) + padding
-        outer.bottom = 8;
-        outer.left = 8;
-        outer.right = 8;
-        inner.horizontal = 8;
-        inner.vertical = 8;
+        outer.top = 35; # sketchybar height (32) + padding (3)
+        outer.bottom = 0;
+        outer.left = 0;
+        outer.right = 0;
+        inner.horizontal = 0;
+        inner.vertical = 0;
       };
 
       enable-normalization-flatten-containers = true;
