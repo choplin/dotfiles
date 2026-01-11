@@ -52,9 +52,9 @@
     "code-review@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "claude-mem@thedotmack": true
+    "claude-mem@thedotmack": true,
+    "plugin-dev@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
   "sandbox": {
     "enabled": true,
     "allowUnsandboxedCommands": false,
@@ -62,5 +62,6 @@
       "allowLocalBinding": true
     },
     "excludedCommands": []
-  }
+  },
+  "alwaysThinkingEnabled": true
 }
