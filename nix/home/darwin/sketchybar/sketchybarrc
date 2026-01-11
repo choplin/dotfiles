@@ -1,0 +1,146 @@
+#!/bin/bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+source "$PLUGIN_DIR/colors.sh"
+source "$PLUGIN_DIR/icons.sh"
+
+# Bar settings (transparent background for split layout)
+sketchybar --bar \
+    height=28 \
+    color=0x00000000 \
+    position=top \
+    sticky=on \
+    margin=8 \
+    padding_left=8 \
+    padding_right=8 \
+    y_offset=2
+
+# Default item settings (no background on items)
+sketchybar --default \
+    background.drawing=off \
+    icon.font="SF Pro:Semibold:14.0" \
+    icon.color=$COLOR_TEXT \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label.font="SF Pro:Medium:13.0" \
+    label.color=$COLOR_TEXT \
+    label.padding_left=4 \
+    label.padding_right=8 \
+    padding_left=0 \
+    padding_right=0
+
+# === Events ===
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event pomodoro_update
+sketchybar --add event workspace_apps_update
+
+# === Left section ===
+# Workspace name
+sketchybar --add item workspace left \
+    --subscribe workspace aerospace_workspace_change front_app_switched \
+    --set workspace \
+    icon.drawing=off \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+    label.padding_left=12 \
+    label.padding_right=12 \
+    background.drawing=on \
+    background.color=$COLOR_BG_PRIMARY \
+    background.corner_radius=14 \
+    background.padding_right=-20 \
+    script="$PLUGIN_DIR/workspace.sh"
+
+# Apps in workspace (trigger for dynamic items)
+sketchybar --add item workspace_apps left \
+    --subscribe workspace_apps workspace_apps_update \
+    --set workspace_apps \
+    icon.drawing=off \
+    label.drawing=off \
+    background.drawing=off \
+    script="$PLUGIN_DIR/workspace_apps.sh"
+
+# === Center section ===
+# Current task
+sketchybar --add item task center \
+    --set task \
+    icon="$ICON_WORKSPACE" \
+    label="No task" \
+    label.padding_right=12 \
+    update_freq=60 \
+    click_script="$PLUGIN_DIR/task.sh" \
+    script="$PLUGIN_DIR/task_update.sh"
+
+# Pomodoro timer
+sketchybar --add item pomodoro center \
+    --set pomodoro \
+    icon="$ICON_POMODORO" \
+    icon.color=$COLOR_TEXT_DIM \
+    label="--:--" \
+    label.padding_right=12 \
+    update_freq=1 \
+    click_script="$PLUGIN_DIR/pomodoro_click.sh" \
+    script="$PLUGIN_DIR/pomodoro_update.sh"
+
+# Center bracket
+sketchybar --add bracket center_bracket task pomodoro \
+    --set center_bracket \
+    background.drawing=on \
+    background.color=$COLOR_BAR \
+    background.corner_radius=14 \
+    background.height=28
+
+# === Right section ===
+# Clock (rightmost)
+sketchybar --add item clock right \
+    --set clock \
+    icon="$ICON_CLOCK" \
+    icon.padding_left=12 \
+    label.padding_right=12 \
+    background.drawing=on \
+    background.color=$COLOR_BG_PRIMARY \
+    background.corner_radius=14 \
+    background.padding_left=-20 \
+    update_freq=10 \
+    script="$PLUGIN_DIR/clock.sh"
+
+# Battery
+sketchybar --add item battery right \
+    --subscribe battery power_source_change system_woke \
+    --set battery \
+    icon="$ICON_BATTERY_FULL" \
+    label.padding_right=28 \
+    update_freq=60 \
+    script="$PLUGIN_DIR/battery.sh"
+
+# Memory
+sketchybar --add item memory right \
+    --set memory \
+    icon="$ICON_MEMORY" \
+    update_freq=10 \
+    script="$PLUGIN_DIR/memory.sh"
+
+# CPU
+sketchybar --add item cpu right \
+    --set cpu \
+    icon="$ICON_CPU" \
+    update_freq=5 \
+    script="$PLUGIN_DIR/cpu.sh"
+
+# YouTube Music / Now Playing
+sketchybar --add item media right \
+    --subscribe media media_change \
+    --set media \
+    icon="$ICON_MUSIC" \
+    drawing=off \
+    script="$PLUGIN_DIR/media.sh"
+
+# Right bracket
+sketchybar --add bracket right_bracket clock battery memory cpu \
+    --set right_bracket \
+    background.drawing=on \
+    background.color=$COLOR_BAR \
+    background.corner_radius=14 \
+    background.height=28
+
+sketchybar --update

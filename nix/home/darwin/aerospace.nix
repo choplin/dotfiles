@@ -24,14 +24,14 @@ in {
       # Trigger sketchybar update on workspace change
       exec-on-workspace-change = [
         "/bin/bash"
-        "-c"
+        "-lc"
         "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE"
       ];
 
       accordion-padding = 60;
 
       gaps = {
-        outer.top = 36;
+        outer.top = 32;
         outer.bottom = 0;
         outer.left = 0;
         outer.right = 0;

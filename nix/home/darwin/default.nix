@@ -7,7 +7,7 @@
   # Each module is responsible for making itself darwin-only via `enable = pkgs.stdenv.isDarwin`.
   imports = [
     ./aerospace.nix
-    ./sketchybar.nix
+    ./sketchybar
   ];
 
   config = lib.mkIf pkgs.stdenv.isDarwin {
