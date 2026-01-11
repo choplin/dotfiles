@@ -10,6 +10,7 @@
 
   imports = [
     ./claude-code.nix
+    ./codex.nix
     ./darwin
     ./files.nix
     ./neovim.nix
@@ -36,7 +37,6 @@
       bat
       bottom
       broot
-      codex
       delta
       devenv
       difftastic
