@@ -24,6 +24,7 @@ config.font = wezterm.font_with_fallback({
   "UDEV Gothic NF",
   "HackGen35 Console NF",
   "Broot Icons Visual Studio Code",
+  "SF Pro",
 })
 config.font_size = 18.0
 config.color_scheme = "tokyonight"
