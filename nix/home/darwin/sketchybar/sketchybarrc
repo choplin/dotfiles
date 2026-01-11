@@ -50,6 +50,23 @@ sketchybar --add item workspace left \
     background.padding_right=-20 \
     script="$PLUGIN_DIR/workspace.sh"
 
+# App list items (pre-created, updated dynamically)
+sketchybar --add item ws_app_0 left --set ws_app_0 drawing=off icon.drawing=off background.drawing=off \
+    --add item ws_dot_0 left --set ws_dot_0 drawing=off icon.drawing=off label.drawing=off background.drawing=off \
+    --add item ws_app_1 left --set ws_app_1 drawing=off icon.drawing=off background.drawing=off \
+    --add item ws_dot_1 left --set ws_dot_1 drawing=off icon.drawing=off label.drawing=off background.drawing=off \
+    --add item ws_app_2 left --set ws_app_2 drawing=off icon.drawing=off background.drawing=off \
+    --add item ws_dot_2 left --set ws_dot_2 drawing=off icon.drawing=off label.drawing=off background.drawing=off \
+    --add item ws_app_3 left --set ws_app_3 drawing=off icon.drawing=off background.drawing=off
+
+# App list bracket
+sketchybar --add bracket ws_apps_bracket ws_app_0 ws_dot_0 ws_app_1 ws_dot_1 ws_app_2 ws_dot_2 ws_app_3 \
+    --set ws_apps_bracket \
+    background.drawing=on \
+    background.color=$COLOR_BAR \
+    background.corner_radius=14 \
+    background.height=28
+
 # === Center section ===
 # Current task
 sketchybar --add item task center \
