@@ -36,6 +36,7 @@
       bat
       bottom
       broot
+      codex
       delta
       devenv
       difftastic
