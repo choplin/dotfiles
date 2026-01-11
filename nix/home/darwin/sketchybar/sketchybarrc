@@ -33,7 +33,6 @@ sketchybar --default \
 # === Events ===
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event pomodoro_update
-sketchybar --add event workspace_apps_update
 
 # === Left section ===
 # Workspace name
@@ -50,15 +49,6 @@ sketchybar --add item workspace left \
     background.corner_radius=14 \
     background.padding_right=-20 \
     script="$PLUGIN_DIR/workspace.sh"
-
-# Apps in workspace (trigger for dynamic items)
-sketchybar --add item workspace_apps left \
-    --subscribe workspace_apps workspace_apps_update \
-    --set workspace_apps \
-    icon.drawing=off \
-    label.drawing=off \
-    background.drawing=off \
-    script="$PLUGIN_DIR/workspace_apps.sh"
 
 # === Center section ===
 # Current task
