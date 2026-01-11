@@ -134,17 +134,16 @@ sketchybar --add item cpu right \
     update_freq=5 \
     script="$PLUGIN_DIR/cpu.sh"
 
-# YouTube Music / Now Playing
+# YouTube Music / Now Playing (updated by media_stream.sh background process)
 sketchybar --add item media right \
-    --subscribe media media_change \
     --set media \
     icon="$ICON_MUSIC" \
-    drawing=off \
-    script="$PLUGIN_DIR/media.sh"
+    icon.font="Hack Nerd Font:Regular:16.0" \
+    drawing=off
 
-# Right bracket
-sketchybar --add bracket right_bracket clock battery memory cpu \
-    --set right_bracket \
+# Stats bracket (cpu, memory, battery)
+sketchybar --add bracket stats_bracket cpu memory battery \
+    --set stats_bracket \
     background.drawing=on \
     background.color=$COLOR_BAR \
     background.corner_radius=14 \

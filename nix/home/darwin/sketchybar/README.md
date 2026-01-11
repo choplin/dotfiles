@@ -26,8 +26,21 @@
 - **Split bar layout**: Transparent bar with independent section brackets
 - **Rounded corner overlap**: Workspace and clock have colored backgrounds that overlap with adjacent items
 - **No transparency**: Solid colors to avoid blending issues at overlaps
+- **Colors**: Use existing palette in `plugins/colors.sh`, do not add new colors
 
 ## Dependencies
 
 - **Aerospace**: Workspace management
 - **SF Pro**: System font for icons and labels
+
+## Operations
+
+Managed by Nix, launched via launchd (not Homebrew services).
+
+```bash
+# Reload config (use this, not pkill)
+sketchybar --reload
+
+# Restart media stream service
+launchctl stop com.sketchybar.media-stream && launchctl start com.sketchybar.media-stream
+```

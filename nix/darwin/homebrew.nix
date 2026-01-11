@@ -8,6 +8,7 @@
     };
     brews = [
       "mas"
+      "media-control"
       "choplin/tap/wtm"
     ];
 

@@ -18,5 +18,18 @@ in {
       sketchybar
       jq
     ];
+
+    # Background process to stream media updates to sketchybar
+    launchd.agents.sketchybar-media-stream = {
+      enable = true;
+      config = {
+        Label = "com.sketchybar.media-stream";
+        ProgramArguments = ["${dotfilesDir}/plugins/media_stream.sh"];
+        RunAtLoad = true;
+        KeepAlive = true;
+        StandardOutPath = "/tmp/sketchybar-media-stream.log";
+        StandardErrorPath = "/tmp/sketchybar-media-stream.err";
+      };
+    };
   };
 }
