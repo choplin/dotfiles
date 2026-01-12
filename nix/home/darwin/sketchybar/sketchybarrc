@@ -32,7 +32,7 @@ sketchybar --default \
 
 # === Events ===
 sketchybar --add event aerospace_workspace_change
-sketchybar --add event pomodoro_update
+sketchybar --add event timer_update
 
 # === Left section ===
 # Workspace name
@@ -68,29 +68,140 @@ sketchybar --add bracket ws_apps_bracket ws_app_0 ws_dot_0 ws_app_1 ws_dot_1 ws_
     background.height=28
 
 # === Center section ===
-# Current task
+# Current task (from Obsidian daily note)
 sketchybar --add item task center \
+    --subscribe task mouse.exited.global \
     --set task \
     icon="$ICON_WORKSPACE" \
-    label="No task" \
-    label.padding_right=12 \
+    label="No tasks" \
+    label.padding_right=8 \
     update_freq=60 \
     click_script="$PLUGIN_DIR/task.sh" \
-    script="$PLUGIN_DIR/task_update.sh"
+    script="$PLUGIN_DIR/task_update.sh" \
+    popup.background.color=$COLOR_BAR \
+    popup.background.corner_radius=10 \
+    popup.background.border_color=$COLOR_TEXT_DIM \
+    popup.background.border_width=1
 
-# Pomodoro timer
-sketchybar --add item pomodoro center \
-    --set pomodoro \
+# Task popup menu items
+sketchybar --add item task_menu_complete popup.task \
+    --set task_menu_complete \
+    icon="󰄬" \
+    label="Complete" \
+    click_script="$PLUGIN_DIR/task_action.sh complete"
+
+sketchybar --add item task_menu_cancel popup.task \
+    --set task_menu_cancel \
+    icon="󰜺" \
+    label="Cancel" \
+    click_script="$PLUGIN_DIR/task_action.sh cancel"
+
+sketchybar --add item task_menu_forward popup.task \
+    --set task_menu_forward \
+    icon="󰒊" \
+    label="Forward" \
+    click_script="$PLUGIN_DIR/task_action.sh forward"
+
+sketchybar --add item task_menu_open popup.task \
+    --set task_menu_open \
+    icon="󰏋" \
+    label="Open Obsidian" \
+    click_script="$PLUGIN_DIR/task_action.sh open"
+
+# Timer (pomodoro-based with selectable duration)
+sketchybar --add item timer center \
+    --subscribe timer timer_update mouse.exited.global \
+    --set timer \
     icon="$ICON_POMODORO" \
     icon.color=$COLOR_TEXT_DIM \
     label="--:--" \
-    label.padding_right=12 \
+    label.width=50 \
+    label.align=center \
     update_freq=1 \
-    click_script="$PLUGIN_DIR/pomodoro_click.sh" \
-    script="$PLUGIN_DIR/pomodoro_update.sh"
+    click_script="$PLUGIN_DIR/timer_click.sh" \
+    script="$PLUGIN_DIR/timer_update.sh" \
+    popup.background.color=$COLOR_BAR \
+    popup.background.corner_radius=10 \
+    popup.background.border_color=$COLOR_TEXT_DIM \
+    popup.background.border_width=1
+
+# Timer popup menu items (idle state)
+sketchybar --add item timer_menu_25 popup.timer \
+    --set timer_menu_25 \
+    icon="󰔟" \
+    label="25 min" \
+    click_script="$PLUGIN_DIR/timer_action.sh 25"
+
+sketchybar --add item timer_menu_5 popup.timer \
+    --set timer_menu_5 \
+    icon="󰔟" \
+    label="5 min" \
+    click_script="$PLUGIN_DIR/timer_action.sh 5"
+
+sketchybar --add item timer_menu_1 popup.timer \
+    --set timer_menu_1 \
+    icon="󰔟" \
+    label="1 min" \
+    click_script="$PLUGIN_DIR/timer_action.sh 1"
+
+# Timer popup menu items (running/paused/break state)
+sketchybar --add item timer_menu_pause popup.timer \
+    --set timer_menu_pause \
+    icon="󰏤" \
+    label="Pause" \
+    drawing=off \
+    click_script="$PLUGIN_DIR/timer_action.sh pause"
+
+sketchybar --add item timer_menu_resume popup.timer \
+    --set timer_menu_resume \
+    icon="󰐊" \
+    label="Resume" \
+    drawing=off \
+    click_script="$PLUGIN_DIR/timer_action.sh resume"
+
+sketchybar --add item timer_menu_reset popup.timer \
+    --set timer_menu_reset \
+    icon="󰜉" \
+    label="Reset" \
+    drawing=off \
+    click_script="$PLUGIN_DIR/timer_action.sh reset"
+
+sketchybar --add item timer_menu_skip popup.timer \
+    --set timer_menu_skip \
+    icon="󰒭" \
+    label="Skip Break" \
+    drawing=off \
+    click_script="$PLUGIN_DIR/timer_action.sh skip"
+
+# Next calendar event
+sketchybar --add item calendar center \
+    --subscribe calendar mouse.exited.global \
+    --set calendar \
+    icon="$ICON_CALENDAR" \
+    label="No events" \
+    label.padding_right=12 \
+    update_freq=60 \
+    click_script="$PLUGIN_DIR/calendar.sh" \
+    script="$PLUGIN_DIR/calendar_update.sh" \
+    popup.background.color=$COLOR_BAR \
+    popup.background.corner_radius=10 \
+    popup.background.border_color=$COLOR_TEXT_DIM \
+    popup.background.border_width=1
+
+# Calendar popup menu items (max 5 events)
+sketchybar --add item calendar_menu_0 popup.calendar \
+    --set calendar_menu_0 icon="󰃭" label="" drawing=off
+sketchybar --add item calendar_menu_1 popup.calendar \
+    --set calendar_menu_1 icon="󰃭" label="" drawing=off
+sketchybar --add item calendar_menu_2 popup.calendar \
+    --set calendar_menu_2 icon="󰃭" label="" drawing=off
+sketchybar --add item calendar_menu_3 popup.calendar \
+    --set calendar_menu_3 icon="󰃭" label="" drawing=off
+sketchybar --add item calendar_menu_4 popup.calendar \
+    --set calendar_menu_4 icon="󰃭" label="" drawing=off
 
 # Center bracket
-sketchybar --add bracket center_bracket task pomodoro \
+sketchybar --add bracket center_bracket task timer calendar \
     --set center_bracket \
     background.drawing=on \
     background.color=$COLOR_BAR \

@@ -43,6 +43,7 @@
       dust
       fd
       fzf
+      gcalcli
       gdu
       gh
       ghq
