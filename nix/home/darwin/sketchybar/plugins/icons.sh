@@ -3,7 +3,10 @@
 # SF Symbols icons
 ICON_CPU="􀧓"
 ICON_MEMORY="􀫦"
-ICON_BATTERY_FULL="􀛨"
+ICON_BATTERY_100="􀛨"
+ICON_BATTERY_50="􀺶"
+ICON_BATTERY_25="􀛩"
+ICON_BATTERY_0="􀛪"
 ICON_BATTERY_CHARGING="􀢋"
 ICON_CLOCK="􀐫"
 ICON_MUSIC="􀑪"
