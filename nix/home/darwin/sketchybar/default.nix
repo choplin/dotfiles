@@ -19,6 +19,9 @@ in {
       jq
     ];
 
+    # Ensure log directory exists under XDG_STATE_HOME
+    xdg.stateFile."sketchybar/.keep".text = "";
+
     # Background process to stream media updates to sketchybar
     launchd.agents.sketchybar-media-stream = {
       enable = true;
@@ -27,8 +30,8 @@ in {
         ProgramArguments = ["${dotfilesDir}/plugins/media_stream.sh"];
         RunAtLoad = true;
         KeepAlive = true;
-        StandardOutPath = "/tmp/sketchybar-media-stream.log";
-        StandardErrorPath = "/tmp/sketchybar-media-stream.err";
+        StandardOutPath = "${config.xdg.stateHome}/sketchybar/media-stream.log";
+        StandardErrorPath = "${config.xdg.stateHome}/sketchybar/media-stream.err";
       };
     };
   };
