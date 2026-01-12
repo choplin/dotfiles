@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   app_id_to_workspace = app_id: workspace: {
     "if".app-id = app_id;
     run = ["move-node-to-workspace ${workspace}"];
@@ -13,6 +17,23 @@
     "if".app-id = app_id;
     "if".window-title-regex-substring = window_title;
     run = ["move-node-to-workspace ${workspace}"];
+  };
+  workspaces = {
+    Q = "Mail";
+    W = "Slack";
+    E = "Obsidian";
+    R = "Notion";
+    T = "Ticktick";
+    A = "Atlas";
+    S = "Comet";
+    D = "Browser";
+    F = "Browser-work";
+    G = "G";
+    Z = "Z";
+    X = "X";
+    C = "C";
+    V = "Zed";
+    B = "Terminal";
   };
 in {
   programs.aerospace = {
@@ -42,25 +63,7 @@ in {
       enable-normalization-flatten-containers = true;
       enable-normalization-opposite-orientation-for-nested-containers = true;
 
-      persistent-workspaces = [
-        "Mail" # Q
-        "Slack" # W
-        "Obsidian" # E
-        "Notion" # R
-        "T"
-
-        "Atlas" # A
-        "S"
-        "Comet" # D
-        "Browser" # F
-        "Browser-work" # G
-
-        "Z"
-        "X"
-        "C"
-        "Zed" # V
-        "Terminal" # B
-      ];
+      persistent-workspaces = lib.mapAttrsToList (key: name: name) workspaces;
 
       mode.main.binding = {
         "alt-period" = "layout tiles horizontal vertical";
@@ -79,41 +82,41 @@ in {
         "alt-minus" = "resize smart -50";
         "alt-equal" = "resize smart +50";
 
-        "alt-q" = "workspace Mail";
-        "alt-w" = "workspace Slack";
-        "alt-e" = "workspace Obsidian";
-        "alt-r" = "workspace Notion";
-        "alt-t" = "workspace T";
+        "alt-q" = "workspace ${workspaces.Q}";
+        "alt-w" = "workspace ${workspaces.W}";
+        "alt-e" = "workspace ${workspaces.E}";
+        "alt-r" = "workspace ${workspaces.R}";
+        "alt-t" = "workspace ${workspaces.T}";
 
-        "alt-a" = "workspace Atlas";
-        "alt-s" = "workspace S";
-        "alt-d" = "workspace Comet";
-        "alt-f" = "workspace Browser";
-        "alt-g" = "workspace Browser-work";
+        "alt-a" = "workspace ${workspaces.A}";
+        "alt-s" = "workspace ${workspaces.S}";
+        "alt-d" = "workspace ${workspaces.D}";
+        "alt-f" = "workspace ${workspaces.F}";
+        "alt-g" = "workspace ${workspaces.G}";
 
-        "alt-z" = "workspace Z";
-        "alt-x" = "workspace X";
-        "alt-c" = "workspace C";
-        "alt-v" = "workspace Zed";
-        "alt-b" = "workspace Terminal";
+        "alt-z" = "workspace ${workspaces.Z}";
+        "alt-x" = "workspace ${workspaces.X}";
+        "alt-c" = "workspace ${workspaces.C}";
+        "alt-v" = "workspace ${workspaces.V}";
+        "alt-b" = "workspace ${workspaces.B}";
 
-        "alt-shift-q" = "move-node-to-workspace Mail";
-        "alt-shift-w" = "move-node-to-workspace Slack";
-        "alt-shift-e" = "move-node-to-workspace Obsidian";
-        "alt-shift-r" = "move-node-to-workspace Notion";
-        "alt-shift-t" = "move-node-to-workspace T";
+        "alt-shift-q" = "move-node-to-workspace ${workspaces.Q}";
+        "alt-shift-w" = "move-node-to-workspace ${workspaces.W}";
+        "alt-shift-e" = "move-node-to-workspace ${workspaces.E}";
+        "alt-shift-r" = "move-node-to-workspace ${workspaces.R}";
+        "alt-shift-t" = "move-node-to-workspace ${workspaces.T}";
 
-        "alt-shift-a" = "move-node-to-workspace Atlas";
-        "alt-shift-s" = "move-node-to-workspace S";
-        "alt-shift-d" = "move-node-to-workspace Comet";
-        "alt-shift-f" = "move-node-to-workspace Browser";
-        "alt-shift-g" = "move-node-to-workspace Browser-work";
+        "alt-shift-a" = "move-node-to-workspace ${workspaces.A}";
+        "alt-shift-s" = "move-node-to-workspace ${workspaces.S}";
+        "alt-shift-d" = "move-node-to-workspace ${workspaces.D}";
+        "alt-shift-f" = "move-node-to-workspace ${workspaces.F}";
+        "alt-shift-g" = "move-node-to-workspace ${workspaces.G}";
 
-        "alt-shift-z" = "move-node-to-workspace Z";
-        "alt-shift-x" = "move-node-to-workspace X";
-        "alt-shift-c" = "move-node-to-workspace C";
-        "alt-shift-v" = "move-node-to-workspace Zed";
-        "alt-shift-b" = "move-node-to-workspace Terminal";
+        "alt-shift-z" = "move-node-to-workspace ${workspaces.Z}";
+        "alt-shift-x" = "move-node-to-workspace ${workspaces.X}";
+        "alt-shift-c" = "move-node-to-workspace ${workspaces.C}";
+        "alt-shift-v" = "move-node-to-workspace ${workspaces.V}";
+        "alt-shift-b" = "move-node-to-workspace ${workspaces.B}";
 
         "alt-tab" = "workspace-back-and-forth";
         "alt-esc" = "focus-monitor --wrap-around next";
@@ -139,6 +142,7 @@ in {
         (app_id_to_workspace "com.hnc.Discord" "Slack")
         (app_id_to_workspace "md.obsidian" "Obsidian")
         (app_id_to_workspace "notion.id" "Notion")
+        (app_id_to_workspace "com.TickTick.task.mac" "Ticktick")
 
         (app_id_to_workspace "com.openai.atlas" "Atlas")
         (app_id_to_workspace "ai.perplexity.comet" "Comet")
