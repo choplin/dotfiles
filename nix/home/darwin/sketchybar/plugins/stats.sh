@@ -3,8 +3,9 @@
 source "$(dirname "$0")/colors.sh"
 source "$(dirname "$0")/icons.sh"
 
-# === CPU ===
-CPU=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | tr -d '%' | cut -d. -f1)
+# === CPU (ps is lighter than top) ===
+NCPU=$(sysctl -n hw.ncpu)
+CPU=$(ps -A -o %cpu | awk -v ncpu="$NCPU" '{sum+=$1} END {printf "%.0f", sum/ncpu}')
 CPU=${CPU:-0}
 
 if [ "$CPU" -ge 80 ]; then
@@ -15,8 +16,8 @@ else
     CPU_COLOR="$COLOR_LOW"
 fi
 
-# === Memory ===
-MEM=$(memory_pressure 2>/dev/null | grep "System-wide memory free percentage" | awk '{print 100-$5}' | cut -d. -f1)
+# === Memory (single awk call) ===
+MEM=$(memory_pressure 2>/dev/null | awk '/System-wide memory free percentage/ {printf "%.0f", 100-$5}')
 MEM=${MEM:-0}
 
 if [ "$MEM" -ge 80 ]; then
@@ -31,10 +32,9 @@ fi
 INTERFACE="en0"
 CACHE_FILE="/tmp/sketchybar_network_cache"
 
-NET_STATUS=$(ifconfig en0 2>/dev/null | grep -o "status: .*" | awk '{print $2}')
+NET_STATUS=$(ifconfig en0 2>/dev/null | awk '/status:/ {print $2}')
 
 if [[ "$NET_STATUS" != "active" ]]; then
-    # WiFi disconnected
     sketchybar \
         --set cpu label="${CPU}%" icon.color="$CPU_COLOR" \
         --set memory label="${MEM}%" icon.color="$MEM_COLOR" \
@@ -47,17 +47,12 @@ if [[ "$NET_STATUS" != "active" ]]; then
     exit 0
 fi
 
-# Get current bytes
-CURRENT=$(netstat -ib | grep -E "^${INTERFACE}\s" | head -1 | awk '{print $7, $10}')
-CURRENT_DOWN=$(echo "$CURRENT" | awk '{print $1}')
-CURRENT_UP=$(echo "$CURRENT" | awk '{print $2}')
+# Get current bytes (single awk call)
+read -r CURRENT_DOWN CURRENT_UP <<< "$(netstat -ib | awk -v iface="$INTERFACE" '$1 == iface {print $7, $10; exit}')"
 
-# Read previous values
+# Read previous values (single read)
 if [ -f "$CACHE_FILE" ]; then
-    PREV=$(cat "$CACHE_FILE")
-    PREV_DOWN=$(echo "$PREV" | awk '{print $1}')
-    PREV_UP=$(echo "$PREV" | awk '{print $2}')
-    PREV_TIME=$(echo "$PREV" | awk '{print $3}')
+    read -r PREV_DOWN PREV_UP PREV_TIME < "$CACHE_FILE"
 else
     PREV_DOWN=0
     PREV_UP=0
@@ -68,31 +63,28 @@ fi
 CURRENT_TIME=$(date +%s)
 echo "$CURRENT_DOWN $CURRENT_UP $CURRENT_TIME" > "$CACHE_FILE"
 
-# Calculate speed (bytes per second)
+# Calculate speed
 TIME_DIFF=$((CURRENT_TIME - PREV_TIME))
-if [ "$TIME_DIFF" -le 0 ]; then
-    TIME_DIFF=1
-fi
+[ "$TIME_DIFF" -le 0 ] && TIME_DIFF=1
 
 DOWN_DIFF=$((CURRENT_DOWN - PREV_DOWN))
 UP_DIFF=$((CURRENT_UP - PREV_UP))
 
-# Handle counter reset
-if [ "$DOWN_DIFF" -lt 0 ]; then DOWN_DIFF=0; fi
-if [ "$UP_DIFF" -lt 0 ]; then UP_DIFF=0; fi
+[ "$DOWN_DIFF" -lt 0 ] && DOWN_DIFF=0
+[ "$UP_DIFF" -lt 0 ] && UP_DIFF=0
 
 DOWN_SPEED=$((DOWN_DIFF / TIME_DIFF))
 UP_SPEED=$((UP_DIFF / TIME_DIFF))
 
-# Format speed (convert to human readable)
+# Format speed (bash arithmetic only, no bc)
 format_speed() {
     local speed=$1
     if [ "$speed" -ge 1073741824 ]; then
-        printf "%.1fG" "$(echo "scale=1; $speed/1073741824" | bc)"
+        printf "%d.%dG" $((speed / 1073741824)) $(((speed % 1073741824) * 10 / 1073741824))
     elif [ "$speed" -ge 1048576 ]; then
-        printf "%.1fM" "$(echo "scale=1; $speed/1048576" | bc)"
+        printf "%d.%dM" $((speed / 1048576)) $(((speed % 1048576) * 10 / 1048576))
     elif [ "$speed" -ge 1024 ]; then
-        printf "%.0fK" "$(echo "scale=0; $speed/1024" | bc)"
+        printf "%dK" $((speed / 1024))
     else
         printf "0K"
     fi

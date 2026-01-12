@@ -44,6 +44,7 @@ case "$STATE" in
             else
                 # Other durations: just notify and reset
                 echo "idle" > "$TIMER_FILE"
+                sketchybar --set timer update_freq=0
                 osascript -e 'display notification "Timer complete!" with title "Timer"' 2>/dev/null || true
                 afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
                 sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
@@ -59,6 +60,7 @@ case "$STATE" in
         if [[ $REMAINING -le 0 ]]; then
             # Break done
             echo "idle" > "$TIMER_FILE"
+            sketchybar --set timer update_freq=0
             osascript -e 'display notification "Break over! Ready?" with title "Timer"' 2>/dev/null || true
             afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
             sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"

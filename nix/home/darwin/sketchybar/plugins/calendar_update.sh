@@ -11,19 +11,36 @@ case "$SENDER" in
         ;;
 esac
 
-# Get next calendar event using gcalcli
+# Cache settings
+CACHE_FILE="/tmp/sketchybar_calendar_cache"
+CACHE_TTL=60
+
 NOW_EPOCH=$(date +%s)
 NOW_HM=$(date +%H:%M)
 TODAY=$(date +%Y-%m-%d)
 
-# Get today's events, filter future ones within 1 hour, take first
-NEXT_LINE=$(gcalcli agenda "$TODAY" "$TODAY 23:59" --nocolor --tsv 2>/dev/null | \
-    awk -F'\t' -v now="$NOW_HM" '
-        NR > 1 && $2 >= now {
-            print $2 "\t" $5
-            exit
-        }
-    ')
+# Check cache validity
+EVENTS=""
+if [[ -f "$CACHE_FILE" ]]; then
+    CACHE_AGE=$((NOW_EPOCH - $(stat -f %m "$CACHE_FILE")))
+    if [[ $CACHE_AGE -lt $CACHE_TTL ]]; then
+        EVENTS=$(cat "$CACHE_FILE")
+    fi
+fi
+
+# Fetch if cache miss/expired
+if [[ -z "$EVENTS" ]]; then
+    EVENTS=$(gcalcli agenda "$TODAY" "$TODAY 23:59" --nocolor --tsv 2>/dev/null | tail -n +2)
+    echo "$EVENTS" > "$CACHE_FILE"
+fi
+
+# Filter for next event
+NEXT_LINE=$(echo "$EVENTS" | awk -F'\t' -v now="$NOW_HM" '
+    $2 >= now {
+        print $2 "\t" $5
+        exit
+    }
+')
 
 if [[ -z "$NEXT_LINE" ]]; then
     sketchybar --set "$NAME" icon="$ICON_CALENDAR" label="No events" icon.color="$COLOR_TEXT_DIM"

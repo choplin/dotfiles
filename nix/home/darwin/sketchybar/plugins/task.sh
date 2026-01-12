@@ -39,18 +39,14 @@ esac
 # Left click: Rotate through tasks
 INDEX=$(cat "$INDEX_FILE" 2>/dev/null || echo "-1")
 
-# Count tasks
-TASK_COUNT=$(treemd -s "Tasks" "$DAILY" 2>/dev/null | grep -c '^- \[ \]')
-[[ $TASK_COUNT -eq 0 ]] && exit 0
-
 # If no selection, start from 0; otherwise increment
 if [[ $INDEX -eq -1 ]]; then
     INDEX=0
 else
-    INDEX=$(( (INDEX + 1) % TASK_COUNT ))
+    INDEX=$((INDEX + 1))
 fi
 echo "$INDEX" > "$INDEX_FILE"
 
-# Trigger update
+# Trigger update (task_update.sh will handle bounds/wrap)
 "$(dirname "$0")/task_update.sh"
 sketchybar --update

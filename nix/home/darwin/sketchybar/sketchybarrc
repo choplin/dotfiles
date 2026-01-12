@@ -117,7 +117,7 @@ sketchybar --add item timer center \
     label="--:--" \
     label.width=50 \
     label.align=center \
-    update_freq=1 \
+    update_freq=0 \
     click_script="$PLUGIN_DIR/timer_click.sh" \
     script="$PLUGIN_DIR/timer_update.sh" \
     popup.background.color=$COLOR_BAR \

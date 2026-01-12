@@ -12,21 +12,46 @@ fi
 if [[ "$BUTTON" == "left" ]]; then
     TODAY=$(date +%Y-%m-%d)
 
-    # Get today's events
-    EVENTS=$(gcalcli agenda "$TODAY" "$TODAY 23:59" --nocolor --tsv 2>/dev/null | tail -n +2)
+    # Cache settings
+    CACHE_FILE="/tmp/sketchybar_calendar_cache"
+    CACHE_TTL=60
+    NOW_EPOCH=$(date +%s)
 
-    # Update popup items (max 5)
-    for i in 0 1 2 3 4; do
-        LINE=$(echo "$EVENTS" | sed -n "$((i+1))p")
-        if [[ -n "$LINE" ]]; then
-            TIME=$(echo "$LINE" | cut -f2)
-            TITLE=$(echo "$LINE" | cut -f5)
+    # Check cache validity
+    EVENTS=""
+    if [[ -f "$CACHE_FILE" ]]; then
+        CACHE_AGE=$((NOW_EPOCH - $(stat -f %m "$CACHE_FILE")))
+        if [[ $CACHE_AGE -lt $CACHE_TTL ]]; then
+            EVENTS=$(cat "$CACHE_FILE")
+        fi
+    fi
+
+    # Fetch if cache miss/expired
+    if [[ -z "$EVENTS" ]]; then
+        EVENTS=$(gcalcli agenda "$TODAY" "$TODAY 23:59" --nocolor --tsv 2>/dev/null | tail -n +2)
+        echo "$EVENTS" > "$CACHE_FILE"
+    fi
+
+    # Update popup items (max 5) using while loop instead of sed/cut in loop
+    i=0
+    while IFS=$'\t' read -r DATE TIME END_TIME _ TITLE _; do
+        if [[ $i -ge 5 ]]; then
+            break
+        fi
+        if [[ -n "$TIME" ]]; then
             # Truncate title if too long
             [[ ${#TITLE} -gt 20 ]] && TITLE="${TITLE:0:17}..."
-            sketchybar --set calendar_menu_$i drawing=on label="$TIME $TITLE"
+            sketchybar --set "calendar_menu_$i" drawing=on label="$TIME $TITLE"
         else
-            sketchybar --set calendar_menu_$i drawing=off
+            sketchybar --set "calendar_menu_$i" drawing=off
         fi
+        ((i++))
+    done <<< "$EVENTS"
+
+    # Hide remaining items
+    while [[ $i -lt 5 ]]; do
+        sketchybar --set "calendar_menu_$i" drawing=off
+        ((i++))
     done
 
     sketchybar --set calendar popup.drawing=toggle

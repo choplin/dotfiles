@@ -13,6 +13,8 @@ start_timer() {
     echo "running" > "$TIMER_FILE"
     echo "$END_TIME" >> "$TIMER_FILE"
     echo "$DURATION" >> "$TIMER_FILE"
+    # Enable 1-second updates while timer is running
+    sketchybar --set timer update_freq=1
 }
 
 case "$ACTION" in
@@ -39,6 +41,8 @@ case "$ACTION" in
         ;;
     reset|skip)
         echo "idle" > "$TIMER_FILE"
+        # Disable updates when idle
+        sketchybar --set timer update_freq=0
         ;;
 esac
 
