@@ -231,6 +231,21 @@ sketchybar --add item battery right \
     update_freq=60 \
     script="$PLUGIN_DIR/battery.sh"
 
+# Network (down/up as separate items for colored icons)
+sketchybar --add item network_up right \
+    --set network_up \
+    icon="$ICON_NETWORK_UP" \
+    icon.color="$PINK" \
+    label="0K"
+
+sketchybar --add item network_down right \
+    --set network_down \
+    icon="$ICON_NETWORK_DOWN" \
+    icon.color="$CYAN" \
+    label="0K" \
+    update_freq=2 \
+    script="$PLUGIN_DIR/network.sh"
+
 # Memory
 sketchybar --add item memory right \
     --set memory \
@@ -252,8 +267,8 @@ sketchybar --add item media right \
     icon.font="Hack Nerd Font:Regular:16.0" \
     drawing=off
 
-# Stats bracket (cpu, memory, battery)
-sketchybar --add bracket stats_bracket cpu memory battery \
+# Stats bracket (cpu, memory, network_down, network_up, battery)
+sketchybar --add bracket stats_bracket cpu memory network_down network_up battery \
     --set stats_bracket \
     background.drawing=on \
     background.color=$COLOR_BAR \
