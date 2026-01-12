@@ -10,8 +10,10 @@ APPS_FILE=$(mktemp)
 FOCUSED_FILE=$(mktemp)
 trap 'rm -f "$WS_FILE" "$APPS_FILE" "$FOCUSED_FILE"' EXIT
 
+PLUGIN_DIR="$(dirname "$0")"
+
 $AEROSPACE list-workspaces --focused 2>/dev/null > "$WS_FILE" &
-$AEROSPACE list-windows --workspace focused --format "%{app-name}" 2>/dev/null | sort -u | head -4 > "$APPS_FILE" &
+$AEROSPACE list-windows --workspace focused --format "%{window-id}|%{app-name}" 2>/dev/null > "$APPS_FILE" &
 $AEROSPACE list-windows --focused --format "%{app-name}" 2>/dev/null > "$FOCUSED_FILE" &
 wait
 
@@ -20,19 +22,22 @@ FOCUSED=$(cat "$FOCUSED_FILE")
 
 [ -z "$WORKSPACE" ] && WORKSPACE="?"
 
-# Read apps into array
-APPS=()
-while IFS= read -r APP; do
-    [ -n "$APP" ] && APPS+=("$APP")
-done < "$APPS_FILE"
+# Read apps into arrays (deduplicated by app-name, keeping first window-id)
+# Use awk for deduplication (bash 3.2 compatible - no associative arrays)
+APP_NAMES=()
+APP_WINDOW_IDS=()
+while IFS='|' read -r WINDOW_ID APP_NAME; do
+    [ -n "$APP_NAME" ] && APP_NAMES+=("$APP_NAME") && APP_WINDOW_IDS+=("$WINDOW_ID")
+done < <(awk -F'|' '!seen[$2]++ {print}' "$APPS_FILE" | head -4)
 
 # Build batch command
 BATCH_ARGS=(--set "$NAME" label="$WORKSPACE")
 
 # Update fixed app items (0-3)
 for i in 0 1 2 3; do
-    if [ $i -lt ${#APPS[@]} ]; then
-        APP="${APPS[$i]}"
+    if [ $i -lt ${#APP_NAMES[@]} ]; then
+        APP="${APP_NAMES[$i]}"
+        WINDOW_ID="${APP_WINDOW_IDS[$i]}"
 
         # Determine color based on focus
         if [ "$APP" = "$FOCUSED" ]; then
@@ -56,7 +61,8 @@ for i in 0 1 2 3; do
             label.color="$COLOR"
             label.font="SF Pro:Medium:13.0"
             label.padding_left="$LABEL_PAD_LEFT"
-            label.padding_right="$LABEL_PAD_RIGHT")
+            label.padding_right="$LABEL_PAD_RIGHT"
+            click_script="$PLUGIN_DIR/app_click.sh $WINDOW_ID")
 
         # Show dot separator before this item (except first)
         if [ $i -gt 0 ]; then
