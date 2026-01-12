@@ -13,7 +13,9 @@ if [[ "$BUTTON" == "left" ]]; then
     TODAY=$(date +%Y-%m-%d)
 
     # Cache settings
-    CACHE_FILE="/tmp/sketchybar_calendar_cache"
+    CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar"
+    mkdir -p "$CACHE_DIR"
+    CACHE_FILE="$CACHE_DIR/calendar"
     CACHE_TTL=60
     NOW_EPOCH=$(date +%s)
 

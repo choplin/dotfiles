@@ -36,6 +36,7 @@ case "$STATE" in
                 echo "$END_TIME" >> "$TIMER_FILE"
                 echo "$BREAK_MINS" >> "$TIMER_FILE"
                 osascript -e 'display notification "Time for a break!" with title "Timer"' 2>/dev/null || true
+                pkill -f "Illuminate.m4r" 2>/dev/null
                 afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
                 REMAINING=$((BREAK_MINS * 60))
                 MINS=$((REMAINING / 60))
@@ -46,6 +47,7 @@ case "$STATE" in
                 echo "idle" > "$TIMER_FILE"
                 sketchybar --set timer update_freq=0
                 osascript -e 'display notification "Timer complete!" with title "Timer"' 2>/dev/null || true
+                pkill -f "Illuminate.m4r" 2>/dev/null
                 afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
                 sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
             fi
@@ -62,6 +64,7 @@ case "$STATE" in
             echo "idle" > "$TIMER_FILE"
             sketchybar --set timer update_freq=0
             osascript -e 'display notification "Break over! Ready?" with title "Timer"' 2>/dev/null || true
+            pkill -f "Illuminate.m4r" 2>/dev/null
             afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
             sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
         else

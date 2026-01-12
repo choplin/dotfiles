@@ -4,7 +4,16 @@ source "$(dirname "$0")/colors.sh"
 source "$(dirname "$0")/icons.sh"
 
 # === CPU (ps is lighter than top) ===
-NCPU=$(sysctl -n hw.ncpu)
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar"
+mkdir -p "$CACHE_DIR"
+
+NCPU_CACHE="$CACHE_DIR/ncpu"
+if [[ -f "$NCPU_CACHE" ]]; then
+    NCPU=$(cat "$NCPU_CACHE")
+else
+    NCPU=$(sysctl -n hw.ncpu)
+    echo "$NCPU" > "$NCPU_CACHE"
+fi
 CPU=$(ps -A -o %cpu | awk -v ncpu="$NCPU" '{sum+=$1} END {printf "%.0f", sum/ncpu}')
 CPU=${CPU:-0}
 
@@ -30,7 +39,7 @@ fi
 
 # === Network ===
 INTERFACE="en0"
-CACHE_FILE="/tmp/sketchybar_network_cache"
+CACHE_FILE="$CACHE_DIR/network"
 
 NET_STATUS=$(ifconfig en0 2>/dev/null | awk '/status:/ {print $2}')
 
@@ -47,8 +56,8 @@ if [[ "$NET_STATUS" != "active" ]]; then
     exit 0
 fi
 
-# Get current bytes (single awk call)
-read -r CURRENT_DOWN CURRENT_UP <<< "$(netstat -ib | awk -v iface="$INTERFACE" '$1 == iface {print $7, $10; exit}')"
+# Get current bytes (specific interface)
+read -r CURRENT_DOWN CURRENT_UP <<< "$(netstat -ib -I "$INTERFACE" | awk 'NR==2 {print $7, $10}')"
 
 # Read previous values (single read)
 if [ -f "$CACHE_FILE" ]; then

@@ -37,7 +37,7 @@ sketchybar --add event timer_update
 # === Left section ===
 # Workspace name
 sketchybar --add item workspace left \
-    --subscribe workspace aerospace_workspace_change front_app_switched \
+    --subscribe workspace aerospace_workspace_change \
     --set workspace \
     icon.drawing=off \
     icon.padding_left=0 \
@@ -219,7 +219,7 @@ sketchybar --add item clock right \
     background.color=$COLOR_BG_PRIMARY \
     background.corner_radius=14 \
     background.padding_left=-20 \
-    update_freq=10 \
+    update_freq=60 \
     script="$PLUGIN_DIR/clock.sh"
 
 # Battery
@@ -228,7 +228,7 @@ sketchybar --add item battery right \
     --set battery \
     icon="$ICON_BATTERY_FULL" \
     label.padding_right=28 \
-    update_freq=60 \
+    update_freq=300 \
     script="$PLUGIN_DIR/battery.sh"
 
 # Network (down/up as separate items for colored icons)
