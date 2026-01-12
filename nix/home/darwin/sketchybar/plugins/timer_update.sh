@@ -18,9 +18,9 @@ if [[ ! -f "$TIMER_FILE" ]]; then
     exit 0
 fi
 
-STATE=$(head -1 "$TIMER_FILE" 2>/dev/null || echo "idle")
-END_TIME=$(sed -n '2p' "$TIMER_FILE" 2>/dev/null || echo "0")
-DURATION=$(sed -n '3p' "$TIMER_FILE" 2>/dev/null || echo "25")
+{ { read -r STATE; read -r END_TIME; read -r DURATION; } < "$TIMER_FILE"; } 2>/dev/null || {
+    STATE="idle"; END_TIME="0"; DURATION="25"
+}
 NOW=$(date +%s)
 
 case "$STATE" in
@@ -36,7 +36,7 @@ case "$STATE" in
                 echo "$END_TIME" >> "$TIMER_FILE"
                 echo "$BREAK_MINS" >> "$TIMER_FILE"
                 osascript -e 'display notification "Time for a break!" with title "Timer"' 2>/dev/null || true
-                pkill -f "Illuminate.m4r" 2>/dev/null
+                pkill -x afplay 2>/dev/null
                 afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
                 REMAINING=$((BREAK_MINS * 60))
                 MINS=$((REMAINING / 60))
@@ -47,7 +47,7 @@ case "$STATE" in
                 echo "idle" > "$TIMER_FILE"
                 sketchybar --set timer update_freq=0
                 osascript -e 'display notification "Timer complete!" with title "Timer"' 2>/dev/null || true
-                pkill -f "Illuminate.m4r" 2>/dev/null
+                pkill -x afplay 2>/dev/null
                 afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
                 sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
             fi
@@ -64,7 +64,7 @@ case "$STATE" in
             echo "idle" > "$TIMER_FILE"
             sketchybar --set timer update_freq=0
             osascript -e 'display notification "Break over! Ready?" with title "Timer"' 2>/dev/null || true
-            pkill -f "Illuminate.m4r" 2>/dev/null
+            pkill -x afplay 2>/dev/null
             afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
             sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
         else
@@ -74,7 +74,7 @@ case "$STATE" in
         fi
         ;;
     paused)
-        REMAINING=$(sed -n '2p' "$TIMER_FILE" 2>/dev/null || echo "0")
+        { { read -r _; read -r REMAINING; } < "$TIMER_FILE"; } 2>/dev/null || REMAINING="0"
         MINS=$((REMAINING / 60))
         SECS=$((REMAINING % 60))
         sketchybar --set "$NAME" icon="$ICON_PAUSE" label="$(printf '%02d:%02d' $MINS $SECS)" icon.color="$COLOR_TEXT_DIM"

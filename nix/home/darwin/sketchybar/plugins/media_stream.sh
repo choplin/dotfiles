@@ -29,11 +29,11 @@ update_media() {
 # Initial state from get command
 INIT=$(media-control get 2>/dev/null)
 if [ -n "$INIT" ]; then
-    read -r PLAYING ARTIST TITLE <<< "$(echo "$INIT" | jq -r '[
+    read -r PLAYING ARTIST TITLE <<< "$(jq -r '[
         (if has("playing") then (.playing | tostring) else "false" end),
         (.artist // ""),
         (.title // "")
-    ] | @tsv')"
+    ] | @tsv' <<< "$INIT")"
     if [ -n "$ARTIST" ] && [ -n "$TITLE" ]; then
         SAVED_ARTIST="$ARTIST"
         SAVED_TITLE="$TITLE"
@@ -43,11 +43,11 @@ fi
 
 # Stream updates (process substitution avoids subshell, preserving variables)
 while IFS= read -r line; do
-    read -r PLAYING ARTIST TITLE <<< "$(echo "$line" | jq -r '[
+    read -r PLAYING ARTIST TITLE <<< "$(jq -r '[
         (if .payload | has("playing") then (.payload.playing | tostring) else "null" end),
         (.payload.artist // ""),
         (.payload.title // "")
-    ] | @tsv')"
+    ] | @tsv' <<< "$line")"
 
     # Skip empty events (no playing status)
     if [ "$PLAYING" = "null" ]; then
