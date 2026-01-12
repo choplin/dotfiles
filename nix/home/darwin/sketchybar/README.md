@@ -97,6 +97,25 @@ Display next event within 1 hour from Google Calendar.
 - `calendar_update.sh`: Fetch next event via gcalcli
 - `calendar.sh`: Click handler, popup control
 
+## Right Section
+
+System status items with right-click actions.
+
+| Item | Right-click |
+|------|-------------|
+| cpu | Open btm (CPU focus) in wezterm |
+| memory | Open btm (Memory focus) in wezterm |
+| network_up/down | Open btm (Network focus) in wezterm |
+| network (disconnected) | Open Network Settings |
+| battery | Open Battery Settings |
+| clock | Open Clock.app |
+
+**Implementation**:
+- `stats.sh`: Update CPU/Memory/Network, handle disconnected state
+- `stats_click.sh`: Open btm with appropriate widget focus
+- `battery_click.sh`: Open Battery Settings
+- `clock_click.sh`: Open Clock.app
+
 ## Design
 
 - **Theme**: Dracula

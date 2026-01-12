@@ -110,9 +110,10 @@ sketchybar \
         icon="$ICON_NETWORK_DOWN" \
         icon.color="$CYAN" \
         label="$DOWN_LABEL" \
-        click_script="" \
+        click_script="$CONFIG_DIR/plugins/stats_click.sh" \
     --set network_up \
         drawing=on \
         icon="$ICON_NETWORK_UP" \
         icon.color="$PINK" \
-        label="$UP_LABEL"
+        label="$UP_LABEL" \
+        click_script="$CONFIG_DIR/plugins/stats_click.sh"
