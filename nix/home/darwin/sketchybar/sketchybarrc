@@ -14,7 +14,8 @@ sketchybar --bar \
     margin=8 \
     padding_left=8 \
     padding_right=8 \
-    y_offset=2
+    y_offset=2 \
+    display=main
 
 # Default item settings (no background on items)
 sketchybar --default \
