@@ -242,23 +242,19 @@ sketchybar --add item network_down right \
     --set network_down \
     icon="$ICON_NETWORK_DOWN" \
     icon.color="$CYAN" \
-    label="0K" \
-    update_freq=2 \
-    script="$PLUGIN_DIR/network.sh"
+    label="0K"
 
 # Memory
 sketchybar --add item memory right \
     --set memory \
-    icon="$ICON_MEMORY" \
-    update_freq=10 \
-    script="$PLUGIN_DIR/memory.sh"
+    icon="$ICON_MEMORY"
 
-# CPU
+# CPU (stats.sh updates cpu, memory, network_down, network_up together)
 sketchybar --add item cpu right \
     --set cpu \
     icon="$ICON_CPU" \
     update_freq=5 \
-    script="$PLUGIN_DIR/cpu.sh"
+    script="$PLUGIN_DIR/stats.sh"
 
 # YouTube Music / Now Playing (updated by media_stream.sh background process)
 sketchybar --add item media right \

@@ -3,21 +3,47 @@
 source "$(dirname "$0")/colors.sh"
 source "$(dirname "$0")/icons.sh"
 
+# === CPU ===
+CPU=$(top -l 1 -n 0 | grep "CPU usage" | awk '{print $3}' | tr -d '%' | cut -d. -f1)
+CPU=${CPU:-0}
+
+if [ "$CPU" -ge 80 ]; then
+    CPU_COLOR="$COLOR_HIGH"
+elif [ "$CPU" -ge 50 ]; then
+    CPU_COLOR="$COLOR_MEDIUM"
+else
+    CPU_COLOR="$COLOR_LOW"
+fi
+
+# === Memory ===
+MEM=$(memory_pressure 2>/dev/null | grep "System-wide memory free percentage" | awk '{print 100-$5}' | cut -d. -f1)
+MEM=${MEM:-0}
+
+if [ "$MEM" -ge 80 ]; then
+    MEM_COLOR="$COLOR_HIGH"
+elif [ "$MEM" -ge 50 ]; then
+    MEM_COLOR="$COLOR_MEDIUM"
+else
+    MEM_COLOR="$COLOR_LOW"
+fi
+
+# === Network ===
 INTERFACE="en0"
 CACHE_FILE="/tmp/sketchybar_network_cache"
 
-# Check network connection status
 NET_STATUS=$(ifconfig en0 2>/dev/null | grep -o "status: .*" | awk '{print $2}')
 
 if [[ "$NET_STATUS" != "active" ]]; then
-    # WiFi is disconnected
-    sketchybar --set network_down \
-        icon="$ICON_WIFI_OFF" \
-        icon.color="$COLOR_TEXT_DIM" \
-        label="" \
-        click_script="open 'x-apple.systempreferences:com.apple.preference.network'"
-    sketchybar --set network_up \
-        drawing=off
+    # WiFi disconnected
+    sketchybar \
+        --set cpu label="${CPU}%" icon.color="$CPU_COLOR" \
+        --set memory label="${MEM}%" icon.color="$MEM_COLOR" \
+        --set network_down \
+            icon="$ICON_WIFI_OFF" \
+            icon.color="$COLOR_TEXT_DIM" \
+            label="" \
+            click_script="open 'x-apple.systempreferences:com.apple.preference.network'" \
+        --set network_up drawing=off
     exit 0
 fi
 
@@ -75,14 +101,17 @@ format_speed() {
 DOWN_LABEL=$(format_speed "$DOWN_SPEED")
 UP_LABEL=$(format_speed "$UP_SPEED")
 
-sketchybar --set network_down \
-    icon="$ICON_NETWORK_DOWN" \
-    icon.color="$CYAN" \
-    label="$DOWN_LABEL" \
-    click_script=""
-
-sketchybar --set network_up \
-    drawing=on \
-    icon="$ICON_NETWORK_UP" \
-    icon.color="$PINK" \
-    label="$UP_LABEL"
+# === Update all items ===
+sketchybar \
+    --set cpu label="${CPU}%" icon.color="$CPU_COLOR" \
+    --set memory label="${MEM}%" icon.color="$MEM_COLOR" \
+    --set network_down \
+        icon="$ICON_NETWORK_DOWN" \
+        icon.color="$CYAN" \
+        label="$DOWN_LABEL" \
+        click_script="" \
+    --set network_up \
+        drawing=on \
+        icon="$ICON_NETWORK_UP" \
+        icon.color="$PINK" \
+        label="$UP_LABEL"
