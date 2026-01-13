@@ -9,6 +9,7 @@
     brews = [
       "mas"
       "media-control"
+      "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
     ];
 

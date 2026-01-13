@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Switch monitor input to DisplayPort.
+#
+# NOTE: This file intentionally has no .sh extension.
+# StreamDeck's "Open" action runs extensionless files via Terminal,
+# which is required for m1ddc to work properly.
+
+set -eux
+
+DISPLAY_PORT=208
+TARGET_DISPLAY="LG ULTRAGEAR+"
+
+DISPLAY_NUM=$(m1ddc display list | grep "$TARGET_DISPLAY" | awk -F'[][]' '{print $2}')
+
+if [[ -z "$DISPLAY_NUM" ]]; then
+  echo "Error: $TARGET_DISPLAY not found" >&2
+  exit 1
+fi
+
+m1ddc display "$DISPLAY_NUM" set input-alt "$DISPLAY_PORT"

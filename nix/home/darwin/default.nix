@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  scriptsDir = ../../../config/scripts/darwin;
+in {
   # imports cannot be conditional.
   # Each module is responsible for making itself darwin-only via `enable = pkgs.stdenv.isDarwin`.
   imports = [
@@ -19,5 +21,19 @@
     home.packages = with pkgs; [
       m1ddc
     ];
+
+    # macOS-only scripts
+    xdg.dataFile = {
+      "streamdeck/scripts" = {
+        source = "${scriptsDir}/streamdeck/scripts";
+        recursive = true;
+        executable = true;
+      };
+      "raycast/scripts" = {
+        source = "${scriptsDir}/raycast/scripts";
+        recursive = true;
+        executable = true;
+      };
+    };
   };
 }
