@@ -63,7 +63,7 @@ case "$STATE" in
             # Break done
             echo "idle" > "$TIMER_FILE"
             sketchybar --set timer update_freq=0
-            osascript -e 'display notification "Break over! Ready?" with title "Timer"' 2>/dev/null || true
+            osascript -e 'display notification "Break over!" with title "Timer"' 2>/dev/null || true
             pkill -x afplay 2>/dev/null
             afplay "/System/Library/PrivateFrameworks/ToneLibrary.framework/Versions/A/Resources/Ringtones/Illuminate.m4r" &
             sketchybar --set "$NAME" icon="$ICON_POMODORO" label="--:--" icon.color="$COLOR_TEXT_DIM"
