@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Prevent race condition during initialization
+sketchybar --query cpu >/dev/null 2>&1 || exit 0
+
 source "$(dirname "$0")/colors.sh"
 source "$(dirname "$0")/icons.sh"
 
