@@ -41,8 +41,8 @@ if [[ "$BUTTON" == "left" ]]; then
             break
         fi
         if [[ -n "$TIME" ]]; then
-            # Truncate title if too long
-            [[ ${#TITLE} -gt 20 ]] && TITLE="${TITLE:0:17}..."
+            # Truncate title if too long (max 20 chars) - UTF-8 safe using Perl
+            TITLE=$(printf "%s" "$TITLE" | perl -CSD -pe 'BEGIN{use utf8;} chomp; $_ = substr($_, 0, 17) . "..." if length($_) > 20')
             sketchybar --set "calendar_menu_$i" drawing=on label="$TIME $TITLE"
         else
             sketchybar --set "calendar_menu_$i" drawing=off

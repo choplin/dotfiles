@@ -53,9 +53,7 @@ fi
 
 CURRENT_TASK="${TASKS[$INDEX]}"
 
-# Truncate if too long (max 30 chars)
-if [[ ${#CURRENT_TASK} -gt 30 ]]; then
-    CURRENT_TASK="${CURRENT_TASK:0:27}..."
-fi
+# Truncate if too long (max 30 chars) - UTF-8 safe using Perl
+CURRENT_TASK=$(printf "%s" "$CURRENT_TASK" | perl -CSD -pe 'BEGIN{use utf8;} chomp; $_ = substr($_, 0, 27) . "..." if length($_) > 30')
 
 sketchybar --set task icon="$ICON_WORKSPACE" label="$CURRENT_TASK" label.color="$COLOR_TEXT"

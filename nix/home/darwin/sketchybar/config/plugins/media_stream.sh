@@ -15,9 +15,8 @@ update_media() {
     local TITLE="$3"
 
     if [ "$PLAYING" = "true" ] && [ -n "$ARTIST" ] && [ -n "$TITLE" ]; then
-        if [ ${#TITLE} -gt 30 ]; then
-            TITLE="${TITLE:0:27}..."
-        fi
+        # Truncate if too long (max 30 chars) - UTF-8 safe using Perl
+        TITLE=$(printf "%s" "$TITLE" | perl -CSD -pe 'BEGIN{use utf8;} chomp; $_ = substr($_, 0, 27) . "..." if length($_) > 30')
         sketchybar --set media label="$ARTIST - $TITLE" icon="$ICON_MUSIC" drawing=on
     else
         sketchybar --set media drawing=off
