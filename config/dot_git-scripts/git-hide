@@ -1,13 +1,14 @@
 #!/bin/bash
-# Remove --assume-unchanged flag and untrack specified files from index
+# Hide specified files from git status using --assume-unchanged flag
 
 set -euo pipefail
 
 usage() {
   cat <<EOF
-Usage: git untrack <file>...
+Usage: git hide <file>...
 
-Remove --skip-worktree flag and untrack specified files from index.
+Hide specified files from git status using --skip-worktree flag.
+Files are added to index with --intent-to-add first.
 
 Options:
   -h, --help    Show this help message
@@ -29,8 +30,8 @@ fi
 
 # Process each file
 for file in "$@"; do
-  git update-index --no-skip-worktree "$file"
-  git rm --cached "$file"
+  git add --intent-to-add "$file"
+  git update-index --skip-worktree "$file"
 done
 
-echo "Specified files are now fully untracked from index"
+echo "Specified files are now hidden from git status"
