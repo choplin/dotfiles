@@ -103,6 +103,12 @@ sketchybar --add item task_menu_forward popup.task \
     label="Forward" \
     click_script="$PLUGIN_DIR/task_action.sh forward"
 
+sketchybar --add item task_menu_add popup.task \
+    --set task_menu_add \
+    icon="󰐕" \
+    label="Add Task" \
+    click_script="$PLUGIN_DIR/task_action.sh add"
+
 sketchybar --add item task_menu_open popup.task \
     --set task_menu_open \
     icon="󰏋" \

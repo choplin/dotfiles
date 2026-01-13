@@ -9,17 +9,19 @@ case "$BUTTON" in
     right)
         INDEX=$(cat "$INDEX_FILE" 2>/dev/null || echo "-1")
         if [[ $INDEX -eq -1 ]]; then
-            # No focus: show only Open Obsidian
+            # No focus: show only Open Obsidian and Add Task
             sketchybar --set task_menu_complete drawing=off \
                        --set task_menu_cancel drawing=off \
                        --set task_menu_forward drawing=off \
-                       --set task_menu_open drawing=on
+                       --set task_menu_open drawing=on \
+                       --set task_menu_add drawing=on
         else
             # Task selected: show all options
             sketchybar --set task_menu_complete drawing=on \
                        --set task_menu_cancel drawing=on \
                        --set task_menu_forward drawing=on \
-                       --set task_menu_open drawing=on
+                       --set task_menu_open drawing=on \
+                       --set task_menu_add drawing=on
         fi
         sketchybar --set task popup.drawing=toggle
         exit 0
