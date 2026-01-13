@@ -14,7 +14,7 @@
     elgato-stream-deck
     ghostty
     github
-    gitkraken-cli
+    gitkraken
     insta360-link-controller
     jetbrains-toolbox
     kap

@@ -16,6 +16,7 @@
     casks = [
       "1password"
       "daisydisk"
+      "gitkraken-cli"
       "karabiner-elements"
       "sf-symbols"
     ];
