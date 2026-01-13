@@ -3,8 +3,6 @@
 # Background script to stream media updates to sketchybar
 # Run this as a background process (via launchd)
 
-PATH="/opt/homebrew/bin:$HOME/.nix-profile/bin:/run/current-system/sw/bin:$PATH"
-
 ICON_MUSIC="󰝚"
 
 # State variables (kept in memory)

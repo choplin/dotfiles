@@ -2,7 +2,7 @@
 
 source "$(dirname "$0")/colors.sh"
 
-AEROSPACE="$HOME/.nix-profile/bin/aerospace"
+AEROSPACE="aerospace"
 
 # Get all data in parallel
 WS_FILE=$(mktemp)

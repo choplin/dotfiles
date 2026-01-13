@@ -3,35 +3,50 @@
   lib,
   config,
   ...
-}: let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles/nix/home/darwin/sketchybar";
-in {
-  # Temporary: use mkOutOfStoreSymlink for rapid iteration
-  # After config is finalized, switch back to programs.sketchybar
+}: {
   config = lib.mkIf pkgs.stdenv.isDarwin {
-    xdg.configFile = {
-      "sketchybar/sketchybarrc".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/sketchybarrc";
-      "sketchybar/plugins".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/plugins";
+    programs.sketchybar = {
+      enable = true;
+
+      config = {
+        source = ./config;  # config/ subdirectory only
+        recursive = true;
+      };
+
+      extraPackages = with pkgs; [
+        jq          # JSON processing (media_stream.sh, calendar_update.sh)
+        gcalcli     # Google Calendar (calendar_update.sh, calendar.sh)
+        treemd      # Markdown parsing (task_update.sh, task_action.sh)
+        aerospace   # Workspace management (workspace.sh, app_click.sh)
+      ];
+
+      service = {
+        enable = true;
+        outLogFile = "${config.xdg.stateHome}/sketchybar/sketchybar.log";
+        errorLogFile = "${config.xdg.stateHome}/sketchybar/sketchybar.err";
+      };
     };
 
-    home.packages = with pkgs; [
-      sketchybar
-      jq
-    ];
-
-    # Ensure log directory exists under XDG_STATE_HOME
+    # Ensure log directory exists
     xdg.stateFile."sketchybar/.keep".text = "";
 
-    # Background process to stream media updates to sketchybar
+    # Background process for media_stream.sh
     launchd.agents.sketchybar-media-stream = {
       enable = true;
       config = {
         Label = "com.sketchybar.media-stream";
-        ProgramArguments = ["${dotfilesDir}/plugins/media_stream.sh"];
+        ProgramArguments = [
+          "${config.xdg.configHome}/sketchybar/plugins/media_stream.sh"
+        ];
         RunAtLoad = true;
         KeepAlive = true;
         StandardOutPath = "${config.xdg.stateHome}/sketchybar/media-stream.log";
         StandardErrorPath = "${config.xdg.stateHome}/sketchybar/media-stream.err";
+        EnvironmentVariables = {
+          # media-control: /opt/homebrew/bin
+          # jq, sketchybar: ${config.home.profileDirectory}/bin
+          PATH = "/opt/homebrew/bin:${config.home.profileDirectory}/bin:/run/current-system/sw/bin";
+        };
       };
     };
   };

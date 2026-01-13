@@ -6,4 +6,4 @@
 WINDOW_ID="$1"
 [ -z "$WINDOW_ID" ] && exit 0
 
-"$HOME/.nix-profile/bin/aerospace" focus --window-id "$WINDOW_ID"
+aerospace focus --window-id "$WINDOW_ID"
