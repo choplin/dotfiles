@@ -11,6 +11,7 @@
       "media-control"
       "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
+      "k1LoW/tap/git-wt"
     ];
 
     casks = [
