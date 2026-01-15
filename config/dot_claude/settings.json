@@ -23,7 +23,8 @@
       "Bash(bun:*)",
       "Bash(gradle:*)",
       "WebFetch(domain:bun.sh)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)"
     ],
     "deny": [],
     "defaultMode": "plan"
