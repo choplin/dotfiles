@@ -59,7 +59,10 @@
     "enabled": true,
     "allowUnsandboxedCommands": false,
     "network": {
-      "allowLocalBinding": true
+      "allowLocalBinding": true,
+      "allowUnixSockets": [
+        "/nix/var/nix/daemon-socket/socket"
+      ]
     },
     "excludedCommands": []
   },
