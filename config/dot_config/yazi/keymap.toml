@@ -63,6 +63,11 @@ on = ["c", "r"]
 run = "plugin path-from-root"
 desc = "Copies path from git root"
 
+[[mgr.prepend_keymap]]
+on = ["v"]
+run = 'shell --block -- treemd "$0"'
+desc = "Open markdown with treemd"
+
 [[input.prepend_keymap]]
 on = "<Esc>"
 run = "close"

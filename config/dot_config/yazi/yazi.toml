@@ -2,11 +2,17 @@
 linemode = "mtime"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
+id = "git"
 name = "*"
-run  = "git"
+run = "git"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
+id = "git"
 name = "*/"
-run  = "git"
+run = "git"
+
+[opener]
+treemd = [{ run = "treemd %s1", block = true, for = "unix", desc = "Treemd" }]
+
+[open]
+prepend_rules = [{ url = "*.md", use = ["edit", "reveal", "treemd"] }]
