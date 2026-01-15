@@ -58,9 +58,6 @@ venv/
 
 .ipynb_checkpoints
 
-.envrc
-.envrc-e
-
 .local.vimrc
 
 .mypy_cache/
