@@ -173,6 +173,26 @@ config.keys = util.merge(
     { key = "UpArrow", mods = "SHIFT", action = act.ScrollToPrompt(-1) },
     { key = "DownArrow", mods = "SHIFT", action = act.ScrollToPrompt(1) },
     { key = "Enter", mods = "ALT", action = act.ToggleFullScreen },
+    {
+      key = "z",
+      mods = "LEADER",
+      action = wezterm.action_callback(function(window, pane)
+        window:perform_action(act.ActivateCopyMode, pane)
+        window:perform_action(act.CopyMode({ MoveBackwardZoneOfType = "Output" }), pane)
+        window:perform_action(act.CopyMode({ SetSelectionMode = "SemanticZone" }), pane)
+        window:perform_action(
+          act.Multiple({
+            { CopyTo = "ClipboardAndPrimarySelection" },
+            { Multiple = { "ScrollToBottom", { CopyMode = "Close" } } },
+          }),
+          pane
+        )
+        window:set_right_status("📋 Copied!")
+        wezterm.time.call_after(1, function()
+          window:set_right_status("")
+        end)
+      end),
+    },
   },
   util.map(direction_keys, function(e)
     return {
