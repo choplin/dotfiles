@@ -107,12 +107,34 @@ local function setup_command_palette(wezterm)
   end)
 end
 
+local function setup_key_table_status(wezterm)
+  local colors = {
+    pane = "#7aa2f7",      -- blue
+    copy_mode = "#bb9af7", -- purple
+  }
+
+  wezterm.on("update-right-status", function(window, pane)
+    local name = window:active_key_table()
+    if name then
+      local bg = colors[name] or "#7aa2f7"
+      window:set_right_status(wezterm.format({
+        { Background = { Color = bg } },
+        { Foreground = { Color = "#1a1b26" } },
+        { Text = " " .. name:upper() .. " " },
+      }))
+    else
+      window:set_right_status("")
+    end
+  end)
+end
+
 function M.setup(wezterm)
   if not _G.event_hanndler_initialized then
     setup_recomute_padding(wezterm)
     setup_bell(wezterm)
     setup_user_var(wezterm)
     setup_command_palette(wezterm)
+    setup_key_table_status(wezterm)
     _G.event_hanndler_initialized = true
   end
 end
