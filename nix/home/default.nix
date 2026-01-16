@@ -47,6 +47,7 @@
       gdu
       gh
       ghq
+      gibo
       git
       git-filter-repo
       glow
