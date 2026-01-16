@@ -19,6 +19,7 @@ in {
     };
 
     home.packages = with pkgs; [
+      _1password-cli
       m1ddc
     ];
 
