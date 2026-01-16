@@ -22,7 +22,6 @@
     notion
     notunes
     obsidian
-    orbstack
     paperpile
     qlmarkdown
     qmk-toolbox
