@@ -135,3 +135,5 @@ EXECPLAN.md
 .direnv/
 
 CONTINUITY.md
+
+.envrc.local
