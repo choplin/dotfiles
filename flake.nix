@@ -33,14 +33,21 @@
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["aarch64-darwin" "x86_64-darwin"];
       imports = [
+        inputs.devshell.flakeModule
         ./nix/flake-modules/darwin.nix
         ./nix/flake-modules/home.nix
+        ./nix/flake-modules/devshell.nix
       ];
       _module.args.machines = import ./machines.nix;
     };
