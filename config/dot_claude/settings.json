@@ -69,5 +69,6 @@
     },
     "excludedCommands": []
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "plansDirectory": "./.claude/plans"
 }
