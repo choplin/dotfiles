@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  pkgs-fast,
+  ...
+}: let
   pluginBaseDir = "$HOME/.claude/my-claude-marketplace";
 
   claudeWrapper = pkgs.writeShellScriptBin "claude" ''
@@ -12,7 +16,7 @@
       done
     fi
 
-    exec ${pkgs.claude-code}/bin/claude "''${plugin_args[@]}" "$@"
+    exec ${pkgs-fast.claude-code}/bin/claude "''${plugin_args[@]}" "$@"
   '';
 in {
   home.packages = [
@@ -23,8 +27,8 @@ in {
       postBuild = ''
         wrapProgram $out/bin/claude \
           --prefix PATH : ${pkgs.lib.makeBinPath [
-          pkgs.nodejs
-          pkgs.bun
+          pkgs-fast.nodejs
+          pkgs-fast.bun
         ]}
       '';
       meta.mainProgram = "claude";

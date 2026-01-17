@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-fast.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -57,6 +58,10 @@
     mkHome = name: machine: let
       rootDir = "${machine.homeDirectory}/.dotfiles";
       system = machine.system;
+      pkgs-fast = import inputs.nixpkgs-fast {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
       home-manager.lib.homeManagerConfiguration {
         pkgs = import inputs.nixpkgs {
@@ -64,7 +69,7 @@
           overlays = [inputs.neovim-nightly-overlay.overlays.default];
         };
         extraSpecialArgs = {
-          inherit rootDir;
+          inherit rootDir pkgs-fast;
           inherit (machine) username homeDirectory;
         };
         modules = [./nix/home];
