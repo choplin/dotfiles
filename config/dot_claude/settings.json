@@ -22,6 +22,8 @@
       "Bash(gh pr view:*)",
       "Bash(bun:*)",
       "Bash(gradle:*)",
+      "Edit(~/go/pkg/**)",
+      "Edit(~/Library/Caches/go-build/**)",
       "WebFetch(domain:bun.sh)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:api.github.com)"
