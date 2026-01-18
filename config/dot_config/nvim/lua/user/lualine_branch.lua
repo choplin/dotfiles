@@ -5,7 +5,7 @@ local modules = require("lualine_require").lazy_require({
   utils = "lualine.utils.utils",
 })
 
-local branch_icon = ""
+local branch_icon = ""
 
 -- Initializer
 M.init = function(self, options)

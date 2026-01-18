@@ -46,3 +46,6 @@ require("lazy").setup({
     border = "rounded",
   },
 })
+
+-- Apply colorscheme and load autocmds/keymaps
+require("lazyvim.config").setup()
