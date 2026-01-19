@@ -29,8 +29,9 @@ function M.register(picker)
   end
 
   if M.picker and M.picker.name ~= picker.name then
-    LazyVim.warn(
-      "`LazyVim.pick`: picker already set to `" .. M.picker.name .. "`,\nignoring new picker `" .. picker.name .. "`"
+    vim.notify(
+      "`LazyVim.pick`: picker already set to `" .. M.picker.name .. "`,\nignoring new picker `" .. picker.name .. "`",
+      vim.log.levels.WARN
     )
     return false
   end
@@ -42,7 +43,7 @@ end
 ---@param opts? lazyvim.util.pick.Opts
 function M.open(command, opts)
   if not M.picker then
-    return LazyVim.error("LazyVim.pick: picker not set")
+    return vim.notify("LazyVim.pick: picker not set", vim.log.levels.ERROR)
   end
 
   command = command ~= "auto" and command or "files"
@@ -51,7 +52,7 @@ function M.open(command, opts)
   opts = vim.deepcopy(opts)
 
   if type(opts.cwd) == "boolean" then
-    LazyVim.warn("LazyVim.pick: opts.cwd should be a string or nil")
+    vim.notify("LazyVim.pick: opts.cwd should be a string or nil", vim.log.levels.WARN)
     opts.cwd = nil
   end
 

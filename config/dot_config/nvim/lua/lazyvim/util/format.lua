@@ -134,7 +134,7 @@ function M.format(opts)
   end
 
   if not done and opts and opts.force then
-    LazyVim.warn("No formatter available", { title = "LazyVim" })
+    vim.notify("No formatter available", vim.log.levels.WARN, { title = "LazyVim" })
   end
 end
 

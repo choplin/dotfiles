@@ -3,7 +3,7 @@
 
 -- Check Neovim version
 if vim.fn.has("nvim-0.12") == 0 then
-  LazyVim.warn("Copilot Native requires Neovim >= 0.12")
+  vim.notify("Copilot Native requires Neovim >= 0.12", vim.log.levels.WARN)
   return {}
 end
 
@@ -56,7 +56,7 @@ return {
                   end
                   status[ctx.client_id] = res.kind ~= "Normal" and "error" or res.busy and "pending" or "ok"
                   if res.status == "Error" then
-                    LazyVim.error("Please use `:LspCopilotSignIn` to sign in to Copilot")
+                    vim.notify("Please use `:LspCopilotSignIn` to sign in to Copilot", vim.log.levels.ERROR)
                   end
                 end,
               },

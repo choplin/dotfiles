@@ -183,7 +183,7 @@ function M.setup(opts)
   end, {
     msg = "Could not load your colorscheme",
     on_error = function(msg)
-      LazyVim.error(msg)
+      vim.notify(msg, vim.log.levels.ERROR)
       vim.cmd.colorscheme("habamax")
     end,
   })

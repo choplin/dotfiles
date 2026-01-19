@@ -18,7 +18,7 @@ return {
   config = function(_, opts)
     local TS = require("nvim-treesitter-textobjects")
     if not TS.setup then
-      LazyVim.error("Please use `:Lazy` and update `nvim-treesitter`")
+      vim.notify("Please use `:Lazy` and update `nvim-treesitter`", vim.log.levels.ERROR)
       return
     end
     TS.setup(opts)

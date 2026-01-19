@@ -99,8 +99,9 @@ return {
       end
       vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
       if vim.fn.executable("rust-analyzer") == 0 then
-        LazyVim.error(
+        vim.notify(
           "**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/",
+          vim.log.levels.ERROR,
           { title = "rustaceanvim" }
         )
       end

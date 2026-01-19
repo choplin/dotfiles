@@ -1,9 +1,12 @@
 -- Markdown language support
-LazyVim.on_very_lazy(function()
-  vim.filetype.add({
-    extension = { mdx = "markdown.mdx" },
-  })
-end)
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    vim.filetype.add({
+      extension = { mdx = "markdown.mdx" },
+    })
+  end,
+})
 
 return {
   {

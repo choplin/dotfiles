@@ -60,7 +60,7 @@ return {
       elseif LazyVim.has("snacks.nvim") then
         opts.picker = "snacks"
       else
-        LazyVim.warn("`octo.nvim` requires `telescope.nvim` or `fzf-lua` or `snacks.nvim`")
+        vim.notify("`octo.nvim` requires `telescope.nvim` or `fzf-lua` or `snacks.nvim`", vim.log.levels.WARN)
       end
 
       -- Keep some empty windows in sessions
