@@ -5,7 +5,6 @@ local LazyUtil = require("lazy.core.util")
 ---@field treesitter lazyvim.util.treesitter
 ---@field lsp lazyvim.util.lsp
 ---@field root lazyvim.util.root
----@field terminal lazyvim.util.terminal
 ---@field format lazyvim.util.format
 ---@field plugin lazyvim.util.plugin
 ---@field lualine lazyvim.util.lualine
@@ -14,16 +13,22 @@ local LazyUtil = require("lazy.core.util")
 ---@field cmp lazyvim.util.cmp
 local M = {}
 
-setmetatable(M, {
-  __index = function(t, k)
-    if LazyUtil[k] then
-      return LazyUtil[k]
-    end
-    ---@diagnostic disable-next-line: no-unknown
-    t[k] = require("lazyvim.util." .. k)
-    return t[k]
-  end,
-})
+-- Submodules (explicit load)
+M.cmp = require("lazyvim.util.cmp")
+M.format = require("lazyvim.util.format")
+M.lsp = require("lazyvim.util.lsp")
+M.lualine = require("lazyvim.util.lualine")
+M.mini = require("lazyvim.util.mini")
+M.pick = require("lazyvim.util.pick")
+M.plugin = require("lazyvim.util.plugin")
+M.root = require("lazyvim.util.root")
+M.treesitter = require("lazyvim.util.treesitter")
+
+-- Explicitly inherit required functions from LazyUtil
+M.norm = LazyUtil.norm
+M.try = LazyUtil.try
+M.track = LazyUtil.track
+M.merge = LazyUtil.merge
 
 function M.is_win()
   return vim.uv.os_uname().sysname:find("Windows") ~= nil
@@ -34,30 +39,9 @@ function M.get_plugin(name)
   return require("lazy.core.config").spec.plugins[name]
 end
 
----@param name string
----@param path string?
-function M.get_plugin_path(name, path)
-  local plugin = M.get_plugin(name)
-  path = path and "/" .. path or ""
-  return plugin and (plugin.dir .. path)
-end
-
 ---@param plugin string
 function M.has(plugin)
   return M.get_plugin(plugin) ~= nil
-end
-
---- Checks if the extras is enabled (simplified version)
----@param extra string
-function M.has_extra(extra)
-  -- In standalone config, we don't use lazyvim.json for extras
-  -- Just check if the module is loaded
-  local LazyConfig = require("lazy.core.config")
-  local modname = "plugins.extras." .. extra
-  if vim.tbl_contains(LazyConfig.spec.modules or {}, modname) then
-    return true
-  end
-  return false
 end
 
 ---@param fn fun()
@@ -101,19 +85,6 @@ function M.opts(name)
   return Plugin.values(plugin, "opts", false)
 end
 
----@param opts? LazyNotifyOpts
-function M.deprecate(old, new, opts)
-  M.warn(
-    ("`%s` is deprecated. Please use `%s` instead"):format(old, new),
-    vim.tbl_extend("force", {
-      title = "LazyVim",
-      once = true,
-      stacktrace = true,
-      stacklevel = 6,
-    }, opts or {})
-  )
-end
-
 -- delay notifications till vim.notify was replaced or after 500ms
 function M.lazy_notify()
   local notifs = {}
@@ -151,15 +122,11 @@ function M.lazy_notify()
   timer:start(500, 0, replay)
 end
 
-function M.is_loaded(name)
-  local Config = require("lazy.core.config")
-  return Config.plugins[name] and Config.plugins[name]._.loaded
-end
-
 ---@param name string
 ---@param fn fun(name:string)
 function M.on_load(name, fn)
-  if M.is_loaded(name) then
+  local Config = require("lazy.core.config")
+  if Config.plugins[name] and Config.plugins[name]._.loaded then
     fn(name)
   else
     vim.api.nvim_create_autocmd("User", {
@@ -203,21 +170,6 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
   end
 end
 
----@generic T
----@param list T[]
----@return T[]
-function M.dedup(list)
-  local ret = {}
-  local seen = {}
-  for _, v in ipairs(list) do
-    if not seen[v] then
-      table.insert(ret, v)
-      seen[v] = true
-    end
-  end
-  return ret
-end
-
 M.CREATE_UNDO = vim.api.nvim_replace_termcodes("<c-G>u", true, true, true)
 function M.create_undo()
   if vim.api.nvim_get_mode().mode == "i" then
@@ -259,21 +211,6 @@ for _, level in ipairs({ "info", "warn", "error" }) do
     opts = opts or {}
     opts.title = opts.title or "LazyVim"
     return LazyUtil[level](msg, opts)
-  end
-end
-
-local cache = {} ---@type table<(fun()), table<string, any>>
----@generic T: fun()
----@param fn T
----@return T
-function M.memoize(fn)
-  return function(...)
-    local key = vim.inspect({ ... })
-    cache[fn] = cache[fn] or {}
-    if cache[fn][key] == nil then
-      cache[fn][key] = fn(...)
-    end
-    return cache[fn][key]
   end
 end
 
