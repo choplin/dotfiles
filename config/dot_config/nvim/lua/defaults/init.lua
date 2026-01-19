@@ -1,4 +1,4 @@
-_G.LazyVim = require("lazyvim.util")
+_G.LazyVim = require("lib")
 
 ---@class LazyVimConfig: LazyVimOptions
 local M = {}
@@ -220,7 +220,7 @@ function M.load(name)
   local pattern = "LazyVim" .. name:sub(1, 1):upper() .. name:sub(2)
   -- always load lazyvim defaults, then user file
   if M.defaults[name] or name == "options" then
-    _load("lazyvim.config." .. name)
+    _load("defaults." .. name)
     vim.api.nvim_exec_autocmds("User", { pattern = pattern .. "Defaults", modeline = false })
   end
   _load("config." .. name)

@@ -15,7 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Initialize LazyVim before lazy.nvim setup
-require("lazyvim.config").init()
+require("defaults").init()
 
 require("lazy").setup({
   spec = {
@@ -48,4 +48,4 @@ require("lazy").setup({
 })
 
 -- Apply colorscheme and load autocmds/keymaps
-require("lazyvim.config").setup()
+require("defaults").setup()

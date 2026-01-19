@@ -14,15 +14,15 @@ local LazyUtil = require("lazy.core.util")
 local M = {}
 
 -- Submodules (explicit load)
-M.cmp = require("lazyvim.util.cmp")
-M.format = require("lazyvim.util.format")
-M.lsp = require("lazyvim.util.lsp")
-M.lualine = require("lazyvim.util.lualine")
-M.mini = require("lazyvim.util.mini")
-M.pick = require("lazyvim.util.pick")
-M.plugin = require("lazyvim.util.plugin")
-M.root = require("lazyvim.util.root")
-M.treesitter = require("lazyvim.util.treesitter")
+M.cmp = require("lib.cmp")
+M.format = require("lib.format")
+M.lsp = require("lib.lsp")
+M.lualine = require("lib.lualine")
+M.mini = require("lib.mini")
+M.pick = require("lib.pick")
+M.plugin = require("lib.plugin")
+M.root = require("lib.root")
+M.treesitter = require("lib.treesitter")
 
 -- Explicitly inherit required functions from LazyUtil
 M.norm = LazyUtil.norm
