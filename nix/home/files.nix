@@ -32,10 +32,6 @@ in {
     ".clang-format".source = link "${configDir}/dot_clang-format";
     # ~/.claude/* -> config/dot_claude/* (individual files to allow Claude to add its own)
     ".claude/CLAUDE.md".source = link "${configDir}/dot_claude/CLAUDE.md";
-    ".claude/commands".source = link "${configDir}/dot_claude/commands";
-    ".claude/docs".source = link "${configDir}/dot_claude/docs";
-    ".claude/languages".source = link "${configDir}/dot_claude/languages";
-    ".claude/references".source = link "${configDir}/dot_claude/references";
     ".claude/settings.json".source = link "${configDir}/dot_claude/settings.json";
     ".direnvrc".source = link "${configDir}/dot_direnvrc";
     ".editorconfig".source = link "${configDir}/dot_editorconfig";
