@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+# Generate .gitignore using gibo with fzf interface
+
+set -euo pipefail
+
+usage() {
+  cat <<EOF
+Usage: git init-ignore
+
+Generate .gitignore interactively using gibo templates with fzf.
+
+Controls:
+  Tab       Select/deselect template
+  Ctrl-X    Clear all selections
+  Ctrl-P    Preview selected templates
+  Enter     Confirm and generate
+
+Options:
+  -h, --help    Show this help message
+EOF
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+# Check dependencies
+if ! command -v gibo &>/dev/null; then
+  echo "Error: gibo is not installed" >&2
+  exit 1
+fi
+
+if ! command -v fzf &>/dev/null; then
+  echo "Error: fzf is not installed" >&2
+  exit 1
+fi
+
+# Select templates with fzf
+selected=$(
+  gibo list \
+  | fzf --multi \
+      --preview 'gibo dump {} | bat -l gitignore --color=always --style=plain' \
+      --preview-window 'right,60%' \
+      --border \
+      --border-label ' git init-ignore ' \
+      --bind 'tab:toggle+transform-border-label:echo " Selected: {+} "' \
+      --bind 'ctrl-p:execute:gibo dump {+} | bat -l gitignore --paging=always' \
+      --bind 'ctrl-x:deselect-all+transform-border-label:echo " git init-ignore "' \
+      --header 'Tab: select, Ctrl-X: clear, Ctrl-P: preview, Enter: dump'
+)
+
+if [[ -z "$selected" ]]; then
+  exit 0
+fi
+
+# Generate content from selected templates
+content=$(gibo dump ${(f)selected})
+
+# Handle existing .gitignore
+if [[ -f .gitignore ]]; then
+  echo "Existing .gitignore found"
+  echo "[o]verwrite / [a]ppend / [c]ancel?"
+  read -r action
+  case "$action" in
+    o|O)
+      echo "$content" > .gitignore
+      echo "Overwritten"
+      ;;
+    a|A)
+      echo "" >> .gitignore
+      echo "$content" >> .gitignore
+      echo "Appended"
+      ;;
+    *)
+      echo "Cancelled"
+      exit 0
+      ;;
+  esac
+else
+  echo "$content" > .gitignore
+  echo "Generated .gitignore"
+fi
