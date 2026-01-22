@@ -67,7 +67,10 @@
         "/nix/var/nix/daemon-socket/socket"
       ]
     },
-    "excludedCommands": []
+    "excludedCommands": [
+      "codex",
+      "codex-xhigh"
+    ]
   },
   "alwaysThinkingEnabled": true,
   "plansDirectory": "./.claude/plans",
