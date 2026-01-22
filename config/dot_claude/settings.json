@@ -70,5 +70,6 @@
     "excludedCommands": []
   },
   "alwaysThinkingEnabled": true,
-  "plansDirectory": "./.claude/plans"
+  "plansDirectory": "./.claude/plans",
+  "language": "Japanese"
 }
