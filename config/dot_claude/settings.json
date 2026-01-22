@@ -60,7 +60,7 @@
   },
   "sandbox": {
     "enabled": true,
-    "allowUnsandboxedCommands": false,
+    "allowUnsandboxedCommands": true,
     "network": {
       "allowLocalBinding": true,
       "allowUnixSockets": [
