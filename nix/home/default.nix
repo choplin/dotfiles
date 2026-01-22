@@ -45,6 +45,7 @@
       fzf
       gcalcli
       gdu
+      gemini-cli
       gh
       ghq
       gibo
