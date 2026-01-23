@@ -40,6 +40,8 @@
       delta
       devenv
       difftastic
+      docker
+      docker-credential-helpers
       dust
       fd
       fzf
