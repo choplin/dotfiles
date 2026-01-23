@@ -188,7 +188,48 @@ config.keys = util.merge(
           pane
         )
         window:set_right_status("📋 Copied!")
-        wezterm.time.call_after(1, function()
+        wezterm.time.call_after(2, function()
+          window:set_right_status("")
+        end)
+      end),
+    },
+    {
+      key = "a",
+      mods = "LEADER",
+      action = wezterm.action_callback(function(window, pane)
+        local zones = pane:get_semantic_zones()
+        local i = #zones
+        local last_output_idx
+
+        while i > 0 and not last_output_idx do
+          if zones[i].semantic_type == "Output" then
+            last_output_idx = i
+          end
+          i = i - 1
+        end
+
+        if not last_output_idx then
+          return
+        end
+
+        local output_zone = zones[last_output_idx]
+        local output_text = pane:get_text_from_semantic_zone(output_zone)
+
+        if not output_text or output_text:match("^%s*$") then
+          return
+        end
+
+        local input_zone = zones[last_output_idx - 1]
+        local input_text = input_zone and pane:get_text_from_semantic_zone(input_zone) or "[No input found]\n"
+
+        local both = "$ " .. input_text .. "\n" .. output_text
+
+        window:copy_to_clipboard(both)
+
+        wezterm.time.call_after(0.1, function()
+          window:set_right_status("📋 Copied (cmd+output)!")
+        end)
+        wezterm.time.call_after(2.1, function()
           window:set_right_status("")
         end)
       end),
