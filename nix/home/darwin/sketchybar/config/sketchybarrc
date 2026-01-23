@@ -115,6 +115,18 @@ sketchybar --add item task_menu_open popup.task \
     label="Open Obsidian" \
     click_script="$PLUGIN_DIR/task_action.sh open"
 
+# Task list popup items (for left-click task selection)
+for i in {0..9}; do
+    sketchybar --add item "task_list_$i" popup.task \
+        --set "task_list_$i" \
+        icon.drawing=off \
+        label="" \
+        label.padding_left=8 \
+        label.padding_right=8 \
+        drawing=off \
+        click_script="$PLUGIN_DIR/task_select.sh $i"
+done
+
 # Timer (pomodoro-based with selectable duration)
 sketchybar --add item timer center \
     --subscribe timer timer_update mouse.exited.global \
