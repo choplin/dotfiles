@@ -59,7 +59,9 @@
       hexyl
       jq
       k9s
+      krew
       kubectl
+      kubernetes-helm
       lazydocker
       lazygit
       lsd
