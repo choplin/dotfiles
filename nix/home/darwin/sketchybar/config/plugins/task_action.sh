@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ACTION="$1"
-DAILY="$HOME/Obsidian/My Vault/Diary/Daily/$(date +%Y-%m-%d).md"
-TOMORROW="$HOME/Obsidian/My Vault/Diary/Daily/$(date -v+1d +%Y-%m-%d).md"
+DAILY="$HOME/Obsidian/My Vault/Daily Notes/$(date +%Y-%m-%d).md"
+TOMORROW="$HOME/Obsidian/My Vault/Daily Notes/$(date -v+1d +%Y-%m-%d).md"
 INDEX_FILE="$HOME/.local/share/sketchybar/task_index"
 
 # Close popup
@@ -48,7 +48,7 @@ case "$ACTION" in
         echo "-1" > "$INDEX_FILE"
         ;;
     open)
-        open "obsidian://open?vault=My%20Vault&file=Diary%2FDaily%2F$(date +%Y-%m-%d)"
+        open "obsidian://open?vault=My%20Vault&file=Daily%20Notes%2F$(date +%Y-%m-%d)"
         exit 0
         ;;
     add)
