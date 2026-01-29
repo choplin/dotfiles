@@ -81,6 +81,7 @@
       tree-sitter
       vhs
       watchexec
+      wget
       yazi
       yq
       yt-dlp
