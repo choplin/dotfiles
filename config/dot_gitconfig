@@ -85,7 +85,10 @@
   paging = always
 
 [include]
-  path = .gitconfig.local
+  path = ~/.gitconfig.local
+
+[includeIf "hasconfig:remote.*.url:https://github.com/scalar-labs/**"]
+  path = ~/.gitconfig.scalar-labs
 
 # vim:ft=gitconfig shiftwidth=2
 [gpg]

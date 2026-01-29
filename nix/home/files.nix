@@ -38,6 +38,7 @@ in {
     ".git-scripts".source = link "${configDir}/dot_git-scripts";
     ".gitattributes".source = link "${configDir}/dot_gitattributes";
     ".gitconfig".source = link "${configDir}/dot_gitconfig";
+    ".gitconfig.scalar-labs".source = link "${configDir}/dot_gitconfig.scalar-labs";
     ".gitignore_global".source = link "${configDir}/dot_gitignore_global";
     ".ideavimrc".source = link "${configDir}/dot_ideavimrc";
     ".tigrc".source = link "${configDir}/dot_tigrc";
