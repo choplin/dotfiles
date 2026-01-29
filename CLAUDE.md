@@ -52,7 +52,9 @@ Used in: `nix/home/darwin/`
 | Scope | System-wide | Per-user |
 | Update frequency | Low (system settings) | High (tools, dotfiles) |
 
-**Rule of thumb**: If it needs sudo or is system-wide, use darwin. Otherwise prefer home-manager.
+**Rule of thumb**: If it needs sudo or is system-wide, use darwin. Otherwise use home-manager.
+
+**Note**: darwin and home-manager are not integrated. Changes require their respective commands (see README.md).
 
 ### homebrew.nix vs brew-nix.nix
 
