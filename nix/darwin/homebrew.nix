@@ -20,7 +20,9 @@
       "gcloud-cli"
       "gitkraken-cli"
       "karabiner-elements"
+      "orbstack"
       "sf-symbols"
+      "typeless"
     ];
 
     taps = [
