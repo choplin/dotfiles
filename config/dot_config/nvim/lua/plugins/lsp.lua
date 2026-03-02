@@ -7,6 +7,7 @@ return {
   {
     "mason-org/mason.nvim",
     opts = {
+      PATH = "append",
       -- List linters and formatters to install here.
       -- LSP should be listed as opts.servers of nvim-lspconfig.
       ensure_installed = {
