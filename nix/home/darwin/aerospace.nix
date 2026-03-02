@@ -100,23 +100,23 @@ in {
         "alt-v" = "workspace ${workspaces.V}";
         "alt-b" = "workspace ${workspaces.B}";
 
-        "alt-shift-q" = "move-node-to-workspace ${workspaces.Q}";
-        "alt-shift-w" = "move-node-to-workspace ${workspaces.W}";
-        "alt-shift-e" = "move-node-to-workspace ${workspaces.E}";
-        "alt-shift-r" = "move-node-to-workspace ${workspaces.R}";
-        "alt-shift-t" = "move-node-to-workspace ${workspaces.T}";
+        "alt-shift-q" = ["move-node-to-workspace ${workspaces.Q}" "workspace ${workspaces.Q}"];
+        "alt-shift-w" = ["move-node-to-workspace ${workspaces.W}" "workspace ${workspaces.W}"];
+        "alt-shift-e" = ["move-node-to-workspace ${workspaces.E}" "workspace ${workspaces.E}"];
+        "alt-shift-r" = ["move-node-to-workspace ${workspaces.R}" "workspace ${workspaces.R}"];
+        "alt-shift-t" = ["move-node-to-workspace ${workspaces.T}" "workspace ${workspaces.T}"];
 
-        "alt-shift-a" = "move-node-to-workspace ${workspaces.A}";
-        "alt-shift-s" = "move-node-to-workspace ${workspaces.S}";
-        "alt-shift-d" = "move-node-to-workspace ${workspaces.D}";
-        "alt-shift-f" = "move-node-to-workspace ${workspaces.F}";
-        "alt-shift-g" = "move-node-to-workspace ${workspaces.G}";
+        "alt-shift-a" = ["move-node-to-workspace ${workspaces.A}" "workspace ${workspaces.A}"];
+        "alt-shift-s" = ["move-node-to-workspace ${workspaces.S}" "workspace ${workspaces.S}"];
+        "alt-shift-d" = ["move-node-to-workspace ${workspaces.D}" "workspace ${workspaces.D}"];
+        "alt-shift-f" = ["move-node-to-workspace ${workspaces.F}" "workspace ${workspaces.F}"];
+        "alt-shift-g" = ["move-node-to-workspace ${workspaces.G}" "workspace ${workspaces.G}"];
 
-        "alt-shift-z" = "move-node-to-workspace ${workspaces.Z}";
-        "alt-shift-x" = "move-node-to-workspace ${workspaces.X}";
-        "alt-shift-c" = "move-node-to-workspace ${workspaces.C}";
-        "alt-shift-v" = "move-node-to-workspace ${workspaces.V}";
-        "alt-shift-b" = "move-node-to-workspace ${workspaces.B}";
+        "alt-shift-z" = ["move-node-to-workspace ${workspaces.Z}" "workspace ${workspaces.Z}"];
+        "alt-shift-x" = ["move-node-to-workspace ${workspaces.X}" "workspace ${workspaces.X}"];
+        "alt-shift-c" = ["move-node-to-workspace ${workspaces.C}" "workspace ${workspaces.C}"];
+        "alt-shift-v" = ["move-node-to-workspace ${workspaces.V}" "workspace ${workspaces.V}"];
+        "alt-shift-b" = ["move-node-to-workspace ${workspaces.B}" "workspace ${workspaces.B}"];
 
         "alt-tab" = "workspace-back-and-forth";
         "alt-esc" = "focus-monitor --wrap-around next";
