@@ -1,15 +1,15 @@
 gui:
   scrollHeight: 10
   showIcons: true
-  theme:
-    selectedLineBgColor:
-      #- "#666666"
-      - default
-      - bold
-# git:
-#   paging:
-#     colorArg: always
-#     pager: delta --dark --paging=never
+  # theme:
+  # selectedLineBgColor:
+  #   #- "#666666"
+  #   - default
+  #   - bold
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --config=~/.config/lazygit/delta.gitconfig
 promptToReturnFromSubprocess: false
 customCommands:
   - key: "D"
