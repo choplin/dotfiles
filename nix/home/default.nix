@@ -84,7 +84,6 @@
       wget
       yazi
       yq
-      yt-dlp
       zellij
       zoxide
     ];

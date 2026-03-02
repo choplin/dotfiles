@@ -8,6 +8,7 @@
     };
     brews = [
       "mas"
+      "yt-dlp"
       "media-control"
       "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
