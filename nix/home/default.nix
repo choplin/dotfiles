@@ -13,6 +13,7 @@
     ./codex.nix
     ./darwin
     ./files.nix
+    ./gh
     ./neovim.nix
     ./programs.nix
   ];
