@@ -57,7 +57,9 @@
     "commit-commands@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "claude-mem@thedotmack": false,
-    "plugin-dev@claude-plugins-official": true
+    "plugin-dev@claude-plugins-official": true,
+    "claude-code-monitor@claude-code-monitor": true,
+    "wtm@wtm": true
   },
   "language": "Japanese",
   "sandbox": {
