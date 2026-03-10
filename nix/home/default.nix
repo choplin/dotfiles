@@ -33,7 +33,7 @@
     preferXdgDirectories = true;
 
     packages = with pkgs; [
-      ast-grep
+      #ast-grep
       bandwhich
       bat
       bottom
