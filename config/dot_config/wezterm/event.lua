@@ -111,7 +111,8 @@ local function setup_tab_title(wezterm)
   wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
     local pane_id = tab.active_pane.pane_id
     local title = tab.active_pane.title
-    return string.format("[%d] %s", pane_id, title)
+    local zoom = tab.active_pane.is_zoomed and "[Z] " or ""
+    return string.format("%s[%d] %s", zoom, pane_id, title)
   end)
 end
 
@@ -122,14 +123,35 @@ local function setup_key_table_status(wezterm)
   }
 
   wezterm.on("update-right-status", function(window, pane)
+    local elements = {}
+
+    -- Zoom indicator
+    local tab = pane:tab()
+    if tab then
+      local panes_info = tab:panes_with_info()
+      if #panes_info > 1 then
+        for _, p in ipairs(panes_info) do
+          if p.is_active and p.is_zoomed then
+            table.insert(elements, { Background = { Color = "#e0af68" } })
+            table.insert(elements, { Foreground = { Color = "#1a1b26" } })
+            table.insert(elements, { Text = " ZOOM " })
+            break
+          end
+        end
+      end
+    end
+
+    -- Key table indicator
     local name = window:active_key_table()
     if name then
       local bg = colors[name] or "#7aa2f7"
-      window:set_right_status(wezterm.format({
-        { Background = { Color = bg } },
-        { Foreground = { Color = "#1a1b26" } },
-        { Text = " " .. name:upper() .. " " },
-      }))
+      table.insert(elements, { Background = { Color = bg } })
+      table.insert(elements, { Foreground = { Color = "#1a1b26" } })
+      table.insert(elements, { Text = " " .. name:upper() .. " " })
+    end
+
+    if #elements > 0 then
+      window:set_right_status(wezterm.format(elements))
     else
       window:set_right_status("")
     end
