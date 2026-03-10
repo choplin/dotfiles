@@ -107,6 +107,14 @@ local function setup_command_palette(wezterm)
   end)
 end
 
+local function setup_tab_title(wezterm)
+  wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+    local pane_id = tab.active_pane.pane_id
+    local title = tab.active_pane.title
+    return string.format("[%d] %s", pane_id, title)
+  end)
+end
+
 local function setup_key_table_status(wezterm)
   local colors = {
     pane = "#7aa2f7",      -- blue
@@ -135,6 +143,7 @@ function M.setup(wezterm)
     setup_user_var(wezterm)
     setup_command_palette(wezterm)
     setup_key_table_status(wezterm)
+    setup_tab_title(wezterm)
     _G.event_hanndler_initialized = true
   end
 end
