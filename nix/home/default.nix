@@ -38,6 +38,7 @@
       bat
       bottom
       broot
+      bun
       delta
       devenv
       difftastic
