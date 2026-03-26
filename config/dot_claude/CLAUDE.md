@@ -48,7 +48,8 @@
 
 #### Worktree Management
 
-- Always go through the wtm MCP server we provide whenever you need to manage worktree. Skip manual git commands.
+- Always go through the `wtm:worktree` skill whenever you need to manage worktree. Skip manual git commands.
+- When `dev-workflow:new-task` is invoked, first use `wtm:worktree` to create a worktree before proceeding with the task workflow
 
 #### Git
 
@@ -73,6 +74,7 @@
 
 - Use `rg` over `grep`, `fd` over `find`
 - **NEVER use `sed`** - sed is broken on macOS, use awk, perl, or Edit/MultiEdit tools instead for text manipulation
+- **`gh` command TLS errors** - `gh` コマンドでTLSエラーが発生した場合、Claude Codeのsandboxが原因。`dangerouslyDisableSandbox: true` で再実行すること
 
 ### Markdown Rules
 
