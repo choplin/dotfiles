@@ -1,7 +1,7 @@
 line=$(
   gh search prs --author=@me --state=open \
-    --json repository,number,title,createdAt,updatedAt \
-    --template '{{range .}}{{.title}}{{"\t"}}{{printf "%.10s" .createdAt}}{{"\t"}}{{printf "%.10s" .updatedAt}}{{"\t"}}{{.repository.nameWithOwner}}#{{.number}}{{"\n"}}{{end}}' \
+    --json repository,number,title,createdAt,updatedAt,isDraft \
+    --template '{{range .}}{{if .isDraft}}[DRAFT] {{end}}{{.title}}{{"\t"}}{{printf "%.10s" .createdAt}}{{"\t"}}{{printf "%.10s" .updatedAt}}{{"\t"}}{{.repository.nameWithOwner}}#{{.number}}{{"\n"}}{{end}}' \
     -- archived:false \
   | column -t -s $'\t' \
   | fzf --prompt='My PRs> '
