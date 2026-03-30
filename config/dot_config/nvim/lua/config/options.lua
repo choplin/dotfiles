@@ -37,7 +37,7 @@ vim.filetype.add({
   },
 })
 
-vim.lsp.set_log_level("off")
+vim.lsp.log.set_level(vim.log.levels.OFF)
 
 -- Disable UI animation by Snacks
 vim.g.snacks_animate = false
