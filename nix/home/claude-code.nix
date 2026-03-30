@@ -20,7 +20,7 @@
       done < "$config"
     fi
 
-    exec ${pkgs-fast.claude-code}/bin/claude "''${plugin_args[@]}" "$@"
+    exec ${pkgs-fast.claude-code}/bin/claude --enable-auto-mode "''${plugin_args[@]}" "$@"
   '';
 in {
   home.packages = [
