@@ -56,7 +56,20 @@
     "code-review@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
-    "plugin-dev@claude-plugins-official": true
+    "plugin-dev@claude-plugins-official": true,
+    "moonbit-agent-guide@moonbit-code-plugins": true,
+    "moonbit-c-binding@moonbit-code-plugins": true,
+    "moonbit-extract-spec-test@moonbit-code-plugins": true,
+    "moonbit-lang@moonbit-code-plugins": true,
+    "moonbit-refactoring@moonbit-code-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "moonbit-code-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "moonbitlang/skills"
+      }
+    }
   },
   "language": "Japanese",
   "sandbox": {
