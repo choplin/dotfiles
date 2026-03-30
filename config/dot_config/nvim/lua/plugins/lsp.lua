@@ -61,7 +61,8 @@ return {
     },
     ---@class PluginLspOpts
     opts = function(_, opts)
-      opts.servers = vim.tbl_extend("force", opts.servers or {}, {
+      local prev_keys = (opts.servers and opts.servers["*"] and opts.servers["*"].keys) or {}
+      opts.servers = vim.tbl_deep_extend("force", opts.servers or {}, {
         jsonls = {
           settings = {
             json = {
@@ -92,10 +93,9 @@ return {
           },
         },
         ["*"] = {
-          keys = {
+          keys = vim.list_extend({
             { "<c-k>", false, mode = "i" },
-            { "<leader>cl", vim.lsp.codelens.run, mode = { "n" }, desc = "Code Lens" },
-          },
+          }, prev_keys),
           capabilities = {
             textDocument = {
               foldingRange = {
