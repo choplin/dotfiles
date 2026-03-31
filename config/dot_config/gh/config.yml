@@ -9,6 +9,7 @@ pager:
 # Aliases allow you to create nicknames for gh commands
 aliases:
     co: pr checkout
+    my-issues: '!gh-my-issues'
     my-prs: '!gh-my-prs'
     review-requests: '!gh-review-requests'
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.

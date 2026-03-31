@@ -1,5 +1,5 @@
 line=$(
-  gh search prs --author=@me --state=open \
+  gh search prs --author=@me --state=open --limit 100 \
     --json repository,number,title,createdAt,updatedAt,isDraft \
     --template '{{range .}}{{if .isDraft}}[DRAFT] {{end}}{{.title}}{{"\t"}}{{printf "%.10s" .createdAt}}{{"\t"}}{{printf "%.10s" .updatedAt}}{{"\t"}}{{.repository.nameWithOwner}}#{{.number}}{{"\n"}}{{end}}' \
     -- archived:false \

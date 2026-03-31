@@ -12,5 +12,10 @@ in {
       inherit runtimeInputs;
       text = builtins.readFile ./gh-my-prs.sh;
     })
+    (pkgs.writeShellApplication {
+      name = "gh-my-issues";
+      inherit runtimeInputs;
+      text = builtins.readFile ./gh-my-issues.sh;
+    })
   ];
 }
