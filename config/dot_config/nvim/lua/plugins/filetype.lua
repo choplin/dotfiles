@@ -22,6 +22,7 @@ return {
   },
   {
     "moonbit-community/moonbit.nvim",
+    dir = "~/ghq/github.com/choplin/moonbit.nvim",
     ft = { "moonbit" },
     opts = {
       mooncakes = {
