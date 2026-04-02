@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  runtimeInputs = with pkgs; [gh fzf gawk];
+  runtimeInputs = with pkgs; [gh fzf gawk ghq git gnugrep];
 in {
   home.packages = [
     (pkgs.writeShellApplication {
