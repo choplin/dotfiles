@@ -48,7 +48,7 @@ function __fzf_which_key() {
     bind_args+=("--bind" 'result:transform:[[ $FZF_MATCH_COUNT -eq 1 && -n $FZF_QUERY ]] && echo accept')
 
     local selected
-    selected=$(echo "$entries" | fzf --prompt="Key> " --no-multi --exact --height=40% --layout=reverse "${bind_args[@]}")
+    selected=$(echo "$entries" | fzf --prompt="Key> " --no-multi --exact --tiebreak=index --height=40% --layout=reverse "${bind_args[@]}")
 
     if [[ -n "$selected" ]]; then
         local selected_key="${selected%% │*}"
