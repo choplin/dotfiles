@@ -18,7 +18,7 @@ function wk-register() {
     bindkey "$bindkey_seq" "$widget"
 
     __wk_entries+=("$(printf '%-20s │  %s' "$key_label" "$desc")")
-    __wk_widgets["$key_label"]="$widget"
+    __wk_widgets[$key_label]=$widget
 }
 
 # Add an existing keybinding to which-key (display only, no zle -N or bindkey)
@@ -26,7 +26,7 @@ function wk-register() {
 function wk-add() {
     local key_label="$1" desc="$2" widget="$3"
     __wk_entries+=("$(printf '%-20s │  %s' "$key_label" "$desc")")
-    __wk_widgets["$key_label"]="$widget"
+    __wk_widgets[$key_label]=$widget
 }
 
 function __fzf_which_key() {
@@ -51,8 +51,8 @@ function __fzf_which_key() {
 
     if [[ -n "$selected" ]]; then
         local selected_key="${selected%% │*}"
-        selected_key="${selected_key%% }"
-        local widget="${__wk_widgets[$selected_key]}"
+        selected_key="${selected_key%"${selected_key##*[! ]}"}"
+        local widget=${__wk_widgets[$selected_key]}
         if [[ -n "$widget" ]]; then
             zle "$widget"
             return
