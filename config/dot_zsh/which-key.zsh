@@ -62,4 +62,5 @@ function __fzf_which_key() {
     zle reset-prompt
 }
 
-wk-register "Ctrl-Space" "Which Key: Show Keybindings" __fzf_which_key
+zle -N __fzf_which_key
+bindkey "^ " __fzf_which_key
