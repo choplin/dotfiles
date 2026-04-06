@@ -42,9 +42,10 @@ function __fzf_which_key() {
     local k fzf_key
     for k in $(echo "$entries" | perl -ne 'print "$1\n" while /\b(Ctrl-\S+)/g' | sort -u); do
         fzf_key="ctrl-$(echo "${k#Ctrl-}" | tr '[:upper:]' '[:lower:]')"
-        local cmd='[ -z "$FZF_QUERY" ] && echo "change-query('"$k"' )" || printf "change-query(%s'"$k"')+accept" "$FZF_QUERY"'
+        local cmd='[ -z "$FZF_QUERY" ] && echo "change-query(^'"$k"' )" || printf "change-query(%s'"$k"')+accept" "$FZF_QUERY"'
         bind_args+=("--bind" "${fzf_key}:transform:${cmd}")
     done
+    bind_args+=("--bind" 'result:transform:[[ $FZF_MATCH_COUNT -eq 1 && -n $FZF_QUERY ]] && echo accept')
 
     local selected
     selected=$(echo "$entries" | fzf --prompt="Key> " --no-multi --exact --height=40% --layout=reverse "${bind_args[@]}")
