@@ -83,5 +83,6 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "plansDirectory": "./.claude/plans"
+  "plansDirectory": "./.claude/plans",
+  "showClearContextOnPlanAccept": true
 }
