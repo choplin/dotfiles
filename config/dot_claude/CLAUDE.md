@@ -50,6 +50,7 @@
 
 - Always go through the `wtm:worktree` skill whenever you need to manage worktree. Skip manual git commands.
 - When `dev-workflow:new-task` is invoked, first use `wtm:worktree` to create a worktree before proceeding with the task workflow
+- When creating a worktree with `wtm add`, always use `-m` flag to record why the worktree was created (e.g., task context, issue reference, purpose)
 
 #### Git
 
