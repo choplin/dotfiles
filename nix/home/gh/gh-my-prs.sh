@@ -8,7 +8,7 @@ result=$(
     --json repository,number,title,createdAt,updatedAt,isDraft \
     --template '{{range .}}{{if .isDraft}}[DRAFT] {{end}}{{.title}}{{"\t"}}{{printf "%.10s" .createdAt}}{{"\t"}}{{printf "%.10s" .updatedAt}}{{"\t"}}{{.repository.nameWithOwner}}#{{.number}}{{"\n"}}{{end}}' \
     -- archived:false \
-  | awk -F'\t' '{ printf "%-60s %-12s %-12s %s\n", $1, $2, $3, $4 }' \
+  | column -t -s $'\t' \
   | fzf --prompt='My PRs> ' \
       --header "Enter: ${header_enter}, Ctrl-O: Open in browser" \
       --bind 'enter:accept' \

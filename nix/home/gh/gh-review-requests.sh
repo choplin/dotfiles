@@ -9,7 +9,7 @@ result=$(
     --state=open \
     --json repository,number,title,createdAt,updatedAt,author \
     --template '{{range .}}{{.title}}{{"\t"}}{{.author.login}}{{"\t"}}{{printf "%.10s" .createdAt}}{{"\t"}}{{printf "%.10s" .updatedAt}}{{"\t"}}{{.repository.nameWithOwner}}#{{.number}}{{"\n"}}{{end}}' \
-  | awk -F'\t' '{ printf "%-60s %-12s %-12s %-12s %s\n", $1, $2, $3, $4, $5 }' \
+  | column -t -s $'\t' \
   | fzf --prompt='Review Requests> ' \
       --header "Enter: ${header_enter}, Ctrl-O: Open in browser" \
       --bind 'enter:accept' \
