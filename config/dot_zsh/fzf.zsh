@@ -24,3 +24,18 @@ local script_dir="${0:A:h}"
 for f in "$script_dir"/fzf/*.widget.zsh(.N); do
   source "$f"
 done
+
+# Register external keybindings with which-key (display only)
+# fzf builtins
+wk-add "Ctrl-T" "fzf: File Search" fzf-file-widget
+wk-add "Ctrl-R" "fzf: History Search" fzf-history-widget
+# fzf-git (Ctrl-G + key)
+wk-add "Ctrl-G Ctrl-F" "fzf-git: Files" fzf-git-files-widget
+wk-add "Ctrl-G Ctrl-B" "fzf-git: Branches" fzf-git-branches-widget
+wk-add "Ctrl-G Ctrl-T" "fzf-git: Tags" fzf-git-tags-widget
+wk-add "Ctrl-G Ctrl-R" "fzf-git: Remotes" fzf-git-remotes-widget
+wk-add "Ctrl-G Ctrl-H" "fzf-git: Hashes" fzf-git-hashes-widget
+wk-add "Ctrl-G Ctrl-S" "fzf-git: Stashes" fzf-git-stashes-widget
+wk-add "Ctrl-G Ctrl-L" "fzf-git: Reflogs" fzf-git-lreflogs-widget
+wk-add "Ctrl-G Ctrl-E" "fzf-git: Each Ref" fzf-git-each_ref-widget
+wk-add "Ctrl-G Ctrl-W" "fzf-git: Worktrees" fzf-git-worktrees-widget

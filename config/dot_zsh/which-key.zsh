@@ -21,11 +21,19 @@ function wk-register() {
     __wk_widgets["$key_label"]="$widget"
 }
 
+# Add an existing keybinding to which-key (display only, no zle -N or bindkey)
+# Usage: wk-add "Ctrl-T" "fzf: File Search" fzf-file-widget
+function wk-add() {
+    local key_label="$1" desc="$2" widget="$3"
+    __wk_entries+=("$(printf '%-20s │  %s' "$key_label" "$desc")")
+    __wk_widgets["$key_label"]="$widget"
+}
+
 function __fzf_which_key() {
     zle -I
 
     local entries
-    entries=$(printf '%s\n' "${__wk_entries[@]}" | sort)
+    entries=$(printf '%s\n' "${__wk_entries[@]}")
 
     # Build fzf --bind for Ctrl-key navigation
     # First press (empty query): filter to prefix group

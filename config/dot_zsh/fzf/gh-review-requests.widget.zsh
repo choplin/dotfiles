@@ -11,4 +11,4 @@ function __fzf_gh_review_requests() {
     zle reset-prompt
 }
 
-wk-register "Ctrl-G Ctrl-R" "GitHub: Review Requests" __fzf_gh_review_requests
+wk-register "Ctrl-G Ctrl-V" "GitHub: Review Requests" __fzf_gh_review_requests
