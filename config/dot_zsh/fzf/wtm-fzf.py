@@ -68,7 +68,8 @@ def get_pr_info(branch):
     out = run([
         "gh", "pr", "list",
         "--head", branch,
-        "--json", "number,state,isDraft,reviewDecision,statusCheckRollup",
+        "--state", "all",
+        "--json", "number,state,isDraft,reviewDecision,statusCheckRollup,latestReviews",
         "--limit", "1",
     ])
     if out is None:
@@ -110,6 +111,10 @@ def format_pr_col(pr):
     else:
         state_str = "\uf409 open"     # nf-oct-git_pull_request
 
+    # Skip CI/review for merged/closed PRs
+    if state in ("merged", "closed"):
+        return f"#{num} {state_str}"
+
     # CI status
     checks = pr.get("statusCheckRollup", []) or []
     ci = ""
@@ -132,6 +137,8 @@ def format_pr_col(pr):
     if review == "APPROVED":
         rev = " \uf164"       # nf-fa-thumbs_up
     elif review == "CHANGES_REQUESTED":
+        rev = " \uf12a"       # nf-fa-exclamation
+    elif any(r.get("state") == "COMMENTED" for r in (pr.get("latestReviews") or [])):
         rev = " \uf075"       # nf-fa-comment
 
     return f"#{num} {state_str}{ci}{rev}"
