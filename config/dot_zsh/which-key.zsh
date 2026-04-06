@@ -13,9 +13,17 @@ function wk-register() {
 
     # Convert human-readable key to bindkey sequence
     # "Ctrl-G Ctrl-I" → "^g^i", "Ctrl-Space" → "^ ", "Ctrl-]" → "^]"
-    local bindkey_seq
-    bindkey_seq=$(echo "$key_label" | perl -pe 's/Ctrl-Space/^ /g; s/Ctrl-(.)/^\L$1/g; s/ +(?=\^)//g')
-    bindkey "$bindkey_seq" "$widget"
+    local result="" part
+    for part in ${(s: :)key_label}; do
+        if [[ "$part" == "Ctrl-Space" ]]; then
+            result+="^ "
+        elif [[ "$part" == Ctrl-* ]]; then
+            result+="^${(L)part#Ctrl-}"
+        else
+            result+="$part"
+        fi
+    done
+    bindkey "$result" "$widget"
 
     __wk_entries+=("$(printf '%-20s │  %s' "$key_label" "$desc")")
     __wk_widgets[$key_label]=$widget
