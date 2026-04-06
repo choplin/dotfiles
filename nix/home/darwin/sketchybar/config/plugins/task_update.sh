@@ -11,7 +11,7 @@ case "$SENDER" in
         ;;
 esac
 
-DAILY="$HOME/Obsidian/My Vault/Daily Notes/$(date +%Y-%m-%d).md"
+DAILY="$HOME/Obsidian/My Vault/10_Daily Notes/$(date +%Y-%m-%d).md"
 INDEX_FILE="$HOME/.local/share/sketchybar/task_index"
 
 # Get uncompleted tasks from ## Tasks section using treemd

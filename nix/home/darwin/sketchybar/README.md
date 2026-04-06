@@ -26,7 +26,7 @@
 
 Display current task from Obsidian daily note.
 
-**Data Source**: `~/Obsidian/My Vault/Daily Notes/YYYY-MM-DD.md` under `## Tasks` section
+**Data Source**: `~/Obsidian/My Vault/10_Daily Notes/YYYY-MM-DD.md` under `## Tasks` section
 
 **Task Format**:
 - `- [ ]` Uncompleted (displayed)
