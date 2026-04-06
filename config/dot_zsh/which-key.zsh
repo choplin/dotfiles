@@ -36,19 +36,24 @@ function __fzf_which_key() {
     entries=$(printf '%s\n' "${__wk_entries[@]}")
 
     # Build fzf --bind for Ctrl-key navigation
-    # First press (empty query): filter to prefix group
-    # Second press (query has prefix): append key and accept
+    # First press (empty query): change-query with ^ anchor to filter prefix group
+    # Second press (non-empty query): reload with awk to physically filter entries
+    # result event auto-accepts when narrowed to 1 match
+    local tmpfile=$(mktemp)
+    echo "$entries" > "$tmpfile"
+
     local -a bind_args
     local k fzf_key
     for k in $(echo "$entries" | perl -ne 'print "$1\n" while /\b(Ctrl-\S+)/g' | sort -u); do
         fzf_key="ctrl-$(echo "${k#Ctrl-}" | tr '[:upper:]' '[:lower:]')"
-        local cmd='[ -z "$FZF_QUERY" ] && echo "change-query(^'"$k"' )" || printf "change-query(%s'"$k"' )" "$FZF_QUERY"'
+        local cmd="[ -z \"\$FZF_QUERY\" ] && echo \"change-query(^${k} )\" || echo \"reload(awk -v p=\\\"\${FZF_QUERY#^}${k} \\\" 'substr(\\\$0,1,length(p))==p' ${tmpfile})+change-query( )\""
         bind_args+=("--bind" "${fzf_key}:transform:${cmd}")
     done
     bind_args+=("--bind" 'result:transform:[[ $FZF_MATCH_COUNT -eq 1 && -n $FZF_QUERY ]] && echo accept')
 
     local selected
     selected=$(echo "$entries" | fzf --prompt="Key> " --no-multi --exact --tiebreak=index --height=40% --layout=reverse "${bind_args[@]}")
+    rm -f "$tmpfile"
 
     if [[ -n "$selected" ]]; then
         local selected_key="${selected%% │*}"
