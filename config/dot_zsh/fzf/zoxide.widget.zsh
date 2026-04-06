@@ -1,5 +1,3 @@
-# Zoxide integration
-# Function to search directories using zoxide with fzf
 function __fzf_zoxide() {
     local res
     if [ -n "$LBUFFER" ]; then
@@ -15,6 +13,5 @@ function __fzf_zoxide() {
     zle reset-prompt
 }
 
-zle -N __fzf_zoxide
-bindkey '^g^g' __fzf_zoxide
+wk-register "Ctrl-G Ctrl-G" "Zoxide: Directory Jump" __fzf_zoxide
 

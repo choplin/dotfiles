@@ -21,6 +21,6 @@ fi
 
 local script_dir="${0:A:h}"
 
-for f in "$script_dir"/fzf/*.zsh(.N); do
+for f in "$script_dir"/fzf/*.widget.zsh(.N); do
   source "$f"
 done

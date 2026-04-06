@@ -1,4 +1,3 @@
-# gh review-requests with cd support (Ctrl-G Ctrl-R)
 __gh_review_requests_cmd="${commands[gh-review-requests]}"
 
 function __fzf_gh_review_requests() {
@@ -12,5 +11,4 @@ function __fzf_gh_review_requests() {
     zle reset-prompt
 }
 
-zle -N __fzf_gh_review_requests
-bindkey "^G^R" __fzf_gh_review_requests
+wk-register "Ctrl-G Ctrl-R" "GitHub: Review Requests" __fzf_gh_review_requests

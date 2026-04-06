@@ -1,4 +1,3 @@
-# ghq integration
 # Function to select a repository using fzf
 function __fzf_ghq() {
     local root=$(ghq root)
@@ -43,5 +42,4 @@ function __fzf_ghq() {
     zle reset-prompt
 }
 
-zle -N __fzf_ghq
-bindkey "^]" __fzf_ghq
+wk-register "Ctrl-]" "GHQ: Repository Selector" __fzf_ghq

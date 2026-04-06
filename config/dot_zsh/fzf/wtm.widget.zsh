@@ -1,5 +1,3 @@
-# wtm integration
-# Resolve script path at source time, not inside the function
 __wtm_fzf_py="${0:A:h}/wtm-fzf.py"
 
 # Icon definitions (nerd font)
@@ -47,5 +45,4 @@ function __fzf_wtm() {
     zle reset-prompt
 }
 
-zle -N __fzf_wtm
-bindkey "^o^w" __fzf_wtm
+wk-register "Ctrl-O Ctrl-W" "Worktree: Selector" __fzf_wtm

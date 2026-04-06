@@ -36,6 +36,9 @@ github = "zsh-users/zsh-autosuggestions"
 #apply = ["defer"]
 github = "olets/zsh-abbr"
 
+[plugins.which-key]
+inline = 'source "${HOME}/.zsh/which-key.zsh"' # After zsh-abbr: reclaims Ctrl-Space
+
 [plugins.fzf-git]
 github = "junegunn/fzf-git.sh"
 

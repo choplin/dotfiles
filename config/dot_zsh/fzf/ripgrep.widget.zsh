@@ -1,4 +1,3 @@
-# Function to search files using ripgrep with fzf
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#switching-to-fzf-only-search-mode
 function __fzf_rg_fzf() {
     rm -f /tmp/__fzf_rg_fzf-{r,f}
@@ -24,5 +23,4 @@ function __fzf_rg_fzf() {
         --bind 'ctrl-o:execute-silent(gh browse {1})'
 }
 
-zle -N __fzf_rg_fzf
-bindkey "^s" __fzf_rg_fzf
+wk-register "Ctrl-S" "Ripgrep: Search Files" __fzf_rg_fzf

@@ -1,5 +1,3 @@
-# WezTerm pane selector with fzf preview
-# Switch to any pane in the current window with live preview
 function __fzf_wezterm_pane() {
     local panes
     panes=$(wezterm cli list --format json 2>/dev/null)
@@ -68,11 +66,8 @@ for l in lines:
     zle reset-prompt
 }
 
-zle -N __fzf_wezterm_pane
-bindkey "^o^p" __fzf_wezterm_pane
+wk-register "Ctrl-O Ctrl-P" "WezTerm: Pane Selector" __fzf_wezterm_pane
 
-# WezTerm tab selector with fzf preview
-# Switch to any tab in the current window with live preview of active pane
 function __fzf_wezterm_tab() {
     local panes
     panes=$(wezterm cli list --format json 2>/dev/null)
@@ -143,5 +138,4 @@ for line in sys.stdin:
     zle reset-prompt
 }
 
-zle -N __fzf_wezterm_tab
-bindkey "^o^t" __fzf_wezterm_tab
+wk-register "Ctrl-O Ctrl-T" "WezTerm: Tab Selector" __fzf_wezterm_tab
