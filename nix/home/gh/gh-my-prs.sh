@@ -1,3 +1,8 @@
+header_enter="Print local path"
+if [[ "${1:-}" == "--cd" ]]; then
+  header_enter="cd to local path"
+fi
+
 result=$(
   gh search prs --author=@me --state=open --limit 100 \
     --json repository,number,title,createdAt,updatedAt,isDraft \
@@ -5,7 +10,7 @@ result=$(
     -- archived:false \
   | awk -F'\t' '{ printf "%-60s %-12s %-12s %s\n", $1, $2, $3, $4 }' \
   | fzf --prompt='My PRs> ' \
-      --header 'Enter: Print local path, Ctrl-O: Open in browser' \
+      --header "Enter: ${header_enter}, Ctrl-O: Open in browser" \
       --bind 'enter:accept' \
       --bind 'ctrl-o:print(__web)+accept'
 ) || exit
