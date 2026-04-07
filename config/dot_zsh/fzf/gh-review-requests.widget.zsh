@@ -3,8 +3,10 @@ __gh_review_requests_cmd="${commands[gh-review-requests]}"
 function __fzf_gh_review_requests() {
     zle -I
     local path
-    path=$("$__gh_review_requests_cmd" --cd)
-    if [[ -n "$path" ]]; then
+    path=$("$__gh_review_requests_cmd" --widget)
+    if [[ "$path" == __web:* ]]; then
+        __open_url "${path#__web:}"
+    elif [[ -n "$path" ]]; then
         BUFFER="cd \"${path}\""
         zle accept-line
     fi

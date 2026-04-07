@@ -19,6 +19,13 @@ if command -v fzf >/dev/null 2>&1; then
     eval "$(fzf --zsh)"
 fi
 
+__open_url() {
+  case "$OSTYPE" in
+    darwin*) /usr/bin/open "$1" ;;
+    *)       xdg-open "$1" ;;
+  esac
+}
+
 local script_dir="${0:A:h}"
 
 for f in "$script_dir"/fzf/*.widget.zsh(.N); do

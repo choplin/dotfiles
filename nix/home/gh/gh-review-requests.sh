@@ -1,5 +1,5 @@
 header_enter="Print local path"
-if [[ "${1:-}" == "--cd" ]]; then
+if [[ "${1:-}" == "--widget" ]]; then
   header_enter="cd to local path"
 fi
 
@@ -29,15 +29,20 @@ if [[ -z "$repo" || -z "$num" ]]; then
   exit
 fi
 
-if [[ $result != __web* ]]; then
-  ghq_root="$(ghq root)"
-  repo_path="${ghq_root}/github.com/${repo}"
-  if [[ ! -d "$repo_path" ]]; then
-    echo "Error: Repository not found locally: ${repo}" >&2
-    exit 1
+if [[ $result == __web* ]]; then
+  if [[ "${1:-}" == "--widget" ]]; then
+    echo "__web:$(gh pr view "$num" --repo "$repo" --json url -q .url)"
+  else
+    gh pr view "$num" --repo "$repo" --web
   fi
-
-  echo "$repo_path"
-else
-  gh pr view "$num" --repo "$repo" --web
+  exit
 fi
+
+ghq_root="$(ghq root)"
+repo_path="${ghq_root}/github.com/${repo}"
+if [[ ! -d "$repo_path" ]]; then
+  echo "Error: Repository not found locally: ${repo}" >&2
+  exit 1
+fi
+
+echo "$repo_path"
