@@ -33,5 +33,10 @@ use = "aresler/path-from-root"
 rev = "c4f03df"
 hash = "5022fdb08fcb05c10eb59b63663edb10"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:piper"
+rev = "7749958"
+hash = "384464b6df8cb807425c521f8cd790f3"
+
 [flavor]
 deps = []
