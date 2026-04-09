@@ -259,21 +259,21 @@ end
 
 -- Copy file location
 map("n", "<leader>cy", function()
-  require("context").copy_file_location()
+  require("lib.context").copy_file_location()
 end, { desc = "Copy file location" })
 
 -- Copy file context with count (e.g., 3<leader>cY copies 3 lines before and after)
 map("n", "<leader>cY", function()
   local count = vim.v.count
-  require("context").copy_file_context(count > 0 and count or 0)
+  require("lib.context").copy_file_context(count > 0 and count or 0)
 end, { desc = "Copy file context with lines" })
 
 -- Visual mode: copy location
 map("v", "<leader>cy", function()
-  require("context").copy_visual_location()
+  require("lib.context").copy_visual_location()
 end, { desc = "Copy visual selection location" })
 
 -- Visual mode: copy context
 map("v", "<leader>cY", function()
-  require("context").copy_visual_context()
+  require("lib.context").copy_visual_context()
 end, { desc = "Copy visual selection with context" })
