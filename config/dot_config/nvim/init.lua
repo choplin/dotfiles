@@ -19,8 +19,8 @@ if not vim.uv.fs_stat(lzn_path) then
 end
 vim.cmd.packadd("lz.n")
 
--- Load plugins via lz.n (placeholder for future stories)
--- require("lz.n").load("plugins")
+-- Load plugins via lz.n
+require("lz.n").load("plugins")
 
 -- LazyFile custom event (replaces lazy.nvim's LazyFile)
 -- Groups BufReadPost, BufNewFile, BufWritePre into a single event
@@ -69,8 +69,8 @@ end
 
 lazy_file()
 
--- Colorscheme (fallback until tokyonight is loaded in Story 4)
-vim.cmd.colorscheme("habamax")
+-- Colorscheme (lz.n loads tokyonight via colorscheme trigger)
+vim.cmd.colorscheme("tokyonight")
 
 -- Deferred loading: autocmds and keymaps
 -- Load autocmds immediately if a file was opened, otherwise defer
