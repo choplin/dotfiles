@@ -58,6 +58,11 @@ return {
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 1, padding = 1 },
+          { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+        },
       },
     })
 

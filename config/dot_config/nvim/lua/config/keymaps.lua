@@ -183,8 +183,13 @@ if package.loaded.snacks then
   Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
   Snacks.toggle.zen():map("<leader>uz")
 
-  -- lua
-  map({"n", "x"}, "<localleader>r", function() Snacks.debug.run() end, { desc = "Run Lua", ft = "lua" })
+  -- lua (filetype-specific keymap)
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function(ev)
+      vim.keymap.set({"n", "x"}, "<localleader>r", function() Snacks.debug.run() end, { desc = "Run Lua", buffer = ev.buf })
+    end,
+  })
 end
 
 -- quit

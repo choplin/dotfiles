@@ -1,6 +1,9 @@
 return {
   "noice.nvim",
   event = "DeferredUIEnter",
+  before = function()
+    vim.cmd.packadd("nui.nvim")
+  end,
   after = function()
     require("noice").setup({
       lsp = {
