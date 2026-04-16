@@ -1,5 +1,6 @@
 return {
   "mini.ai",
+  src = "https://github.com/echasnovski/mini.ai",
   event = "DeferredUIEnter",
   after = function()
     local ai = require("mini.ai")

@@ -1,6 +1,7 @@
 return {
   "todo-comments.nvim",
-  event = "LazyFile",
+  src = "https://github.com/folke/todo-comments.nvim",
+  event = "User LazyFile",
   cmd = { "TodoTrouble" },
   after = function()
     require("todo-comments").setup()

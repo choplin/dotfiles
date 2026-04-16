@@ -1,6 +1,7 @@
 return {
   "nvim-treesitter-context",
-  event = "LazyFile",
+  src = "https://github.com/nvim-treesitter/nvim-treesitter-context",
+  event = "User LazyFile",
   after = function()
     require("treesitter-context").setup({
       mode = "cursor",

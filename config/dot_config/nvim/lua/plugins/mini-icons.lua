@@ -1,5 +1,6 @@
 return {
   "mini.icons",
+  src = "https://github.com/echasnovski/mini.icons",
   lazy = false,
   priority = 100,
   after = function()

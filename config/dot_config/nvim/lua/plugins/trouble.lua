@@ -1,5 +1,6 @@
 return {
   "trouble.nvim",
+  src = "https://github.com/folke/trouble.nvim",
   cmd = "Trouble",
   after = function()
     require("trouble").setup({

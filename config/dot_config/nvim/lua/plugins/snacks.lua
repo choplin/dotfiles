@@ -5,6 +5,7 @@ end
 
 return {
   "snacks.nvim",
+  src = "https://github.com/folke/snacks.nvim",
   lazy = false,
   priority = 1000,
   after = function()

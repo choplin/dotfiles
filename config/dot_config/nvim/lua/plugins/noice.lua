@@ -1,5 +1,7 @@
 return {
   "noice.nvim",
+  src = "https://github.com/folke/noice.nvim",
+  deps = { { src = "https://github.com/MunifTanjim/nui.nvim", name = "nui.nvim" } },
   event = "DeferredUIEnter",
   before = function()
     vim.cmd.packadd("nui.nvim")

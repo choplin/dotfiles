@@ -1,5 +1,6 @@
 return {
   "which-key.nvim",
+  src = "https://github.com/folke/which-key.nvim",
   event = "DeferredUIEnter",
   after = function()
     local wk = require("which-key")

@@ -19,6 +19,36 @@ if not vim.uv.fs_stat(lzn_path) then
 end
 vim.cmd.packadd("lz.n")
 
+-- Install plugins via vim.pack
+-- Collect src URLs from lua/plugins/*.lua specs and install via vim.pack.add()
+local function install_plugins()
+  local specs_dir = vim.fn.stdpath("config") .. "/lua/plugins"
+  local sources = {}
+  for _, file in ipairs(vim.fn.glob(specs_dir .. "/*.lua", false, true)) do
+    local ok, mod = pcall(dofile, file)
+    if not ok then
+      vim.notify("Failed to load plugin spec: " .. file .. "\n" .. tostring(mod), vim.log.levels.ERROR)
+    elseif type(mod) == "table" then
+      if mod.src then
+        local entry = { src = mod.src }
+        if mod.version then entry.version = mod.version end
+        table.insert(sources, entry)
+      end
+      if mod.deps then
+        for _, dep in ipairs(mod.deps) do
+          if type(dep) == "table" and dep.src then
+            table.insert(sources, dep)
+          end
+        end
+      end
+    end
+  end
+  if #sources > 0 then
+    vim.pack.add(sources)
+  end
+end
+install_plugins()
+
 -- Load plugins via lz.n
 require("lz.n").load("plugins")
 

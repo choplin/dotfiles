@@ -1,5 +1,6 @@
 return {
   "flash.nvim",
+  src = "https://github.com/folke/flash.nvim",
   event = "DeferredUIEnter",
   after = function()
     require("flash").setup()

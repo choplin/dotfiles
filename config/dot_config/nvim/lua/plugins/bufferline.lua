@@ -1,5 +1,6 @@
 return {
   "bufferline.nvim",
+  src = "https://github.com/akinsho/bufferline.nvim",
   event = "DeferredUIEnter",
   after = function()
     require("bufferline").setup({

@@ -1,5 +1,6 @@
 return {
   "tokyonight.nvim",
+  src = "https://github.com/folke/tokyonight.nvim",
   colorscheme = "tokyonight",
   after = function()
     require("tokyonight").setup({

@@ -1,5 +1,6 @@
 return {
   "lualine.nvim",
+  src = "https://github.com/nvim-lualine/lualine.nvim",
   event = "DeferredUIEnter",
   after = function()
     -- Root directory display (cwd basename)

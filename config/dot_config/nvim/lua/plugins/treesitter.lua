@@ -1,6 +1,9 @@
 return {
   "nvim-treesitter",
-  event = "LazyFile",
+  src = "https://github.com/nvim-treesitter/nvim-treesitter",
+  deps = { { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", name = "nvim-treesitter-textobjects" } },
+  version = "main",
+  event = "User LazyFile",
   before = function()
     vim.cmd.packadd("nvim-treesitter-textobjects")
   end,
