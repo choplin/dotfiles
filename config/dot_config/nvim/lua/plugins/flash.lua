@@ -1,15 +1,14 @@
 return {
   "flash.nvim",
   src = "https://github.com/folke/flash.nvim",
-  event = "DeferredUIEnter",
+  keys = {
+    { "s", function() require("flash").jump() end, mode = { "n", "x", "o" }, desc = "Flash" },
+    { "S", function() require("flash").treesitter() end, mode = { "n", "o", "x" }, desc = "Flash Treesitter" },
+    { "r", function() require("flash").remote() end, mode = "o", desc = "Remote Flash" },
+    { "R", function() require("flash").treesitter_search() end, mode = { "o", "x" }, desc = "Treesitter Search" },
+    { "<c-s>", function() require("flash").toggle() end, mode = "c", desc = "Toggle Flash Search" },
+  },
   after = function()
     require("flash").setup()
-
-    local map = vim.keymap.set
-    map({ "n", "x", "o" }, "s", function() require("flash").jump() end, { desc = "Flash" })
-    map({ "n", "o", "x" }, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
-    map("o", "r", function() require("flash").remote() end, { desc = "Remote Flash" })
-    map({ "o", "x" }, "R", function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
-    map("c", "<c-s>", function() require("flash").toggle() end, { desc = "Toggle Flash Search" })
   end,
 }
