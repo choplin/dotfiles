@@ -67,6 +67,9 @@ return {
       },
     })
 
+    -- Statuscolumn (must be set after snacks is loaded)
+    vim.opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+
     -- Keymaps
     vim.keymap.set("n", "<leader>n", function()
       Snacks.notifier.show_history()

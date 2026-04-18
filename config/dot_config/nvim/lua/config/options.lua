@@ -90,7 +90,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
-opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+-- statuscolumn: set by snacks.lua after setup
 opt.tabstop = 2
 opt.termguicolors = true
 opt.timeoutlen = vim.g.vscode and 1000 or 250
