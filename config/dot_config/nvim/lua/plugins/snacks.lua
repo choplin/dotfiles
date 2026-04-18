@@ -31,7 +31,7 @@ return {
         end,
       },
       scroll = { enabled = true },
-      statuscolumn = { enabled = false },
+      statuscolumn = { enabled = true },
       toggle = { map = vim.keymap.set },
       words = { enabled = true },
       dim = {
