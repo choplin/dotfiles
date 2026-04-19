@@ -1,18 +1,38 @@
+local function safe_require(modname)
+  local ok, mod = pcall(require, modname)
+  return ok and mod or {}
+end
+
 return {
   "nvim-lspconfig",
   src = "https://github.com/neovim/nvim-lspconfig",
   deps = {
     { src = "https://github.com/mason-org/mason.nvim", name = "mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim", name = "mason-lspconfig.nvim" },
+    { src = "https://github.com/b0o/SchemaStore.nvim", name = "SchemaStore.nvim" },
   },
   event = "User LazyFile",
   before = function()
     vim.cmd.packadd("mason.nvim")
     vim.cmd.packadd("mason-lspconfig.nvim")
+    vim.cmd.packadd("SchemaStore.nvim")
   end,
   after = function()
+    local local_env = safe_require("local_env")
+
     -- Mason setup (must come before mason-lspconfig)
-    require("mason").setup({ PATH = "append" })
+    require("mason").setup({
+      PATH = "append",
+      ensure_installed = {
+        "shellcheck",
+        "ktlint",
+        "hadolint",
+        "ruff",
+        "stylua",
+        "shfmt",
+        "google-java-format",
+      },
+    })
     require("mason-lspconfig").setup({ automatic_enable = true })
 
     -- Diagnostics
@@ -47,6 +67,47 @@ return {
       },
     })
     vim.lsp.enable("lua_ls")
+
+    -- jsonls with SchemaStore
+    vim.lsp.config("jsonls", {
+      settings = {
+        json = {
+          format = { enable = true },
+          validate = { enable = true },
+          schemas = require("schemastore").json.schemas(),
+        },
+      },
+    })
+    vim.lsp.enable("jsonls")
+
+    -- kotlin_language_server
+    vim.lsp.config("kotlin_language_server", {
+      cmd_env = { JAVA_HOME = local_env.java and local_env.java.java_home_19 },
+    })
+    vim.lsp.enable("kotlin_language_server")
+
+    -- zls (not managed by mason)
+    vim.lsp.config("zls", {
+      cmd = { local_env.zls_path or "zls" },
+    })
+    vim.lsp.enable("zls")
+
+    -- denols (only for deno projects)
+    vim.lsp.config("denols", {
+      root_markers = { "deno.json", "deno.jsonc", "deps.ts" },
+      workspace_required = true,
+    })
+    vim.lsp.enable("denols")
+
+    -- nil_ls (Nix)
+    vim.lsp.config("nil_ls", {
+      settings = {
+        ["nil"] = {
+          formatting = { command = { "alejandra" } },
+        },
+      },
+    })
+    vim.lsp.enable("nil_ls")
 
     -- LspAttach autocmd for keymaps, inlay hints, and codelens
     vim.api.nvim_create_autocmd("LspAttach", {
