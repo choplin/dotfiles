@@ -40,10 +40,16 @@ return {
       },
     })
 
-    -- Auto-format on save
+    -- Auto-format on save (respects vim.g.autoformat and vim.b.autoformat)
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("conform_autoformat", { clear = true }),
       callback = function(args)
+        if vim.g.autoformat == false then
+          return
+        end
+        if vim.b[args.buf].autoformat == false then
+          return
+        end
         require("conform").format({ bufnr = args.buf })
       end,
     })

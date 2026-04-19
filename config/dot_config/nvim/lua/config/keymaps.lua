@@ -140,6 +140,16 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- toggle options (Snacks-dependent, available after snacks is loaded)
 if package.loaded.snacks then
+  Snacks.toggle({
+    name = "Auto Format (Global)",
+    get = function() return vim.g.autoformat end,
+    set = function(state) vim.g.autoformat = state end,
+  }):map("<leader>uf")
+  Snacks.toggle({
+    name = "Auto Format (Buffer)",
+    get = function() return vim.b.autoformat ~= false end,
+    set = function(state) vim.b.autoformat = state end,
+  }):map("<leader>uF")
   Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
   Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
   Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
