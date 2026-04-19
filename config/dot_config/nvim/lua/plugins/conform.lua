@@ -20,6 +20,18 @@ return {
         sh = { "shfmt" },
         java = { "google-java-format" },
         python = { "ruff_fix", "ruff_format" },
+        javascript = { "biome-check" },
+        javascriptreact = { "biome-check" },
+        typescript = { "biome-check" },
+        typescriptreact = { "biome-check" },
+        json = { "biome-check" },
+        jsonc = { "biome-check" },
+        css = { "biome-check" },
+        svelte = { "biome-check" },
+        graphql = { "biome-check" },
+      },
+      formatters = {
+        ["biome-check"] = { require_cwd = true },
       },
       default_format_opts = {
         timeout_ms = 3000,

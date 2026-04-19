@@ -110,6 +110,9 @@ return {
     })
     vim.lsp.enable("nil_ls")
 
+    -- biome (JS/TS formatter/linter, project-local)
+    vim.lsp.enable("biome")
+
     -- Copilot (native LSP, Neovim 0.12+)
     if vim.fn.has("nvim-0.12") == 1 then
       vim.lsp.config("copilot", {
@@ -171,13 +174,7 @@ return {
 
         -- Codelens
         if client:supports_method("textDocument/codeLens") then
-          vim.lsp.codelens.refresh()
-          vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-            buffer = buf,
-            callback = function()
-              vim.lsp.codelens.refresh()
-            end,
-          })
+          vim.lsp.codelens.enable(true, { bufnr = buf })
         end
       end,
     })
