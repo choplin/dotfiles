@@ -15,17 +15,6 @@ vim.g.snacks_animate = false
 -- Do not handle Copilot suggestion by blink.cmp
 vim.g.ai_cmp = false
 
--- Root dir detection
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
--- Set LSP servers to be ignored when used with root detection
-vim.g.root_lsp_ignore = { "copilot" }
-
--- Hide deprecation warnings
-vim.g.deprecation_warnings = false
-
--- Show the current document symbols location from Trouble in lualine
-vim.g.trouble_lualine = true
 
 local opt = vim.opt
 
