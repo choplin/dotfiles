@@ -12,6 +12,10 @@
       "rev": "8d5ba425218912db0d960ba0bd0a1b39d14082b7",
       "src": "https://github.com/hotwatermorning/auto-git-diff"
     },
+    "blink-ripgrep.nvim": {
+      "rev": "6b6193facc180ad818bd0f7bdea80b7d63de2717",
+      "src": "https://github.com/mikavilpas/blink-ripgrep.nvim"
+    },
     "blink.cmp": {
       "rev": "9b189bb2a0e03412e0e901dfbd09904f86cd593c",
       "src": "https://github.com/saghen/blink.cmp",
@@ -186,9 +190,17 @@
       "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
+    "nvim-ts-autotag": {
+      "rev": "88c1453db4ba7dd24131086fe51fdf74e587d275",
+      "src": "https://github.com/windwp/nvim-ts-autotag"
+    },
     "nvim-ufo": {
       "rev": "ab3eb124062422d276fae49e0dd63b3ad1062cfc",
       "src": "https://github.com/kevinhwang91/nvim-ufo"
+    },
+    "nvim_context_vt": {
+      "rev": "fadbd9e57af72f6df3dd33df32ee733aa01cdbc0",
+      "src": "https://github.com/haringsrob/nvim_context_vt"
     },
     "octo.nvim": {
       "rev": "65550fa020775fb18e6eacab86b80145560bfd9c",
@@ -201,6 +213,10 @@
     "overseer.nvim": {
       "rev": "f818eefff81f4b12fb7cf236f1b6c16768a2fcbc",
       "src": "https://github.com/stevearc/overseer.nvim"
+    },
+    "persistence.nvim": {
+      "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
+      "src": "https://github.com/folke/persistence.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
@@ -241,6 +257,10 @@
     "ts-comments.nvim": {
       "rev": "123a9fb12e7229342f807ec9e6de478b1102b041",
       "src": "https://github.com/folke/ts-comments.nvim"
+    },
+    "vim-matchup": {
+      "rev": "dccb2d12ef2a703d2f076b3cda36a3339449d1eb",
+      "src": "https://github.com/andymass/vim-matchup"
     },
     "vim-table-mode": {
       "rev": "bb025308a45c67c7c8f0763ba37bc2ee3f534df0",

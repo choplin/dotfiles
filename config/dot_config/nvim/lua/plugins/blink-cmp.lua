@@ -4,10 +4,12 @@ return {
   version = vim.version.range("1.*"),
   deps = {
     { src = "https://github.com/rafamadriz/friendly-snippets", name = "friendly-snippets" },
+    { src = "https://github.com/mikavilpas/blink-ripgrep.nvim", name = "blink-ripgrep.nvim" },
   },
   event = { "InsertEnter", "CmdlineEnter" },
   before = function()
     vim.cmd.packadd("friendly-snippets")
+    vim.cmd.packadd("blink-ripgrep.nvim")
   end,
   after = function()
     require("blink.cmp").setup({
@@ -18,7 +20,7 @@ return {
         ["<C-k>"] = { "select_prev", "fallback" },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets", "buffer", "ripgrep" },
         per_filetype = {
           lua = { inherit_defaults = true, "lazydev" },
         },
@@ -27,6 +29,19 @@ return {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             score_offset = 100,
+          },
+          ripgrep = {
+            module = "blink-ripgrep",
+            name = "Ripgrep",
+            opts = {
+              search_casing = "--smart-case",
+            },
+            transform_items = function(_, items)
+              for _, item in ipairs(items) do
+                item.labelDetails = { description = "(rg)" }
+              end
+              return items
+            end,
           },
         },
       },
