@@ -32,6 +32,11 @@ return {
         "shfmt",
         "google-java-format",
         "copilot-language-server",
+        "goimports",
+        "gofumpt",
+        "golangci-lint",
+        "markdownlint-cli2",
+        "codelldb",
       },
     })
     require("mason-lspconfig").setup({ automatic_enable = true })
@@ -112,6 +117,131 @@ return {
 
     -- biome (JS/TS formatter/linter, project-local)
     vim.lsp.enable("biome")
+
+    -- vtsls (TypeScript/JavaScript)
+    vim.lsp.enable("vtsls")
+
+    -- pyright (Python)
+    vim.lsp.enable("pyright")
+
+    -- ruff (Python linter/formatter LSP)
+    vim.lsp.enable("ruff")
+
+    -- gopls (Go)
+    vim.lsp.config("gopls", {
+      settings = {
+        gopls = {
+          gofumpt = true,
+          codelenses = {
+            gc_details = false,
+            generate = true,
+            regenerate_cgo = true,
+            run_govulncheck = true,
+            test = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
+          },
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+          analyses = {
+            nilness = true,
+            unusedparams = true,
+            unusedwrite = true,
+            useany = true,
+          },
+          usePlaceholders = true,
+          completeUnimported = true,
+          staticcheck = true,
+          directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+          semanticTokens = true,
+        },
+      },
+    })
+    vim.lsp.enable("gopls")
+
+    -- yamlls with SchemaStore
+    vim.lsp.config("yamlls", {
+      capabilities = {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      },
+      before_init = function(_, config)
+        config.settings.yaml.schemas = vim.tbl_deep_extend(
+          "force",
+          config.settings.yaml.schemas or {},
+          require("schemastore").yaml.schemas()
+        )
+      end,
+      settings = {
+        redhat = { telemetry = { enabled = false } },
+        yaml = {
+          keyOrdering = false,
+          format = { enable = true },
+          validate = true,
+          schemaStore = { enable = false, url = "" },
+        },
+      },
+    })
+    vim.lsp.enable("yamlls")
+
+    -- taplo (TOML)
+    vim.lsp.enable("taplo")
+
+    -- dockerls + docker-compose
+    vim.lsp.enable("dockerls")
+    vim.lsp.enable("docker_compose_language_service")
+
+    -- tailwindcss
+    vim.lsp.config("tailwindcss", {
+      settings = {
+        tailwindCSS = {
+          includeLanguages = {
+            elixir = "html-eex",
+            eelixir = "html-eex",
+            heex = "html-eex",
+          },
+        },
+      },
+    })
+    vim.lsp.enable("tailwindcss")
+
+    -- svelte
+    vim.lsp.enable("svelte")
+
+    -- marksman (Markdown)
+    vim.lsp.enable("marksman")
+
+    -- clangd (C/C++)
+    vim.lsp.config("clangd", {
+      cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--fallback-style=llvm",
+      },
+      capabilities = { offsetEncoding = { "utf-16" } },
+      init_options = {
+        usePlaceholders = true,
+        completeUnimported = true,
+        clangdFileStatus = true,
+      },
+    })
+    vim.lsp.enable("clangd")
 
     -- Copilot (native LSP, Neovim 0.12+)
     if vim.fn.has("nvim-0.12") == 1 then

@@ -9,6 +9,8 @@ return {
       sh = { "shellcheck" },
       kotlin = { "ktlint" },
       dockerfile = { "hadolint" },
+      go = { "golangcilint" },
+      markdown = { "markdownlint-cli2" },
     }
 
     -- Debounced lint on save/read/insert leave

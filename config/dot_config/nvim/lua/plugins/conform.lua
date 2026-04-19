@@ -29,6 +29,7 @@ return {
         css = { "biome-check" },
         svelte = { "biome-check" },
         graphql = { "biome-check" },
+        go = { "goimports", "gofumpt" },
       },
       formatters = {
         ["biome-check"] = { require_cwd = true },
