@@ -30,7 +30,8 @@ return {
             and not is_diffview_buf(buf)
         end,
       },
-      scroll = { enabled = true },
+      picker = { enabled = true },
+      profiler = { enabled = true },
       statuscolumn = { enabled = true },
       toggle = { map = vim.keymap.set },
       words = { enabled = true },
