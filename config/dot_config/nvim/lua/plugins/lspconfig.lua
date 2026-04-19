@@ -31,6 +31,7 @@ return {
         "stylua",
         "shfmt",
         "google-java-format",
+        "copilot-language-server",
       },
     })
     require("mason-lspconfig").setup({ automatic_enable = true })
@@ -108,6 +109,29 @@ return {
       },
     })
     vim.lsp.enable("nil_ls")
+
+    -- Copilot (native LSP, Neovim 0.12+)
+    if vim.fn.has("nvim-0.12") == 1 then
+      vim.lsp.config("copilot", {
+        handlers = {
+          didChangeStatus = function(err, res)
+            if not err and res.status == "Error" then
+              vim.notify("Please use :LspCopilotSignIn to sign in to Copilot", vim.log.levels.ERROR)
+            end
+          end,
+        },
+      })
+      vim.lsp.enable("copilot")
+      vim.schedule(function()
+        vim.lsp.inline_completion.enable()
+      end)
+      vim.keymap.set({ "i", "n" }, "<M-]>", function()
+        vim.lsp.inline_completion.select({ count = 1 })
+      end, { desc = "Next Copilot Suggestion" })
+      vim.keymap.set({ "i", "n" }, "<M-[>", function()
+        vim.lsp.inline_completion.select({ count = -1 })
+      end, { desc = "Prev Copilot Suggestion" })
+    end
 
     -- LspAttach autocmd for keymaps, inlay hints, and codelens
     vim.api.nvim_create_autocmd("LspAttach", {
