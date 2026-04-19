@@ -89,3 +89,13 @@ vim.api.nvim_create_autocmd("User", {
     require("config.keymaps")
   end,
 })
+
+-- Fire DeferredUIEnter after UI is ready
+vim.api.nvim_create_autocmd("UIEnter", {
+  once = true,
+  callback = function()
+    vim.schedule(function()
+      vim.api.nvim_exec_autocmds("User", { pattern = "DeferredUIEnter", modeline = false })
+    end)
+  end,
+})
