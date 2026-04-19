@@ -15,17 +15,6 @@ vim.g.snacks_animate = false
 -- Do not handle Copilot suggestion by blink.cmp
 vim.g.ai_cmp = false
 
--- Root dir detection
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
--- Set LSP servers to be ignored when used with root detection
-vim.g.root_lsp_ignore = { "copilot" }
-
--- Hide deprecation warnings
-vim.g.deprecation_warnings = false
-
--- Show the current document symbols location from Trouble in lualine
-vim.g.trouble_lualine = true
 
 local opt = vim.opt
 
@@ -90,8 +79,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true
 opt.splitkeep = "screen"
 opt.splitright = true
--- statuscolumn: will be set by snacks when available
--- opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+-- statuscolumn: set by snacks.lua after setup
 opt.tabstop = 2
 opt.termguicolors = true
 opt.timeoutlen = vim.g.vscode and 1000 or 250
