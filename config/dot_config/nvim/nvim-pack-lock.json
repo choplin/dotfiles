@@ -93,6 +93,10 @@
       "rev": "2f7e0a010045f8dfbcf6e2f0e41455cd5809b04e",
       "src": "https://github.com/nvim-neorocks/lz.n.git"
     },
+    "markdown-preview.nvim": {
+      "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+      "src": "https://github.com/iamcco/markdown-preview.nvim"
+    },
     "marks.nvim": {
       "rev": "f353e8c08c50f39e99a9ed474172df7eddd89b72",
       "src": "https://github.com/chentoast/marks.nvim"
