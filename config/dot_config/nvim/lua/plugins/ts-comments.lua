@@ -1,3 +1,4 @@
+-- [Edit] Treesitter-aware comment string detection.
 return {
   "ts-comments.nvim",
   src = "https://github.com/folke/ts-comments.nvim",

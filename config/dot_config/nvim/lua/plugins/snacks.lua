@@ -1,3 +1,11 @@
+-- [UI] Utility library: picker, dashboard, notifier, indent guides, statuscolumn, and more.
+--
+--   <leader>ff         find files
+--   <leader>/          grep
+--   <leader>fb         buffers
+--   <leader>n          notification history
+--   <leader>sg         grep
+--   <leader>ss         LSP symbols
 local function is_diffview_buf(buf)
   local ft = vim.bo[buf].filetype
   return ft == "DiffviewFiles" or ft == "DiffviewFilePanel" or ft == "DiffviewFileHistoryPanel"

@@ -1,3 +1,4 @@
+-- [Git] Git merge conflict detection and resolution.
 return {
   "git-conflict.nvim",
   src = "https://github.com/akinsho/git-conflict.nvim",

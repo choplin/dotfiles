@@ -1,3 +1,4 @@
+-- [UI] Status line with git, diagnostics, and file path display.
 return {
   "lualine.nvim",
   src = "https://github.com/nvim-lualine/lualine.nvim",

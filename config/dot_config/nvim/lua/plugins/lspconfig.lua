@@ -1,3 +1,12 @@
+-- [LSP] LSP client configuration with Mason integration for 25+ languages.
+--
+--   gd                 definition
+--   gr                 references
+--   gI                 implementation
+--   K                  hover
+--   <leader>ca         code action
+--   <leader>cr         rename
+--   <leader>cl         codelens
 local function safe_require(modname)
   local ok, mod = pcall(require, modname)
   return ok and mod or {}

@@ -1,3 +1,4 @@
+-- [Lang] C/C++ LSP extensions for clangd (inlay hints, AST, etc.).
 return {
   "clangd_extensions.nvim",
   src = "https://github.com/p00f/clangd_extensions.nvim",

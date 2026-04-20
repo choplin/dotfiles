@@ -1,3 +1,6 @@
+-- [Misc] Enhanced in-buffer markdown rendering.
+--
+--   <leader>um         toggle render markdown
 return {
   "render-markdown.nvim",
   src = "https://github.com/MeanderingProgrammer/render-markdown.nvim",

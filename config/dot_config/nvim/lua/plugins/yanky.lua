@@ -1,3 +1,8 @@
+-- [Edit] Yank history with cycling and picker.
+--
+--   <leader>p          yank history picker
+--   ]y / [y            cycle yank history
+--   p / P              put with history
 return {
   "yanky.nvim",
   src = "https://github.com/gbprod/yanky.nvim",

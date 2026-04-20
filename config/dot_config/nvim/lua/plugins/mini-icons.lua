@@ -1,3 +1,4 @@
+-- [UI] File type icon provider with nvim-web-devicons compatibility.
 return {
   "mini.icons",
   src = "https://github.com/echasnovski/mini.icons",

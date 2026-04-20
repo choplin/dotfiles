@@ -1,3 +1,7 @@
+-- [LSP] Code formatter with per-language formatter configuration and format-on-save.
+--
+--   <leader>cF         format injected langs
+--   (auto-formats on BufWritePre)
 return {
   "conform.nvim",
   src = "https://github.com/stevearc/conform.nvim",

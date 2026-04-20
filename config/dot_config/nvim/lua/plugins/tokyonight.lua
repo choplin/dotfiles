@@ -1,3 +1,4 @@
+-- [UI] Tokyo Night color scheme (moon variant with transparency).
 return {
   "tokyonight.nvim",
   src = "https://github.com/folke/tokyonight.nvim",

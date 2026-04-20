@@ -1,3 +1,8 @@
+-- [LSP] Completion engine with LSP, snippets, buffer, and ripgrep sources.
+--
+--   CR                 accept
+--   C-j / C-k          navigate
+--   <leader>uk         toggle completion
 return {
   "blink.cmp",
   src = "https://github.com/saghen/blink.cmp",

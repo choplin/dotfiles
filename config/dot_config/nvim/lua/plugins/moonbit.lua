@@ -1,3 +1,4 @@
+-- [Lang] MoonBit language support with LSP and treesitter (local plugin).
 return {
   "moonbit.nvim",
   dir = "~/ghq/github.com/choplin/moonbit.nvim",

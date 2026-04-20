@@ -1,3 +1,4 @@
+-- [LSP] Lua development environment with library type definitions.
 return {
   "lazydev.nvim",
   src = "https://github.com/folke/lazydev.nvim",

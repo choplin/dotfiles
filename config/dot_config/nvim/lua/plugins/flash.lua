@@ -1,3 +1,10 @@
+-- [Nav] Fast cursor motion with labels and treesitter integration.
+--
+--   s                  jump
+--   S                  treesitter
+--   r                  remote (operator)
+--   R                  treesitter search
+--   C-s                toggle in search
 return {
   "flash.nvim",
   src = "https://github.com/folke/flash.nvim",

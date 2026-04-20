@@ -1,3 +1,4 @@
+-- [Misc] In-editor code review with virtual text comments (local plugin).
 return {
   "code-review.nvim",
   dir = "/Users/aki/private-workspace/code-review.nvim",

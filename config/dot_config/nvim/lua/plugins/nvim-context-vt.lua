@@ -1,3 +1,4 @@
+-- [Treesitter] Show enclosing scope context as virtual text.
 return {
   "nvim_context_vt",
   src = "https://github.com/haringsrob/nvim_context_vt",

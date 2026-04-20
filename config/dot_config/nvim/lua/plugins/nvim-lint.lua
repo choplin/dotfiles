@@ -1,3 +1,4 @@
+-- [LSP] Async linter integration (shellcheck, golangci-lint, markdownlint, etc.).
 return {
   "nvim-lint",
   src = "https://github.com/mfussenegger/nvim-lint",

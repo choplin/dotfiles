@@ -1,3 +1,11 @@
+-- [UI] Buffer/tab bar with navigation, reordering, and pin support.
+--
+--   S-h / S-l          prev/next buffer
+--   <leader>bp         pin buffer
+--   <leader>bP         close non-pinned
+--   <leader>br         close buffers to right
+--   <leader>bl         close buffers to left
+--   <leader>bj         pick buffer
 return {
   "bufferline.nvim",
   src = "https://github.com/akinsho/bufferline.nvim",

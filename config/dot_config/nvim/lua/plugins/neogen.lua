@@ -1,3 +1,7 @@
+-- [LSP] Documentation/annotation generator for functions and classes.
+--
+--   <leader>cn         generate annotation
+--   :Neogen            generate annotation
 return {
   "neogen",
   src = "https://github.com/danymat/neogen",

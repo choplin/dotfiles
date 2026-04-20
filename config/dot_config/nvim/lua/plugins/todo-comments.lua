@@ -1,3 +1,8 @@
+-- [Misc] TODO/FIXME/HACK comment highlighting and navigation.
+--
+--   ]t / [t            next/prev todo
+--   <leader>xt         todo in Trouble
+--   <leader>xT         todo/fix/fixme in Trouble
 return {
   "todo-comments.nvim",
   src = "https://github.com/folke/todo-comments.nvim",

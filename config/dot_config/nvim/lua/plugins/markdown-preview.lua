@@ -1,3 +1,7 @@
+-- [Misc] Browser-based markdown preview.
+--
+--   <leader>cp         toggle preview
+--   :MarkdownPreviewToggle  toggle markdown preview
 return {
   "markdown-preview.nvim",
   src = "https://github.com/iamcco/markdown-preview.nvim",

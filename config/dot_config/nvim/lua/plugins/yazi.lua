@@ -1,3 +1,8 @@
+-- [Nav] Yazi file manager integration.
+--
+--   <leader>E          open at current file
+--   <leader>e          open at cwd
+--   C-Up               resume last session
 return {
   "yazi.nvim",
   src = "https://github.com/mikavilpas/yazi.nvim",

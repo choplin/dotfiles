@@ -1,3 +1,9 @@
+-- [UI] Enhanced UI for messages, command line, and popups.
+--
+--   <leader>snl        last message
+--   <leader>snh        message history
+--   <leader>snd        dismiss notifications
+--   S-Enter            redirect cmdline
 return {
   "noice.nvim",
   src = "https://github.com/folke/noice.nvim",

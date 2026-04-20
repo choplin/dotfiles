@@ -1,3 +1,7 @@
+-- [Treesitter] Advanced code folding with treesitter and LSP support.
+--
+--   zR                 open all folds
+--   zM                 close all folds
 return {
   "nvim-ufo",
   src = "https://github.com/kevinhwang91/nvim-ufo",

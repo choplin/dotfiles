@@ -1,3 +1,11 @@
+-- [LSP] Diagnostics, references, and location list UI.
+--
+--   <leader>xx         diagnostics
+--   <leader>xX         buffer diagnostics
+--   <leader>cs         symbols
+--   <leader>cS         LSP refs
+--   <leader>xL         loclist
+--   <leader>xQ         quickfix
 return {
   "trouble.nvim",
   src = "https://github.com/folke/trouble.nvim",

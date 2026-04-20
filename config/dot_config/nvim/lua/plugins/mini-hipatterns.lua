@@ -1,3 +1,4 @@
+-- [UI] Highlight patterns like hex colors inline.
 return {
   "mini.hipatterns",
   src = "https://github.com/echasnovski/mini.hipatterns",

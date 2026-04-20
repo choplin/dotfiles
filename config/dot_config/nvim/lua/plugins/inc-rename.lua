@@ -1,3 +1,7 @@
+-- [LSP] LSP rename with live preview.
+--
+--   <leader>cr         rename with preview (on LspAttach)
+--   :IncRename         rename symbol
 return {
   "inc-rename.nvim",
   src = "https://github.com/smjonas/inc-rename.nvim",

@@ -1,3 +1,4 @@
+-- [Edit] Auto-pairing of brackets and quotes.
 return {
   "mini.pairs",
   src = "https://github.com/echasnovski/mini.pairs",

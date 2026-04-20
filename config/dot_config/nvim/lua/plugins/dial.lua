@@ -1,3 +1,7 @@
+-- [Edit] Extended increment/decrement for numbers, dates, booleans, and more.
+--
+--   C-a / C-x          increment/decrement
+--   g-C-a / g-C-x      additive increment/decrement
 local function dial(increment, g)
   local mode = vim.fn.mode(true)
   local is_visual = mode == "v" or mode == "V" or mode == "\22"

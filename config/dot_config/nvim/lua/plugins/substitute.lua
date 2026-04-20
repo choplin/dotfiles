@@ -1,3 +1,6 @@
+-- [Edit] Substitute operator that replaces text with register contents.
+--
+--   p                  substitute with register (visual)
 return {
   "substitute.nvim",
   src = "https://github.com/gbprod/substitute.nvim",

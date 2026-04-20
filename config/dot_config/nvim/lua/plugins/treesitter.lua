@@ -1,3 +1,8 @@
+-- [Treesitter] Treesitter syntax highlighting, text objects, and folding.
+--
+--   ]f / [f            next/prev function
+--   ]c / [c            next/prev class
+--   ]a / [a            next/prev parameter
 return {
   "nvim-treesitter",
   src = "https://github.com/nvim-treesitter/nvim-treesitter",

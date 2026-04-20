@@ -1,3 +1,4 @@
+-- [Lang] Java LSP via Eclipse JDTLS with project detection.
 return {
   "nvim-jdtls",
   src = "https://github.com/mfussenegger/nvim-jdtls",

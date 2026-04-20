@@ -1,3 +1,4 @@
+-- [Lang] Zig language support (syntax, filetype detection).
 return {
   "zig.vim",
   src = "https://github.com/ziglang/zig.vim",

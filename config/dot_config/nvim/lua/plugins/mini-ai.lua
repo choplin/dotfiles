@@ -1,3 +1,12 @@
+-- [Edit] Extended text objects with treesitter support (functions, classes, blocks, etc.).
+--
+--   a/i + o            block/conditional/loop
+--   a/i + f            function
+--   a/i + c            class
+--   a/i + t            tag
+--   a/i + d            digit
+--   a/i + e            subword
+--   a/i + u/U          function call
 return {
   "mini.ai",
   src = "https://github.com/echasnovski/mini.ai",

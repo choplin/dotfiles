@@ -1,3 +1,4 @@
+-- [Misc] Enhanced quickfix list with preview and filtering.
 return {
   "nvim-bqf",
   src = "https://github.com/kevinhwang91/nvim-bqf",

@@ -1,3 +1,7 @@
+-- [Misc] Keybinding discovery popup with group labels.
+--
+--   <leader>?          buffer keymaps
+--   C-w <space>        window hydra mode
 return {
   "which-key.nvim",
   src = "https://github.com/folke/which-key.nvim",

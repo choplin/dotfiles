@@ -1,3 +1,4 @@
+-- [Lang] Cargo.toml dependency management with completion and version info.
 return {
   "crates.nvim",
   src = "https://github.com/Saecki/crates.nvim",

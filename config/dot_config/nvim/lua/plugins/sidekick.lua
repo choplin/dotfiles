@@ -1,3 +1,10 @@
+-- [Misc] AI assistant integration panel.
+--
+--   <leader>aa         toggle CLI
+--   C-.                focus
+--   <leader>at         send this
+--   <leader>af         send file
+--   <leader>ap         select prompt
 return {
   "sidekick.nvim",
   src = "https://github.com/folke/sidekick.nvim",

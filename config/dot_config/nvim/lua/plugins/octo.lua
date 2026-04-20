@@ -1,3 +1,10 @@
+-- [Git] GitHub issues and pull requests interface.
+--
+--   <leader>gi         list issues
+--   <leader>gp         list PRs
+--   <leader>gr         list repos
+--   <leader>gS         search
+--   :Octo              GitHub interface
 return {
   "octo.nvim",
   src = "https://github.com/pwntester/octo.nvim",

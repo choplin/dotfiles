@@ -1,3 +1,9 @@
+-- [Edit] Text alignment by character, string, or regex pattern.
+--
+--   <leader>Aa        align to char (visual)
+--   <leader>As        align to 2 chars (visual)
+--   <leader>Aw        align to string (visual)
+--   <leader>Ar        align to regex (visual)
 return {
   "align.nvim",
   src = "https://github.com/Vonr/align.nvim",

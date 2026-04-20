@@ -1,3 +1,9 @@
+-- [Git] Git diff viewer and file history browser.
+--
+--   <leader>gD         diffview open
+--   <leader>gH         file history
+--   :DiffviewOpen      open diffview
+--   :DiffviewFileHistory  open file history
 return {
   "diffview.nvim",
   src = "https://github.com/sindrets/diffview.nvim",

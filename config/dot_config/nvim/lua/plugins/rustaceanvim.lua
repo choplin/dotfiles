@@ -1,3 +1,7 @@
+-- [Lang] Rust development tools with rust-analyzer integration.
+--
+--   <leader>cR         rust code action (on LspAttach)
+--   <leader>dr         rust debuggables (on LspAttach)
 return {
   "rustaceanvim",
   src = "https://github.com/mrcjkb/rustaceanvim",

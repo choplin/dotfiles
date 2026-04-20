@@ -1,3 +1,9 @@
+-- [Misc] Session management with auto-save and restore.
+--
+--   <leader>qs         restore session
+--   <leader>qS         select session
+--   <leader>ql         restore last session
+--   <leader>qd         stop auto-save
 return {
   "persistence.nvim",
   src = "https://github.com/folke/persistence.nvim",

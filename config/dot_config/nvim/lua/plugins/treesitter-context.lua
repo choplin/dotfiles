@@ -1,3 +1,6 @@
+-- [Treesitter] Sticky function/class context header at viewport top.
+--
+--   <leader>ut         toggle treesitter context
 return {
   "nvim-treesitter-context",
   src = "https://github.com/nvim-treesitter/nvim-treesitter-context",

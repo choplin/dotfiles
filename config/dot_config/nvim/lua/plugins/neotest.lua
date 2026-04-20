@@ -1,3 +1,10 @@
+-- [Debug] Test runner framework with language-specific adapters.
+--
+--   <leader>tr         run nearest test
+--   <leader>tt         run file
+--   <leader>ts         summary
+--   <leader>to         output
+--   <leader>td         debug nearest test
 return {
   "neotest",
   src = "https://github.com/nvim-neotest/neotest",

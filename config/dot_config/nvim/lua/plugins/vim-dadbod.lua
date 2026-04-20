@@ -1,3 +1,9 @@
+-- [Misc] Database client UI for SQL queries.
+--
+--   <leader>D          toggle DBUI
+--   :DBUI              open database UI
+--   :DBUIToggle        toggle database UI
+--   :DBUIAddConnection add database connection
 return {
   "vim-dadbod-ui",
   src = "https://github.com/kristijanhusak/vim-dadbod-ui",

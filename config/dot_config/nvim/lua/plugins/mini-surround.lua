@@ -1,3 +1,11 @@
+-- [Edit] Add, delete, find, and replace surrounding pairs.
+--
+--   gsa                add surrounding
+--   gsd                delete surrounding
+--   gsf                find surrounding
+--   gsF                find surrounding (left)
+--   gsr                replace surrounding
+--   gsh                highlight surrounding
 return {
   "mini.surround",
   src = "https://github.com/echasnovski/mini.surround",

@@ -1,3 +1,10 @@
+-- [Git] Git change indicators in sign column with hunk navigation and staging.
+--
+--   ]h / [h            next/prev hunk
+--   <leader>ghs        stage hunk
+--   <leader>ghr        reset hunk
+--   <leader>ghp        preview hunk
+--   <leader>ghb        blame line
 return {
   "gitsigns.nvim",
   src = "https://github.com/lewis6991/gitsigns.nvim",

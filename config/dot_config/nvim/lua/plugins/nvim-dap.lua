@@ -1,3 +1,12 @@
+-- [Debug] Debug Adapter Protocol client with breakpoints, stepping, and REPL.
+--
+--   <leader>db         breakpoint
+--   <leader>dc         continue
+--   <leader>di         step into
+--   <leader>dO         step over
+--   <leader>do         step out
+--   <leader>du         DAP UI
+--   <leader>dr         REPL
 local function get_args(config)
   local args = type(config.args) == "function" and (config.args() or {}) or config.args or {}
   local args_str = type(args) == "table" and table.concat(args, " ") or args

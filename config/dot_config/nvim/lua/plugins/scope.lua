@@ -1,3 +1,4 @@
+-- [Misc] Tab-scoped buffer lists.
 return {
   "scope.nvim",
   src = "https://github.com/tiagovla/scope.nvim",
