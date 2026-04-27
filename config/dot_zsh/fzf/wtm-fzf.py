@@ -2,6 +2,7 @@
 """Enrichment and preview for fzf worktree selector (wtm integration)."""
 
 import json
+import re
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -93,6 +94,25 @@ def format_git_col(status, is_primary):
     return " ".join(parts) if parts else "clean"
 
 
+def ansi_rgb(text, r, g, b):
+    """Wrap text with 24-bit ANSI foreground color."""
+    return f"\033[38;2;{r};{g};{b}m{text}\033[0m"
+
+
+def strip_ansi(text):
+    """Remove ANSI escape sequences for width calculation."""
+    return re.sub(r"\033\[[0-9;]*m", "", text)
+
+
+# PR state colors (lazygit style)
+PR_COLORS = {
+    "open":   (0x43, 0x84, 0x40),  # green
+    "draft":  (0x67, 0x6C, 0x75),  # gray
+    "merged": (0x82, 0x59, 0xDD),  # purple
+    "closed": (0xC9, 0x45, 0x3C),  # red
+}
+
+
 def format_pr_col(pr):
     """Format PR column for list display."""
     if pr is None:
@@ -101,19 +121,22 @@ def format_pr_col(pr):
     state = pr.get("state", "").lower()
     is_draft = pr.get("isDraft", False)
 
-    # State: nf-oct-git_pull_request variants
+    # State: single icon colored by state (lazygit style)
+    icon = "\ue709"  # nf-dev-github
     if state == "merged":
-        state_str = "\uf407 merged"   # nf-oct-git_merge
+        color = PR_COLORS["merged"]
     elif state == "closed":
-        state_str = "\uf408 closed"   # nf-oct-git_pull_request_closed
+        color = PR_COLORS["closed"]
     elif is_draft:
-        state_str = "\uf040 draft"    # nf-fa-pencil
+        color = PR_COLORS["draft"]
     else:
-        state_str = "\uf409 open"     # nf-oct-git_pull_request
+        color = PR_COLORS["open"]
+
+    state_str = ansi_rgb(icon, *color)
 
     # Skip CI/review for merged/closed PRs
     if state in ("merged", "closed"):
-        return f"#{num} {state_str}"
+        return f"{state_str} #{num}"
 
     # CI status
     checks = pr.get("statusCheckRollup", []) or []
@@ -125,11 +148,11 @@ def format_pr_col(pr):
         )
         any_fail = any(c.get("conclusion") == "FAILURE" for c in checks)
         if any_fail:
-            ci = " \uf00d"   # nf-fa-close
+            ci = " " + ansi_rgb("\uf00d", 0xC9, 0x45, 0x3C)   # nf-fa-close (red)
         elif all_pass:
-            ci = " \uf00c"   # nf-fa-check
+            ci = " " + ansi_rgb("\uf00c", 0x43, 0x84, 0x40)   # nf-fa-check (green)
         else:
-            ci = " \uf110"   # nf-fa-spinner
+            ci = " " + ansi_rgb("\uf110", 0xDB, 0xAB, 0x09)   # nf-fa-spinner (yellow)
 
     # Review status
     review = pr.get("reviewDecision", "")
@@ -141,7 +164,7 @@ def format_pr_col(pr):
     elif any(r.get("state") == "COMMENTED" for r in (pr.get("latestReviews") or [])):
         rev = " \uf075"       # nf-fa-comment
 
-    return f"#{num} {state_str}{ci}{rev}"
+    return f"{state_str} #{num}{ci}{rev}"
 
 
 def format_relative_time(iso_str):
@@ -204,13 +227,18 @@ def cmd_enrich():
     if not rows:
         return
 
-    # Header + rows with aligned columns
-    widths = [max(len(r[i]) for r in rows) for i in range(5)]
+    # Header + rows with aligned columns (strip ANSI for width calc)
+    widths = [max(len(strip_ansi(r[i])) for r in rows) for i in range(5)]
     widths[0] = max(widths[0], 4)  # NAME
     widths[1] = max(widths[1], 6)  # BRANCH
     widths[2] = max(widths[2], 3)  # GIT
     widths[3] = max(widths[3], 2)  # PR
     widths[4] = max(widths[4], 7)  # CREATED
+
+    def pad(text, width):
+        """Left-align text to width, accounting for ANSI escape sequences."""
+        visible_len = len(strip_ansi(text))
+        return text + " " * max(0, width - visible_len)
 
     header = (
         f"{'NAME':<{widths[0]}}  "
@@ -222,11 +250,11 @@ def cmd_enrich():
     print(header)
     for row in rows:
         line = (
-            f"{row[0]:<{widths[0]}}  "
-            f"{row[1]:<{widths[1]}}  "
-            f"{row[2]:<{widths[2]}}  "
-            f"{row[3]:<{widths[3]}}  "
-            f"{row[4]:<{widths[4]}}"
+            f"{pad(row[0], widths[0])}  "
+            f"{pad(row[1], widths[1])}  "
+            f"{pad(row[2], widths[2])}  "
+            f"{pad(row[3], widths[3])}  "
+            f"{pad(row[4], widths[4])}"
         )
         print(line)
 

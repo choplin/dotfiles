@@ -1,10 +1,5 @@
 __wtm_fzf_py="${0:A:h}/wtm-fzf.py"
 
-# Icon definitions (nerd font)
-__wtm_icon_check=$'\uf00c'
-__wtm_icon_close=$'\uf00d'
-__wtm_icon_thumbsup=$'\uf164'
-__wtm_icon_requested=$'\uf075'
 
 function __fzf_wtm() {
     if ! wtm list >/dev/null 2>&1; then
@@ -13,13 +8,14 @@ function __fzf_wtm() {
         return 1
     fi
 
-    local header="Enter: cd  CTRL-D: delete  CTRL-O: open PR | GIT: ↑ahead ↓behind ●dirty | PR: ${__wtm_icon_check} CI ${__wtm_icon_close} CI ${__wtm_icon_thumbsup} approved ${__wtm_icon_requested} requested"
+    local header="Enter: cd  CTRL-D: delete  CTRL-O: open PR | GIT: ↑ahead ↓behind ●dirty"
 
     # Temp file as one-shot flag: load:transform checks and removes it to reload exactly once
     local flag=$(mktemp)
 
     local result=$(
         wtm list | awk 'NR==1{print $0"  GIT  PR"} NR>1{print $0"  …    …"}' | fzf \
+            --ansi \
             --header "$header" \
             --header-lines 1 \
             --height=40% --layout=reverse --info=inline \
