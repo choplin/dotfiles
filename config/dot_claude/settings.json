@@ -70,6 +70,6 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "plansDirectory": "./.claude/plans",
-  "showClearContextOnPlanAccept": true
+  "showClearContextOnPlanAccept": true,
+  "plansDirectory": "./.claude/plans"
 }

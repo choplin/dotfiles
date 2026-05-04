@@ -12,6 +12,7 @@
           pkgs.go
           pkgs.rustc
           pkgs.cargo
+          pkgs.tree-sitter
         ]}
       '';
       meta.mainProgram = "nvim";
