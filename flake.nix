@@ -27,6 +27,11 @@
       flake = false;
     };
 
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,6 +52,7 @@
         inputs.devshell.flakeModule
         ./nix/flake-modules/darwin.nix
         ./nix/flake-modules/home.nix
+        ./nix/flake-modules/nixos.nix
         ./nix/flake-modules/devshell.nix
       ];
       _module.args.machines = import ./machines.nix;
