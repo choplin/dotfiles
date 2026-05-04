@@ -88,7 +88,6 @@
       yq
       zellij
       zoxide
-      zsh
     ];
   };
 }

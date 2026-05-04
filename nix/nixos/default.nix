@@ -1,11 +1,14 @@
-{username, hostname, homeDirectory, rootDir, ...}: {
+{pkgs, username, hostname, homeDirectory, rootDir, ...}: {
   wsl.enable = true;
   wsl.defaultUser = username;
 
   nixpkgs.config.allowUnfree = true;
 
+  programs.zsh.enable = true;
+
   users.users.${username} = {
     home = homeDirectory;
+    shell = pkgs.zsh;
   };
 
   networking.hostName = hostname;
