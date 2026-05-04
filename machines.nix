@@ -14,7 +14,7 @@
   "H6-Flow" = {
     system = "x86_64-linux";
     username = "aki";
-    hostname = "nixos";
+    hostname = "H6-Flow";
     homeDirectory = "/home/aki";
   };
 }
