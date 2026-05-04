@@ -14,6 +14,7 @@
     ./darwin
     ./files.nix
     ./gh
+    ./linux
     ./neovim.nix
     ./programs.nix
   ];
