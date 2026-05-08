@@ -60,6 +60,7 @@
       gomi
       hwatch
       hexyl
+      jira-cli-go
       jq
       k9s
       krew
