@@ -66,6 +66,7 @@ use = [
     "keybinding.zsh",
     "krew.zsh",
     "local.zsh",
+    "op-secrets.zsh",
     "osc133.zsh",
     "saneopt.zsh",
     "setting.zsh",

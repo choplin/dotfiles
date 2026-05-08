@@ -9,6 +9,7 @@ in {
   # Each module is responsible for making itself darwin-only via `enable = pkgs.stdenv.isDarwin`.
   imports = [
     ./aerospace.nix
+    ./op-secrets.nix
     ./sketchybar
   ];
 
