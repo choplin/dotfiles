@@ -1,5 +1,5 @@
 __JIRA_ONGOING_STATUSES=(-s"To Do" -s"In Progress" -s"In Review")
-__JIRA_ISSUE_LIST_OPTS=(--history --plain ${__JIRA_ONGOING_STATUSES[@]})
+__JIRA_ISSUE_LIST_OPTS=(--plain ${__JIRA_ONGOING_STATUSES[@]})
 __JIRA_FZF_OPTS=(
     --border
     --border-label "JIRA Issues"
@@ -26,15 +26,10 @@ EOF
 )
 
 jira-issues() {
-    if [[ -z "$JIRA_ACCOUNT_ID" ]]; then
-        echo "JIRA_ACCOUNT_ID is not set. Please set it to your JIRA account ID."
-        return 1
-    fi
-
     (
-        echo "CTRL-O (open in brower) / CTRL-V (view)"; \
+        echo "CTRL-O (open in browser) / CTRL-V (view)"; \
         echo "CTRL-E (edit) / CTRL-t (transition)"; \
-        jira issue list "${__JIRA_ISSUE_LIST_OPTS[@]}"
+        jira issue list -a"$(jira me)" "${__JIRA_ISSUE_LIST_OPTS[@]}"
     ) |
     fzf \
         "${__JIRA_FZF_OPTS[@]}" \
