@@ -16,6 +16,7 @@
       extraSpecialArgs = {
         inherit rootDir pkgs-fast;
         inherit (machine) username homeDirectory;
+        lfk = inputs.lfk.packages.${system}.default;
       };
       modules = [../home];
     };

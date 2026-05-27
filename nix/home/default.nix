@@ -4,6 +4,7 @@
   username,
   homeDirectory,
   rootDir,
+  lfk,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -33,7 +34,7 @@
     # Whether to make programs use XDG directories whenever supported.
     preferXdgDirectories = true;
 
-    packages = with pkgs; [
+    packages = (with pkgs; [
       #ast-grep
       bandwhich
       bat
@@ -90,6 +91,8 @@
       yq
       zellij
       zoxide
+    ]) ++ [
+      lfk
     ];
   };
 }
