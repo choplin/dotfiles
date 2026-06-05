@@ -68,6 +68,11 @@ on = ["v"]
 run = 'shell --block -- treemd "$0"'
 desc = "Open markdown with treemd"
 
+[[mgr.prepend_keymap]]
+on = ["V"]
+run = 'shell --block -- glow -p "$0"'
+desc = "Open markdown with glow"
+
 [[input.prepend_keymap]]
 on = "<Esc>"
 run = "close"

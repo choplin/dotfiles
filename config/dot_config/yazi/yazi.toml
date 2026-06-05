@@ -21,6 +21,7 @@ run = 'piper -- bat -p --color=always "$1"'
 
 [opener]
 treemd = [{ run = "treemd %s1", block = true, for = "unix", desc = "Treemd" }]
+glow = [{ run = 'glow -p "$1"', block = true, for = "unix", desc = "Glow" }]
 
 [open]
-prepend_rules = [{ url = "*.md", use = ["edit", "reveal", "treemd"] }]
+prepend_rules = [{ url = "*.md", use = ["edit", "reveal", "treemd", "glow"] }]
