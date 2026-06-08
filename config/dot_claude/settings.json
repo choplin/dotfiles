@@ -30,7 +30,7 @@
       "WebFetch(domain:api.github.com)"
     ],
     "deny": [],
-    "defaultMode": "plan"
+    "defaultMode": "auto"
   },
   "enableAllProjectMcpServers": true,
   "statusLine": {
@@ -71,5 +71,9 @@
   },
   "alwaysThinkingEnabled": true,
   "showClearContextOnPlanAccept": true,
-  "plansDirectory": "./.claude/plans"
+  "plansDirectory": "./.claude/plans",
+  "autoCompactEnabled": false,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "skipWorkflowUsageWarning": true
 }
