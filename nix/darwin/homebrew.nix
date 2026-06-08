@@ -12,7 +12,6 @@
     };
     brews = [
       "mas"
-      "yt-dlp"
       "media-control"
       "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
@@ -23,7 +22,6 @@
     casks = [
       "1password"
       "daisydisk"
-      "gcloud-cli"
       "gitkraken-cli"
       "karabiner-elements"
       "orbstack"

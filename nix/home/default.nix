@@ -50,6 +50,11 @@
       fd
       fzf
       gcalcli
+      (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
+        gke-gcloud-auth-plugin
+        cloud-sql-proxy
+        gcloud-crc32c
+      ]))
       gdu
       gemini-cli
       gh
@@ -90,6 +95,7 @@
       wget
       yazi
       yq
+      yt-dlp
       zellij
       zoxide
     ]) ++ [
