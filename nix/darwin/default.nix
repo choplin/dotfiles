@@ -51,6 +51,7 @@
     ./hotkeys.nix
     ./system.nix
     ./homebrew.nix
+    ./remote-access.nix
     ./services.nix
   ];
 }

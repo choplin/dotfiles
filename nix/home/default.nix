@@ -72,6 +72,7 @@
       lsd
       marp-cli
       minikube
+      mosh
       navi
       pgcli
       procs
