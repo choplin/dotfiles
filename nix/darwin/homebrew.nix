@@ -17,6 +17,7 @@
       "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
       "deck"
+      "k1LoW/tap/mo"
     ];
 
     casks = [
