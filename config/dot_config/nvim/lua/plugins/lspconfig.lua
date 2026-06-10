@@ -7,6 +7,8 @@
 --   <leader>ca         code action
 --   <leader>cr         rename
 --   <leader>cl         codelens
+--   Tab                accept Copilot suggestion (insert)
+--   M-] / M-[          next / prev Copilot suggestion
 local function safe_require(modname)
   local ok, mod = pcall(require, modname)
   return ok and mod or {}
@@ -273,6 +275,11 @@ return {
       vim.keymap.set({ "i", "n" }, "<M-[>", function()
         vim.lsp.inline_completion.select({ count = -1 })
       end, { desc = "Prev Copilot Suggestion" })
+      vim.keymap.set("i", "<Tab>", function()
+        if not vim.lsp.inline_completion.get() then
+          return "<Tab>"
+        end
+      end, { expr = true, desc = "Accept Copilot Suggestion" })
     end
 
     -- LspAttach autocmd for keymaps, inlay hints, and codelens
