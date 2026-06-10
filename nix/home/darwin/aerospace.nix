@@ -18,6 +18,13 @@
     "if".window-title-regex-substring = window_title;
     run = ["move-node-to-workspace ${workspace}"];
   };
+
+  app_id_as_floating = app_id: {
+    "if".app-id = app_id;
+    run = ["layout floating"];
+  };
+
+
   workspaces = {
     Q = "Mail";
     W = "Slack";
@@ -151,6 +158,8 @@ in {
 
         (app_id_to_workspace "dev.zed.Zed" "Zed")
         (app_id_to_workspace "com.github.wez.wezterm" "Terminal")
+
+        (app_id_as_floating "com.amazon.Lassen")
       ];
 
       on-focus-changed = [
