@@ -59,6 +59,7 @@ local function lazy_file()
   for _, event in ipairs(lazy_file_events) do
     vim.api.nvim_create_autocmd(event, {
       group = group,
+      nested = true,
       callback = function(ev)
         table.insert(events, ev)
         load()
