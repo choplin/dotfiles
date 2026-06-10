@@ -8,7 +8,7 @@ return {
   src = "https://github.com/nvim-treesitter/nvim-treesitter",
   deps = { { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", name = "nvim-treesitter-textobjects" } },
   version = "main",
-  event = "User LazyFile",
+  event = "FileType",
   keys = {
     { "]f", function() require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer") end, mode = { "n", "x", "o" }, desc = "Next function start" },
     { "]F", function() require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer") end, mode = { "n", "x", "o" }, desc = "Next function end" },
@@ -27,7 +27,20 @@ return {
     vim.cmd.packadd("nvim-treesitter-textobjects")
   end,
   after = function()
-    -- Treesitter-based folding
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+      callback = function(ev)
+        local ft = vim.bo[ev.buf].filetype
+        if ft == "" then
+          return
+        end
+        local lang = vim.treesitter.language.get_lang(ft)
+        if lang and #vim.api.nvim_get_runtime_file("parser/" .. lang .. ".so", false) > 0 then
+          pcall(vim.treesitter.start, ev.buf)
+        end
+      end,
+    })
+
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     vim.opt.foldlevel = 99
