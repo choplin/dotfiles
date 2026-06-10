@@ -13,6 +13,7 @@
           pkgs.rustc
           pkgs.cargo
           pkgs.tree-sitter
+          pkgs.markdownlint-cli2
         ]}
       '';
       meta.mainProgram = "nvim";
