@@ -21,12 +21,15 @@
 
     casks = [
       "1password"
+      "blackhole-2ch"
       "daisydisk"
       "gitkraken-cli"
+      "insta360-link-controller"
       "karabiner-elements"
       "orbstack"
       "sf-symbols"
       "typeless"
+      "visual-studio-code"
     ];
 
     taps = [

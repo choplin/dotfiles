@@ -3,7 +3,6 @@
 
   environment.systemPackages = with pkgs.brewCasks; [
     bartender
-    blackhole-2ch
     chatgpt-atlas
     cleanshot
     contexts
@@ -15,7 +14,6 @@
     ghostty
     github
     gitkraken
-    insta360-link-controller
     jetbrains-toolbox
     kap
     keycastr
@@ -29,7 +27,6 @@
     slack
     superwhisper
     ticktick
-    visual-studio-code
     zed
   ];
 }
