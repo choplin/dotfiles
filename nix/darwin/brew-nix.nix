@@ -4,8 +4,11 @@
   environment.systemPackages = with pkgs.brewCasks; [
     bartender
     chatgpt-atlas
+    claude
     cleanshot
+    codex-app
     contexts
+    cursor
     deskpad
     devtoys
     discord
