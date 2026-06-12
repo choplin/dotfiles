@@ -19,6 +19,16 @@ run = 'piper -- bat -p --color=always "$1"'
 url = "*.mbti"
 run = 'piper -- bat -p --color=always "$1"'
 
+# Show `git diff` (via delta) for files in the `git-files` view; fall back to
+# the normal previewer elsewhere (see plugins/git-diff.yazi).
+[[plugin.prepend_previewers]]
+mime = "text/*"
+run = "git-diff"
+
+[[plugin.prepend_previewers]]
+mime = "application/{json,ndjson}"
+run = "git-diff json"
+
 [opener]
 treemd = [{ run = "treemd %s1", block = true, for = "unix", desc = "Treemd" }]
 glow = [{ run = 'glow -p "$1"', block = true, for = "unix", desc = "Glow" }]
