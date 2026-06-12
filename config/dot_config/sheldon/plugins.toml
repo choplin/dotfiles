@@ -72,6 +72,7 @@ use = [
     "setting.zsh",
     "starship.zsh",
     "wezterm.zsh",
+    "zed.zsh",
     "zoxide.zsh",
     "zstyle.zsh",
 ]

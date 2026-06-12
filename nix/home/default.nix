@@ -18,6 +18,7 @@
     ./linux
     ./neovim.nix
     ./programs.nix
+    ./zed.nix
   ];
 
   programs.home-manager.enable = true;
