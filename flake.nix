@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-fast.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -55,6 +54,7 @@
       systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux"];
       imports = [
         inputs.devshell.flakeModule
+        ./nix/flake-modules/packages.nix
         ./nix/flake-modules/darwin.nix
         ./nix/flake-modules/home.nix
         ./nix/flake-modules/nixos.nix

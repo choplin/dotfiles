@@ -3,10 +3,6 @@
   mkHome = name: machine: let
     rootDir = "${machine.homeDirectory}/.dotfiles";
     system = machine.system;
-    pkgs-fast = import inputs.nixpkgs-fast {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
@@ -14,9 +10,11 @@
         overlays = [inputs.neovim-nightly-overlay.overlays.default];
       };
       extraSpecialArgs = {
-        inherit rootDir pkgs-fast;
+        inherit rootDir;
         inherit (machine) username homeDirectory;
         lfk = inputs.lfk.packages.${system}.default;
+        # The flake's `packages` output is exactly the set of vendored CLIs.
+        pkgs-vendored = inputs.self.packages.${system};
       };
       modules = [../home];
     };

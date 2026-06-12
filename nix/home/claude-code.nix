@@ -1,8 +1,9 @@
 {
   pkgs,
-  pkgs-fast,
+  pkgs-vendored,
   ...
 }: let
+  inherit (pkgs-vendored) claude-code;
   claudeWrapper = pkgs.writeShellScriptBin "claude" ''
     # Build --plugin-dir arguments from config file
     plugin_args=()
@@ -20,7 +21,7 @@
       done < "$config"
     fi
 
-    exec ${pkgs-fast.claude-code}/bin/claude --enable-auto-mode "''${plugin_args[@]}" "$@"
+    exec ${claude-code}/bin/claude --enable-auto-mode "''${plugin_args[@]}" "$@"
   '';
 in {
   home.packages = [
@@ -31,8 +32,8 @@ in {
       postBuild = ''
         wrapProgram $out/bin/claude \
           --prefix PATH : ${pkgs.lib.makeBinPath [
-          pkgs-fast.nodejs
-          pkgs-fast.bun
+          pkgs.nodejs
+          pkgs.bun
         ]}
       '';
       meta.mainProgram = "claude";

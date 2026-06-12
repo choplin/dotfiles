@@ -1,17 +1,17 @@
 {
   pkgs,
-  pkgs-fast,
+  pkgs-vendored,
   ...
 }: {
   home.packages = [
     (pkgs.symlinkJoin {
       name = "codex-with-runtimes";
-      paths = [pkgs-fast.codex];
+      paths = [pkgs-vendored.codex];
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = let
         runtimeDeps = pkgs.lib.makeBinPath [
-          pkgs-fast.nodejs
-          pkgs-fast.bun
+          pkgs.nodejs
+          pkgs.bun
         ];
       in ''
         wrapProgram $out/bin/codex \

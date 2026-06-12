@@ -4,10 +4,12 @@
       name = "dotfiles";
       commands = [
         {
-          name = "update-fast";
-          help = "Update nixpkgs-fast packages and rebuild";
+          name = "update-vendored";
+          help = "Refresh vendored packages (claude-code, codex), verify, and rebuild";
           command = ''
-            nix flake update nixpkgs-fast
+            ./nix/packages/claude-code/update.sh
+            ./nix/packages/codex/update.sh
+            nix build .#claude-code .#codex
             home-manager switch --flake .
           '';
         }
