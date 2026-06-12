@@ -15,12 +15,12 @@ promptToReturnFromSubprocess: false
 customCommands:
   - key: "D"
     context: "commits"
-    command: "git show {{.SelectedLocalCommit.Hash}} | delta"
+    command: "git show {{.SelectedCommit.Hash}} | delta"
     description: "選択中コミットのdiffをdeltaで表示"
     output: terminal
   - key: "D"
     context: "commitFiles"
-    command: "git show {{.SelectedCommit.Sha}} -- {{.SelectedCommitFile.Name}} | delta"
+    command: "git show {{.SelectedCommit.Hash}} -- {{.SelectedCommitFile.Name}} | delta"
     description: "コミット内のファイル差分をdeltaで表示"
     output: terminal
   - key: "D"
@@ -44,7 +44,7 @@ customCommands:
     description: blame file at tree
     output: terminal
   - key: b
-    command: tig blame {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}
+    command: tig blame {{.SelectedCommit.Hash}} -- {{.SelectedCommitFile.Name}}
     context: commitFiles
     description: blame file at revision
     output: terminal
