@@ -40,6 +40,7 @@
       Spark = 6445813049;
       LadioCast = 411213048;
       LINE = 539883307;
+      "Amazon Kindle" = 302584613;
     };
   };
 }
