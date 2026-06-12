@@ -73,6 +73,7 @@
   "showClearContextOnPlanAccept": true,
   "plansDirectory": "./.claude/plans",
   "autoCompactEnabled": false,
+  "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "skipWorkflowUsageWarning": true
