@@ -1,9 +1,9 @@
 {
   pkgs,
-  pkgs-vendored,
+  llm-agents,
   ...
 }: let
-  inherit (pkgs-vendored) claude-code;
+  inherit (llm-agents) claude-code;
   claudeWrapper = pkgs.writeShellScriptBin "claude" ''
     # Build --plugin-dir arguments from config file
     plugin_args=()
@@ -30,10 +30,13 @@ in {
       paths = [claudeWrapper];
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = ''
+        # Use the system ripgrep on PATH instead of claude's bundled copy.
         wrapProgram $out/bin/claude \
+          --set USE_BUILTIN_RIPGREP 0 \
           --prefix PATH : ${pkgs.lib.makeBinPath [
           pkgs.nodejs
           pkgs.bun
+          pkgs.ripgrep
         ]}
       '';
       meta.mainProgram = "claude";

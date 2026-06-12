@@ -4,12 +4,10 @@
       name = "dotfiles";
       commands = [
         {
-          name = "update-vendored";
-          help = "Refresh vendored packages (claude-code, codex), verify, and rebuild";
+          name = "update-agents";
+          help = "Bump the llm-agents input (claude-code, codex, cursor-agent) and rebuild";
           command = ''
-            ./nix/packages/claude-code/update.sh
-            ./nix/packages/codex/update.sh
-            nix build .#claude-code .#codex
+            nix flake update llm-agents
             home-manager switch --flake .
           '';
         }

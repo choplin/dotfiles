@@ -1,12 +1,12 @@
 {
   pkgs,
-  pkgs-vendored,
+  llm-agents,
   ...
 }: {
   home.packages = [
     (pkgs.symlinkJoin {
       name = "codex-with-runtimes";
-      paths = [pkgs-vendored.codex];
+      paths = [llm-agents.codex];
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = let
         runtimeDeps = pkgs.lib.makeBinPath [
@@ -14,8 +14,11 @@
           pkgs.bun
         ];
       in ''
+        # llm-agents' codex does not disable its self-updater; the read-only
+        # Nix store would make an update fail, so suppress it explicitly.
         wrapProgram $out/bin/codex \
-          --prefix PATH : ${runtimeDeps}
+          --prefix PATH : ${runtimeDeps} \
+          --set DISABLE_AUTOUPDATER 1
 
         # codex-xhigh: reasoning effort xhigh
         cat > $out/bin/codex-xhigh << 'EOF'

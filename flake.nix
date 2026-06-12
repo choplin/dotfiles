@@ -1,6 +1,15 @@
 {
   description = "my nix-darwin configuration";
 
+  # Pull prebuilt AI-agent CLIs (claude-code, codex, cursor-agent) from the
+  # numtide cache instead of building them locally. Required because codex is
+  # built from source upstream; cache hits depend on NOT overriding nixpkgs
+  # (see the llm-agents input below, which deliberately omits `follows`).
+  nixConfig = {
+    extra-substituters = ["https://cache.numtide.com"];
+    extra-trusted-public-keys = ["niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -47,6 +56,11 @@
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Prebuilt AI-agent CLIs. Intentionally does NOT follow our nixpkgs: cache
+    # hits from cache.numtide.com require the exact nixpkgs llm-agents built
+    # against (notably codex, which is compiled from source upstream).
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs:
@@ -54,7 +68,6 @@
       systems = ["aarch64-darwin" "x86_64-darwin" "x86_64-linux"];
       imports = [
         inputs.devshell.flakeModule
-        ./nix/flake-modules/packages.nix
         ./nix/flake-modules/darwin.nix
         ./nix/flake-modules/home.nix
         ./nix/flake-modules/nixos.nix

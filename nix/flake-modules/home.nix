@@ -13,8 +13,9 @@
         inherit rootDir;
         inherit (machine) username homeDirectory;
         lfk = inputs.lfk.packages.${system}.default;
-        # The flake's `packages` output is exactly the set of vendored CLIs.
-        pkgs-vendored = inputs.self.packages.${system};
+        # Prebuilt AI-agent CLIs (claude-code, codex, cursor-agent) from
+        # numtide/llm-agents.nix, served via cache.numtide.com.
+        llm-agents = inputs.llm-agents.packages.${system};
       };
       modules = [../home];
     };

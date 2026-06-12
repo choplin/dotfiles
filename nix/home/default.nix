@@ -12,6 +12,7 @@
   imports = [
     ./claude-code.nix
     ./codex.nix
+    ./cursor-agent.nix
     ./darwin
     ./files.nix
     ./gh
