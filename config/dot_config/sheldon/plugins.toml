@@ -80,7 +80,7 @@ use = [
 [plugins.dotfiles-defers]
 local = "~/.zsh"
 apply = ["defer"]
-use = ["mise.zsh", "abbr.zsh"]
+use = ["abbr.zsh"]
 
 [plugins.compinit]
 inline = 'autoload -Uz compinit && compinit -C'

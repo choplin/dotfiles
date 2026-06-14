@@ -11,7 +11,6 @@ in {
     "broot".source = link "${configDir}/dot_config/broot";
     "lazygit".source = link "${configDir}/dot_config/lazygit";
     "luacheck".source = link "${configDir}/dot_config/luacheck";
-    "mise".source = link "${configDir}/dot_config/mise";
     "nvim".source = link "${configDir}/dot_config/nvim";
     "ripgrep".source = link "${configDir}/dot_config/ripgrep";
     "sheldon".source = link "${configDir}/dot_config/sheldon";

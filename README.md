@@ -40,7 +40,7 @@ Located in `config/`, organized by tool:
 - **Editors** - Neovim, Zed, Vim configurations
 - **Shell** - zsh with modular setup (aliases, functions, key bindings, etc.)
 - **Terminal** - Wezterm, Ghostty
-- **Development** - Git, mise, and related tools
+- **Development** - Git and related tools
 - **macOS** - Karabiner, AeroSpace, SketchyBar, and other macOS utilities
 
 ## Usage
