@@ -78,5 +78,6 @@
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "skipWorkflowUsageWarning": true
+  "skipWorkflowUsageWarning": true,
+  "inputNeededNotifEnabled": true
 }
