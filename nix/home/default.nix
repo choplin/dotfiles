@@ -16,6 +16,7 @@
     ./darwin
     ./files.nix
     ./gh
+    ./kimi-code
     ./linux
     ./neovim.nix
     ./programs.nix
