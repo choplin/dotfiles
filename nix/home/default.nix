@@ -10,6 +10,7 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./antigravity-cli.nix
     ./claude-code.nix
     ./codex.nix
     ./cursor-agent.nix
@@ -59,7 +60,6 @@
         gcloud-crc32c
       ]))
       gdu
-      gemini-cli
       gh
       ghq
       gibo
