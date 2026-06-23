@@ -1,22 +1,25 @@
 {
   "agent_servers": {
+    "kimi": {
+      "type": "registry"
+    },
     "claude-acp": {
       "type": "registry"
     }
   },
   "outline_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "agent": {
-    "dock": "right",
+    "dock": "left",
     "favorite_models": [],
     "model_parameters": []
   },
   "git_panel": {
-    "dock": "left",
+    "dock": "right",
     "sort_by_path": true,
   },
   "icon_theme": "Catppuccin Mocha",
@@ -47,7 +50,7 @@
     "enabled": true,
   },
   "project_panel": {
-    "dock": "left",
+    "dock": "right",
     "auto_fold_dirs": true,
   },
   "preview_tabs": {
