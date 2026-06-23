@@ -17,10 +17,12 @@
     ./darwin
     ./files.nix
     ./gh
+    ./hunk.nix
     ./kimi-code
     ./linux
     ./neovim.nix
     ./programs.nix
+    ./skills.nix
     ./zed.nix
   ];
 
