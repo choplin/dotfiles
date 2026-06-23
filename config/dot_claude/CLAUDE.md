@@ -84,7 +84,7 @@
 
 ### Markdown Rules
 
-- For user documentation (README.md), use attractive formatting: emojis, badges, clear sections, examples
+- For user documentation (README.md), use attractive formatting: badges, clear sections, examples
 
 ### Language-Specific Settings
 
