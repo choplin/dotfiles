@@ -32,10 +32,6 @@
       "visual-studio-code"
     ];
 
-    taps = [
-      "choplin/tap"
-    ];
-
     masApps = {
       Spark = 6445813049;
       LadioCast = 411213048;
