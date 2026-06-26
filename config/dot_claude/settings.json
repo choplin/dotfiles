@@ -75,10 +75,12 @@
   "alwaysThinkingEnabled": true,
   "showClearContextOnPlanAccept": true,
   "plansDirectory": "./.claude/plans",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
+  "preferredNotifChannel": "ghostty",
   "autoCompactEnabled": false,
   "remoteControlAtStartup": true,
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "skipWorkflowUsageWarning": true,
   "inputNeededNotifEnabled": true
 }
