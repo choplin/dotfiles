@@ -77,10 +77,10 @@
   "plansDirectory": "./.claude/plans",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "preferredNotifChannel": "ghostty",
+  "preferredNotifChannel": "terminal_bell",
   "autoCompactEnabled": false,
   "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true,
-  "inputNeededNotifEnabled": true
+  "skipAutoPermissionPrompt": true
 }
