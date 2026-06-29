@@ -35,6 +35,18 @@
     "deny": [],
     "defaultMode": "auto"
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "claude-sessions save"
+          }
+        ]
+      }
+    ]
+  },
   "enableAllProjectMcpServers": true,
   "statusLine": {
     "type": "command",
