@@ -1,0 +1,174 @@
+#!/usr/bin/env bash
+# claude-sessions — save and restore running Claude Code sessions.
+#
+# Claude Code writes one state file per running process at
+# $CLAUDE_CONFIG_DIR/sessions/<pid>.json, each carrying the sessionId, cwd,
+# status and entrypoint. Those files vanish when the processes die (e.g. when
+# Zed quits), so `save` snapshots them to a fixed location and `restore` lets
+# you pick one back with fzf.
+#
+# Source of truth: ~/.dotfiles/config/scripts/claude-sessions
+#
+# Save location (first match wins):
+#   $CLAUDE_SESSIONS_FILE
+#   $XDG_STATE_HOME/claude-sessions/sessions.json   (XDG_STATE_HOME defaults to ~/.local/state)
+#
+# Usage:
+#   claude-sessions save [-a]          # snapshot live sessions to the save file
+#   claude-sessions restore [-x]       # fzf-pick a session; print (or with -x, run) its resume command
+#   claude-sessions list [-a]          # human-readable table of live sessions
+#   claude-sessions where              # print the save file path
+set -euo pipefail
+
+config_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+sessions_dir="$config_dir/sessions"
+projects_dir="$config_dir/projects"
+: "${XDG_STATE_HOME:=$HOME/.local/state}"
+state_file="${CLAUDE_SESSIONS_FILE:-$XDG_STATE_HOME/claude-sessions/sessions.json}"
+
+usage() {
+  cat <<'EOF'
+claude-sessions — save and restore running Claude Code sessions.
+
+Usage:
+  claude-sessions save [-a]      Snapshot live sessions to the save file.
+  claude-sessions restore [-x]   fzf-pick a session; print its resume command
+                                 (cd <cwd> && claude -r <id>), or run it with -x.
+  claude-sessions list [-a]      Human-readable table of live sessions.
+  claude-sessions where          Print the save file path.
+
+Options:
+  -a, --all     Include stale entries whose process is no longer alive.
+  -x, --exec    restore: cd into the cwd and exec the session instead of printing.
+
+Save location (first match wins):
+  $CLAUDE_SESSIONS_FILE
+  $XDG_STATE_HOME/claude-sessions/sessions.json   (XDG_STATE_HOME defaults to ~/.local/state)
+EOF
+}
+
+is_alive() { kill -0 "$1" 2>/dev/null; }
+
+# Populate the global `files` array with session state files, dropping dead
+# PIDs unless $include_all is true.
+collect_files() {
+  files=()
+  [ -d "$sessions_dir" ] || return 0
+  local f pid
+  for f in "$sessions_dir"/*.json; do
+    [ -e "$f" ] || continue
+    pid="$(basename "$f" .json)"
+    case "$pid" in (*[!0-9]*) continue ;; esac
+    if ! $include_all && ! is_alive "$pid"; then
+      continue
+    fi
+    files+=("$f")
+  done
+}
+
+# Merge the collected state files into a JSON array on stdout.
+emit_json() {
+  if [ "${#files[@]}" -eq 0 ]; then
+    printf '[]\n'
+    return
+  fi
+  jq -s 'sort_by(.startedAt) | [ .[] | {
+    pid,
+    sessionId,
+    cwd,
+    status,
+    kind,
+    entrypoint,
+    version,
+    procStart,
+    startedAt,
+    startedAtIso: (if .startedAt then (.startedAt/1000 | todateiso8601) else null end),
+    resume: ("cd " + (.cwd // ".") + " && claude -r " + (.sessionId // ""))
+  } ]' "${files[@]}"
+}
+
+cmd_save() {
+  collect_files
+  mkdir -p "$(dirname "$state_file")"
+  emit_json > "$state_file"
+  echo "claude-sessions: saved ${#files[@]} session(s) to $state_file" >&2
+}
+
+cmd_list() {
+  collect_files
+  emit_json | jq -r '
+    (["PID","STATUS","ENTRYPOINT","SESSION_ID","CWD"] | @tsv),
+    (.[] | [(.pid|tostring), (.status // "-"), (.entrypoint // "-"), .sessionId, .cwd] | @tsv)
+  ' | column -t -s "$(printf '\t')"
+}
+
+# Hidden helper used by fzf to preview a session's recent transcript.
+cmd_preview() {
+  local id="$1" file
+  file="$(find "$projects_dir" -maxdepth 2 -name "$id.jsonl" 2>/dev/null | head -1)"
+  if [ -z "$file" ]; then
+    echo "(no transcript found for $id)"
+    return 0
+  fi
+  jq -r 'select(.type=="user") | .message.content
+         | if type=="string" then .
+           elif type=="array" then (map(select(.type=="text").text) | join(" "))
+           else "" end' "$file" 2>/dev/null \
+    | grep -v '^[[:space:]]*$' \
+    | tail -15 || true
+}
+
+cmd_restore() {
+  if [ ! -f "$state_file" ]; then
+    echo "claude-sessions: no save file at $state_file (run 'claude-sessions save' first)" >&2
+    return 1
+  fi
+  local self="$0" sel id cwd
+  # TSV: sessionId \t cwd \t status \t startedAtIso ; fzf hides field 1.
+  sel="$(jq -r '.[] | [.sessionId, .cwd, (.status // "-"), (.startedAtIso // "-")] | @tsv' "$state_file" \
+    | fzf --with-nth=2.. \
+          --delimiter='\t' \
+          --header='Pick a Claude Code session to resume' \
+          --preview="$self _preview {1}" \
+          --preview-window='right,55%,wrap')" || return 1
+  [ -n "$sel" ] || return 1
+  id="$(printf '%s' "$sel" | cut -f1)"
+  cwd="$(printf '%s' "$sel" | cut -f2)"
+  if $do_exec; then
+    cd "$cwd" || { echo "claude-sessions: cannot cd to $cwd" >&2; return 1; }
+    exec claude -r "$id"
+  else
+    printf 'cd %q && claude -r %s\n' "$cwd" "$id"
+  fi
+}
+
+# --- argument parsing -------------------------------------------------------
+include_all=false
+do_exec=false
+cmd="${1:-save}"
+if [ $# -gt 0 ]; then shift; fi
+
+# Hidden helper invoked by fzf as: claude-sessions _preview <sessionId>
+if [ "$cmd" = "_preview" ]; then
+  cmd_preview "${1:-}"
+  exit 0
+fi
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -a|--all)  include_all=true ;;
+    -x|--exec) do_exec=true ;;
+    -h|--help) usage; exit 0 ;;
+    *) echo "claude-sessions: unknown argument: $1" >&2; usage >&2; exit 1 ;;
+  esac
+  shift
+done
+
+case "$cmd" in
+  save)         cmd_save ;;
+  restore)      cmd_restore ;;
+  list|ls)      cmd_list ;;
+  where)        echo "$state_file" ;;
+  -h|--help)    usage ;;
+  *) echo "claude-sessions: unknown command: $cmd" >&2; usage >&2; exit 1 ;;
+esac

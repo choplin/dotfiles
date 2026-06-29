@@ -12,6 +12,7 @@
   imports = [
     ./antigravity-cli.nix
     ./claude-code.nix
+    ./claude-sessions.nix
     ./codex.nix
     ./cursor-agent.nix
     ./darwin
