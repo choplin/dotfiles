@@ -13,9 +13,9 @@
 #   $CLAUDE_SESSIONS_FILE
 #   $XDG_STATE_HOME/claude-sessions/sessions.json   (XDG_STATE_HOME defaults to ~/.local/state)
 #
-# Usage:
+# Usage (no subcommand prints help):
 #   claude-sessions save [-a]          # snapshot live sessions to the save file
-#   claude-sessions restore [-x]       # fzf-pick a session; print (or with -x, run) its resume command
+#   claude-sessions restore [-c] [-x]  # fzf-pick a session; print (or with -x, run) its resume command
 #   claude-sessions list [-a]          # human-readable table of live sessions
 #   claude-sessions where              # print the save file path
 set -euo pipefail
@@ -30,15 +30,16 @@ usage() {
   cat <<'EOF'
 claude-sessions — save and restore running Claude Code sessions.
 
-Usage:
-  claude-sessions save [-a]      Snapshot live sessions to the save file.
-  claude-sessions restore [-x]   fzf-pick a session; print its resume command
-                                 (cd <cwd> && claude -r <id>), or run it with -x.
-  claude-sessions list [-a]      Human-readable table of live sessions.
-  claude-sessions where          Print the save file path.
+Usage (no subcommand prints this help):
+  claude-sessions save [-a]          Snapshot live sessions to the save file.
+  claude-sessions restore [-c] [-x]  fzf-pick a session; print its resume command
+                                     (cd <cwd> && claude -r <id>), or run it with -x.
+  claude-sessions list [-a]          Human-readable table of live sessions.
+  claude-sessions where              Print the save file path.
 
 Options:
   -a, --all     Include stale entries whose process is no longer alive.
+  -c, --cwd     restore: only list sessions whose cwd is the current directory.
   -x, --exec    restore: cd into the cwd and exec the session instead of printing.
 
 Save location (first match wins):
@@ -123,12 +124,27 @@ cmd_restore() {
     echo "claude-sessions: no save file at $state_file (run 'claude-sessions save' first)" >&2
     return 1
   fi
-  local self="$0" sel id cwd
+  local self="$0" sel id cwd rows header
   # TSV: sessionId \t cwd \t status \t startedAtIso ; fzf hides field 1.
-  sel="$(jq -r '.[] | [.sessionId, .cwd, (.status // "-"), (.startedAtIso // "-")] | @tsv' "$state_file" \
+  # With --cwd, keep only sessions whose cwd is the current directory.
+  rows="$(jq -r --arg pwd "$PWD" --argjson here "$restore_here" '
+    .[]
+    | (if $here then select(.cwd == $pwd) else . end)
+    | [.sessionId, .cwd, (.status // "-"), (.startedAtIso // "-")] | @tsv' "$state_file")"
+  if [ -z "$rows" ]; then
+    if $restore_here; then
+      echo "claude-sessions: no saved session with cwd = $PWD" >&2
+    else
+      echo "claude-sessions: no saved sessions in $state_file" >&2
+    fi
+    return 1
+  fi
+  header='Pick a Claude Code session to resume'
+  if $restore_here; then header="$header (cwd = $PWD)"; fi
+  sel="$(printf '%s\n' "$rows" \
     | fzf --with-nth=2.. \
           --delimiter='\t' \
-          --header='Pick a Claude Code session to resume' \
+          --header="$header" \
           --preview="$self _preview {1}" \
           --preview-window='right,55%,wrap')" || return 1
   [ -n "$sel" ] || return 1
@@ -145,7 +161,8 @@ cmd_restore() {
 # --- argument parsing -------------------------------------------------------
 include_all=false
 do_exec=false
-cmd="${1:-save}"
+restore_here=false
+cmd="${1:-help}"
 if [ $# -gt 0 ]; then shift; fi
 
 # Hidden helper invoked by fzf as: claude-sessions _preview <sessionId>
@@ -158,6 +175,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     -a|--all)  include_all=true ;;
     -x|--exec) do_exec=true ;;
+    -c|--cwd)  restore_here=true ;;
     -h|--help) usage; exit 0 ;;
     *) echo "claude-sessions: unknown argument: $1" >&2; usage >&2; exit 1 ;;
   esac
@@ -169,6 +187,6 @@ case "$cmd" in
   restore)      cmd_restore ;;
   list|ls)      cmd_list ;;
   where)        echo "$state_file" ;;
-  -h|--help)    usage ;;
+  help|-h|--help) usage ;;
   *) echo "claude-sessions: unknown command: $cmd" >&2; usage >&2; exit 1 ;;
 esac
