@@ -13,6 +13,9 @@
       alejandra
       metals
       jdk
+      go
+      gopls
+      nil
     ];
   };
 }
