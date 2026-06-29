@@ -48,6 +48,7 @@
       "ctrl-shift-t": "terminal_panel::ToggleFocus", // Terminal
       "ctrl-shift-o": "outline_panel::ToggleFocus", // Outline
       "ctrl-shift-d": "diagnostics::Deploy", // Diagnostics
+      "ctrl-shift-c": "workspace::FocusCenterPane", // back to the editor (Center)
     },
   },
 
