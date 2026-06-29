@@ -1,105 +1,213 @@
+// Zed keymap (JSONC: comments allowed)
+//
+// Conventions:
+//   - Ctrl-h/j/k/l    : move between panes (Vim-style directions)
+//   - Ctrl-j/k        : down/up inside menus, completions and lists
+//   - Ctrl-shift-<x>  : focus a panel / sidebar (global; opens it if closed)
+//   - Cmd / Cmd-shift : toggle visibility of a panel / dock (global)
+//   - Space           : leader key for in-editor commands (Vim normal mode)
+//
+// Organized by function. Each object is one `context`; more specific
+// contexts win over general ones, so section order does not affect precedence.
 [
+  // =====================================================================
+  // Pane navigation : Ctrl-h/j/k/l to move focus between split panes
+  // =====================================================================
   {
     "context": "Workspace || Editor",
     "bindings": {
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
-    }
+      "ctrl-l": "workspace::ActivatePaneRight",
+    },
   },
   {
-    "context": "Editor && (showing_code_actions || showing_completions)",
-    "bindings": {
-      "ctrl-j": "editor::ContextMenuNext",
-      "ctrl-k": "editor::ContextMenuPrevious"
-    }
-  },
-  {
-    "context": "Picker > Editor",
-    "bindings": {
-      "ctrl-j": "menu::SelectNext",
-      "ctrl-k": "menu::SelectPrevious"
-    }
-  },
-  {
+    // Free Ctrl-h/j/k/l in the terminal so they reach the shell / TUI apps
     "context": "Terminal",
     "bindings": {
       "ctrl-h": null,
       "ctrl-j": null,
       "ctrl-k": null,
-      "ctrl-l": null
-    }
+      "ctrl-l": null,
+    },
+  },
+
+  // =====================================================================
+  // Panel focus (global) : Ctrl-shift-<mnemonic> jumps to a panel/sidebar.
+  // Opens it if closed. Context "Workspace || Editor || Terminal" is needed
+  // so these win over Zed's deeper Editor defaults (emacs-style selections).
+  // =====================================================================
+  {
+    "context": "Workspace || Editor || Terminal",
+    "bindings": {
+      "ctrl-shift-e": "multi_workspace::FocusWorkspaceSidebar", // Explorer: whole sidebar (project + thread list)
+      "ctrl-shift-p": "project_panel::ToggleFocus", // Project tree only
+      "ctrl-shift-a": "agent::ToggleFocus", // Agent / Thread
+      "ctrl-shift-g": "git_panel::ToggleFocus", // Git
+      "ctrl-shift-t": "terminal_panel::ToggleFocus", // Terminal
+      "ctrl-shift-o": "outline_panel::ToggleFocus", // Outline
+      "ctrl-shift-d": "diagnostics::Deploy", // Diagnostics
+    },
+  },
+
+  // =====================================================================
+  // Panel / dock visibility (global) : show / hide, keeping the editor.
+  // Sidebar is paired with its focus key; docks keep Zed defaults.
+  // Same broad context so they also win inside the editor/terminal.
+  // =====================================================================
+  {
+    "context": "Workspace || Editor || Terminal",
+    "bindings": {
+      "cmd-shift-e": "multi_workspace::ToggleWorkspaceSidebar", // toggle sidebar
+      "cmd-b": "workspace::ToggleLeftDock", // toggle left dock
+      "cmd-r": "workspace::ToggleRightDock", // toggle right dock
+      "cmd-j": "workspace::ToggleBottomDock", // toggle bottom dock
+      // Focus mode: hide everything but the editor (docks + sidebar), toggle back
+      "cmd-shift-\\": [
+        "workspace::ToggleAllDocks",
+        "multi_workspace::ToggleWorkspaceSidebar",
+      ],
+    },
+  },
+
+  // =====================================================================
+  // Agent thread navigation : Ctrl-j/k cycles threads while in the agent
+  // panel. Two contexts: the thread view, and its message editor (the
+  // latter is needed to beat pane-nav's Ctrl-j/k in the input field).
+  // =====================================================================
+  {
+    "context": "AcpThread > Editor",
+    "bindings": {
+      "ctrl-j": "multi_workspace::NextThread", // next thread
+      "ctrl-k": "multi_workspace::PreviousThread", // previous thread
+    },
   },
   {
-    "context": "ProjectPanel && not_editing",
+    "context": "AcpThread",
     "bindings": {
-      "space e": "workspace::ToggleLeftDock",
-      "r": "project_panel::Rename",
-      "a": "project_panel::NewFile",
-      "shift-a": "project_panel::NewDirectory",
-      "escape": "workspace::ToggleLeftDock",
-      "ctrl-[": "workspace::ToggleLeftDock"
-    }
+      "ctrl-j": "multi_workspace::NextThread", // next thread
+      "ctrl-k": "multi_workspace::PreviousThread", // previous thread
+    },
   },
   {
-    "context": "GitPanel",
+    // Terminal Agent: the thread is a terminal, which would otherwise grab
+    // Ctrl-j/k and send them to the PTY. Bind here to switch threads instead.
+    "context": "AgentPanel > Terminal",
     "bindings": {
-      "escape": "git_panel::Close",
-      "ctrl-[": "git_panel::Close"
-    }
+      "ctrl-j": "multi_workspace::NextThread", // next thread
+      "ctrl-k": "multi_workspace::PreviousThread", // previous thread
+    },
+  },
+
+  // =====================================================================
+  // List / menu navigation : Ctrl-j (down) / Ctrl-k (up)
+  // =====================================================================
+  {
+    // Completion popup and code-action menu in the editor
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-j": "editor::ContextMenuNext",
+      "ctrl-k": "editor::ContextMenuPrevious",
+    },
   },
   {
-    "context": "GitDiff > Editor",
+    // Pickers (file finder, command palette, etc.)
+    "context": "Picker > Editor",
     "bindings": {
-      "space": "git::ToggleStaged"
-    }
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-k": "menu::SelectPrevious",
+    },
   },
-  {
-    "context": "BufferSearchBar",
-    "bindings": {
-      "ctrl-[": "editor::Cancel"
-    }
-  },
+
+  // =====================================================================
+  // Leader key (Space) : in-editor commands in Vim normal mode
+  // =====================================================================
   {
     "context": "VimControl && !menu",
     "bindings": {
-      "space space": "command_palette::Toggle",
-      "space e": "project_panel::ToggleFocus",
-      "space g g": ["task::Spawn", { "task_name": "LazyGit" }],
-      "space g p": "git_panel::ToggleFocus",
-      "space f f": "file_finder::Toggle",
-      "ctrl-/": "terminal_panel::ToggleFocus"
-    }
+      "space space": "command_palette::Toggle", // command palette
+      "space f f": "file_finder::Toggle", // find file
+      "space g g": ["task::Spawn", { "task_name": "LazyGit" }], // open LazyGit
+      "ctrl-/": "terminal_panel::ToggleFocus", // toggle terminal focus
+    },
   },
+
+  // =====================================================================
+  // Editor : Vim motions and syntax-tree selection
+  // =====================================================================
   {
     "context": "Editor && vim_mode == normal && !menu",
     "bindings": {
-      "j": ["vim::Down", { "display_lines": true }],
-      "k": ["vim::Up", { "display_lines": true }],
-      "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePreviousItem",
-      "ctrl-space": "editor::SelectLargerSyntaxNode"
-    }
+      "j": ["vim::Down", { "display_lines": true }], // move by visual line
+      "k": ["vim::Up", { "display_lines": true }], // move by visual line
+      "shift-h": "pane::ActivatePreviousItem", // previous tab
+      "shift-l": "pane::ActivateNextItem", // next tab
+      "ctrl-space": "editor::SelectLargerSyntaxNode", // expand selection
+    },
   },
   {
     "context": "Editor && vim_mode == visual && !menu",
     "bindings": {
-      "ctrl-space": "editor::SelectLargerSyntaxNode",
-      "backspace": "editor::SelectSmallerSyntaxNode"
-    }
+      "ctrl-space": "editor::SelectLargerSyntaxNode", // expand selection
+      "backspace": "editor::SelectSmallerSyntaxNode", // shrink selection
+    },
   },
   {
+    // Vim text objects for a/i/cs operators (e.g. ciq, dab)
     "context": "vim_operator == a || vim_operator == i || vim_operator == cs",
     "bindings": {
-      "q": "vim::AnyQuotes",
-      "b": "vim::AnyBrackets"
-    }
+      "q": "vim::AnyQuotes", // any quote pair: '' "" ``
+      "b": "vim::AnyBrackets", // any bracket pair: () [] {}
+    },
   },
   {
+    // Let Space behave as a literal space while typing
     "context": "vim_mode == insert",
     "bindings": {
-      "space": null
-    }
-  }
+      "space": null,
+    },
+  },
+
+  // =====================================================================
+  // Project panel
+  // =====================================================================
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile", // new file
+      "shift-a": "project_panel::NewDirectory", // new directory
+      "r": "project_panel::Rename", // rename
+      // Close the sidebar the project panel lives in (not a fixed dock side)
+      "escape": "multi_workspace::ToggleWorkspaceSidebar",
+      "ctrl-[": "multi_workspace::ToggleWorkspaceSidebar",
+    },
+  },
+
+  // =====================================================================
+  // Git
+  // =====================================================================
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "escape": "git_panel::Close",
+      "ctrl-[": "git_panel::Close",
+    },
+  },
+  {
+    "context": "GitDiff > Editor",
+    "bindings": {
+      "space": "git::ToggleStaged", // stage / unstage the hunk
+    },
+  },
+
+  // =====================================================================
+  // Search
+  // =====================================================================
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "ctrl-[": "editor::Cancel", // close the search bar
+    },
+  },
 ]
