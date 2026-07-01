@@ -49,13 +49,11 @@
       "cursor"
       "discord"
       "ghostty"
-      "gitkraken"
       "notion"
       "obsidian"
       "raycast"
       "slack"
       "superwhisper"
-      "ticktick"
       "zed"
     ];
 
