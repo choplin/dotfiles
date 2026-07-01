@@ -22,6 +22,7 @@
     ./kimi-code
     ./linux
     ./neovim.nix
+    ./opencode.nix
     ./programs.nix
     ./skills.nix
     ./zed.nix
