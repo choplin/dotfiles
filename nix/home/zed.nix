@@ -16,6 +16,7 @@
       go
       gopls
       nil
+      nodejs # provides npx for `mcp-remote` context servers (settings.json)
     ];
   };
 }
