@@ -49,6 +49,7 @@
       "cursor"
       "discord"
       "ghostty"
+      "linear"
       "notion"
       "obsidian"
       "raycast"
