@@ -81,15 +81,10 @@
     "enabled": true,
     "allowUnsandboxedCommands": true,
     "network": {
-      "allowUnixSockets": [
-        "/nix/var/nix/daemon-socket/socket"
-      ],
+      "allowUnixSockets": ["/nix/var/nix/daemon-socket/socket"],
       "allowLocalBinding": true
     },
-    "excludedCommands": [
-      "codex",
-      "codex-xhigh"
-    ]
+    "excludedCommands": ["codex", "codex-xhigh"]
   },
   "alwaysThinkingEnabled": true,
   "showClearContextOnPlanAccept": true,
