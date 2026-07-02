@@ -4,8 +4,12 @@
       "type": "registry"
     },
     "claude-acp": {
-      "type": "registry"
-    }
+      "type": "custom",
+      "command": "claude-agent-acp-direnv",
+      "default_config_options": {
+        "mode": "auto",
+      },
+    },
   },
   "outline_panel": {
     "dock": "right"
