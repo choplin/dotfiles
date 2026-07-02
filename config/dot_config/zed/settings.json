@@ -76,4 +76,11 @@
     "ignore_system_version": true,
   },
   "load_direnv": "shell_hook",
+  "context_servers": {
+    "linear": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.linear.app/mcp"],
+      "env": {},
+    },
+  },
 }
