@@ -56,6 +56,7 @@
       docker-credential-helpers
       dust
       fd
+      ffmpeg
       fzf
       gcalcli
       (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
