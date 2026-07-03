@@ -100,6 +100,7 @@
       treemd
       tree-sitter
       vhs
+      voicevox-engine
       watchexec
       wget
       yazi
