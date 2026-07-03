@@ -88,6 +88,7 @@
       mosh
       navi
       pgcli
+      poppler
       procs
       pueue
       ripgrep
