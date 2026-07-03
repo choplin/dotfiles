@@ -35,6 +35,7 @@
     "deny": [],
     "defaultMode": "auto"
   },
+  "enableAllProjectMcpServers": true,
   "hooks": {
     "SessionStart": [
       {
@@ -47,7 +48,6 @@
       }
     ]
   },
-  "enableAllProjectMcpServers": true,
   "statusLine": {
     "type": "command",
     "command": "bash -c 'node \"$(ls -td ~/.claude/plugins/cache/claude-hud/claude-hud/*/ 2>/dev/null | head -1)dist/index.js\"'"
@@ -81,10 +81,15 @@
     "enabled": true,
     "allowUnsandboxedCommands": true,
     "network": {
-      "allowUnixSockets": ["/nix/var/nix/daemon-socket/socket"],
+      "allowUnixSockets": [
+        "/nix/var/nix/daemon-socket/socket"
+      ],
       "allowLocalBinding": true
     },
-    "excludedCommands": ["codex", "codex-xhigh"]
+    "excludedCommands": [
+      "codex",
+      "codex-xhigh"
+    ]
   },
   "alwaysThinkingEnabled": true,
   "showClearContextOnPlanAccept": true,
