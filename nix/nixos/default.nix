@@ -9,6 +9,7 @@
   users.users.${username} = {
     home = homeDirectory;
     shell = pkgs.zsh;
+    extraGroups = [ "wheel" "docker" ];
   };
 
   networking.hostName = hostname;
@@ -17,6 +18,11 @@
 
   # Create symlink /etc/nixos -> ~/.dotfiles
   environment.etc."nixos".source = rootDir;
+
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+  };
 
   system.stateVersion = "25.05";
 }
