@@ -103,6 +103,10 @@
       voicevox-engine
       watchexec
       wget
+      # Build with nodejs_22: default nodejs_24 crashes wrangler's tsup build
+      # with `EBADF: bad file descriptor, fstat`. Drop the override once upstream
+      # nixpkgs builds cleanly on the default node.
+      (wrangler.override {nodejs = nodejs_22;})
       yazi
       yq
       yt-dlp
