@@ -44,6 +44,7 @@
 
     packages = (with pkgs; [
       #ast-grep
+      agent-browser
       bandwhich
       bat
       bottom
