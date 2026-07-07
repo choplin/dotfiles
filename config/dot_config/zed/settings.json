@@ -81,7 +81,7 @@
   "preview": {
     "theme": "One Dark",
   },
-  "bottom_dock_layout": "left_aligned",
+  "bottom_dock_layout": "contained",
   "tab_bar": {
     "show": true,
   },
