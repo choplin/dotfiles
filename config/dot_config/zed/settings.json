@@ -1,10 +1,19 @@
 {
+  "language_models": {
+    "opencode": {
+      "show_free_models": false,
+      "show_zen_models": false,
+    },
+  },
   "diff_view_style": "split",
   "agent_ui_font_size": 20.0,
   "agent_buffer_font_size": 20.0,
   "cli_default_open_behavior": "existing_window",
   "edit_predictions": {
-    "provider": "copilot",
+    "ollama": {
+      "api_url": ""
+    },
+    "provider": "zed",
     "open_ai_compatible_api": {
       "model": "",
       "api_url": "",
@@ -27,7 +36,7 @@
       "type": "custom",
       "command": "claude-agent-acp-direnv",
       "default_config_options": {
-        "model": "claude-fable-5[1m]",
+        "model": "default",
         "mode": "auto",
       },
     },
@@ -48,15 +57,17 @@
     "notify_when_agent_waiting": "primary_screen",
     "default_profile": "ask",
     "default_model": {
-      "provider": "openai-subscribed",
-      "model": "gpt-5.5",
-      "enable_thinking": false,
+      "effort": "xhigh",
+      "provider": "opencode",
+      "model": "go/deepseek-v4-pro",
+      "enable_thinking": true,
     },
     "commit_message_instructions": "Generate a git commit message following the Conventional Commits specification. The first line must be a conventional commit subject line with a required type (e.g. 'feat: add login feature'). The scope is required if the scope of the change is clear and limited to a single area; omit the scope if it spans multiple areas or is unclear (e.g. 'feat(auth): add login feature' vs 'feat: add login feature'). Write the subject verb in past tense (e.g. 'added', 'fixed', 'updated'). The second line must be blank. From the third line onward, if the purpose, background, motivation, or context of the change is clear, add a body describing them in detail. Otherwise, omit the body.",
 
     "commit_message_model": {
-      "provider": "openai-subscribed",
-      "model": "gpt-5.5",
+      "provider": "opencode",
+      "model": "go/deepseek-v4-flash",
+      "enable_thinking": false,
     },
     "play_sound_when_agent_done": "always",
     "dock": "left",
