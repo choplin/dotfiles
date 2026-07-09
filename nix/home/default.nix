@@ -112,6 +112,7 @@
       yq
       yt-dlp
       zellij
+      zk
       zoxide
     ]) ++ [
       lfk
