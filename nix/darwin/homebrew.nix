@@ -52,6 +52,7 @@
       "linear"
       "notion"
       "obsidian"
+      "stablyai/orca/orca"
       "raycast"
       "slack"
       "superwhisper"
