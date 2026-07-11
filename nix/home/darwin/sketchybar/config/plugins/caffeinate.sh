@@ -7,8 +7,9 @@ NAME="${NAME:-caffeinate}"
 PIDFILE="/tmp/sketchybar_caffeinate.pid"
 
 # Determine current mode from the tracked process (single source of truth).
-# Verify identity via the executable name (comm) so a reused PID reads as off,
-# then read the mode from the args (-i vs -di).
+# Read-only: all state mutation (including pidfile cleanup) happens in the
+# click script under a lock, so the renderer never races with it. Identity is
+# verified via the executable name (comm); a dead/reused PID reads as off.
 MODE="off"
 if [ -f "$PIDFILE" ]; then
     PID="$(cat "$PIDFILE" 2>/dev/null)"
@@ -18,7 +19,6 @@ if [ -f "$PIDFILE" ]; then
                 *-di*) MODE="di" ;;  # display + idle (screen stays on)
                 *)     MODE="i"  ;;  # idle only (screen may sleep, system awake)
             esac ;;
-        *) rm -f "$PIDFILE" ;;       # dead or PID reused by another process
     esac
 fi
 
