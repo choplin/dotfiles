@@ -20,3 +20,4 @@ ICON_NETWORK_DOWN="􀄩"
 ICON_NETWORK_UP="􀄨"
 ICON_WIFI="􀙇"
 ICON_WIFI_OFF="􀙈"
+ICON_CAFFEINE="$ICON_BREAK"  # cup.and.saucer.fill (reuse break glyph)
