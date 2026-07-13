@@ -42,9 +42,9 @@
       #   - its Homebrew cask has `auto_updates: true`, AND
       #   - we actually want it to follow upstream (editors, AI, chat, notes),
       #     rather than staying pinned by nix.
+      "chatgpt"
       "claude"
       "cleanshot"
-      "codex-app"
       "cursor"
       "discord"
       "ghostty"
