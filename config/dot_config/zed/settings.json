@@ -48,6 +48,7 @@
     "dock": "right",
   },
   "agent": {
+    "terminal_init_command": "claude",
     "inline_assistant_model": {
       "provider": "copilot_chat",
       "model": "claude-sonnet-4.6",
