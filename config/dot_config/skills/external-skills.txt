@@ -5,5 +5,6 @@
 #            gist); use * to install every skill under a repo's skills/.
 vercel-labs/skills *
 choplin/wtm *
+choplin/llm-wiki *
 https://gist.github.com/fd287c3133457c4fd8f5601d34aa817d.git
 https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
