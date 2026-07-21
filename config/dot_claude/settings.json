@@ -33,6 +33,9 @@
       "mcp__pencil"
     ],
     "deny": [],
+    "ask": [
+      "Bash(wrangler pages deploy:*)"
+    ],
     "defaultMode": "auto"
   },
   "enableAllProjectMcpServers": true,
@@ -60,7 +63,8 @@
     "feature-dev@claude-plugins-official": true,
     "plugin-dev@claude-plugins-official": true,
     "codex@openai-codex": true,
-    "document-skills@anthropic-agent-skills": true
+    "document-skills@anthropic-agent-skills": true,
+    "skill-creator@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -101,5 +105,6 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "model": "claude-fable-5[1m]"
 }
