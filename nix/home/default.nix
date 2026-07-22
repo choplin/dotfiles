@@ -10,20 +10,15 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
-    ./antigravity-cli.nix
-    ./claude-code.nix
     ./claude-sessions.nix
-    ./codex.nix
-    ./cursor-agent.nix
     ./darwin
     ./files.nix
     ./gh
     ./kimi-code
     ./linux
-    ./llm-agents.nix
+    ./llm-agents
     ./neovim.nix
     ./programs.nix
-    ./skills.nix
     ./zed.nix
   ];
 
