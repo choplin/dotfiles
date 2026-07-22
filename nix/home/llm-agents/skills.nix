@@ -28,20 +28,23 @@ in {
       name = "install-external-skills";
       runtimeInputs = [llm-agents.skills];
       text = ''
-        # Read the list on FD 3, and give every `skills add` an empty stdin.
-        # `skills add` consumes stdin: with the list piped in on stdin it ate the
-        # remaining lines, so the loop silently stopped after the first entry and
-        # only the first source was ever installed/updated. FD 3 keeps the list
-        # out of its reach; </dev/null keeps it from blocking on the inherited
-        # stdin (a terminal or an open pipe) now that the list is gone from there.
-        while read -r package skill <&3 || [ -n "$package" ]; do
+        # Read the whole list up front. Do NOT stream it into the loop on stdin:
+        # `skills add` consumes stdin, so it would eat the remaining lines and
+        # the loop would silently stop after the first entry (only the first
+        # source ever got installed/updated). Reading into an array first leaves
+        # nothing for it to swallow. One `skills add` per source is required —
+        # it takes a single source (extra positionals are ignored) and --skill
+        # applies per source.
+        mapfile -t lines <"${listFile}"
+        for line in "''${lines[@]}"; do
+          read -r package skill <<<"$line"
           case "$package" in "" | "#"*) continue ;; esac
           if [ -n "$skill" ]; then
-            skills add "$package" --skill "$skill" -a ${agents} -g -y </dev/null
+            skills add "$package" --skill "$skill" -a ${agents} -g -y
           else
-            skills add "$package" -a ${agents} -g -y </dev/null
+            skills add "$package" -a ${agents} -g -y
           fi
-        done 3<"${listFile}"
+        done
       '';
     })
   ];
