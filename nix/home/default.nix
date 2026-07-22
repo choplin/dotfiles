@@ -18,11 +18,10 @@
     ./darwin
     ./files.nix
     ./gh
-    ./hunk.nix
     ./kimi-code
     ./linux
+    ./llm-agents.nix
     ./neovim.nix
-    ./opencode.nix
     ./programs.nix
     ./skills.nix
     ./zed.nix
