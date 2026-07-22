@@ -28,14 +28,20 @@ in {
       name = "install-external-skills";
       runtimeInputs = [llm-agents.skills];
       text = ''
-        while read -r package skill || [ -n "$package" ]; do
+        # Read the list on FD 3, and give every `skills add` an empty stdin.
+        # `skills add` consumes stdin: with the list piped in on stdin it ate the
+        # remaining lines, so the loop silently stopped after the first entry and
+        # only the first source was ever installed/updated. FD 3 keeps the list
+        # out of its reach; </dev/null keeps it from blocking on the inherited
+        # stdin (a terminal or an open pipe) now that the list is gone from there.
+        while read -r package skill <&3 || [ -n "$package" ]; do
           case "$package" in "" | "#"*) continue ;; esac
           if [ -n "$skill" ]; then
-            skills add "$package" --skill "$skill" -a ${agents} -g -y
+            skills add "$package" --skill "$skill" -a ${agents} -g -y </dev/null
           else
-            skills add "$package" -a ${agents} -g -y
+            skills add "$package" -a ${agents} -g -y </dev/null
           fi
-        done <"${listFile}"
+        done 3<"${listFile}"
       '';
     })
   ];
