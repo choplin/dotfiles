@@ -53,6 +53,7 @@
       "notion"
       "obsidian"
       "stablyai/orca/orca"
+      "opencode-desktop"
       "raycast"
       "slack"
       "superwhisper"
