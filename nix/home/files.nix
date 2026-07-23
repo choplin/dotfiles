@@ -44,6 +44,7 @@ in {
     ".tmux.conf".source = link "${configDir}/dot_tmux.conf";
     ".vimrc".source = link "${configDir}/dot_vimrc";
     ".zsh".source = link "${configDir}/dot_zsh";
+    ".zshenv".source = link "${configDir}/dot_zshenv";
     ".zshrc".source = link "${configDir}/dot_zshrc";
   };
 }

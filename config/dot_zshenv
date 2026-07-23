@@ -1,0 +1,7 @@
+# macOS runs compinit from /etc/zshrc before the user .zshrc.  Add personal
+# completion functions here so that first compinit invocation can discover
+# them; adding this directory later from setting.zsh is too late for compdef.
+fpath=(
+    $HOME/.zsh/functions(N-/)
+    $fpath
+)
