@@ -98,7 +98,7 @@ memo.md
 .zed/
 
 # Claude Code
-.claude/
+.claude
 .mcp.json
 CLAUDE.local.md
 
@@ -122,7 +122,7 @@ AGENTS.md
 .specify/
 
 # AI-agent working files and directories
-.agents/
+.agents
 work-context.md
 EXECPLAN.md
 
