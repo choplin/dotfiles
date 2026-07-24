@@ -14,6 +14,7 @@
   # from llm-agents.nix.
   home.packages = with llm-agents; [
     ctx
+    herdr
     hunk
     opencode
   ];
