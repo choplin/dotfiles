@@ -124,16 +124,31 @@
   // =====================================================================
   // Leader key (Space) : in-editor commands in Vim normal mode
   // =====================================================================
+  //
+  {
+    "context": "!Editor && !Terminal",
+    "bindings": {
+      "space space": "command_palette::Toggle", // command palette
+      "space f f": "file_finder::Toggle", // find file
+      "space f w": ["task::Spawn", { "task_name": "llm-wiki: browse" }],
+      "space g g": ["task::Spawn", { "task_name": "LazyGit" }], // open LazyGit
+    },
+    "unbind": {
+      "space f": "file_finder::Toggle",
+    },
+  },
   {
     "context": "VimControl && !menu",
     "bindings": {
       "space space": "command_palette::Toggle", // command palette
       "space f f": "file_finder::Toggle", // find file
+      "space f w": ["task::Spawn", { "task_name": "llm-wiki: browse" }],
       "space g g": ["task::Spawn", { "task_name": "LazyGit" }], // open LazyGit
-      "ctrl-/": "terminal_panel::ToggleFocus", // toggle terminal focus
+    },
+    "unbind": {
+      "space f": "file_finder::Toggle",
     },
   },
-
   // =====================================================================
   // Editor : Vim motions and syntax-tree selection
   // =====================================================================
