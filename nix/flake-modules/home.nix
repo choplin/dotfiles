@@ -16,6 +16,7 @@
         # Prebuilt AI-agent CLIs (claude-code, codex, cursor-agent) from
         # numtide/llm-agents.nix, served via cache.numtide.com.
         llm-agents = inputs.llm-agents.packages.${system};
+        skillValidator = inputs.skill-validator.packages.${system}.default;
       };
       modules = [../home];
     };

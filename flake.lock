@@ -391,7 +391,28 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-darwin": "nix-darwin",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "skill-validator": "skill-validator"
+      }
+    },
+    "skill-validator": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784873827,
+        "narHash": "sha256-RbeHpxmxR/3Z6nYOSR45SkFyJYbBMRYYs8TZRIe8A+A=",
+        "owner": "choplin",
+        "repo": "skill-validator",
+        "rev": "be8d7501a54468f4ec1fa697c1ea3846fbb0fac6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "choplin",
+        "repo": "skill-validator",
+        "type": "github"
       }
     },
     "systems": {

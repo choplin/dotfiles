@@ -17,7 +17,6 @@
       "choplin/tap/wtm"
       "deck"
       "k1LoW/tap/mo"
-      "agent-ecosystem/tap/skill-validator"
     ];
 
     casks = [

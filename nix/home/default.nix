@@ -5,6 +5,7 @@
   homeDirectory,
   rootDir,
   lfk,
+  skillValidator,
   ...
 }: {
   nixpkgs.config.allowUnfree = true;
@@ -110,6 +111,7 @@
       zoxide
     ]) ++ [
       lfk
+      skillValidator
     ];
   };
 }

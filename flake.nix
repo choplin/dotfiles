@@ -61,6 +61,11 @@
     # hits from cache.numtide.com require the exact nixpkgs llm-agents built
     # against (notably codex, which is compiled from source upstream).
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    skill-validator = {
+      url = "github:choplin/skill-validator";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
