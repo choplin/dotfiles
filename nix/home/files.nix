@@ -24,11 +24,20 @@ in {
     "ghostty".source = link "${configDir}/dot_config/ghostty";
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
+    # OpenCode global instructions use the agent-neutral shared rules.
+    "opencode/AGENTS.md".source = link "${configDir}/dot_agents/AGENTS.md";
   };
 
   # ~/* -> config/dot_*
   home.file = {
     ".clang-format".source = link "${configDir}/dot_clang-format";
+    # Shared global agent instructions and agent-specific entry points.
+    ".agents/AGENTS.md".source = link "${configDir}/dot_agents/AGENTS.md";
+    ".codex/AGENTS.md" = {
+      source = link "${configDir}/dot_agents/AGENTS.md";
+      # Replace Codex's empty placeholder file on first activation.
+      force = true;
+    };
     # ~/.claude/* -> config/dot_claude/* (individual files to allow Claude to add its own)
     ".claude/CLAUDE.md".source = link "${configDir}/dot_claude/CLAUDE.md";
     ".claude/settings.json".source = link "${configDir}/dot_claude/settings.json";
