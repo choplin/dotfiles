@@ -17,6 +17,7 @@
       "choplin/tap/wtm"
       "deck"
       "k1LoW/tap/mo"
+      "exercism"
     ];
 
     casks = [
@@ -31,6 +32,8 @@
       "sf-symbols"
       "typeless"
       "visual-studio-code"
+      "typewhisper"
+      "xykong/tap/flux-markdown"
 
       # Apps we let self-update, installed as real writable bundles.
       #
