@@ -36,8 +36,7 @@
 
 ## Git and Changelogs
 
-- Use Conventional Commits: `type(scope): description`. Use `feat`, `fix`, `refactor`, `build`, `docs`, `test`, or `chore`; omit the scope when the change is not limited to one clear area.
-- Write the subject in the past tense. Describe only the final changes, and add a body when the motivation or context is useful.
+- For any commit creation or commit-message work, always use the `git-helpers-commit` skill. If it is unavailable, stop before committing and report that.
 - When a project maintains a changelog, follow Keep a Changelog and use `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, and `Security` sections as applicable.
 - Keep changelog entries concise, user-facing, and limited to final outcomes.
 
