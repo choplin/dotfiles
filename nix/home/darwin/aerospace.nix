@@ -29,13 +29,13 @@
     Q = "Mail";
     W = "Slack";
     E = "Obsidian";
-    R = "Notion";
-    T = "Ticktick";
-    A = "Atlas";
-    S = "Comet";
+    R = "Linear";
+    T = "T";
+    A = "Hermes";
+    S = "ChatGPT";
     D = "Browser";
     F = "Browser-work";
-    G = "G";
+    G = "Pen";
     Z = "Z";
     X = "X";
     C = "C";
@@ -148,11 +148,10 @@ in {
         (app_id_to_workspace "com.tinyspeck.slackmacgap" "Slack")
         (app_id_to_workspace "com.hnc.Discord" "Slack")
         (app_id_to_workspace "md.obsidian" "Obsidian")
-        (app_id_to_workspace "notion.id" "Notion")
-        (app_id_to_workspace "com.TickTick.task.mac" "Ticktick")
-
-        (app_id_to_workspace "com.openai.atlas" "Atlas")
-        (app_id_to_workspace "ai.perplexity.comet" "Comet")
+        (app_id_to_workspace "com.linear" "Linear")
+        (app_id_to_workspace "com.nousresearch.hermes" "Hermes")
+        (app_id_to_workspace "com.openai.codex" "ChatGPT")
+        (app_id_to_workspace "dev.pencil.desktop" "Pen")
         (app_id_and_window_title_to_workspace "com.google.Chrome" "(private)" "Browser")
         (app_id_and_window_title_to_workspace "com.google.Chrome" "(work)" "Browser-work")
 
@@ -160,6 +159,7 @@ in {
         (app_id_to_workspace "com.github.wez.wezterm" "Terminal")
 
         (app_id_as_floating "com.amazon.Lassen")
+        (app_id_as_floating "com.stengo.DeskPad")
       ];
 
       on-focus-changed = [
