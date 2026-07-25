@@ -1,21 +1,7 @@
-# Claude Code Global Memory
+# Claude Code Instructions
 
 @~/.agents/AGENTS.md
 
 ## Claude Code Specific Instructions
 
-### Commands & Tools
-
-- **`gh` command TLS errors** - `gh` コマンドでTLSエラーが発生した場合、Claude Codeのsandboxが原因。`dangerouslyDisableSandbox: true` で再実行すること
-
-### Language-Specific Settings
-
-Language-specific configurations and best practices are stored in separate files in the `$HOME/.claude/languages/` directory:
-
-- **TypeScript**: `typescript.md`
-- **Python**: `python.md`
-- **Java**: `java.md`
-- **Scala**: `scala.md`
-- **Go**: `go.md`
-
-Each language file contains specific tooling preferences, coding conventions, and best practices for that language.
+- If `gh` fails with a TLS error inside the Claude Code sandbox while the same operation works outside it, treat the sandbox as the likely cause. Retry the scoped command with `dangerouslyDisableSandbox: true`.
