@@ -11,18 +11,13 @@
   #     - it self-updates but is a rarely-changing utility we prefer to pin.
   #   Apps we want to self-update live in homebrew.nix casks instead.
   environment.systemPackages = with pkgs.brewCasks; [
-    bartender
     contexts
     deskpad
-    devtoys
     drawio
     elgato-stream-deck
-    github
     kap
     keycastr
     notunes
-    paperpile
-    qlmarkdown
     qmk-toolbox
   ];
 }
