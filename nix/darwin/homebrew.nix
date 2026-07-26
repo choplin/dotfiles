@@ -18,6 +18,10 @@
       "deck"
       "k1LoW/tap/mo"
       "exercism"
+      # The Nix-packaged ttyd fails to load libwebsockets' evlib_uv plugin, and the
+      # Nix VHS wrapper forces its bundled ttyd onto PATH, bypassing Homebrew's ttyd.
+      "ttyd"
+      "vhs"
     ];
 
     casks = [
