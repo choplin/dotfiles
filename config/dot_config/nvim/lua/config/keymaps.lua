@@ -107,9 +107,9 @@ end, { desc = "Quickfix List" })
 map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
--- formatting (will use lib.format when available, Story 3)
+-- formatting via Conform (same policy as BufWritePre auto-format)
 map({ "n", "x" }, "<leader>cf", function()
-  vim.lsp.buf.format({ async = true })
+  require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format" })
 
 -- diagnostic

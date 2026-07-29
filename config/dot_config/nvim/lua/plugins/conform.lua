@@ -1,5 +1,6 @@
 -- [LSP] Code formatter with per-language formatter configuration and format-on-save.
 --
+--   <leader>cf         format (Conform + LSP fallback)
 --   <leader>cF         format injected langs
 --   (auto-formats on BufWritePre)
 return {
@@ -22,7 +23,8 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         sh = { "shfmt" },
-        java = { "google-java-format" },
+        nix = { "alejandra" },
+        markdown = { "markdownlint-cli2" },
         python = { "ruff_fix", "ruff_format" },
         javascript = { "biome-check" },
         javascriptreact = { "biome-check" },
@@ -34,17 +36,25 @@ return {
         svelte = { "biome-check" },
         graphql = { "biome-check" },
         go = { "goimports", "gofumpt" },
+        toml = { "taplo" },
       },
       formatters = {
         ["biome-check"] = { require_cwd = true },
+        -- Project-local only: skip quietly when the tool / cwd marker is absent.
+        ruff_format = { require_cwd = true },
+        ruff_fix = { require_cwd = true },
       },
       default_format_opts = {
         timeout_ms = 3000,
         lsp_format = "fallback",
       },
+      -- Missing formatters must not abort :write.
+      notify_on_error = true,
+      notify_no_formatters = false,
     })
 
-    -- Auto-format on save (respects vim.g.autoformat and vim.b.autoformat)
+    -- Auto-format on save (respects vim.g.autoformat and vim.b.autoformat).
+    -- Runs on BufWritePre so nvim-lint's BufWritePost sees the formatted buffer.
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = vim.api.nvim_create_augroup("conform_autoformat", { clear = true }),
       callback = function(args)
@@ -54,7 +64,11 @@ return {
         if vim.b[args.buf].autoformat == false then
           return
         end
-        require("conform").format({ bufnr = args.buf })
+        require("conform").format({
+          bufnr = args.buf,
+          async = false,
+          lsp_format = "fallback",
+        })
       end,
     })
   end,

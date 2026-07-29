@@ -33,8 +33,7 @@ opt.foldlevelstart = 99
 opt.foldenable = true
 opt.foldmethod = "indent"
 opt.foldtext = ""
--- formatexpr: will be set by lib.format when available
--- opt.formatexpr = "v:lua.require'lib'.format.formatexpr()"
+-- Prefer Neovim's built-in LSP formatexpr when a server attaches; do not override.
 opt.formatoptions = "jcroqlnt"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
