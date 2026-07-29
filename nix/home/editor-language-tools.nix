@@ -8,7 +8,9 @@
   roles = ["lsp" "formatter" "linter" "runtime"];
 
   # Common languages for on-demand review / light edit. Python and
-  # TypeScript/JavaScript stay project-local and are intentionally absent.
+  # TypeScript/JavaScript stay project-local (LSP/formatter/linter/runtime)
+  # and are intentionally absent from this catalog. Their Treesitter
+  # parser/query assets still ship in the Neovim-specific Nix closure.
   languageTools = {
     nix = {
       lsp = [pkgs.nixd];

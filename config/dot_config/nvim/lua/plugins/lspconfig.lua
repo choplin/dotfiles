@@ -78,14 +78,16 @@ return {
     })
     vim.lsp.enable("zls")
 
-    -- denols (only for deno projects)
+    -- denols (project-local Deno; only when `deno` is on PATH)
     vim.lsp.config("denols", {
       root_markers = { "deno.json", "deno.jsonc", "deps.ts" },
       workspace_required = true,
     })
-    vim.lsp.enable("denols")
+    if vim.fn.executable("deno") == 1 then
+      vim.lsp.enable("denols")
+    end
 
-    -- nil_ls (Nix)
+    -- nil_ls (Nix) — replaced by nixd in a follow-up language-tooling change
     vim.lsp.config("nil_ls", {
       settings = {
         ["nil"] = {
@@ -95,17 +97,21 @@ return {
     })
     vim.lsp.enable("nil_ls")
 
-    -- biome (JS/TS formatter/linter, project-local)
-    vim.lsp.enable("biome")
-
-    -- vtsls (TypeScript/JavaScript)
-    vim.lsp.enable("vtsls")
-
-    -- pyright (Python)
-    vim.lsp.enable("pyright")
-
-    -- ruff (Python linter/formatter LSP)
-    vim.lsp.enable("ruff")
+    -- Project-local JS/TS/Python tooling: enable only when the binary is visible.
+    -- These are not in the common editor PATH catalog; use a project devShell + direnv.
+    -- Treesitter parsers for these languages still ship in the Neovim Nix closure.
+    if vim.fn.executable("biome") == 1 then
+      vim.lsp.enable("biome")
+    end
+    if vim.fn.executable("vtsls") == 1 then
+      vim.lsp.enable("vtsls")
+    end
+    if vim.fn.executable("pyright") == 1 then
+      vim.lsp.enable("pyright")
+    end
+    if vim.fn.executable("ruff") == 1 then
+      vim.lsp.enable("ruff")
+    end
 
     -- gopls (Go)
     vim.lsp.config("gopls", {
