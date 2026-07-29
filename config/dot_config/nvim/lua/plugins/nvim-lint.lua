@@ -8,6 +8,7 @@ return {
 
     lint.linters_by_ft = {
       sh = { "shellcheck" },
+      bash = { "shellcheck" },
       dockerfile = { "hadolint" },
       go = { "golangcilint" },
       markdown = { "markdownlint-cli2" },

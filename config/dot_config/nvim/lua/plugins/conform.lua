@@ -23,8 +23,11 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         sh = { "shfmt" },
+        bash = { "shfmt" },
+        zsh = { "shfmt" },
         nix = { "alejandra" },
         markdown = { "markdownlint-cli2" },
+        md = { "markdownlint-cli2" },
         python = { "ruff_fix", "ruff_format" },
         javascript = { "biome-check" },
         javascriptreact = { "biome-check" },

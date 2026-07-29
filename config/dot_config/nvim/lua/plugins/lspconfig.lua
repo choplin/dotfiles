@@ -60,6 +60,11 @@ return {
     })
     vim.lsp.enable("lua_ls")
 
+    -- bashls (common shell LSP; Fish is intentionally unsupported)
+    if vim.fn.executable("bash-language-server") == 1 then
+      vim.lsp.enable("bashls")
+    end
+
     -- jsonls with SchemaStore
     vim.lsp.config("jsonls", {
       settings = {
