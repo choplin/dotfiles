@@ -88,7 +88,6 @@ Zed are the supported editor paths.
 - **which-key.nvim** — Keybinding discovery
 - **persistence.nvim** — Session management
 - **todo-comments.nvim** — TODO/FIXME highlighting
-- **sniprun** — Run code snippets
 - **nvim-bqf** — Enhanced quickfix list
 - **nvim-config-local** — Per-project config loader
 - **scope.nvim** — Tab-scoped buffers
