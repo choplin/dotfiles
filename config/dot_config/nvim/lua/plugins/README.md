@@ -73,10 +73,6 @@ Incremental selection uses Neovim's built-in `vim.treesitter.select`
 - **auto-git-diff** — Diff in interactive rebase
 - **linediff.vim** — Diff arbitrary line ranges
 
-## 🐛 Test
-
-- **neotest** — Test runner framework
-
 ## 🗄️ Language-specific
 
 - **rustaceanvim** — Rust (rust-analyzer)
