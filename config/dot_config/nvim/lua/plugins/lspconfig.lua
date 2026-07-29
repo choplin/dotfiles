@@ -87,15 +87,8 @@ return {
       vim.lsp.enable("denols")
     end
 
-    -- nil_ls (Nix) — replaced by nixd in a follow-up language-tooling change
-    vim.lsp.config("nil_ls", {
-      settings = {
-        ["nil"] = {
-          formatting = { command = { "alejandra" } },
-        },
-      },
-    })
-    vim.lsp.enable("nil_ls")
+    -- nixd (common Nix LSP from the editor tool catalog)
+    vim.lsp.enable("nixd")
 
     -- Project-local JS/TS/Python tooling: enable only when the binary is visible.
     -- These are not in the common editor PATH catalog; use a project devShell + direnv.
