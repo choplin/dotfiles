@@ -2,7 +2,6 @@
 --
 --   CR                 accept
 --   C-j / C-k          navigate
---   <leader>uk         toggle completion
 return {
   "blink.cmp",
   src = "https://github.com/saghen/blink.cmp",
@@ -89,17 +88,5 @@ return {
         },
       },
     })
-
-    -- Completion toggle
-    vim.g.completion = true
-    Snacks.toggle({
-      name = "Completion",
-      get = function()
-        return vim.g.completion
-      end,
-      set = function(state)
-        vim.g.completion = state
-      end,
-    }):map("<leader>uk")
   end,
 }

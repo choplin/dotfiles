@@ -38,7 +38,7 @@ All plugins used in this Neovim configuration, organized by category.
 ## 🧠 LSP / Completion / Diagnostics
 
 - **nvim-lspconfig** — LSP client configuration (25+ languages)
-- **blink.cmp** — Completion engine
+- **blink.cmp** — Completion engine (always on; the old `<leader>uk` toggle is intentionally removed)
 - **conform.nvim** — Code formatter
 - **nvim-lint** — Async linter integration
 - **trouble.nvim** — Diagnostics and references UI
