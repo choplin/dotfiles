@@ -65,9 +65,8 @@ All plugins used in this Neovim configuration, organized by category.
 - **auto-git-diff** — Diff in interactive rebase
 - **linediff.vim** — Diff arbitrary line ranges
 
-## 🐛 Debug / Test
+## 🐛 Test
 
-- **nvim-dap** — Debug Adapter Protocol
 - **neotest** — Test runner framework
 
 ## 🗄️ Language-specific

@@ -62,7 +62,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "PlenaryTestPopup",
     "checkhealth",
-    "dap-float",
     "dbout",
     "gitsigns-blame",
     "grug-far",
@@ -143,15 +142,6 @@ vim.api.nvim_create_autocmd("CmdWinEnter", {
   callback = function(event)
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = event.buf, silent = true })
-  end,
-})
-
--- Close dap-repl with q
-vim.api.nvim_create_autocmd("BufEnter", {
-  group = augroup("close_dap_repl_with_q"),
-  pattern = "\\[dap-repl\\]",
-  callback = function()
-    vim.keymap.set("n", "q", "<Cmd>bdelete!<CR>", { buffer = true })
   end,
 })
 

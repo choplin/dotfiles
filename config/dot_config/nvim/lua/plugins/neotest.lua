@@ -4,7 +4,6 @@
 --   <leader>tt         run file
 --   <leader>ts         summary
 --   <leader>to         output
---   <leader>td         debug nearest test
 return {
   "neotest",
   src = "https://github.com/nvim-neotest/neotest",
@@ -23,7 +22,6 @@ return {
     { "<leader>tO", function() require("neotest").output_panel.toggle() end, desc = "Toggle Output Panel" },
     { "<leader>tS", function() require("neotest").run.stop() end, desc = "Stop" },
     { "<leader>tw", function() require("neotest").watch.toggle(vim.fn.expand("%")) end, desc = "Toggle Watch" },
-    { "<leader>td", function() require("neotest").run.run({ strategy = "dap" }) end, desc = "Debug Nearest" },
   },
   before = function()
     vim.cmd.packadd("nvim-nio")

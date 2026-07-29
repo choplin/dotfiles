@@ -1,7 +1,6 @@
 -- [Lang] Rust development tools with rust-analyzer integration.
 --
 --   <leader>cR         rust code action (on LspAttach)
---   <leader>dr         rust debuggables (on LspAttach)
 return {
   "rustaceanvim",
   src = "https://github.com/mrcjkb/rustaceanvim",
@@ -13,9 +12,6 @@ return {
           vim.keymap.set("n", "<leader>cR", function()
             vim.cmd.RustLsp("codeAction")
           end, { desc = "Code Action", buffer = bufnr })
-          vim.keymap.set("n", "<leader>dr", function()
-            vim.cmd.RustLsp("debuggables")
-          end, { desc = "Rust Debuggables", buffer = bufnr })
         end,
         default_settings = {
           ["rust-analyzer"] = {
