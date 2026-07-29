@@ -43,10 +43,12 @@ if package.loaded.snacks then
   map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 end
 
--- Clear search and stop snippet on escape
+-- Clear search highlighting and stop an active native snippet on Escape.
 map({ "i", "n", "s" }, "<esc>", function()
   vim.cmd("noh")
-  -- snippet_stop will be available after lib.cmp is loaded (Story 3)
+  if vim.snippet and vim.snippet.active() then
+    vim.snippet.stop()
+  end
   return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
