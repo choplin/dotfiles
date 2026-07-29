@@ -72,12 +72,6 @@ return {
     })
     vim.lsp.enable("jsonls")
 
-    -- kotlin_language_server
-    vim.lsp.config("kotlin_language_server", {
-      cmd_env = { JAVA_HOME = local_env.java and local_env.java.java_home_19 },
-    })
-    vim.lsp.enable("kotlin_language_server")
-
     -- zls
     vim.lsp.config("zls", {
       cmd = { local_env.zls_path or "zls" },

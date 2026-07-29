@@ -72,12 +72,13 @@ All plugins used in this Neovim configuration, organized by category.
 ## 🗄️ Language-specific
 
 - **rustaceanvim** — Rust (rust-analyzer)
-- **nvim-jdtls** — Java (Eclipse JDTLS)
-- **nvim-metals** — Scala (Metals)
 - **clangd_extensions.nvim** — C/C++ (clangd)
 - **crates.nvim** — Rust Cargo.toml
 - **zig.vim** — Zig
 - **moonbit.nvim** — MoonBit (local)
+
+Intentionally unsupported (not a migration gap): Scala, Java, and Kotlin —
+Metals, JDTLS, kotlin-language-server, and JVM-only editor tools are removed.
 
 ## 📦 Misc
 

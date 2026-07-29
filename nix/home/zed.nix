@@ -2,14 +2,12 @@
   editorTools = import ./editor-language-tools.nix {inherit pkgs lib;};
 
   # Shared common-language tools plus Zed-only extras kept off the global PATH.
-  # metals/jdk remain Zed-specific until JVM editor integrations are removed.
+  # JVM tools (Metals/JDK) are intentionally omitted — Scala/Java/Kotlin are out of scope.
   # nodejs supplies `npx` for mcp-remote context servers in settings.json.
   zedTools = editorTools.mkEditorToolsEnv {
     name = "zed-tools";
     languages = editorTools.commonLanguages;
     extraPackages = with pkgs; [
-      metals
-      jdk
       nodejs
     ];
   };
