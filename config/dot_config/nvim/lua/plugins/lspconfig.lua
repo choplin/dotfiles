@@ -183,9 +183,18 @@ return {
     -- taplo (TOML)
     vim.lsp.enable("taplo")
 
-    -- dockerls + docker-compose
-    vim.lsp.enable("dockerls")
-    vim.lsp.enable("docker_compose_language_service")
+    -- Official Docker language server (Dockerfile + Compose)
+    if vim.fn.executable("docker-language-server") == 1 then
+      vim.filetype.add({
+        filename = {
+          ["docker-compose.yml"] = "yaml.docker-compose",
+          ["docker-compose.yaml"] = "yaml.docker-compose",
+          ["compose.yml"] = "yaml.docker-compose",
+          ["compose.yaml"] = "yaml.docker-compose",
+        },
+      })
+      vim.lsp.enable("docker_language_server")
+    end
 
     -- tailwindcss
     vim.lsp.config("tailwindcss", {
