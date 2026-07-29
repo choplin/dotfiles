@@ -1,9 +1,10 @@
 # Launch Zed with a Zed-only PATH.
 #
 # When launched from a shell, Zed inherits that shell's environment and
-# passes its PATH on to language servers and linters. By prepending the
-# Zed-only tool directory here, Zed can find those tools without exposing
-# them on the interactive shell's PATH. Tools are defined in nix/home/zed.nix.
+# passes its PATH on to language servers and linters. By appending the
+# Zed-only tool directory here, a project/devShell executable of the same
+# name wins over the common editor fallback, while those tools stay off the
+# interactive shell's PATH. Tools are defined in nix/home/zed.nix.
 #
 # Prefer Zed's own CLI launcher if it's installed: Zed > "Install CLI" drops it
 # at /usr/local/bin/zed. That binary forks the app and returns immediately, so
@@ -20,8 +21,8 @@
 zed() {
   local tools="${XDG_DATA_HOME:-$HOME/.local/share}/zed-tools/bin"
   if [[ -x /usr/local/bin/zed ]]; then
-    PATH="$tools:$PATH" /usr/local/bin/zed "$@"
+    PATH="$PATH:$tools" /usr/local/bin/zed "$@"
   else
-    PATH="$tools:$PATH" command zed "$@" &>/dev/null &!
+    PATH="$PATH:$tools" command zed "$@" &>/dev/null &!
   fi
 }

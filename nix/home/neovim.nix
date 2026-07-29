@@ -1,4 +1,15 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: let
+  editorTools = import ./editor-language-tools.nix {inherit pkgs lib;};
+
+  # Shared common-language tools only. Editor-specific extras go here.
+  # Treesitter parser/query assets are owned by a separate Neovim closure,
+  # not by this PATH catalog.
+  neovimTools = editorTools.mkEditorToolsEnv {
+    name = "neovim-language-tools";
+    languages = editorTools.commonLanguages;
+    extraPackages = [];
+  };
+in {
   home.packages = [
     (pkgs.symlinkJoin {
       name = "neovim-with-runtimes";
@@ -6,15 +17,7 @@
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/nvim \
-          --prefix PATH : ${pkgs.lib.makeBinPath [
-          pkgs.nodejs
-          pkgs.python3
-          pkgs.go
-          pkgs.rustc
-          pkgs.cargo
-          pkgs.tree-sitter
-          pkgs.markdownlint-cli2
-        ]}
+          --suffix PATH : ${neovimTools}/bin
       '';
       meta.mainProgram = "nvim";
     })
