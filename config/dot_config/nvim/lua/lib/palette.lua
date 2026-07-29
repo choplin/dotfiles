@@ -55,4 +55,30 @@ function M.setup_catppuccin(flavour)
   }
 end
 
+--- Sync the shared palette from the active colorscheme name.
+function M.setup_from_colorscheme()
+  local name = vim.g.colors_name or ""
+  if name:find("tokyonight", 1, true) then
+    M.setup_tokyonight()
+  elseif name:find("catppuccin", 1, true) then
+    local flavour = name:match("catppuccin%-(%w+)") or vim.g.catppuccin_flavour or "mocha"
+    M.setup_catppuccin(flavour)
+  end
+end
+
+--- Keep palette and theme-dependent consumers in sync after `:colorscheme`.
+function M.watch_colorscheme()
+  if M._watching then
+    return
+  end
+  M._watching = true
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("lib_palette_colorscheme", { clear = true }),
+    callback = function()
+      M.setup_from_colorscheme()
+    end,
+  })
+  M.setup_from_colorscheme()
+end
+
 return M

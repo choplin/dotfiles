@@ -6,7 +6,8 @@ All plugins used in this Neovim configuration, organized by category.
 
 ## 🎨 UI / Appearance
 
-- **tokyonight.nvim** — Color scheme (Tokyo Night moon variant)
+- **tokyonight.nvim** — Color scheme (Tokyo Night moon variant; default)
+- **catppuccin** — Color scheme (Catppuccin; selectable, not eager at startup)
 - **lualine.nvim** — Status line
 - **bufferline.nvim** — Buffer/tab bar
 - **noice.nvim** — Enhanced messages, cmdline, popups

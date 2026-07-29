@@ -20,6 +20,9 @@ function M.setup()
         table.insert(local_plugins, mod)
       elseif mod.src then
         local entry = { src = mod.src }
+        if mod.name then
+          entry.name = mod.name
+        end
         if mod.version then
           entry.version = mod.version
         end
@@ -28,7 +31,14 @@ function M.setup()
       if mod.deps then
         for _, dep in ipairs(mod.deps) do
           if type(dep) == "table" and dep.src then
-            table.insert(sources, dep)
+            local dep_entry = { src = dep.src }
+            if dep.name then
+              dep_entry.name = dep.name
+            end
+            if dep.version then
+              dep_entry.version = dep.version
+            end
+            table.insert(sources, dep_entry)
           end
         end
       end

@@ -13,6 +13,6 @@ return {
       },
       dim_inactive = true,
     })
-    require("lib.palette").setup_tokyonight()
+    require("lib.palette").watch_colorscheme()
   end,
 }
