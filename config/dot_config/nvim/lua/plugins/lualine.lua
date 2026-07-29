@@ -4,9 +4,9 @@ return {
   src = "https://github.com/nvim-lualine/lualine.nvim",
   event = "DeferredUIEnter",
   after = function()
-    -- Root directory display (cwd basename)
+    -- Root directory display (shared project root basename)
     local function root_dir()
-      return vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+      return require("lib.root").pretty()
     end
 
     -- Pretty path: show relative path with shortened directories

@@ -1,21 +1,14 @@
 -- Context module for copying file location and context
 local M = {}
 
---- Get the current file path relative to the git root or cwd
+--- Get the current file path relative to the shared project root (or cwd fallback)
 ---@return string
 local function get_relative_path()
   local file = vim.fn.expand("%:p")
-  local cwd = vim.fn.getcwd()
+  local root = require("lib.root").get()
 
-  -- Try to get git root
-  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
-  if vim.v.shell_error == 0 and git_root and git_root ~= "" then
-    cwd = git_root
-  end
-
-  -- Make path relative
-  if file:sub(1, #cwd) == cwd then
-    file = file:sub(#cwd + 2)
+  if file:sub(1, #root) == root then
+    file = file:sub(#root + 2)
   end
 
   return file

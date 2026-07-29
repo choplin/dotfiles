@@ -2,17 +2,24 @@
 -- Called from snacks.lua after setup
 
 local map = vim.keymap.set
+local root = function()
+  return require("lib.root").get()
+end
+local cwd = function()
+  return require("lib.root").cwd()
+end
 
 -- Top-level
 map("n", "<leader>,", function() Snacks.picker.buffers() end, { desc = "Buffers" })
-map("n", "<leader>/", function() Snacks.picker.grep() end, { desc = "Grep" })
+map("n", "<leader>/", function() Snacks.picker.grep({ cwd = root() }) end, { desc = "Grep (Root Dir)" })
 map("n", "<leader>:", function() Snacks.picker.command_history() end, { desc = "Command History" })
-map("n", "<leader><space>", function() Snacks.picker.files() end, { desc = "Find Files" })
+map("n", "<leader><space>", function() Snacks.picker.files({ cwd = root() }) end, { desc = "Find Files (Root Dir)" })
 
 -- find
 map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 map("n", "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, { desc = "Buffers (all)" })
-map("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })
+map("n", "<leader>ff", function() Snacks.picker.files({ cwd = root() }) end, { desc = "Find Files (Root Dir)" })
+map("n", "<leader>fF", function() Snacks.picker.files({ cwd = cwd() }) end, { desc = "Find Files (cwd)" })
 map("n", "<leader>fg", function() Snacks.picker.git_files() end, { desc = "Find Files (git-files)" })
 map("n", "<leader>fr", function() Snacks.picker.recent() end, { desc = "Recent" })
 map("n", "<leader>fR", function() Snacks.picker.recent({ filter = { cwd = true } }) end, { desc = "Recent (cwd)" })
@@ -26,8 +33,9 @@ map("n", "<leader>gS", function() Snacks.picker.git_stash() end, { desc = "Git S
 -- grep
 map("n", "<leader>sb", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 map("n", "<leader>sB", function() Snacks.picker.grep_buffers() end, { desc = "Grep Open Buffers" })
-map("n", "<leader>sg", function() Snacks.picker.grep() end, { desc = "Grep" })
-map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word" })
+map("n", "<leader>sg", function() Snacks.picker.grep({ cwd = root() }) end, { desc = "Grep (Root Dir)" })
+map("n", "<leader>sG", function() Snacks.picker.grep({ cwd = cwd() }) end, { desc = "Grep (cwd)" })
+map({ "n", "x" }, "<leader>sw", function() Snacks.picker.grep_word({ cwd = root() }) end, { desc = "Visual selection or word" })
 
 -- search
 map("n", '<leader>s"', function() Snacks.picker.registers() end, { desc = "Registers" })

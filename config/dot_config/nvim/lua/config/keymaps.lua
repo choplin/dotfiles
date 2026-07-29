@@ -164,26 +164,42 @@ if package.loaded.snacks then
     Snacks.toggle.inlay_hints():map("<leader>uh")
   end
 
-  -- lazygit
+  -- lazygit: Root uses Git root; CWD keeps the process working directory
   if vim.fn.executable("lazygit") == 1 then
-    map("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
-    map("n", "<leader>gG", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
+    map("n", "<leader>gg", function()
+      Snacks.lazygit({ cwd = require("lib.root").git() or require("lib.root").get() })
+    end, { desc = "Lazygit (Root Dir)" })
+    map("n", "<leader>gG", function()
+      Snacks.lazygit({ cwd = require("lib.root").cwd() })
+    end, { desc = "Lazygit (cwd)" })
   end
 
-  map("n", "<leader>gL", function() Snacks.picker.git_log() end, { desc = "Git Log (cwd)" })
+  map("n", "<leader>gl", function()
+    Snacks.picker.git_log({ cwd = require("lib.root").git() or require("lib.root").get() })
+  end, { desc = "Git Log (Root Dir)" })
+  map("n", "<leader>gL", function()
+    Snacks.picker.git_log({ cwd = require("lib.root").cwd() })
+  end, { desc = "Git Log (cwd)" })
   map("n", "<leader>gb", function() Snacks.picker.git_log_line() end, { desc = "Git Blame Line" })
   map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Current File History" })
-  map("n", "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Git Log" })
   map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
   map({"n", "x" }, "<leader>gY", function()
     Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false })
   end, { desc = "Git Browse (copy)" })
 
-  -- floating terminal
-  map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-  map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
-  map({"n","t"}, "<c-/>",function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
-  map({"n","t"}, "<c-_>",function() Snacks.terminal() end, { desc = "which_key_ignore" })
+  -- floating terminal: Root vs CWD are distinct when the file sits in a nested project
+  map("n", "<leader>ft", function()
+    Snacks.terminal(nil, { cwd = require("lib.root").get() })
+  end, { desc = "Terminal (Root Dir)" })
+  map("n", "<leader>fT", function()
+    Snacks.terminal(nil, { cwd = require("lib.root").cwd() })
+  end, { desc = "Terminal (cwd)" })
+  map({"n","t"}, "<c-/>", function()
+    Snacks.terminal(nil, { cwd = require("lib.root").get() })
+  end, { desc = "Terminal (Root Dir)" })
+  map({"n","t"}, "<c-_>", function()
+    Snacks.terminal(nil, { cwd = require("lib.root").get() })
+  end, { desc = "which_key_ignore" })
 
   -- windows
   Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
