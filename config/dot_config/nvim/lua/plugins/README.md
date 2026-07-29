@@ -50,7 +50,11 @@ All plugins used in this Neovim configuration, organized by category.
 
 ## 🌳 Treesitter
 
-- **nvim-treesitter** — Syntax highlighting and parsing
+Parser/query assets come from the Neovim Nix closure (`nix/home/neovim.nix`):
+common languages, syntax-only / review-only languages, and editor support
+grammars. No `:TSInstall` and no archived `nvim-treesitter` runtime plugin.
+
+- **nvim-treesitter-textobjects** — Syntax-node motions (kept for now; Nix owns parsers)
 - **nvim-treesitter-context** — Sticky context header
 - **nvim-context-vt** — Scope context as virtual text
 - **nvim-ufo** — Treesitter/LSP-based folding

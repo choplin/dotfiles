@@ -1,25 +1,110 @@
 {pkgs, lib, ...}: let
   editorTools = import ./editor-language-tools.nix {inherit pkgs lib;};
 
-  # Shared common-language tools only. Editor-specific extras go here.
-  # Treesitter parser/query assets are owned by a separate Neovim closure,
-  # not by this PATH catalog.
+  ts = pkgs.vimPlugins.nvim-treesitter;
+
+  # Parsers/queries ship in the Neovim Nix closure — never on PATH and never
+  # installed by project devShells. Common languages get full editor tooling
+  # elsewhere; syntax-only / review-only languages get highlighting here only.
+  treesitterLanguages = {
+    common = [
+      "lua"
+      "luadoc"
+      "go"
+      "gomod"
+      "gosum"
+      "gowork"
+      "gotmpl"
+      "rust"
+      "nix"
+      "bash"
+      "markdown"
+      "markdown_inline"
+      "json"
+      "yaml"
+      "toml"
+      "dockerfile"
+    ];
+
+    # Syntax-only / review-only: LSP and other tools stay project-local.
+    syntaxOnly = [
+      "python"
+      "javascript"
+      "jsdoc"
+      "typescript"
+      "tsx"
+      "c"
+      "cpp"
+      "sql"
+      "svelte"
+      "zig"
+      "html"
+      "css"
+      "graphql"
+    ];
+
+    # Editor/runtime support grammars.
+    editor = [
+      "vim"
+      "vimdoc"
+      "query"
+      "regex"
+      "comment"
+      "diff"
+      "git_config"
+      "git_rebase"
+      "gitattributes"
+      "gitcommit"
+      "gitignore"
+      "make"
+      "cmake"
+      "ini"
+      "xml"
+    ];
+  };
+
+  treesitterLanguageNames =
+    treesitterLanguages.common
+    ++ treesitterLanguages.syntaxOnly
+    ++ treesitterLanguages.editor;
+
+  treesitterRuntime = lib.concatMap (
+    name: [
+      ts.parsers.${name}
+      ts.queries.${name}
+    ]
+  )
+  treesitterLanguageNames;
+
+  # Shared common-language tools only. Treesitter parser/query assets are
+  # owned by the Neovim packpath below, not by this PATH catalog.
   neovimTools = editorTools.mkEditorToolsEnv {
     name = "neovim-language-tools";
     languages = editorTools.commonLanguages;
     extraPackages = [];
   };
+
+  # Built-in Treesitter APIs + declarative parser/query assets.
+  # pkgs.neovim is neovim-unwrapped under the nightly overlay, so use
+  # wrapNeovimUnstable rather than the older `neovim.override { configure… }`.
+  neovimWithTreesitter = pkgs.wrapNeovimUnstable pkgs.neovim {
+    plugins = treesitterRuntime;
+    wrapRc = false;
+    withPython3 = false;
+    withRuby = false;
+    withNodeJs = false;
+    withPerl = false;
+    wrapperArgs = [
+      "--suffix"
+      "PATH"
+      ":"
+      "${neovimTools}/bin"
+    ];
+  };
 in {
   home.packages = [
-    (pkgs.symlinkJoin {
-      name = "neovim-with-runtimes";
-      paths = [pkgs.neovim];
-      nativeBuildInputs = [pkgs.makeWrapper];
-      postBuild = ''
-        wrapProgram $out/bin/nvim \
-          --suffix PATH : ${neovimTools}/bin
-      '';
-      meta.mainProgram = "nvim";
-    })
+    (neovimWithTreesitter.overrideAttrs (old: {
+      meta = (old.meta or {}) // {mainProgram = "nvim";};
+    }))
   ];
 }
