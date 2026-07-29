@@ -1,4 +1,4 @@
--- [LSP] LSP client configuration with Mason integration for 25+ languages.
+-- [LSP] LSP client configuration. Binaries come from the editor PATH (Nix), not Mason.
 --
 --   gd                 definition
 --   gr                 references
@@ -18,39 +18,14 @@ return {
   "nvim-lspconfig",
   src = "https://github.com/neovim/nvim-lspconfig",
   deps = {
-    { src = "https://github.com/mason-org/mason.nvim", name = "mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim", name = "mason-lspconfig.nvim" },
     { src = "https://github.com/b0o/SchemaStore.nvim", name = "SchemaStore.nvim" },
   },
   event = "User LazyFile",
   before = function()
-    vim.cmd.packadd("mason.nvim")
-    vim.cmd.packadd("mason-lspconfig.nvim")
     vim.cmd.packadd("SchemaStore.nvim")
   end,
   after = function()
     local local_env = safe_require("local_env")
-
-    -- Mason setup (must come before mason-lspconfig)
-    require("mason").setup({
-      PATH = "append",
-      ensure_installed = {
-        "shellcheck",
-        "ktlint",
-        "hadolint",
-        "ruff",
-        "stylua",
-        "shfmt",
-        "google-java-format",
-        "copilot-language-server",
-        "goimports",
-        "gofumpt",
-        "golangci-lint",
-        "markdownlint-cli2",
-        "codelldb",
-      },
-    })
-    require("mason-lspconfig").setup({ automatic_enable = true })
 
     -- Diagnostics
     vim.diagnostic.config({
@@ -103,7 +78,7 @@ return {
     })
     vim.lsp.enable("kotlin_language_server")
 
-    -- zls (not managed by mason)
+    -- zls
     vim.lsp.config("zls", {
       cmd = { local_env.zls_path or "zls" },
     })

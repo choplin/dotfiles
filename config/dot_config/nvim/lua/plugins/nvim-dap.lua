@@ -29,7 +29,6 @@ return {
     { src = "https://github.com/rcarriga/nvim-dap-ui", name = "nvim-dap-ui" },
     { src = "https://github.com/theHamsta/nvim-dap-virtual-text", name = "nvim-dap-virtual-text" },
     { src = "https://github.com/nvim-neotest/nvim-nio", name = "nvim-nio" },
-    { src = "https://github.com/jay-babu/mason-nvim-dap.nvim", name = "mason-nvim-dap.nvim" },
   },
   keys = {
     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, desc = "Breakpoint Condition" },
@@ -56,7 +55,6 @@ return {
     vim.cmd.packadd("nvim-nio")
     vim.cmd.packadd("nvim-dap-ui")
     vim.cmd.packadd("nvim-dap-virtual-text")
-    vim.cmd.packadd("mason-nvim-dap.nvim")
   end,
   after = function()
     require("nvim-dap-virtual-text").setup({})
@@ -68,13 +66,6 @@ return {
     dap.listeners.after.event_initialized["dapui_config"] = function() dapui.open({}) end
     dap.listeners.before.event_terminated["dapui_config"] = function() dapui.close({}) end
     dap.listeners.before.event_exited["dapui_config"] = function() dapui.close({}) end
-
-    -- Mason DAP integration
-    require("mason-nvim-dap").setup({
-      automatic_installation = true,
-      handlers = {},
-      ensure_installed = {},
-    })
 
     -- DAP signs
     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
