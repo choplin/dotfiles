@@ -1,3 +1,9 @@
+-- Disable built-ins replaced by Yazi / vim-matchup (must precede plugin load)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+
 -- Leader keys (must be set before any keymap)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"

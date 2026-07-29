@@ -15,7 +15,6 @@ return {
     { "<c-up>", "<cmd>Yazi toggle<cr>", desc = "Resume the last yazi session" },
   },
   before = function()
-    vim.g.loaded_netrwPlugin = 1
     vim.cmd.packadd("plenary.nvim")
   end,
   after = function()
