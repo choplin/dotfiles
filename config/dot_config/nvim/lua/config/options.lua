@@ -1,11 +1,5 @@
 -- Options are loaded before plugins (from init.lua)
 
--- VSCode support
-if vim.g.vscode then
-  require("config.vscode.options")
-  return
-end
-
 -- Auto format
 vim.g.autoformat = true
 
@@ -82,7 +76,7 @@ opt.splitright = true
 -- statuscolumn: set by snacks.lua after setup
 opt.tabstop = 2
 opt.termguicolors = true
-opt.timeoutlen = vim.g.vscode and 1000 or 250
+opt.timeoutlen = 250
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200

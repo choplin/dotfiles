@@ -1,11 +1,5 @@
 -- Autocmds are loaded on DeferredUIEnter or immediately if a file was opened
 
--- VSCode support
-if vim.g.vscode then
-  require("config.vscode.autocmds")
-  return
-end
-
 local function augroup(name)
   return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end

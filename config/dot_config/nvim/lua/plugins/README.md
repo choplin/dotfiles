@@ -80,6 +80,9 @@ All plugins used in this Neovim configuration, organized by category.
 Intentionally unsupported (not a migration gap): Scala, Java, and Kotlin —
 Metals, JDTLS, kotlin-language-server, and JVM-only editor tools are removed.
 
+VSCode Neovim integration is intentionally unsupported — standalone Neovim and
+Zed are the supported editor paths.
+
 ## 📦 Misc
 
 - **which-key.nvim** — Keybinding discovery

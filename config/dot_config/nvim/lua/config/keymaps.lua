@@ -1,11 +1,5 @@
 -- Keymaps are loaded on DeferredUIEnter (from init.lua)
 
--- VSCode support
-if vim.g.vscode then
-  require("config.vscode.keymaps")
-  return
-end
-
 local map = vim.keymap.set
 
 -- better up/down
