@@ -20,6 +20,9 @@ return {
               loadOutDirsFromCheck = true,
               buildScripts = { enable = true },
             },
+            check = {
+              command = "clippy",
+            },
             checkOnSave = true,
             diagnostics = { enable = true },
             procMacro = { enable = true },

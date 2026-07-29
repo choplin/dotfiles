@@ -39,6 +39,7 @@ return {
         svelte = { "biome-check" },
         graphql = { "biome-check" },
         go = { "goimports", "gofumpt" },
+        rust = { "rustfmt" },
         toml = { "taplo" },
       },
       formatters = {
