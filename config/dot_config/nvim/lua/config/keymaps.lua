@@ -205,6 +205,14 @@ map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 map("n", "<leader>uI", function() vim.treesitter.inspect_tree() vim.api.nvim_input("I") end, { desc = "Inspect Tree" })
 
+-- Treesitter incremental selection (built-in APIs; an/in defaults also exist)
+map({ "n", "x" }, "<C-space>", function()
+  require("lib.treesitter_select").init_or_expand()
+end, { desc = "Treesitter Expand Selection" })
+map("x", "<bs>", function()
+  require("lib.treesitter_select").shrink()
+end, { desc = "Treesitter Shrink Selection" })
+
 -- windows
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })

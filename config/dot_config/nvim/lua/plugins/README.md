@@ -54,6 +54,9 @@ Parser/query assets come from the Neovim Nix closure (`nix/home/neovim.nix`):
 common languages, syntax-only / review-only languages, and editor support
 grammars. No `:TSInstall` and no archived `nvim-treesitter` runtime plugin.
 
+Incremental selection uses Neovim's built-in `vim.treesitter.select`
+(`<C-space>` expand, `<BS>` shrink in visual; also `an`/`in` defaults).
+
 - **nvim-treesitter-textobjects** — Syntax-node motions (kept for now; Nix owns parsers)
 - **nvim-treesitter-context** — Sticky context header
 - **nvim-context-vt** — Scope context as virtual text
