@@ -41,12 +41,19 @@ return {
         go = { "goimports", "gofumpt" },
         rust = { "rustfmt" },
         toml = { "taplo" },
+        moonbit = { "moonfmt" },
       },
       formatters = {
         ["biome-check"] = { require_cwd = true },
         -- Project-local only: skip quietly when the tool / cwd marker is absent.
         ruff_format = { require_cwd = true },
         ruff_fix = { require_cwd = true },
+        -- MoonBit toolchain (project flake); stdin/stdout form.
+        moonfmt = {
+          command = "moonfmt",
+          args = { "-" },
+          stdin = true,
+        },
       },
       default_format_opts = {
         timeout_ms = 3000,

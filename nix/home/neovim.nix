@@ -76,6 +76,20 @@
   )
   treesitterLanguageNames;
 
+  # MoonBit is not in nvim-treesitter's official grammar set; ship parser +
+  # queries from moonbitlang/tree-sitter-moonbit. Toolchain stays project-local.
+  moonbitTreesitter = pkgs.neovimUtils.grammarToPlugin (pkgs.tree-sitter.buildGrammar {
+    language = "moonbit";
+    version = "0.0.0+rev=5435c30";
+    src = pkgs.fetchFromGitHub {
+      owner = "moonbitlang";
+      repo = "tree-sitter-moonbit";
+      rev = "5435c307c6cf2ef0d508a99047b06f35a4308444";
+      hash = "sha256-UUEjrF6uGwTtFGRjmjw75ky8eDwVwAHOHro48TAI+WM=";
+    };
+    meta.homepage = "https://github.com/moonbitlang/tree-sitter-moonbit";
+  });
+
   # Shared common-language tools only. Treesitter parser/query assets are
   # owned by the Neovim packpath below, not by this PATH catalog.
   neovimTools = editorTools.mkEditorToolsEnv {
@@ -88,7 +102,7 @@
   # pkgs.neovim is neovim-unwrapped under the nightly overlay, so use
   # wrapNeovimUnstable rather than the older `neovim.override { configure… }`.
   neovimWithTreesitter = pkgs.wrapNeovimUnstable pkgs.neovim {
-    plugins = treesitterRuntime;
+    plugins = treesitterRuntime ++ [moonbitTreesitter];
     wrapRc = false;
     withPython3 = false;
     withRuby = false;

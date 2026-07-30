@@ -300,6 +300,10 @@
     "zig.vim": {
       "rev": "1a1112eec20e28c832a06ddb1d0060f6ce652372",
       "src": "https://github.com/ziglang/zig.vim"
+    },
+    "moonbit.nvim": {
+      "rev": "907c8240d3d2f96fa8e8569c73973e8604a7b1e6",
+      "src": "https://github.com/moonbit-community/moonbit.nvim"
     }
   }
 }

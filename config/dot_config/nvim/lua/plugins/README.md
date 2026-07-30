@@ -51,8 +51,9 @@ All plugins used in this Neovim configuration, organized by category.
 ## 🌳 Treesitter
 
 Parser/query assets come from the Neovim Nix closure (`nix/home/neovim.nix`):
-common languages, syntax-only / review-only languages, and editor support
-grammars. No `:TSInstall` and no archived `nvim-treesitter` runtime plugin.
+common languages, syntax-only / review-only languages, editor support
+grammars, plus a custom MoonBit grammar. No `:TSInstall` and no archived
+`nvim-treesitter` runtime plugin.
 
 Incremental selection uses Neovim's built-in `vim.treesitter.select`
 (`<C-space>` expand, `<BS>` shrink in visual; also `an`/`in` defaults).
@@ -79,7 +80,7 @@ Incremental selection uses Neovim's built-in `vim.treesitter.select`
 - **clangd_extensions.nvim** — C/C++ (clangd)
 - **crates.nvim** — Rust Cargo.toml
 - **zig.vim** — Zig
-- **moonbit.nvim** — MoonBit (local)
+- **moonbit.nvim** — MoonBit (LSP via `moon-lsp`; Treesitter from Nix)
 
 Intentionally unsupported (not a migration gap): Scala, Java, and Kotlin —
 Metals, JDTLS, kotlin-language-server, and JVM-only editor tools are removed.

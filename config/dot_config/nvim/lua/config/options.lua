@@ -88,13 +88,18 @@ opt.wrap = false
 vim.g.markdown_recommended_style = 0
 
 -- Custom filetype mappings
+-- MoonBit must be registered eagerly so ft-lazy moonbit.nvim can load
+-- (the plugin's own ftdetect is not available until after FileType).
 vim.filetype.add({
   extension = {
     ["h"] = "c",
     ["mdx"] = "markdown",
+    ["mbt"] = "moonbit",
+    ["mbti"] = "moonbit",
   },
   filename = {
     ["Tiltfile"] = "tiltfile",
+    ["moon.pkg"] = "moonbit",
   },
 })
 
