@@ -32,7 +32,13 @@ vim.cmd.packadd("lz.n")
 require("lib.plugin_loader").setup()
 
 -- LazyFile custom event (replaces lazy.nvim's LazyFile)
--- Groups BufReadPost, BufNewFile, BufWritePre into a single event
+-- Groups BufReadPost, BufNewFile, BufWritePre into a single event.
+--
+-- Must vim.schedule() the plugin load: this autocmd is registered before
+-- filetypedetect, and LazyFile plugins (nvim-lspconfig → vim.lsp.enable)
+-- call `doautoall FileType` after VimEnter. That sets did_filetype() while
+-- 'filetype' is still empty, so the later `:setf` from filetypedetect becomes
+-- a no-op — first file opened from the dashboard then has no syntax/treesitter.
 local lazy_file_events = { "BufReadPost", "BufNewFile", "BufWritePre" }
 local Event = {} ---@type table<string, true>
 
@@ -45,14 +51,7 @@ local function lazy_file()
       return
     end
     done = true
-    vim.api.nvim_del_augroup_by_name("lazy_file")
-
-    ---@type table<string, string[]>
-    local skips = {}
-    for _, event in ipairs(events) do
-      skips[event.event] = skips[event.event] or {}
-      table.insert(skips[event.event], event.buf)
-    end
+    pcall(vim.api.nvim_del_augroup_by_name, "lazy_file")
 
     vim.api.nvim_exec_autocmds("User", { pattern = "LazyFile", modeline = false })
     for _, event in ipairs(events) do
@@ -68,10 +67,11 @@ local function lazy_file()
   for _, event in ipairs(lazy_file_events) do
     vim.api.nvim_create_autocmd(event, {
       group = group,
-      nested = true,
       callback = function(ev)
         table.insert(events, ev)
-        load()
+        -- Defer so filetypedetect (later in the BufReadPost list) can :setf
+        -- before LazyFile plugins run vim.lsp.enable / doautoall FileType.
+        vim.schedule(load)
       end,
     })
   end
