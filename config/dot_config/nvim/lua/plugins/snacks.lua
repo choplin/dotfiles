@@ -1,4 +1,5 @@
 -- [UI] Utility library: picker, dashboard, notifier, indent guides, statuscolumn, and more.
+-- Owns vim.notify (Noice notify is disabled). History: <leader>n
 --
 --   <leader>ff         find files
 --   <leader>/          grep

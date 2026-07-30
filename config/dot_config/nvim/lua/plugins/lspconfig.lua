@@ -162,11 +162,8 @@ return {
         },
       },
       before_init = function(_, config)
-        config.settings.yaml.schemas = vim.tbl_deep_extend(
-          "force",
-          config.settings.yaml.schemas or {},
-          require("schemastore").yaml.schemas()
-        )
+        config.settings.yaml.schemas =
+          vim.tbl_deep_extend("force", config.settings.yaml.schemas or {}, require("schemastore").yaml.schemas())
       end,
       settings = {
         redhat = { telemetry = { enabled = false } },
@@ -196,22 +193,24 @@ return {
       vim.lsp.enable("docker_language_server")
     end
 
-    -- tailwindcss
-    vim.lsp.config("tailwindcss", {
-      settings = {
-        tailwindCSS = {
-          includeLanguages = {
-            elixir = "html-eex",
-            eelixir = "html-eex",
-            heex = "html-eex",
+    -- Project-local frontend LSPs (not in the common editor PATH catalog).
+    if vim.fn.executable("tailwindcss-language-server") == 1 then
+      vim.lsp.config("tailwindcss", {
+        settings = {
+          tailwindCSS = {
+            includeLanguages = {
+              elixir = "html-eex",
+              eelixir = "html-eex",
+              heex = "html-eex",
+            },
           },
         },
-      },
-    })
-    vim.lsp.enable("tailwindcss")
-
-    -- svelte
-    vim.lsp.enable("svelte")
+      })
+      vim.lsp.enable("tailwindcss")
+    end
+    if vim.fn.executable("svelteserver") == 1 then
+      vim.lsp.enable("svelte")
+    end
 
     -- marksman (Markdown)
     vim.lsp.enable("marksman")

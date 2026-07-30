@@ -1,4 +1,5 @@
--- [UI] Enhanced UI for messages, command line, and popups.
+-- [UI] Enhanced UI for cmdline, msg_show, and LSP docs.
+-- vim.notify is owned by Snacks notifier (see snacks.lua); Noice does not take it.
 --
 --   <leader>snl        last message
 --   <leader>snh        message history
@@ -14,6 +15,9 @@ return {
   end,
   after = function()
     require("noice").setup({
+      -- Startup LSP can notify before Noice's VimEnter enable; Snacks already owns
+      -- vim.notify from the first moment, so keep Noice off that path.
+      notify = { enabled = false },
       lsp = {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
