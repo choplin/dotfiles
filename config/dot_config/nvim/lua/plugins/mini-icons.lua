@@ -2,6 +2,7 @@
 return {
   "mini.icons",
   src = "https://github.com/echasnovski/mini.icons",
+  -- Eager: icon provider mocked as nvim-web-devicons for UI plugins at startup.
   lazy = false,
   priority = 100,
   after = function()

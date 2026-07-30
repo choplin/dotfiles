@@ -45,12 +45,17 @@ function M.setup()
     end
   end
 
-  -- Install remote plugins via vim.pack
+  -- Install/register remote plugins via vim.pack without putting them on
+  -- runtimepath. Default load=false behaves like :packadd! and lets Neovim's
+  -- later startup phase source plugin/* before lz.n triggers run.
+  -- See: neovim/#35550 / lz.n vim.pack workaround.
   if #sources > 0 then
-    vim.pack.add(sources)
+    vim.pack.add(sources, {
+      load = function() end,
+    })
   end
 
-  -- Load remote plugins via lz.n (dir-based specs are skipped by enabled = false)
+  -- lz.n owns :packadd for each plugin when its trigger (or eager load) fires
   require("lz.n").load("plugins")
 
   -- Load local plugins (dir-based, not in packpath)

@@ -1,3 +1,6 @@
+-- Startup timing (framework-free; used by dashboard)
+require("lib.startup").mark()
+
 -- Disable built-ins replaced by Yazi / vim-matchup (must precede plugin load)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

@@ -14,11 +14,15 @@ end
 return {
   "snacks.nvim",
   src = "https://github.com/folke/snacks.nvim",
+  -- Eager: UI foundation (dashboard, notifier, quickfile, statuscolumn) must
+  -- be available before DeferredUIEnter / LazyFile plugins.
   lazy = false,
   priority = 1000,
   after = function()
     require("snacks").setup({
       bigfile = { enabled = true },
+      -- Render `nvim file` before deferred plugin setup
+      quickfile = { enabled = true },
       indent = {
         enabled = true,
         filter = function(buf)
@@ -73,6 +77,8 @@ return {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
           { section = "recent_files", icon = " ", title = "Recent Files", indent = 2, padding = 1 },
+          -- Framework-free timing (built-in startup section needs lazy.stats)
+          require("lib.startup").dashboard_section,
         },
       },
     })
