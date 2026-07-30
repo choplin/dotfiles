@@ -32,6 +32,7 @@
       "gitkraken-cli"
       "insta360-link-controller"
       "karabiner-elements"
+      "openscad@snapshot"
       "orbstack"
       "sf-symbols"
       "typeless"
