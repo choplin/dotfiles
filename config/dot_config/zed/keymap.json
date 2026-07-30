@@ -132,6 +132,7 @@
       "space f f": "file_finder::Toggle", // find file
       "space f w": ["task::Spawn", { "task_name": "llm-wiki: browse" }],
       "space g g": ["task::Spawn", { "task_name": "LazyGit" }], // open LazyGit
+      "space g w": "git::Worktree",
     },
     "unbind": {
       "space f": "file_finder::Toggle",
@@ -144,6 +145,7 @@
       "space f f": "file_finder::Toggle", // find file
       "space f w": ["task::Spawn", { "task_name": "llm-wiki: browse" }],
       "space g g": ["task::Spawn", { "task_name": "LazyGit" }], // open LazyGit
+      "space g w": "git::Worktree",
     },
     "unbind": {
       "space f": "file_finder::Toggle",
