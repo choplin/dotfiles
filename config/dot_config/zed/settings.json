@@ -21,6 +21,9 @@
   },
   "agent_servers": {
     "cursor": {
+      "default_config_options": {
+        "model": "grok-4.5"
+      },
       "type": "registry",
     },
     "codex-acp": {
@@ -36,6 +39,7 @@
       "type": "custom",
       "command": "claude-agent-acp-direnv",
       "default_config_options": {
+        "fast": true,
         "model": "default",
         "mode": "auto",
       },
@@ -48,7 +52,7 @@
     "dock": "right",
   },
   "agent": {
-    "terminal_init_command": "claude",
+    "terminal_init_command": "",
     "inline_assistant_model": {
       "provider": "copilot_chat",
       "model": "claude-sonnet-4.6",
