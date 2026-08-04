@@ -5,47 +5,41 @@
   llm-agents,
   ...
 }: let
-  # External skills are declared in a repo-managed list file symlinked into
-  # ~/.config, so edits apply without a home-manager switch.
-  listFile = "${config.xdg.configHome}/skills/external-skills.txt";
+  managedSkills = pkgs.python3Packages.buildPythonApplication {
+    pname = "managed-skills";
+    version = "0.1.0";
+    pyproject = true;
+    src = ./managed-skills;
 
-  # skills-CLI agent ids and scope to install the external skills for.
-  agents = "claude-code codex";
+    build-system = [pkgs.python3Packages.setuptools];
+    dependencies = [pkgs.python3Packages.pyyaml];
+    nativeCheckInputs = [
+      pkgs.python3Packages.pytestCheckHook
+      pkgs.ruff
+    ];
+    doCheck = true;
+    preCheck = "ruff check src tests";
+    pytestFlags = ["tests"];
+    pythonImportsCheck = ["managed_skills"];
+
+    makeWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      (pkgs.lib.makeBinPath [llm-agents.skills])
+    ];
+  };
 in {
-  # ~/.config/skills/external-skills.txt -> config/dot_config/skills/external-skills.txt
-  xdg.configFile."skills/external-skills.txt".source =
+  # The shared policy is repo-managed. Machine-local repository bindings and
+  # project destinations live alongside it in unmanaged local.yaml.
+  xdg.configFile."skills/skills.yaml".source =
     config.lib.file.mkOutOfStoreSymlink
-    "${rootDir}/config/dot_config/skills/external-skills.txt";
+    "${rootDir}/config/dot_config/skills/skills.yaml";
 
   home.packages = [
     # vercel-labs/skills: the open agent skills tool for installing and managing
     # skills across AI coding agents. Pulled prebuilt from llm-agents.nix.
     llm-agents.skills
-
-    # install-external-skills: (re)install the external skills declared in the
-    # list file. Run the command on demand to apply changes to the list.
-    (pkgs.writeShellApplication {
-      name = "install-external-skills";
-      runtimeInputs = [llm-agents.skills];
-      text = ''
-        # Read the whole list up front. Do NOT stream it into the loop on stdin:
-        # `skills add` consumes stdin, so it would eat the remaining lines and
-        # the loop would silently stop after the first entry (only the first
-        # source ever got installed/updated). Reading into an array first leaves
-        # nothing for it to swallow. One `skills add` per source is required —
-        # it takes a single source (extra positionals are ignored) and --skill
-        # applies per source.
-        mapfile -t lines <"${listFile}"
-        for line in "''${lines[@]}"; do
-          read -r package skill <<<"$line"
-          case "$package" in "" | "#"*) continue ;; esac
-          if [ -n "$skill" ]; then
-            skills add "$package" --skill "$skill" -a ${agents} -g -y
-          else
-            skills add "$package" -a ${agents} -g -y
-          fi
-        done
-      '';
-    })
+    managedSkills
   ];
 }

@@ -1,0 +1,37 @@
+version: 1
+
+defaults:
+  agents:
+    - claude-code
+    - codex
+    - opencode
+
+global:
+  - name: my-agent-skills
+    repository: my-agent-skills
+    paths:
+      - skills
+    exclude:
+      - 3d-print
+
+  - name: vercel-skills
+    url: https://github.com/vercel-labs/skills
+    skills: ["*"]
+
+  - name: wtm
+    url: https://github.com/choplin/wtm
+    skills: ["*"]
+
+  - name: llm-wiki
+    url: https://github.com/choplin/llm-wiki
+    skills: ["*"]
+
+  - name: explainer-studio
+    url: https://github.com/choplin/explainer-studio
+    skills: ["*"]
+
+  - name: japanese-tech-writing
+    url: https://gist.github.com/fd287c3133457c4fd8f5601d34aa817d.git
+
+  - name: cognitive-rhythm-writing
+    url: https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
