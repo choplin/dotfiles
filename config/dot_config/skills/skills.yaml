@@ -1,37 +1,76 @@
-version: 1
-
 defaults:
   agents:
     - claude-code
     - codex
     - opencode
 
-global:
-  - name: my-agent-skills
-    repository: my-agent-skills
+sources:
+  vercel-skills:
+    url: https://github.com/vercel-labs/skills
+
+  wtm:
+    url: https://github.com/choplin/wtm
+
+  llm-wiki:
+    url: https://github.com/choplin/llm-wiki
+
+  explainer-studio:
+    url: https://github.com/choplin/explainer-studio
+
+  japanese-tech-writing:
+    url: https://gist.github.com/fd287c3133457c4fd8f5601d34aa817d.git
+
+  cognitive-rhythm-writing:
+    url: https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
+
+packages:
+  my-agent-skills:
+    source: my-agent-skills
     paths:
       - skills
     exclude:
       - 3d-print
 
-  - name: vercel-skills
-    url: https://github.com/vercel-labs/skills
+  vercel-skills:
+    source: vercel-skills
     skills: ["*"]
 
-  - name: wtm
-    url: https://github.com/choplin/wtm
+  wtm:
+    source: wtm
     skills: ["*"]
 
-  - name: llm-wiki
-    url: https://github.com/choplin/llm-wiki
+  llm-wiki:
+    source: llm-wiki
     skills: ["*"]
 
-  - name: explainer-studio
-    url: https://github.com/choplin/explainer-studio
+  explainer-studio:
+    source: explainer-studio
     skills: ["*"]
 
-  - name: japanese-tech-writing
-    url: https://gist.github.com/fd287c3133457c4fd8f5601d34aa817d.git
+  japanese-tech-writing:
+    source: japanese-tech-writing
 
-  - name: cognitive-rhythm-writing
-    url: https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
+  cognitive-rhythm-writing:
+    source: cognitive-rhythm-writing
+
+installs:
+  - package: my-agent-skills
+    target: global
+
+  - package: vercel-skills
+    target: global
+
+  - package: wtm
+    target: global
+
+  - package: llm-wiki
+    target: global
+
+  - package: explainer-studio
+    target: global
+
+  - package: japanese-tech-writing
+    target: global
+
+  - package: cognitive-rhythm-writing
+    target: global

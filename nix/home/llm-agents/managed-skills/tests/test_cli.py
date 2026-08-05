@@ -44,28 +44,33 @@ def base_files(tmp_path: Path) -> tuple[Path, Path, Path, Path, Path]:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [claude-code, codex]
-global:
-  - name: personal
-    repository: personal
+packages:
+  personal:
+    source: personal
     paths: [skills/group]
+installs:
+  - package: personal
+    target: global
 """,
     )
     write_config(
         local,
         f"""\
-repositories:
+sources:
   personal:
     path: {repository}
-projects:
-  - path: {project}
-    installs:
-      - name: remote
-        url: https://example.test/skills.git
-        skills: [review]
-        agents: [opencode]
+  remote:
+    url: https://example.test/skills.git
+packages:
+  remote:
+    source: remote
+    skills: [review]
+installs:
+  - package: remote
+    target: {project}
+    agents: [opencode]
 """,
     )
     return shared, local, state, repository, project
@@ -98,10 +103,63 @@ def test_loads_shared_and_local_config_with_agent_override(tmp_path: Path) -> No
 
 def test_rejects_relative_machine_local_paths(tmp_path: Path) -> None:
     shared, local, _, _, _ = base_files(tmp_path)
-    write_config(local, "repositories:\n  personal:\n    path: ~/catalog\n")
+    write_config(local, "sources:\n  personal:\n    path: ~/catalog\n")
 
     with pytest.raises(Exception, match="must be absolute"):
         load_install_units(shared, local)
+
+
+def test_rejects_duplicate_definitions_across_config_files(tmp_path: Path) -> None:
+    shared, local, _, _, _ = base_files(tmp_path)
+    write_config(
+        shared,
+        """\
+sources:
+  duplicate:
+    url: https://example.test/shared.git
+""",
+    )
+    write_config(
+        local,
+        """\
+sources:
+  duplicate:
+    url: https://example.test/local.git
+""",
+    )
+
+    with pytest.raises(Exception, match="duplicate sources definitions: duplicate"):
+        load_install_units(shared, local)
+
+
+def test_install_local_package_uses_target_directory(tmp_path: Path) -> None:
+    shared, local, state, _, project = base_files(tmp_path)
+    runner = FakeRunner()
+
+    result = run(
+        cli_args(shared, local, state, "install", "--local", "--package", "remote"),
+        runner,
+    )
+
+    assert result == 0
+    assert runner.calls == [
+        (
+            [
+                "skills",
+                "add",
+                "https://example.test/skills.git",
+                "--skill",
+                "review",
+                "--agent",
+                "opencode",
+                "--yes",
+            ],
+            str(project),
+        )
+    ]
+    manifest = json.loads(state.read_text())
+    assert manifest["installations"][0]["scope"] == "project"
+    assert manifest["installations"][0]["project"] == str(project)
 
 
 def test_install_tracks_exact_local_skill_names(
@@ -127,7 +185,7 @@ def test_install_tracks_exact_local_skill_names(
         in captured.err
     )
     assert "skills add" not in captured.err
-    assert "DONE     installed 1 source, 2 skills, 4 agent installations" in captured.err
+    assert "DONE     installed 1 installation, 2 skills, 4 agent installations" in captured.err
     assert "         - one" not in captured.err
 
 
@@ -136,14 +194,16 @@ def test_install_excludes_named_skills_from_wildcard(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: personal
-    repository: personal
+packages:
+  personal:
+    source: personal
     paths: [skills/group]
     exclude: [one]
+installs:
+  - package: personal
+    target: global
 """,
     )
     runner = FakeRunner()
@@ -161,14 +221,16 @@ def test_install_rejects_unknown_excluded_skill(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: personal
-    repository: personal
+packages:
+  personal:
+    source: personal
     paths: [skills/group]
     exclude: [missing]
+installs:
+  - package: personal
+    target: global
 """,
     )
     runner = FakeRunner()
@@ -280,13 +342,15 @@ def test_reset_preflights_sources_before_uninstall(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: missing
-    repository: missing
+packages:
+  missing:
+    source: missing
     paths: [skills/group]
+installs:
+  - package: missing
+    target: global
 """,
     )
     state.parent.mkdir()
@@ -323,13 +387,18 @@ def test_reset_verifies_explicit_remote_skill_before_uninstall(tmp_path: Path) -
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: remote
+sources:
+  remote:
     url: https://example.test/skills.git
+packages:
+  remote:
+    source: remote
     skills: [missing-skill]
+installs:
+  - package: remote
+    target: global
 """,
     )
     state.parent.mkdir()
@@ -361,13 +430,13 @@ global:
     assert json.loads(state.read_text())["installations"][0]["skill"] == "owned-skill"
 
 
-def test_reset_refuses_missing_local_config_with_tracked_projects(tmp_path: Path) -> None:
+def test_reset_refuses_missing_local_config_with_tracked_targets(tmp_path: Path) -> None:
     shared = tmp_path / "skills.yaml"
     local = tmp_path / "missing-local.yaml"
     state = tmp_path / "state/manifest.json"
     project = tmp_path / "project"
     project.mkdir()
-    write_config(shared, "version: 1\ndefaults:\n  agents: [codex]\n")
+    write_config(shared, "defaults:\n  agents: [codex]\n")
     state.parent.mkdir()
     state.write_text(
         json.dumps(
@@ -388,7 +457,7 @@ def test_reset_refuses_missing_local_config_with_tracked_projects(tmp_path: Path
     )
     runner = FakeRunner()
 
-    result = run(cli_args(shared, local, state, "install", "--reset", "--projects"), runner)
+    result = run(cli_args(shared, local, state, "install", "--reset", "--local"), runner)
 
     assert result == 1
     assert runner.calls == []
@@ -402,12 +471,17 @@ def test_remote_listing_is_parsed_before_install(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: remote
+sources:
+  remote:
     url: https://example.test/skills.git
+packages:
+  remote:
+    source: remote
+installs:
+  - package: remote
+    target: global
 """,
     )
     runner = FakeRunner("│\n│    remote-one\n│\n│      A description\n")
@@ -426,19 +500,32 @@ def test_install_filters_repeatable_packages(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: first
+sources:
+  first:
     url: https://example.test/first.git
-    skills: [one]
-  - name: second
+  second:
     url: https://example.test/second.git
-    skills: [two]
-  - name: third
+  third:
     url: https://example.test/third.git
+packages:
+  first:
+    source: first
+    skills: [one]
+  second:
+    source: second
+    skills: [two]
+  third:
+    source: third
     skills: [three]
+installs:
+  - package: first
+    target: global
+  - package: second
+    target: global
+  - package: third
+    target: global
 """,
     )
     runner = FakeRunner()
@@ -495,16 +582,25 @@ def test_reset_only_removes_selected_package(tmp_path: Path) -> None:
     write_config(
         shared,
         """\
-version: 1
 defaults:
   agents: [codex]
-global:
-  - name: first
+sources:
+  first:
     url: https://example.test/first.git
-    skills: [one]
-  - name: second
+  second:
     url: https://example.test/second.git
+packages:
+  first:
+    source: first
+    skills: [one]
+  second:
+    source: second
     skills: [two]
+installs:
+  - package: first
+    target: global
+  - package: second
+    target: global
 """,
     )
     state.parent.mkdir()

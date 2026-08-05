@@ -43,6 +43,26 @@ class InstallUnit:
 
 
 @dataclass(frozen=True)
+class SourceDefinition:
+    """One named remote URL or machine-local repository root."""
+
+    name: str
+    location: str
+    local: bool
+
+
+@dataclass(frozen=True)
+class PackageDefinition:
+    """One named selection of skills from a source."""
+
+    name: str
+    source: str
+    paths: tuple[str, ...] | None
+    skills: tuple[str, ...] | None
+    excluded_skills: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class ManifestEntry:
     """One skill owned by this manager for one destination and agent."""
 
@@ -134,70 +154,71 @@ def absolute_directory(value: Any, label: str) -> Path:
     return path.resolve()
 
 
-def parse_repositories(local: dict[str, Any]) -> dict[str, Path]:
-    """Parse local repository alias bindings."""
-    raw = local.get("repositories", {})
-    if not isinstance(raw, dict):
-        raise ManagedSkillsError("local repositories must be a mapping")
-    repositories: dict[str, Path] = {}
-    for name, settings in raw.items():
-        if not isinstance(name, str) or not name:
-            raise ManagedSkillsError("repository names must be non-empty strings")
-        if not isinstance(settings, dict) or set(settings) != {"path"}:
-            raise ManagedSkillsError(f"repositories.{name} must contain only 'path'")
-        repositories[name] = absolute_directory(settings["path"], f"repositories.{name}.path")
-    return repositories
-
-
-def resolve_local_source(repository: Path, relative: str, label: str) -> Path:
-    """Resolve a relative package path without allowing repository escape."""
-    candidate = Path(relative)
-    if candidate.is_absolute():
-        raise ManagedSkillsError(f"{label} must be relative: {relative}")
-    resolved = (repository / candidate).resolve()
-    try:
-        resolved.relative_to(repository)
-    except ValueError as error:
-        raise ManagedSkillsError(f"{label} escapes its repository: {relative}") from error
-    if not resolved.is_dir():
-        raise ManagedSkillsError(f"{label} is not a directory: {relative}")
-    return resolved
-
-
-def parse_install(
-    raw: Any,
-    *,
-    label: str,
-    scope: Scope,
-    project: Path | None,
-    repositories: dict[str, Path],
-    default_agents: tuple[str, ...],
-) -> list[InstallUnit]:
-    """Expand one install declaration into upstream CLI invocations."""
-    if not isinstance(raw, dict):
+def require_mapping(value: Any, label: str) -> dict[str, Any]:
+    """Validate a YAML mapping."""
+    if not isinstance(value, dict):
         raise ManagedSkillsError(f"{label} must be a mapping")
-    allowed = {"name", "url", "repository", "paths", "skills", "exclude", "agents"}
-    unknown = set(raw) - allowed
-    if unknown:
-        raise ManagedSkillsError(f"{label} has unknown keys: {', '.join(sorted(unknown))}")
-    source_keys = [key for key in ("url", "repository") if key in raw]
-    if len(source_keys) != 1:
-        raise ManagedSkillsError(f"{label} must contain exactly one of 'url' or 'repository'")
-    package = raw.get("name")
-    if not isinstance(package, str) or not PACKAGE_NAME.fullmatch(package):
+    return value
+
+
+def validate_name(value: Any, label: str) -> str:
+    """Validate a source or package identifier."""
+    if not isinstance(value, str) or not PACKAGE_NAME.fullmatch(value):
         raise ManagedSkillsError(
-            f"{label}.name must use lowercase letters, numbers, and hyphens"
+            f"{label} must use lowercase letters, numbers, and hyphens"
         )
+    return value
 
-    agents = (
-        string_list(raw["agents"], f"{label}.agents")
-        if "agents" in raw
-        else default_agents
+
+def merged_definitions(
+    shared: dict[str, Any], local: dict[str, Any], key: str
+) -> list[tuple[str, Any, str]]:
+    """Merge one named section, rejecting cross-file shadowing."""
+    shared_values = require_mapping(shared.get(key, {}), key)
+    local_values = require_mapping(local.get(key, {}), f"local {key}")
+    duplicates = sorted(set(shared_values) & set(local_values))
+    if duplicates:
+        raise ManagedSkillsError(
+            f"duplicate {key} definitions: {', '.join(duplicates)}"
+        )
+    values = [(name, value, key) for name, value in shared_values.items()]
+    values.extend(
+        (name, value, f"local {key}") for name, value in local_values.items()
     )
-    if not agents:
-        raise ManagedSkillsError(f"{label} needs agents or defaults.agents")
+    return values
 
-    raw_skills = raw.get("skills")
+
+def parse_sources(
+    shared: dict[str, Any], local: dict[str, Any]
+) -> dict[str, SourceDefinition]:
+    """Parse and merge named remote and machine-local sources."""
+    sources: dict[str, SourceDefinition] = {}
+    for raw_name, raw_settings, section in merged_definitions(shared, local, "sources"):
+        name = validate_name(raw_name, f"{section} name")
+        label = f"{section}.{name}"
+        settings = require_mapping(raw_settings, label)
+        if set(settings) not in ({"url"}, {"path"}):
+            raise ManagedSkillsError(f"{label} must contain exactly one of 'url' or 'path'")
+        if "path" in settings:
+            if section == "sources":
+                raise ManagedSkillsError(
+                    f"{label}.path is machine-local and belongs in local.yaml"
+                )
+            location = str(absolute_directory(settings["path"], f"{label}.path"))
+            sources[name] = SourceDefinition(name=name, location=location, local=True)
+            continue
+        url = settings["url"]
+        if not isinstance(url, str) or not url:
+            raise ManagedSkillsError(f"{label}.url must be a non-empty string")
+        sources[name] = SourceDefinition(name=name, location=url, local=False)
+    return sources
+
+
+def parse_skill_selection(
+    settings: dict[str, Any], label: str
+) -> tuple[tuple[str, ...] | None, tuple[str, ...]]:
+    """Parse inclusive or exclusive skill selection for a package."""
+    raw_skills = settings.get("skills")
     skills = (
         string_list(raw_skills, f"{label}.skills", allow_star=True)
         if raw_skills is not None
@@ -207,56 +228,142 @@ def parse_install(
         if skills != ("*",):
             raise ManagedSkillsError(f"{label}.skills '*' must be the only item")
         skills = None
-    excluded_skills = (
-        string_list(raw["exclude"], f"{label}.exclude") if "exclude" in raw else ()
+    excluded = (
+        string_list(settings["exclude"], f"{label}.exclude")
+        if "exclude" in settings
+        else ()
     )
-    if skills is not None and excluded_skills:
+    if skills is not None and excluded:
         raise ManagedSkillsError(f"{label} cannot combine 'skills' and 'exclude'")
+    return skills, excluded
 
-    if "url" in raw:
-        if "paths" in raw:
-            raise ManagedSkillsError(f"{label}.paths is only valid with a local repository")
-        url = raw["url"]
-        if not isinstance(url, str) or not url:
-            raise ManagedSkillsError(f"{label}.url must be a non-empty string")
+
+def parse_packages(
+    shared: dict[str, Any],
+    local: dict[str, Any],
+    sources: dict[str, SourceDefinition],
+) -> dict[str, PackageDefinition]:
+    """Parse and merge named package selections."""
+    packages: dict[str, PackageDefinition] = {}
+    allowed = {"source", "paths", "skills", "exclude"}
+    for raw_name, raw_settings, section in merged_definitions(shared, local, "packages"):
+        name = validate_name(raw_name, f"{section} name")
+        label = f"{section}.{name}"
+        settings = require_mapping(raw_settings, label)
+        unknown = set(settings) - allowed
+        if unknown:
+            raise ManagedSkillsError(
+                f"{label} has unknown keys: {', '.join(sorted(unknown))}"
+            )
+        source_name = validate_name(settings.get("source"), f"{label}.source")
+        if source_name not in sources:
+            raise ManagedSkillsError(f"{label} references unknown source: {source_name}")
+        source = sources[source_name]
+        paths = (
+            string_list(settings["paths"], f"{label}.paths")
+            if "paths" in settings
+            else None
+        )
+        if paths is not None and not source.local:
+            raise ManagedSkillsError(f"{label}.paths requires a local path source")
+        skills, excluded = parse_skill_selection(settings, label)
+        effective_paths = paths or ((".",) if source.local else None)
+        if effective_paths is not None and len(effective_paths) > 1 and skills is not None:
+            raise ManagedSkillsError(
+                f"{label} cannot apply an explicit skill list to multiple paths"
+            )
+        packages[name] = PackageDefinition(
+            name=name,
+            source=source_name,
+            paths=effective_paths,
+            skills=skills,
+            excluded_skills=excluded,
+        )
+    return packages
+
+
+def resolve_local_source(root: Path, relative: str, label: str) -> Path:
+    """Resolve a relative package path without allowing source escape."""
+    candidate = Path(relative)
+    if candidate.is_absolute():
+        raise ManagedSkillsError(f"{label} must be relative: {relative}")
+    resolved = (root / candidate).resolve()
+    try:
+        resolved.relative_to(root)
+    except ValueError as error:
+        raise ManagedSkillsError(f"{label} escapes its source: {relative}") from error
+    if not resolved.is_dir():
+        raise ManagedSkillsError(f"{label} is not a directory: {relative}")
+    return resolved
+
+
+def expand_install(
+    raw: Any,
+    *,
+    label: str,
+    allow_local_target: bool,
+    sources: dict[str, SourceDefinition],
+    packages: dict[str, PackageDefinition],
+    default_agents: tuple[str, ...],
+) -> list[InstallUnit]:
+    """Resolve one package placement into upstream CLI invocations."""
+    settings = require_mapping(raw, label)
+    allowed = {"package", "target", "agents"}
+    unknown = set(settings) - allowed
+    if unknown:
+        raise ManagedSkillsError(f"{label} has unknown keys: {', '.join(sorted(unknown))}")
+    package_name = validate_name(settings.get("package"), f"{label}.package")
+    if package_name not in packages:
+        raise ManagedSkillsError(f"{label} references unknown package: {package_name}")
+    target = settings.get("target")
+    if target == "global":
+        if allow_local_target:
+            raise ManagedSkillsError(f"{label}.target 'global' belongs in skills.yaml")
+        scope: Scope = "global"
+        project = None
+    else:
+        if not allow_local_target:
+            raise ManagedSkillsError(f"{label}.target paths belong in local.yaml")
+        project = absolute_directory(target, f"{label}.target")
+        scope = "project"
+    agents = (
+        string_list(settings["agents"], f"{label}.agents")
+        if "agents" in settings
+        else default_agents
+    )
+    if not agents:
+        raise ManagedSkillsError(f"{label} needs agents or defaults.agents")
+    package = packages[package_name]
+    source = sources[package.source]
+    if not source.local:
         return [
             InstallUnit(
-                package=package,
-                source=url,
-                origin=url,
+                package=package.name,
+                source=source.location,
+                origin=source.name,
                 scope=scope,
-                project=str(project) if project else None,
+                project=str(project) if project is not None else None,
                 agents=agents,
-                skills=skills,
-                excluded_skills=excluded_skills,
+                skills=package.skills,
+                excluded_skills=package.excluded_skills,
                 local_source=False,
             )
         ]
-
-    repository_name = raw["repository"]
-    if not isinstance(repository_name, str) or not repository_name:
-        raise ManagedSkillsError(f"{label}.repository must be a non-empty string")
-    if repository_name not in repositories:
-        raise ManagedSkillsError(f"{label} references unbound repository: {repository_name}")
-    repository = repositories[repository_name]
-    raw_paths = raw.get("paths", ["."])
-    paths = string_list(raw_paths, f"{label}.paths")
-    if len(paths) > 1 and skills is not None:
-        raise ManagedSkillsError(f"{label} cannot apply an explicit skill list to multiple paths")
-
-    units = []
-    for index, relative in enumerate(paths):
-        source = resolve_local_source(repository, relative, f"{label}.paths[{index}]")
+    assert package.paths is not None
+    root = Path(source.location)
+    units: list[InstallUnit] = []
+    for index, relative in enumerate(package.paths):
+        resolved = resolve_local_source(root, relative, f"packages.{package.name}.paths[{index}]")
         units.append(
             InstallUnit(
-                package=package,
-                source=str(source),
-                origin=f"{repository_name}:{relative}",
+                package=package.name,
+                source=str(resolved),
+                origin=f"{source.name}:{relative}",
                 scope=scope,
-                project=str(project) if project else None,
+                project=str(project) if project is not None else None,
                 agents=agents,
-                skills=skills,
-                excluded_skills=excluded_skills,
+                skills=package.skills,
+                excluded_skills=package.excluded_skills,
                 local_source=True,
             )
         )
@@ -267,8 +374,16 @@ def load_install_units(shared_path: Path, local_path: Path) -> list[InstallUnit]
     """Load and validate shared policy plus optional machine-local bindings."""
     shared = load_yaml(shared_path, required=True)
     local = load_yaml(local_path, required=False)
-    if shared.get("version") != 1:
-        raise ManagedSkillsError("skills.yaml version must be 1")
+    shared_unknown = set(shared) - {"defaults", "sources", "packages", "installs"}
+    if shared_unknown:
+        raise ManagedSkillsError(
+            f"skills.yaml has unknown keys: {', '.join(sorted(shared_unknown))}"
+        )
+    local_unknown = set(local) - {"sources", "packages", "installs"}
+    if local_unknown:
+        raise ManagedSkillsError(
+            f"local.yaml has unknown keys: {', '.join(sorted(local_unknown))}"
+        )
 
     defaults = shared.get("defaults", {})
     if not isinstance(defaults, dict) or set(defaults) - {"agents"}:
@@ -276,36 +391,34 @@ def load_install_units(shared_path: Path, local_path: Path) -> list[InstallUnit]
     default_agents = (
         string_list(defaults["agents"], "defaults.agents") if "agents" in defaults else ()
     )
-    repositories = parse_repositories(local)
+    sources = parse_sources(shared, local)
+    packages = parse_packages(shared, local, sources)
     units: list[InstallUnit] = []
-
-    for index, raw in enumerate(require_list(shared.get("global", []), "global")):
-        units.extend(
-            parse_install(
-                raw,
-                label=f"global[{index}]",
-                scope="global",
-                project=None,
-                repositories=repositories,
-                default_agents=default_agents,
-            )
-        )
-
-    projects = require_list(local.get("projects", []), "local projects")
-    for project_index, raw_project in enumerate(projects):
-        label = f"projects[{project_index}]"
-        if not isinstance(raw_project, dict) or set(raw_project) != {"path", "installs"}:
-            raise ManagedSkillsError(f"{label} must contain exactly 'path' and 'installs'")
-        project = absolute_directory(raw_project["path"], f"{label}.path")
-        installs = require_list(raw_project["installs"], f"{label}.installs")
-        for install_index, raw in enumerate(installs):
+    seen_installs: set[tuple[str, str]] = set()
+    install_sections = (
+        (require_list(shared.get("installs", []), "installs"), "installs", False),
+        (require_list(local.get("installs", []), "local installs"), "local installs", True),
+    )
+    for installs, section, allow_local_target in install_sections:
+        for index, raw in enumerate(installs):
+            label = f"{section}[{index}]"
+            settings = require_mapping(raw, label)
+            package_name = settings.get("package")
+            target = settings.get("target")
+            target_key = str(target)
+            key = (str(package_name), target_key)
+            if key in seen_installs:
+                raise ManagedSkillsError(
+                    f"duplicate install for package {package_name}: {target_key}"
+                )
+            seen_installs.add(key)
             units.extend(
-                parse_install(
-                    raw,
-                    label=f"{label}.installs[{install_index}]",
-                    scope="project",
-                    project=project,
-                    repositories=repositories,
+                expand_install(
+                    settings,
+                    label=label,
+                    allow_local_target=allow_local_target,
+                    sources=sources,
+                    packages=packages,
                     default_agents=default_agents,
                 )
             )
@@ -455,7 +568,7 @@ def manifest_sort_key(entry: ManifestEntry) -> tuple[str, str, str, str, str, st
 
 def scope_selected(scope: Scope, selected: str) -> bool:
     """Return whether a scope is included by the CLI filter."""
-    return selected == "all" or selected == scope or (selected == "projects" and scope == "project")
+    return selected == "all" or selected == scope or (selected == "local" and scope == "project")
 
 
 def requested_packages(args: argparse.Namespace) -> tuple[str, ...]:
@@ -548,7 +661,7 @@ def report(message: str) -> None:
 
 def scope_label(scope: Scope, project: str | None) -> str:
     """Describe an installation destination without exposing CLI mechanics."""
-    return "global" if scope == "global" else f"project:{project}"
+    return "global" if scope == "global" else f"local:{project}"
 
 
 def counted(count: int, singular: str, plural: str | None = None) -> str:
@@ -620,13 +733,13 @@ def install_units(
         report("DONE     nothing to install")
     elif dry_run:
         report(
-            f"DONE     previewed {counted(len(units), 'source')}, "
+            f"DONE     previewed {counted(len(units), 'installation')}, "
             f"{counted(skill_count, 'skill')}, "
             f"{counted(agent_installations, 'agent installation')}"
         )
     else:
         report(
-            f"DONE     installed {counted(len(units), 'source')}, "
+            f"DONE     installed {counted(len(units), 'installation')}, "
             f"{counted(skill_count, 'skill')}, "
             f"{counted(agent_installations, 'agent installation')}"
         )
@@ -684,8 +797,8 @@ def selected_scope(args: argparse.Namespace) -> str:
     """Translate mutually exclusive scope flags."""
     if args.global_only:
         return "global"
-    if args.projects_only:
-        return "projects"
+    if args.local_only:
+        return "local"
     return "all"
 
 
@@ -715,14 +828,14 @@ def handle_install(
     )
     reset_entry_set = set(reset_entries)
     retained_entries = [entry for entry in entries if entry not in reset_entry_set]
-    resetting_projects = args.reset and scope in {"all", "projects"}
-    has_tracked_projects = any(entry.scope == "project" for entry in reset_entries)
-    if resetting_projects and has_tracked_projects and not local_path.exists():
+    resetting_local = args.reset and scope in {"all", "local"}
+    has_tracked_local = any(entry.scope == "project" for entry in reset_entries)
+    if resetting_local and has_tracked_local and not local_path.exists():
         raise ManagedSkillsError(
-            f"refusing to reset tracked projects without local config: {local_path}"
+            f"refusing to reset tracked local targets without local config: {local_path}"
         )
     if units:
-        report(f"RESOLVE  inspecting {counted(len(units), 'install source')}")
+        report(f"RESOLVE  inspecting {counted(len(units), 'installation')}")
     units = materialize_units(units, runner, verify_explicit=args.reset)
     validate_ownership(units, retained_entries if args.reset else entries)
 
@@ -799,16 +912,16 @@ def handle_status(
     )
     print(f"declared install units: {len(units)}")
     print(f"tracked agent-skill installations: {len(entries)}")
-    for entry_scope in ("global", "project"):
+    for entry_scope, label in (("global", "global"), ("project", "local")):
         count = sum(entry.scope == entry_scope for entry in entries)
-        print(f"  {entry_scope}: {count}")
+        print(f"  {label}: {count}")
 
 
 def add_scope_arguments(parser: argparse.ArgumentParser) -> None:
     """Add the common mutually exclusive scope filters."""
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--global", dest="global_only", action="store_true")
-    group.add_argument("--projects", dest="projects_only", action="store_true")
+    group.add_argument("--local", dest="local_only", action="store_true")
 
 
 def add_package_arguments(parser: argparse.ArgumentParser) -> None:

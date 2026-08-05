@@ -45,22 +45,24 @@ AI coding agent CLIs are pulled from the [`llm-agents.nix`](https://github.com/n
 ### Managed Agent Skills
 
 [`config/dot_config/skills/skills.yaml`](./config/dot_config/skills/skills.yaml)
-declares remote sources, aliased local sources, and the user-global installation
-policy shared across machines. Home Manager symlinks it to
+declares shared sources, packages, and installations. A source is a remote URL
+or machine-local repository root; a package selects skills from one source; and
+an install places one package at `global` or an absolute local target. Home
+Manager symlinks the shared configuration to
 `~/.config/skills/skills.yaml` and installs the `managed-skills` command.
 
-Machine-specific repository and project paths belong in
+Machine-specific sources, packages, and installation targets belong in
 `~/.config/skills/local.yaml`, which is deliberately not managed by this
 repository. Start from
 [`config/dot_config/skills/local.example.yaml`](./config/dot_config/skills/local.example.yaml)
-and use absolute paths. A local repository is bound once by name; install entries
-then select paths relative to that repository root. An install can use
-`exclude` to omit named skills while selecting the rest of a source.
+and use absolute paths. The two files' named sources and packages are merged;
+duplicate names are rejected. Packages can use `exclude` to omit named skills
+while selecting the rest of a source.
 
 ```sh
 managed-skills install                 # Add/reinstall all declarations
 managed-skills install --global        # Only user-global declarations
-managed-skills install --projects      # Only project declarations
+managed-skills install --local         # Only absolute-path targets
 managed-skills install --package my-agent-skills  # Only one named package
 managed-skills install --package my-agent-skills --verbose  # List each skill
 managed-skills install --reset         # Remove managed entries, then reinstall

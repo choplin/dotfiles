@@ -1,18 +1,20 @@
 # Copy this file to ~/.config/skills/local.yaml and use absolute paths.
 # The local file is intentionally not managed by dotfiles.
-repositories:
+sources:
   my-agent-skills:
     path: /absolute/path/to/my-agent-skills
 
-projects:
-  - path: /absolute/path/to/a/project
-    installs:
-      - name: project-structure-tools
-        repository: my-agent-skills
-        paths:
-          - skills/codebase-structure
-          - skills/refactoring-tools
-        # Overrides defaults.agents for this install only.
-        agents:
-          - claude-code
-          - codex
+packages:
+  project-structure-tools:
+    source: my-agent-skills
+    paths:
+      - skills/codebase-structure
+      - skills/refactoring-tools
+
+installs:
+  - package: project-structure-tools
+    target: /absolute/path/to/a/project
+    # Overrides defaults.agents for this install only.
+    agents:
+      - claude-code
+      - codex
