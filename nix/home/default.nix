@@ -80,7 +80,9 @@
       lazygit
       lsd
       marp-cli
-      minikube
+      # minikube ships its own bin/kubectl, which collides with the standalone
+      # kubectl in buildEnv. Lower its priority so kubectl wins.
+      (lib.lowPrio minikube)
       mosh
       navi
       pgcli
