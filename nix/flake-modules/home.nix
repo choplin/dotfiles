@@ -10,6 +10,7 @@
         overlays = [
           inputs.neovim-nightly-overlay.overlays.default
           inputs.yazi.overlays.default
+          (import ../overlays/pyworld-pkg-resources.nix)
         ];
       };
       extraSpecialArgs = {
