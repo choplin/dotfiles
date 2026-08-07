@@ -133,3 +133,5 @@ CONTINUITY.md
 .envrc.local
 
 **/.claude/.cc-writes/
+
+.cargo
