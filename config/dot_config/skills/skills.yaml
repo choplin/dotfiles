@@ -23,6 +23,12 @@ sources:
   cognitive-rhythm-writing:
     url: https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
 
+  awesome-copilot:
+    url: https://github.com/github/awesome-copilot
+
+  obra-the-elements-of-style:
+    url: https://github.com/obra/the-elements-of-style
+
 packages:
   my-agent-skills:
     source: my-agent-skills
@@ -53,6 +59,14 @@ packages:
   cognitive-rhythm-writing:
     source: cognitive-rhythm-writing
 
+  documentation-writer:
+    source: awesome-copilot
+    skills: ["documentation-writer"]
+
+  writing-clearly-and-concisely:
+    source: obra-the-elements-of-style
+    skills: ["writing-clearly-and-concisely"]
+
 installs:
   - package: my-agent-skills
     target: global
@@ -73,4 +87,10 @@ installs:
     target: global
 
   - package: cognitive-rhythm-writing
+    target: global
+
+  - package: documentation-writer
+    target: global
+
+  - package: writing-clearly-and-concisely
     target: global
