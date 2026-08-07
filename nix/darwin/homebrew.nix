@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   homebrew = {
     enable = true;
 
@@ -8,7 +8,7 @@
       # Workaround for nix-darwin#1787: Homebrew (since brew@e0d818bbb) requires
       # an explicit confirmation flag for `brew bundle install --cleanup`.
       # Remove once nix-darwin#1789 lands.
-      extraFlags = [ "--force-cleanup" ];
+      extraFlags = ["--force-cleanup"];
     };
     brews = [
       "mas"
@@ -39,6 +39,7 @@
       "visual-studio-code"
       "typewhisper"
       "xykong/tap/flux-markdown"
+      "azooKey"
 
       # Apps we let self-update, installed as real writable bundles.
       #
