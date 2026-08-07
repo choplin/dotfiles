@@ -24,6 +24,7 @@ in {
     "ghostty".source = link "${configDir}/dot_config/ghostty";
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
+    "opencode/plugins/local-context.ts".source = link "${configDir}/dot_config/opencode/plugins/local-context.ts";
     # OpenCode global instructions use the agent-neutral shared rules.
     "opencode/AGENTS.md".source = link "${configDir}/dot_agents/AGENTS.md";
   };
@@ -38,6 +39,7 @@ in {
       # Replace Codex's empty placeholder file on first activation.
       force = true;
     };
+    ".codex/hooks.json".source = link "${configDir}/dot_codex/hooks.json";
     # ~/.claude/* -> config/dot_claude/* (individual files to allow Claude to add its own)
     ".claude/CLAUDE.md".source = link "${configDir}/dot_claude/CLAUDE.md";
     ".claude/settings.json".source = link "${configDir}/dot_claude/settings.json";

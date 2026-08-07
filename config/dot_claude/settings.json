@@ -42,7 +42,15 @@
   "hooks": {
     "SessionStart": [
       {
-        "hooks": []
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.nix-profile/bin/agent-local-context\" plain",
+            "timeout": 5,
+            "statusMessage": "Loading repository-local context"
+          }
+        ]
       }
     ]
   },

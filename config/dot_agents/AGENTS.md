@@ -13,17 +13,6 @@
 - Ask before proceeding only when ambiguity would materially change the result or make the action risky. Otherwise make a reasonable assumption and state it when relevant.
 - Treat user input as potentially dictated. Correct likely transcription errors from context, but confirm when multiple interpretations would lead to different outcomes.
 
-## Mandatory Repository-Local Context
-
-At the beginning of every session:
-
-- If the current working directory is inside a Git worktree, you MUST resolve the worktree root.
-- You MUST directly check whether `<git-worktree-root>/.agents/local-context.md` exists. Do not rely on search or file-listing results because the file may be ignored by Git.
-- If the file exists, you MUST read it in full before responding to the user or performing any other work.
-- When present, treat its contents as additional repository instructions and context, with the same expectation of compliance as the applicable `AGENTS.md`.
-- Loading this file is mandatory and MUST NOT be skipped based on perceived relevance.
-- Do not create or modify it unless the user explicitly asks.
-
 ## Engineering
 
 - Address root causes. Do not hide failures by disabling tests, linters, type checks, or error handling unless the user explicitly accepts that tradeoff.

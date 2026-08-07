@@ -11,6 +11,7 @@
   nixpkgs.config.allowUnfree = true;
 
   imports = [
+    ./agent-local-context.nix
     ./claude-sessions.nix
     ./darwin
     ./files.nix

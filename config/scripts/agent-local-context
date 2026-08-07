@@ -1,0 +1,50 @@
+format=${1:-plain}
+
+hook_input=$(cat)
+session_cwd=$(
+  printf '%s' "$hook_input" \
+    | jq -r 'if type == "object" and (.cwd | type == "string") then .cwd else empty end' \
+      2>/dev/null \
+    || true
+)
+
+if [[ -z "$session_cwd" ]]; then
+  session_cwd=$PWD
+fi
+
+if ! worktree_root=$(git -C "$session_cwd" rev-parse --show-toplevel 2>/dev/null); then
+  exit 0
+fi
+
+context_file="$worktree_root/.agents/local-context.md"
+if [[ ! -f "$context_file" ]]; then
+  exit 0
+fi
+
+context=$(<"$context_file")
+if [[ -z "$context" ]]; then
+  exit 0
+fi
+
+message=$(printf \
+  'Repository-local context loaded from %s:\n\n%s' \
+  "$context_file" \
+  "$context")
+
+case "$format" in
+  codex)
+    jq -n --arg context "$message" '{
+      hookSpecificOutput: {
+        hookEventName: "SessionStart",
+        additionalContext: $context
+      }
+    }'
+    ;;
+  plain)
+    printf '%s\n' "$message"
+    ;;
+  *)
+    printf 'Unsupported output format: %s\n' "$format" >&2
+    exit 2
+    ;;
+esac
