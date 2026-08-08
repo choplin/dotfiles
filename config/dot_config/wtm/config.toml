@@ -1,0 +1,9 @@
+[[hooks.post-add]]
+type = "link"
+paths = [".claude"]
+on_error = "warn"
+
+[[hooks.post-add]]
+type = "link"
+paths = [".agents"]
+on_error = "warn"

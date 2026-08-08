@@ -24,9 +24,14 @@ in {
     "ghostty".source = link "${configDir}/dot_config/ghostty";
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
+    "3d-print".source = link "${configDir}/dot_config/3d-print";
+    "k9s/aliases.yaml".source = link "${configDir}/dot_config/k9s/aliases.yaml";
+    "llm-wiki".source = link "${configDir}/dot_config/llm-wiki";
+    "opencode/opencode.json".source = link "${configDir}/dot_config/opencode/opencode.json";
     "opencode/plugins/local-context.ts".source = link "${configDir}/dot_config/opencode/plugins/local-context.ts";
     # OpenCode global instructions use the agent-neutral shared rules.
     "opencode/AGENTS.md".source = link "${configDir}/dot_agents/AGENTS.md";
+    "wtm".source = link "${configDir}/dot_config/wtm";
   };
 
   # ~/* -> config/dot_*

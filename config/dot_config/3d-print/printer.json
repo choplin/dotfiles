@@ -1,0 +1,7 @@
+{
+  "nozzle_diameter": 0.4,
+  "bed": { "x": 235, "y": 235, "z": 250 },
+  "layer_height": 0.2,
+  "fit_clearance": 0.2,
+  "material": "PLA"
+}
