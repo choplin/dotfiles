@@ -20,6 +20,7 @@
     ./linux
     ./llm-agents
     ./neovim.nix
+    ./pen-cli
     ./programs.nix
     ./zed.nix
   ];
