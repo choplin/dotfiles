@@ -29,12 +29,6 @@
     "codex-acp": {
       "type": "registry",
     },
-    "glm-acp-agent": {
-      "type": "registry",
-    },
-    "kimi": {
-      "type": "registry",
-    },
     "claude-acp": {
       "type": "custom",
       "command": "claude-agent-acp-direnv",
@@ -73,6 +67,7 @@
       "provider": "opencode",
       "model": "go/deepseek-v4-flash",
       "enable_thinking": false,
+      "effort": "low",
     },
     "play_sound_when_agent_done": "always",
     "dock": "left",
