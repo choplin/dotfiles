@@ -8,9 +8,12 @@
 
     services.gpg-agent = {
       enable = true;
-      defaultCacheTtl = 86400; # 24h
+      defaultCacheTtl = 604800; # 7 days
       maxCacheTtl = 604800; # 7 days
-      pinentry.package = pkgs.pinentry-curses;
+      # Stay in the terminal.  pinentry-curses draws a bordered box and aborts
+      # with "Screen or window too small" below roughly 10x50; pinentry-tty
+      # prompts on a plain line and has no size requirement.
+      pinentry.package = pkgs.pinentry-tty;
     };
 
     programs.password-store = {

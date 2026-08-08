@@ -5,3 +5,10 @@ fpath=(
     $HOME/.zsh/functions(N-/)
     $fpath
 )
+
+# gpg-agent hands this TTY to pinentry; without it the agent passes a stale
+# path and pinentry aborts with "No such file or directory".  $TTY is already
+# set here and is empty in non-interactive shells, so guard the export.
+if [[ -n $TTY ]]; then
+    export GPG_TTY=$TTY
+fi
