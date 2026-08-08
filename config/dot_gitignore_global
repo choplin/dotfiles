@@ -135,3 +135,5 @@ CONTINUITY.md
 **/.claude/.cc-writes/
 
 .cargo
+
+skills-lock.json
