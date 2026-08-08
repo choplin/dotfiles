@@ -7,7 +7,10 @@
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = import inputs.nixpkgs {
         inherit system;
-        overlays = [inputs.neovim-nightly-overlay.overlays.default];
+        overlays = [
+          inputs.neovim-nightly-overlay.overlays.default
+          inputs.yazi.overlays.default
+        ];
       };
       extraSpecialArgs = {
         inherit rootDir;
