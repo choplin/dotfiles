@@ -31,5 +31,12 @@
     "hide": "on_success",
     "use_new_terminal": false,
     "reveal": "never"
+  },
+  {
+    "label": "Record Agent Resume Commands",
+    "command": "zed-agent-sessions \"$ZED_WORKTREE_ROOT\" && zed \"$ZED_WORKTREE_ROOT/.zed/scratch.md\"",
+    "hide": "on_success",
+    "use_new_terminal": false,
+    "reveal": "never"
   }
 ]

@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+# Append exact resume commands for live agent CLI sessions to a Zed scratchpad.
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: zed-agent-sessions <worktree-root> [scratchpad]
+
+Records live Codex, Claude Code, and OpenCode sessions whose working directory
+is the worktree root or one of its descendants. The default scratchpad is
+<worktree-root>/.zed/scratch.md.
+EOF
+}
+
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+  usage >&2
+  exit 2
+fi
+
+root="$(cd "$1" && pwd -P)"
+scratchpad="${2:-$root/.zed/scratch.md}"
+: "${XDG_STATE_HOME:=$HOME/.local/state}"
+
+declare -a entries=()
+
+is_under_root() {
+  case "$1/" in
+    "$root/"*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+is_zed_terminal_process() {
+  local current="$1" tty command parent
+  tty="$(ps -p "$current" -o tty= 2>/dev/null | tr -d ' ' || true)"
+  case "$tty" in ''|'?'|'??') return 1 ;; esac
+
+  while [ "$current" -gt 1 ] 2>/dev/null; do
+    command="$(ps -p "$current" -o command= 2>/dev/null || true)"
+    case "$command" in
+      */Zed.app/Contents/MacOS/zed*) return 0 ;;
+    esac
+    parent="$(ps -p "$current" -o ppid= 2>/dev/null | tr -d ' ' || true)"
+    case "$parent" in ''|*[!0-9]*) return 1 ;; esac
+    current="$parent"
+  done
+
+  return 1
+}
+
+add_entry() {
+  local cli="$1" cwd="$2" id="$3" quoted_cwd quoted_id
+  [ -n "$id" ] || return 0
+  is_under_root "$cwd" || return 0
+  printf -v quoted_cwd '%q' "$cwd"
+  printf -v quoted_id '%q' "$id"
+  entries+=("$cli"$'\t'"$id"$'\t'"cd $quoted_cwd && $cli ${4:-} $quoted_id")
+}
+
+collect_codex() {
+  local pid cwd rollout id parent_thread_id
+  while IFS= read -r pid; do
+    [ -n "$pid" ] || continue
+    is_zed_terminal_process "$pid" || continue
+    cwd="$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -n 1 || true)"
+    if [ -z "$cwd" ] || ! is_under_root "$cwd"; then
+      continue
+    fi
+    while IFS= read -r rollout; do
+      [ -n "$rollout" ] || continue
+      parent_thread_id="$(head -n 1 "$rollout" 2>/dev/null | jq -r '.payload.parent_thread_id // empty' 2>/dev/null || true)"
+      [ -z "$parent_thread_id" ] || continue
+      id="$(printf '%s\n' "$rollout" | sed -E 's/.*-([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\.jsonl$/\1/')"
+      [ "$id" != "$rollout" ] || continue
+      add_entry codex "$cwd" "$id" resume
+    done < <(lsof -p "$pid" -Fn 2>/dev/null | sed -n 's/^n//p' | grep '/rollout-.*\.jsonl$' || true)
+  done < <(pgrep -f '(^|/)codex( |$)' 2>/dev/null || true)
+}
+
+collect_claude() {
+  local sessions_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/sessions"
+  local file pid cwd id command
+  [ -d "$sessions_dir" ] || return 0
+  for file in "$sessions_dir"/*.json; do
+    [ -e "$file" ] || continue
+    pid="$(basename "$file" .json)"
+    kill -0 "$pid" 2>/dev/null || continue
+    is_zed_terminal_process "$pid" || continue
+    command="$(ps -p "$pid" -o command= 2>/dev/null || true)"
+    case "$command" in *claude*) ;; *) continue ;; esac
+    cwd="$(jq -r '.cwd // empty' "$file" 2>/dev/null || true)"
+    id="$(jq -r '.sessionId // empty' "$file" 2>/dev/null || true)"
+    add_entry claude "$cwd" "$id" --resume
+  done
+}
+
+collect_opencode() {
+  local sessions_dir="$XDG_STATE_HOME/zed-agent-sessions/opencode"
+  local file pid cwd id command
+  [ -d "$sessions_dir" ] || return 0
+  for file in "$sessions_dir"/*.json; do
+    [ -e "$file" ] || continue
+    pid="$(jq -r '.pid // empty' "$file" 2>/dev/null || true)"
+    case "$pid" in ''|*[!0-9]*) continue ;; esac
+    kill -0 "$pid" 2>/dev/null || continue
+    is_zed_terminal_process "$pid" || continue
+    command="$(ps -p "$pid" -o command= 2>/dev/null || true)"
+    case "$command" in *opencode*) ;; *) continue ;; esac
+    cwd="$(jq -r '.cwd // empty' "$file" 2>/dev/null || true)"
+    id="$(jq -r '.sessionId // empty' "$file" 2>/dev/null || true)"
+    add_entry opencode "$cwd" "$id" --session
+  done
+}
+
+collect_codex
+collect_claude
+collect_opencode
+
+if [ "${#entries[@]}" -eq 0 ]; then
+  echo "zed-agent-sessions: no live agent sessions found under $root" >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname "$scratchpad")"
+touch "$scratchpad"
+
+{
+  printf '\n## Agent sessions — %s\n\n```sh\n' "$(date '+%Y-%m-%d %H:%M:%S')"
+  printf '%s\n' "${entries[@]}" | sort -u -t $'\t' -k1,1 -k2,2 | cut -f3-
+  printf '```\n'
+} >> "$scratchpad"
+
+printf 'zed-agent-sessions: recorded %d session(s) in %s\n' "${#entries[@]}" "$scratchpad" >&2

@@ -23,6 +23,7 @@
     ./pen-cli
     ./programs.nix
     ./zed.nix
+    ./zed-agent-sessions.nix
   ];
 
   programs.home-manager.enable = true;
