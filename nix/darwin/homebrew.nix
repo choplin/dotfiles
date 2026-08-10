@@ -40,6 +40,7 @@
       "typewhisper"
       "xykong/tap/flux-markdown"
       "azooKey"
+      "opendisplay"
 
       # Apps we let self-update, installed as real writable bundles.
       #
