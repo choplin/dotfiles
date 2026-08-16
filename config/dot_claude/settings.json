@@ -27,6 +27,7 @@
       "Bash(gradle:*)",
       "Edit(~/go/pkg/**)",
       "Edit(~/Library/Caches/go-build/**)",
+      "Edit(~/.local/share/octa/**)",
       "WebFetch(domain:bun.sh)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:api.github.com)",
