@@ -30,6 +30,7 @@
       "ctrl-j": null,
       "ctrl-k": null,
       "ctrl-l": null,
+      "ctrl-enter": null, // disable Inline Assistant in the terminal
     },
   },
 
