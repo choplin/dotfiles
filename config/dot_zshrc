@@ -18,6 +18,3 @@ bindkey -d
 eval "$(sheldon source)"
 
 #zprof > prof
-
-# moonbit
-export PATH="$HOME/.moon/bin:$PATH"
