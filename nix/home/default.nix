@@ -76,6 +76,7 @@
       jira-cli-go
       jq
       k9s
+      kaggle
       krew
       kubectl
       # kubernetes-helm  # FIXME: nixpkgs 4.2.0 build broken (checkPhase substitutes nonexistent cmd/helm/dependency_build_test.go); re-enable when fixed upstream

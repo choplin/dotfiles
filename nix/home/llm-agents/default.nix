@@ -1,7 +1,4 @@
-{
-  llm-agents,
-  ...
-}: {
+{llm-agents, ...}: {
   imports = [
     ./antigravity-cli.nix
     ./claude-code.nix
@@ -17,5 +14,6 @@
     herdr
     hunk
     opencode
+    tuicr
   ];
 }
