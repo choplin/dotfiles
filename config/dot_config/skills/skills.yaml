@@ -17,17 +17,8 @@ sources:
   explainer-studio:
     url: https://github.com/choplin/explainer-studio
 
-  japanese-tech-writing:
-    url: https://gist.github.com/fd287c3133457c4fd8f5601d34aa817d.git
-
-  cognitive-rhythm-writing:
-    url: https://gist.github.com/eb2929f13ed19c97188393d297be8432.git
-
   awesome-copilot:
     url: https://github.com/github/awesome-copilot
-
-  obra-the-elements-of-style:
-    url: https://github.com/obra/the-elements-of-style
 
 packages:
   my-agent-skills:
@@ -36,6 +27,8 @@ packages:
       - skills
     exclude:
       - 3d-print
+      - obsidian-capture
+      - obsidian-import-pdf
 
   vercel-skills:
     source: vercel-skills
@@ -53,19 +46,9 @@ packages:
     source: explainer-studio
     skills: ["*"]
 
-  japanese-tech-writing:
-    source: japanese-tech-writing
-
-  cognitive-rhythm-writing:
-    source: cognitive-rhythm-writing
-
   documentation-writer:
     source: awesome-copilot
     skills: ["documentation-writer"]
-
-  writing-clearly-and-concisely:
-    source: obra-the-elements-of-style
-    skills: ["writing-clearly-and-concisely"]
 
 installs:
   - package: my-agent-skills
@@ -83,14 +66,5 @@ installs:
   - package: explainer-studio
     target: global
 
-  - package: japanese-tech-writing
-    target: global
-
-  - package: cognitive-rhythm-writing
-    target: global
-
   - package: documentation-writer
-    target: global
-
-  - package: writing-clearly-and-concisely
     target: global
