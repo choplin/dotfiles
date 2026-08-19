@@ -45,16 +45,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Track Yazi's `main` (the nightly source). Overrides `pkgs.yazi` via its
-    # overlay so we get fixes not yet in the stable release. Needed for the
-    # WezTerm+WSL startup terminal-probe leak: reproduces on v26.5.6, gone on
-    # main HEAD (likely the async probing rework in sxyazi/yazi#4194). Drop
-    # this once nixpkgs ships a yazi release newer than v26.5.6 that fixes it.
-    yazi = {
-      url = "github:sxyazi/yazi";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     lfk = {
