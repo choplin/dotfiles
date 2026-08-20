@@ -8,9 +8,9 @@ gui:
   #   - default
   #   - bold
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --paging=never --config=~/.config/lazygit/delta.gitconfig
+      command: delta --dark --paging=never --config=~/.config/lazygit/delta.gitconfig
 promptToReturnFromSubprocess: false
 customCommands:
   - key: "D"
