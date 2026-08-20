@@ -2,6 +2,7 @@ path=(
     $HOME/.local/bin(N-/)
     $HOME/.git-scripts(N-/)
     $HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin(N-/)
+    $HOME/.cargo/bin(N-/)
     $path
 )
 
