@@ -73,6 +73,7 @@ in {
       persistent-workspaces = lib.mapAttrsToList (key: name: name) workspaces;
 
       mode.main.binding = {
+        "alt-enter" = "fullscreen --no-outer-gaps";
         "alt-period" = "layout tiles horizontal vertical";
         "alt-comma" = "layout accordion horizontal vertical";
 
