@@ -96,7 +96,8 @@
     },
     "excludedCommands": [
       "codex",
-      "codex-xhigh"
+      "codex-xhigh",
+      "wtm"
     ]
   },
   "alwaysThinkingEnabled": true,
