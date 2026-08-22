@@ -1,20 +1,18 @@
-font-family = "PlemolJP Console NF"
+font-family = "UDEV Gothic NF"
 font-size = 18
 
-theme = GitHub Dark High Contrast
-background-opacity = 1
+theme = Duskfox
+background-opacity = 0.97
 background-blur = 20
 window-padding-x = 10
 
 shell-integration = zsh
 auto-update = check
 
-keybind = super+d=new_split:right
-keybind = ctrl+shift+y>o=goto_split:next
-keybind = ctrl+shift+y>ctrl+shift+o=goto_split:next
-
-keybind = ctrl+shift+j=next_tab
-keybind = ctrl+shift+k=previous_tab
-
-keybind = global:cmd+grave_accent=toggle_quick_terminal
-
+# Forward Cmd+T to terminal applications such as Herdr.
+keybind = super+t=unbind
+# Forward Cmd+N to terminal applications such as Herdr.
+keybind = super+n=unbind
+keybind = super+shift+n=new_window
+# Forward Cmd+D to terminal applications such as Herdr.
+keybind = super+d=unbind

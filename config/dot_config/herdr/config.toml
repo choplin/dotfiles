@@ -1,0 +1,50 @@
+onboarding = false
+
+[keys]
+prefix = "ctrl+y"
+open_notification_target = "ctrl+shift+o"
+new_tab = "cmd+t"
+new_workspace = "cmd+n"
+next_workspace = "ctrl+shift+j"
+previous_workspace = "ctrl+shift+k"
+next_agent = "ctrl+shift+alt+j"
+previous_agent = "ctrl+shift+alt+k"
+previous_tab = "ctrl+shift+h"
+next_tab = "ctrl+shift+l"
+split_vertical = "cmd+d"
+cycle_pane_next = "prefix+o"
+cycle_pane_previous = "prefix+shift+o"
+
+[[keys.command]]
+key = "cmd+l"
+type = "pane"
+command = "lazygit"
+description = "Open lazygit"
+
+[[keys.command]]
+key = "cmd+y"
+type = "pane"
+command = "yazi"
+description = "Open yazi"
+
+[ui.toast]
+delivery = "herdr"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+prompt_new_tab_name = false
+agent_panel_sort = "spaces"
+sidebar_max_width = 60
+
+status_indicators = "symbols"
+[ui.sidebar.spaces]
+rows = [["state_icon", "$repo"], ["branch", "git_status"]]
+
+[ui.sidebar.agents]
+rows = [["state_icon", "$repo", "tab"], ["agent", "$updated"]]
+
+[advanced]
+scrollback_limit_bytes = 25000000
+
+[experimental]
+switch_ascii_input_source_in_prefix = true

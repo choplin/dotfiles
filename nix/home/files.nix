@@ -22,6 +22,10 @@ in {
     "zed".source = link "${configDir}/dot_config/zed";
     "glow".source = link "${configDir}/dot_config/glow";
     "ghostty".source = link "${configDir}/dot_config/ghostty";
+    "herdr/config.toml" = {
+      source = link "${configDir}/dot_config/herdr/config.toml";
+      force = true;
+    };
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
     "3d-print".source = link "${configDir}/dot_config/3d-print";
