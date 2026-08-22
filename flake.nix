@@ -47,11 +47,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    lfk = {
-      url = "github:janosmiko/lfk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";

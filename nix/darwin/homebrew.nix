@@ -16,6 +16,7 @@
       "socsieng/tap/sendkeys"
       "choplin/tap/wtm"
       "deck"
+      "janosmiko/tap/lfk"
       "k1LoW/tap/mo"
       "exercism"
       # The Nix-packaged ttyd fails to load libwebsockets' evlib_uv plugin, and the

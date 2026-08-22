@@ -15,7 +15,6 @@
       extraSpecialArgs = {
         inherit rootDir;
         inherit (machine) username homeDirectory;
-        lfk = inputs.lfk.packages.${system}.default;
         # Prebuilt AI-agent CLIs (claude-code, codex, cursor-agent) from
         # numtide/llm-agents.nix, served via cache.numtide.com.
         llm-agents = inputs.llm-agents.packages.${system};

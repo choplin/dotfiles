@@ -4,7 +4,6 @@
   username,
   homeDirectory,
   rootDir,
-  lfk,
   skillValidator,
   ...
 }: {
@@ -114,9 +113,6 @@
       zellij
       zk
       zoxide
-    ]) ++ [
-      lfk
-      skillValidator
-    ];
+    ]) ++ [skillValidator];
   };
 }
