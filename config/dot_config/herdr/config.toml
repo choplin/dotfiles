@@ -12,8 +12,8 @@ previous_agent = "ctrl+shift+,"
 previous_tab = "ctrl+shift+h"
 next_tab = "ctrl+shift+l"
 split_vertical = "cmd+d"
-cycle_pane_next = "prefix+o"
-cycle_pane_previous = "prefix+shift+o"
+cycle_pane_next = ["prefix+o", "prefix+ctrl+o"]
+cycle_pane_previous = ["prefix+shift+o", "prefix+ctrl+shift+o"]
 
 [[keys.command]]
 key = "cmd+l"
