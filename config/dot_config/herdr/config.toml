@@ -47,5 +47,8 @@ rows = [["state_icon", "$repo", "tab"], ["agent", "$updated"]]
 [advanced]
 scrollback_limit_bytes = 25000000
 
+[session]
+resume_agents_on_restore = true
+
 [experimental]
 switch_ascii_input_source_in_prefix = true
