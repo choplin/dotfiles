@@ -35,6 +35,7 @@ show_agent_labels_on_pane_borders = true
 prompt_new_tab_name = false
 agent_panel_sort = "spaces"
 sidebar_max_width = 60
+tab_bar_right = [{ type = "zoom" }]
 
 status_indicators = "symbols"
 [ui.sidebar.spaces]
