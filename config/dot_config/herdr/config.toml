@@ -11,33 +11,38 @@ next_agent = "ctrl+shift+m"
 previous_agent = "ctrl+shift+,"
 previous_tab = "ctrl+shift+h"
 next_tab = "ctrl+shift+l"
-split_vertical = "cmd+d"
 cycle_pane_next = ["prefix+o", "prefix+ctrl+o"]
 cycle_pane_previous = ["prefix+shift+o", "prefix+ctrl+shift+o"]
 
 [[keys.command]]
 key = "cmd+l"
 type = "pane"
-command = "lazygit"
+command = '''"${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" pane lazygit'''
 description = "Open lazygit"
 
 [[keys.command]]
 key = "cmd+y"
 type = "pane"
-command = "yazi"
+command = '''"${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" pane yazi'''
 description = "Open yazi"
 
 [[keys.command]]
 key = "cmd+shift+l"
 type = "shell"
-command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/open-in-split" lazygit right'''
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" split right lazygit'''
 description = "Open lazygit in split"
 
 [[keys.command]]
 key = "cmd+shift+y"
 type = "shell"
-command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/open-in-split" yazi right'''
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" split right yazi'''
 description = "Open yazi in split"
+
+[[keys.command]]
+key = "cmd+d"
+type = "shell"
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" split right'''
+description = "Split pane at active pane cwd"
 
 [[keys.command]]
 key = "ctrl+shift+p"
@@ -55,17 +60,7 @@ description = "Copy visible item"
 key = "cmd+shift+t"
 type = "shell"
 description = "Open tab at reported pane cwd"
-command = '''
-cwd="$("$HERDR_BIN_PATH" pane get "$HERDR_ACTIVE_PANE_ID" |
-  jq -r '.result.pane.cwd // empty')"
-
-if [ -n "$cwd" ] && [ -d "$cwd" ]; then
-  exec "$HERDR_BIN_PATH" tab create \
-    --workspace "$HERDR_ACTIVE_WORKSPACE_ID" \
-    --cwd "$cwd" \
-    --focus
-fi
-'''
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/herdr-open" tab'''
 
 [ui.toast]
 delivery = "herdr"

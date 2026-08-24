@@ -1,0 +1,110 @@
+#!/bin/sh
+
+set -eu
+
+usage() {
+  cat >&2 <<'EOF'
+usage:
+  herdr-open pane <command> [args...]
+  herdr-open tab [command [args...]]
+  herdr-open split <right|down> [command [args...]]
+EOF
+  exit 2
+}
+
+[ "$#" -ge 1 ] || usage
+
+placement=$1
+shift
+
+herdr_bin=${HERDR_BIN_PATH:-herdr}
+target_pane_id=${HERDR_ACTIVE_PANE_ID:-${HERDR_PANE_ID:-}}
+workspace_id=${HERDR_ACTIVE_WORKSPACE_ID:-${HERDR_WORKSPACE_ID:-}}
+
+if [ -z "$target_pane_id" ]; then
+  echo "herdr-open: no active Herdr pane" >&2
+  exit 1
+fi
+
+direction=
+case "$placement" in
+  pane)
+    [ "$#" -ge 1 ] || usage
+    ;;
+  tab) ;;
+  split)
+    [ "$#" -ge 1 ] || usage
+    direction=$1
+    shift
+    case "$direction" in
+      right | down) ;;
+      *) usage ;;
+    esac
+    ;;
+  *) usage ;;
+esac
+
+cwd=
+if pane_json=$("$herdr_bin" pane get "$target_pane_id" 2>/dev/null); then
+  cwd=$(printf '%s\n' "$pane_json" | jq -r '.result.pane.cwd // empty')
+fi
+
+if [ -z "$cwd" ]; then
+  cwd=${HERDR_ACTIVE_PANE_CWD:-}
+fi
+
+if [ ! -d "$cwd" ]; then
+  cwd=
+fi
+
+if [ "$placement" = pane ]; then
+  if [ -n "$cwd" ]; then
+    cd "$cwd"
+  fi
+  exec "$@"
+fi
+
+create_target() {
+  case "$placement" in
+    tab)
+      if [ -n "$cwd" ] && [ -n "$workspace_id" ]; then
+        "$herdr_bin" tab create --workspace "$workspace_id" --cwd "$cwd" --focus
+      elif [ -n "$cwd" ]; then
+        "$herdr_bin" tab create --cwd "$cwd" --focus
+      elif [ -n "$workspace_id" ]; then
+        "$herdr_bin" tab create --workspace "$workspace_id" --focus
+      else
+        "$herdr_bin" tab create --focus
+      fi
+      ;;
+    split)
+      if [ -n "$cwd" ]; then
+        "$herdr_bin" pane split --pane "$target_pane_id" --direction "$direction" --cwd "$cwd" --focus
+      else
+        "$herdr_bin" pane split --pane "$target_pane_id" --direction "$direction" --focus
+      fi
+      ;;
+  esac
+}
+
+if [ "$#" -eq 0 ]; then
+  create_target
+  exit
+fi
+
+create_result=$(create_target)
+case "$placement" in
+  tab)
+    created_pane_id=$(printf '%s\n' "$create_result" | jq -r '.result.root_pane.pane_id // empty')
+    ;;
+  split)
+    created_pane_id=$(printf '%s\n' "$create_result" | jq -r '.result.pane.pane_id // empty')
+    ;;
+esac
+
+if [ -z "$created_pane_id" ]; then
+  echo "herdr-open: Herdr did not report the created pane" >&2
+  exit 1
+fi
+
+exec "$herdr_bin" pane run "$created_pane_id" "$@"
