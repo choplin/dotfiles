@@ -39,6 +39,18 @@ type = "shell"
 command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/open-in-split" yazi right'''
 description = "Open yazi in split"
 
+[[keys.command]]
+key = "ctrl+shift+p"
+type = "plugin_action"
+command = "choplin.quickselect.open-url"
+description = "Open visible URL"
+
+[[keys.command]]
+key = "ctrl+shift+x"
+type = "plugin_action"
+command = "choplin.quickselect.copy"
+description = "Copy visible item"
+
 [ui.toast]
 delivery = "herdr"
 
