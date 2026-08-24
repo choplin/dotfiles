@@ -78,11 +78,28 @@ sidebar_max_width = 60
 tab_bar_right = [{ type = "zoom" }]
 
 status_indicators = "symbols"
+
 [ui.sidebar.spaces]
 rows = [["state_icon", "$repo"], ["branch", "git_status"]]
 
 [ui.sidebar.agents]
-rows = [["state_icon", "$repo", "tab"], ["agent", "$updated"]]
+rows = [["state_icon", "$repo", "tab"], ["workspace", "$updated"]]
+
+[ui.sidebar.agents.rows_by_agent]
+claude = [
+  [
+    "state_icon",
+    "agent",
+    "state_text",
+  ],
+  [
+    "terminal_title_stripped",
+  ],
+  [
+    "workspace",
+    "tab",
+  ],
+]
 
 [advanced]
 scrollback_limit_bytes = 25000000
