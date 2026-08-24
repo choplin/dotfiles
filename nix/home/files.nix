@@ -22,12 +22,9 @@ in {
     "zed".source = link "${configDir}/dot_config/zed";
     "glow".source = link "${configDir}/dot_config/glow";
     "ghostty".source = link "${configDir}/dot_config/ghostty";
-    "herdr/config.toml" = {
-      source = link "${configDir}/dot_config/herdr/config.toml";
+    "herdr" = {
+      source = link "${configDir}/dot_config/herdr";
       force = true;
-    };
-    "herdr/scripts/open-in-split" = {
-      source = link "${configDir}/dot_config/herdr/scripts/open-in-split";
     };
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
