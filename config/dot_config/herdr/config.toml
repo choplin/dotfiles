@@ -51,6 +51,22 @@ type = "plugin_action"
 command = "choplin.quickselect.copy"
 description = "Copy visible item"
 
+[[keys.command]]
+key = "cmd+shift+t"
+type = "shell"
+description = "Open tab at reported pane cwd"
+command = '''
+cwd="$("$HERDR_BIN_PATH" pane get "$HERDR_ACTIVE_PANE_ID" |
+  jq -r '.result.pane.cwd // empty')"
+
+if [ -n "$cwd" ] && [ -d "$cwd" ]; then
+  exec "$HERDR_BIN_PATH" tab create \
+    --workspace "$HERDR_ACTIVE_WORKSPACE_ID" \
+    --cwd "$cwd" \
+    --focus
+fi
+'''
+
 [ui.toast]
 delivery = "herdr"
 

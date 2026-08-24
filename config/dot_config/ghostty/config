@@ -11,6 +11,8 @@ auto-update = check
 
 # Forward Cmd+T to terminal applications such as Herdr.
 keybind = super+t=unbind
+# Forward Cmd+Shift+T to terminal applications such as Herdr.
+keybind = super+shift+t=unbind
 # Forward Cmd+N to terminal applications such as Herdr.
 keybind = super+n=unbind
 keybind = super+shift+n=new_window
