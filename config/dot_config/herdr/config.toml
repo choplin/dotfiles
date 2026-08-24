@@ -27,6 +27,18 @@ type = "pane"
 command = "yazi"
 description = "Open yazi"
 
+[[keys.command]]
+key = "cmd+shift+l"
+type = "shell"
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/open-in-split" lazygit right'''
+description = "Open lazygit in split"
+
+[[keys.command]]
+key = "cmd+shift+y"
+type = "shell"
+command = '''exec "${XDG_CONFIG_HOME:-$HOME/.config}/herdr/scripts/open-in-split" yazi right'''
+description = "Open yazi in split"
+
 [ui.toast]
 delivery = "herdr"
 

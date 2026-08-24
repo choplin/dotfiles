@@ -26,6 +26,9 @@ in {
       source = link "${configDir}/dot_config/herdr/config.toml";
       force = true;
     };
+    "herdr/scripts/open-in-split" = {
+      source = link "${configDir}/dot_config/herdr/scripts/open-in-split";
+    };
     "gh".source = link "${configDir}/dot_config/gh";
     "delta".source = link "${configDir}/dot_config/delta";
     "3d-print".source = link "${configDir}/dot_config/3d-print";
