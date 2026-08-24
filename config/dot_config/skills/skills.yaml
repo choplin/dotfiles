@@ -20,6 +20,9 @@ sources:
   awesome-copilot:
     url: https://github.com/github/awesome-copilot
 
+  herdr:
+    url: https://github.com/herdrdev/herdr
+
 packages:
   my-agent-skills:
     source: my-agent-skills
@@ -50,6 +53,10 @@ packages:
     source: awesome-copilot
     skills: ["documentation-writer"]
 
+  herdr:
+    source: herdr
+    skills: ["herdr"]
+
 installs:
   - package: my-agent-skills
     target: global
@@ -67,4 +74,7 @@ installs:
     target: global
 
   - package: documentation-writer
+    target: global
+
+  - package: herdr
     target: global
