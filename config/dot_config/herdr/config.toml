@@ -57,6 +57,18 @@ command = "choplin.quickselect.copy"
 description = "Copy visible item"
 
 [[keys.command]]
+key = "ctrl+shift+u"
+type = "plugin_action"
+command = "choplin.next-agent.next"
+description = "Focus next matching Agent"
+
+[[keys.command]]
+key = "ctrl+shift+i"
+type = "plugin_action"
+command = "choplin.next-agent.previous"
+description = "Focus previous matching Agent"
+
+[[keys.command]]
 key = "cmd+shift+t"
 type = "shell"
 description = "Open tab at reported pane cwd"
