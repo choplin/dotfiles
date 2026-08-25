@@ -27,7 +27,7 @@ fi | delta --width="${w:-80}" --paging=never \
 
 local function is_git_files(job)
 	local url = job.file.url
-	return url.is_search and url.domain == GIT_FILES_DOMAIN
+	return url.spec.is_search and url.domain == GIT_FILES_DOMAIN
 end
 
 local function fail(job, s)
