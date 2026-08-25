@@ -2,6 +2,46 @@
 
 set -eu
 
+herdr_bin=${HERDR_BIN_PATH:-herdr}
+target_pane_id=${HERDR_ACTIVE_PANE_ID:-${HERDR_PANE_ID:-}}
+workspace_id=${HERDR_ACTIVE_WORKSPACE_ID:-${HERDR_WORKSPACE_ID:-}}
+
+main() (
+  [ "$#" -ge 1 ] || usage
+
+  placement=$1
+  shift
+
+  if [ -z "$target_pane_id" ]; then
+    echo "herdr-open: no active Herdr pane" >&2
+    exit 1
+  fi
+
+  cwd=$(resolve_cwd)
+
+  case "$placement" in
+    pane)
+      [ "$#" -ge 1 ] || usage
+      run_in_pane "$cwd" "$@"
+      ;;
+    tab)
+      open_tab "$cwd" "$@"
+      ;;
+    split)
+      [ "$#" -ge 1 ] || usage
+      direction=$1
+      shift
+      validate_direction "$direction"
+      if [ "$#" -eq 0 ]; then
+        open_empty_split "$direction" "$cwd"
+      else
+        open_command_split "$direction" "$cwd" "$@"
+      fi
+      ;;
+    *) usage ;;
+  esac
+)
+
 usage() {
   cat >&2 <<'EOF'
 usage:
@@ -12,99 +52,103 @@ EOF
   exit 2
 }
 
-[ "$#" -ge 1 ] || usage
-
-placement=$1
-shift
-
-herdr_bin=${HERDR_BIN_PATH:-herdr}
-target_pane_id=${HERDR_ACTIVE_PANE_ID:-${HERDR_PANE_ID:-}}
-workspace_id=${HERDR_ACTIVE_WORKSPACE_ID:-${HERDR_WORKSPACE_ID:-}}
-
-if [ -z "$target_pane_id" ]; then
-  echo "herdr-open: no active Herdr pane" >&2
-  exit 1
-fi
-
-direction=
-case "$placement" in
-  pane)
-    [ "$#" -ge 1 ] || usage
-    ;;
-  tab) ;;
-  split)
-    [ "$#" -ge 1 ] || usage
-    direction=$1
-    shift
-    case "$direction" in
-      right | down) ;;
-      *) usage ;;
-    esac
-    ;;
-  *) usage ;;
-esac
-
-cwd=
-if pane_json=$("$herdr_bin" pane get "$target_pane_id" 2>/dev/null); then
-  cwd=$(printf '%s\n' "$pane_json" | jq -r '.result.pane.cwd // empty')
-fi
-
-if [ -z "$cwd" ]; then
+resolve_cwd() (
   cwd=${HERDR_ACTIVE_PANE_CWD:-}
-fi
 
-if [ ! -d "$cwd" ]; then
-  cwd=
-fi
+  if pane_json=$("$herdr_bin" pane get "$target_pane_id" 2>/dev/null); then
+    reported_cwd=$(printf '%s\n' "$pane_json" | jq -r '.result.pane.cwd // empty')
+    if [ -n "$reported_cwd" ]; then
+      cwd=$reported_cwd
+    fi
+  fi
 
-if [ "$placement" = pane ]; then
+  if [ ! -d "$cwd" ]; then
+    cwd=
+  fi
+
+  printf '%s\n' "$cwd"
+)
+
+run_in_pane() (
+  cwd=$1
+  shift
+
   if [ -n "$cwd" ]; then
     cd "$cwd"
   fi
   exec "$@"
-fi
+)
 
-create_target() {
-  case "$placement" in
-    tab)
-      if [ -n "$cwd" ] && [ -n "$workspace_id" ]; then
-        "$herdr_bin" tab create --workspace "$workspace_id" --cwd "$cwd" --focus
-      elif [ -n "$cwd" ]; then
-        "$herdr_bin" tab create --cwd "$cwd" --focus
-      elif [ -n "$workspace_id" ]; then
-        "$herdr_bin" tab create --workspace "$workspace_id" --focus
-      else
-        "$herdr_bin" tab create --focus
-      fi
-      ;;
-    split)
-      if [ -n "$cwd" ]; then
-        "$herdr_bin" pane split --pane "$target_pane_id" --direction "$direction" --cwd "$cwd" --focus
-      else
-        "$herdr_bin" pane split --pane "$target_pane_id" --direction "$direction" --focus
-      fi
-      ;;
+create_tab() (
+  cwd=$1
+
+  set -- tab create
+  if [ -n "$workspace_id" ]; then
+    set -- "$@" --workspace "$workspace_id"
+  fi
+  if [ -n "$cwd" ]; then
+    set -- "$@" --cwd "$cwd"
+  fi
+  "$herdr_bin" "$@" --focus
+)
+
+open_tab() (
+  cwd=$1
+  shift
+
+  if [ "$#" -eq 0 ]; then
+    create_tab "$cwd"
+    return
+  fi
+
+  create_result=$(create_tab "$cwd")
+  created_pane_id=$(printf '%s\n' "$create_result" | jq -r '.result.root_pane.pane_id // empty')
+  if [ -z "$created_pane_id" ]; then
+    echo "herdr-open: Herdr did not report the created pane" >&2
+    exit 1
+  fi
+
+  exec "$herdr_bin" pane run "$created_pane_id" "$@"
+)
+
+open_empty_split() (
+  split_direction=$1
+  cwd=$2
+
+  set -- pane split \
+    --pane "$target_pane_id" \
+    --direction "$split_direction"
+  if [ -n "$cwd" ]; then
+    set -- "$@" --cwd "$cwd"
+  fi
+  "$herdr_bin" "$@" --focus
+)
+
+open_command_split() (
+  split_direction=$1
+  cwd=$2
+  shift 2
+
+  split_command=$(jq -nr --args '$ARGS.positional | map(@sh) | join(" ")' -- "$@")
+
+  set -- plugin pane open \
+    --plugin choplin.split-pane \
+    --entrypoint command \
+    --placement split \
+    --target-pane "$target_pane_id" \
+    --direction "$split_direction"
+  if [ -n "$cwd" ]; then
+    set -- "$@" --cwd "$cwd"
+  fi
+  set -- "$@" --env "HERDR_SPLIT_COMMAND=$split_command" --focus
+  exec "$herdr_bin" "$@"
+)
+
+validate_direction() {
+  case "$1" in
+    right | down) ;;
+    *) usage ;;
   esac
 }
 
-if [ "$#" -eq 0 ]; then
-  create_target
-  exit
-fi
-
-create_result=$(create_target)
-case "$placement" in
-  tab)
-    created_pane_id=$(printf '%s\n' "$create_result" | jq -r '.result.root_pane.pane_id // empty')
-    ;;
-  split)
-    created_pane_id=$(printf '%s\n' "$create_result" | jq -r '.result.pane.pane_id // empty')
-    ;;
-esac
-
-if [ -z "$created_pane_id" ]; then
-  echo "herdr-open: Herdr did not report the created pane" >&2
-  exit 1
-fi
-
-exec "$herdr_bin" pane run "$created_pane_id" "$@"
+main "$@"
