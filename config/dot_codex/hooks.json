@@ -3,14 +3,23 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "startup|resume|clear|compact",
         "hooks": [
           {
-            "type": "command",
+            "additionalContextLimit": 10000,
             "command": "\"$HOME/.nix-profile/bin/agent-local-context\" codex",
             "statusMessage": "Loading repository-local context",
             "timeout": 5,
-            "additionalContextLimit": 10000
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume|clear|compact"
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash \"$HOME/.codex/herdr-agent-state.sh\" session",
+            "timeout": 10,
+            "type": "command"
           }
         ]
       }
