@@ -665,3 +665,65 @@ installs:
         ("first", "one"),
         ("second", "two"),
     }
+
+
+def test_reset_removes_deleted_skill_from_all_shared_agents(tmp_path: Path) -> None:
+    shared, local, state, repository, _ = base_files(tmp_path)
+    state.parent.mkdir()
+    state.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "installations": [
+                    {
+                        "scope": "global",
+                        "project": None,
+                        "agent": agent,
+                        "skill": "deleted-skill",
+                        "source": "/old/source",
+                        "origin": "personal:skills/group",
+                        "package": "personal",
+                    }
+                    for agent in ("claude-code", "codex", "opencode")
+                ],
+            }
+        )
+    )
+    runner = FakeRunner()
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "install",
+            "--reset",
+            "--global",
+            "--package",
+            "personal",
+        ),
+        runner,
+    )
+
+    assert result == 0
+    assert runner.calls[0] == (
+        [
+            "skills",
+            "remove",
+            "deleted-skill",
+            "--agent",
+            "claude-code",
+            "codex",
+            "opencode",
+            "--global",
+            "--yes",
+        ],
+        None,
+    )
+    assert runner.calls[1][0][0:3] == [
+        "skills",
+        "add",
+        str(repository / "skills/group"),
+    ]
+    manifest = json.loads(state.read_text())
+    assert {entry["skill"] for entry in manifest["installations"]} == {"one", "two"}

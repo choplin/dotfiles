@@ -755,23 +755,31 @@ def uninstall_entries(
     dry_run: bool,
 ) -> list[ManifestEntry]:
     """Remove manifest-owned skills, retaining records for failed operations."""
-    groups: dict[tuple[Scope, str | None, str], list[ManifestEntry]] = defaultdict(list)
+    destination_skills: dict[tuple[Scope, str | None, str], list[ManifestEntry]] = defaultdict(list)
     for entry in selected_entries:
-        groups[(entry.scope, entry.project, entry.agent)].append(entry)
+        destination_skills[(entry.scope, entry.project, entry.skill)].append(entry)
+
+    groups: dict[tuple[Scope, str | None, tuple[str, ...]], list[ManifestEntry]] = defaultdict(list)
+    for (scope, project, _skill), skill_entries in destination_skills.items():
+        agents = tuple(sorted({entry.agent for entry in skill_entries}))
+        groups[(scope, project, agents)].extend(skill_entries)
 
     current = list(all_entries)
-    for (scope, project, agent), group in sorted(groups.items()):
+    for (scope, project, agents), group in sorted(groups.items()):
         if project is not None and not Path(project).is_dir():
             raise ManagedSkillsError(f"cannot uninstall from missing project directory: {project}")
         skills = sorted({entry.skill for entry in group})
-        command = ["skills", "remove", *skills, "--agent", agent]
+        command = ["skills", "remove", *skills, "--agent", *agents]
         if scope == "global":
             command.append("--global")
         command.append("--yes")
         marker = "PREVIEW" if dry_run else "REMOVE"
         action = "remove · " if dry_run else ""
         destination = scope_label(scope, project)
-        report(f"{marker:<8} {action}{destination} · {counted(len(group), 'skill')} → {agent}")
+        report(
+            f"{marker:<8} {action}{destination} · "
+            f"{counted(len(skills), 'skill')} → {', '.join(agents)}"
+        )
         if dry_run:
             continue
         runner.run(command, cwd=project)
