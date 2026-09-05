@@ -108,7 +108,8 @@
     "excludedCommands": [
       "codex",
       "codex-xhigh",
-      "wtm"
+      "wtm",
+      "zk"
     ]
   },
   "alwaysThinkingEnabled": true,
