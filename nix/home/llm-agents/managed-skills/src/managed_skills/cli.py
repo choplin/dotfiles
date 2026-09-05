@@ -531,6 +531,81 @@ def load_manifest(path: Path) -> list[ManifestEntry]:
     return entries
 
 
+def upstream_lock_path(scope: Scope, project: str | None) -> Path:
+    """Return the lock file used by the upstream skills CLI."""
+    if scope == "project":
+        assert project is not None
+        return Path(project) / "skills-lock.json"
+    state_home = os.environ.get("XDG_STATE_HOME")
+    if state_home:
+        return Path(state_home) / "skills/.skill-lock.json"
+    return Path.home() / ".agents/.skill-lock.json"
+
+
+def load_upstream_lock(path: Path) -> dict[str, str]:
+    """Return upstream-locked skill names and their normalized source URLs."""
+    if not path.exists():
+        return {}
+    try:
+        document = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+    raw_skills = document.get("skills") if isinstance(document, dict) else None
+    if not isinstance(raw_skills, dict):
+        return {}
+    locked: dict[str, str] = {}
+    for skill, raw_entry in raw_skills.items():
+        if not isinstance(skill, str) or not isinstance(raw_entry, dict):
+            continue
+        source = raw_entry.get("sourceUrl")
+        if isinstance(source, str):
+            locked[skill] = source.rstrip("/").removesuffix(".git")
+    return locked
+
+
+def recover_orphaned_reset_entries(
+    configured_units: Sequence[InstallUnit],
+    materialized_units: Sequence[InstallUnit],
+    entries: Sequence[ManifestEntry],
+) -> list[ManifestEntry]:
+    """Recover reset ownership lost when an earlier removal left canonical files behind."""
+    recovered: set[ManifestEntry] = set()
+    existing_keys = {
+        (entry.scope, entry.project, entry.agent, entry.skill) for entry in entries
+    }
+    lock_cache: dict[Path, dict[str, str]] = {}
+    for configured, materialized in zip(configured_units, materialized_units, strict=True):
+        if configured.local_source or configured.skills is not None:
+            continue
+        lock_path = upstream_lock_path(configured.scope, configured.project)
+        locked = lock_cache.setdefault(lock_path, load_upstream_lock(lock_path))
+        source = configured.source.rstrip("/").removesuffix(".git")
+        desired = set(materialized.skills or ())
+        excluded = set(configured.excluded_skills)
+        orphaned = {
+            skill
+            for skill, locked_source in locked.items()
+            if locked_source == source and skill not in desired and skill not in excluded
+        }
+        for skill in orphaned:
+            for agent in configured.agents:
+                key = (configured.scope, configured.project, agent, skill)
+                if key in existing_keys:
+                    continue
+                recovered.add(
+                    ManifestEntry(
+                        scope=configured.scope,
+                        project=configured.project,
+                        agent=agent,
+                        skill=skill,
+                        source=configured.source,
+                        origin=configured.origin,
+                        package=configured.package,
+                    )
+                )
+    return sorted(recovered, key=manifest_sort_key)
+
+
 def write_manifest(path: Path, entries: Sequence[ManifestEntry]) -> None:
     """Atomically write the ownership manifest."""
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -755,13 +830,24 @@ def uninstall_entries(
     dry_run: bool,
 ) -> list[ManifestEntry]:
     """Remove manifest-owned skills, retaining records for failed operations."""
+    selected_set = set(selected_entries)
+    retained_destination_skills = {
+        (entry.scope, entry.project, entry.skill)
+        for entry in all_entries
+        if entry not in selected_set
+    }
     destination_skills: dict[tuple[Scope, str | None, str], list[ManifestEntry]] = defaultdict(list)
     for entry in selected_entries:
         destination_skills[(entry.scope, entry.project, entry.skill)].append(entry)
 
     groups: dict[tuple[Scope, str | None, tuple[str, ...]], list[ManifestEntry]] = defaultdict(list)
-    for (scope, project, _skill), skill_entries in destination_skills.items():
-        agents = tuple(sorted({entry.agent for entry in skill_entries}))
+    for destination_skill, skill_entries in destination_skills.items():
+        scope, project, _skill = destination_skill
+        agents = (
+            tuple(sorted({entry.agent for entry in skill_entries}))
+            if destination_skill in retained_destination_skills
+            else ()
+        )
         groups[(scope, project, agents)].extend(skill_entries)
 
     current = list(all_entries)
@@ -769,16 +855,19 @@ def uninstall_entries(
         if project is not None and not Path(project).is_dir():
             raise ManagedSkillsError(f"cannot uninstall from missing project directory: {project}")
         skills = sorted({entry.skill for entry in group})
-        command = ["skills", "remove", *skills, "--agent", *agents]
+        command = ["skills", "remove", *skills]
+        if agents:
+            command.extend(["--agent", *agents])
         if scope == "global":
             command.append("--global")
         command.append("--yes")
         marker = "PREVIEW" if dry_run else "REMOVE"
         action = "remove · " if dry_run else ""
         destination = scope_label(scope, project)
+        agent_label = ", ".join(agents) if agents else "all agents"
         report(
             f"{marker:<8} {action}{destination} · "
-            f"{counted(len(skills), 'skill')} → {', '.join(agents)}"
+            f"{counted(len(skills), 'skill')} → {agent_label}"
         )
         if dry_run:
             continue
@@ -826,7 +915,7 @@ def handle_install(
         for unit in all_units
         if scope_selected(unit.scope, scope)
     ]
-    units = filter_units(scoped_units, packages)
+    configured_units = filter_units(scoped_units, packages)
     entries = attach_manifest_packages(load_manifest(manifest_path), all_units)
     scoped_entries = [entry for entry in entries if scope_selected(entry.scope, scope)]
     reset_entries = filter_entries(
@@ -842,9 +931,13 @@ def handle_install(
         raise ManagedSkillsError(
             f"refusing to reset tracked local targets without local config: {local_path}"
         )
-    if units:
-        report(f"RESOLVE  inspecting {counted(len(units), 'installation')}")
-    units = materialize_units(units, runner, verify_explicit=args.reset)
+    if configured_units:
+        report(f"RESOLVE  inspecting {counted(len(configured_units), 'installation')}")
+    units = materialize_units(configured_units, runner, verify_explicit=args.reset)
+    if args.reset:
+        reset_entries.extend(
+            recover_orphaned_reset_entries(configured_units, units, entries)
+        )
     validate_ownership(units, retained_entries if args.reset else entries)
 
     if args.reset:

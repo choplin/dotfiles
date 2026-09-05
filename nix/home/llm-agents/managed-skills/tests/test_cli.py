@@ -327,12 +327,12 @@ def test_uninstall_uses_manifest_without_loading_config(
 
     assert result == 0
     assert runner.calls == [
-        (["skills", "remove", "owned-skill", "--agent", "codex", "--global", "--yes"], None)
+        (["skills", "remove", "owned-skill", "--global", "--yes"], None)
     ]
     assert json.loads(state.read_text())["installations"] == []
     captured = capsys.readouterr()
     assert captured.out == ""
-    assert "REMOVE   global · 1 skill → codex" in captured.err
+    assert "REMOVE   global · 1 skill → all agents" in captured.err
     assert "skills remove" not in captured.err
     assert "DONE     removed 1 agent-skill entry" in captured.err
 
@@ -711,10 +711,6 @@ def test_reset_removes_deleted_skill_from_all_shared_agents(tmp_path: Path) -> N
             "skills",
             "remove",
             "deleted-skill",
-            "--agent",
-            "claude-code",
-            "codex",
-            "opencode",
             "--global",
             "--yes",
         ],
@@ -727,3 +723,149 @@ def test_reset_removes_deleted_skill_from_all_shared_agents(tmp_path: Path) -> N
     ]
     manifest = json.loads(state.read_text())
     assert {entry["skill"] for entry in manifest["installations"]} == {"one", "two"}
+
+
+def test_reset_recovers_deleted_remote_skill_from_upstream_lock(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    shared = tmp_path / "skills.yaml"
+    local = tmp_path / "local.yaml"
+    state = tmp_path / "state/manifest.json"
+    upstream_state = tmp_path / "upstream-state"
+    lock = upstream_state / "skills/.skill-lock.json"
+    write_config(
+        shared,
+        """\
+defaults:
+  agents: [codex]
+sources:
+  remote:
+    url: https://example.test/skills.git
+packages:
+  remote:
+    source: remote
+    skills: ["*"]
+installs:
+  - package: remote
+    target: global
+""",
+    )
+    write_config(local, "")
+    lock.parent.mkdir(parents=True)
+    lock.write_text(
+        json.dumps(
+            {
+                "version": 3,
+                "skills": {
+                    "deleted-skill": {
+                        "sourceUrl": "https://example.test/skills.git",
+                    }
+                },
+            }
+        )
+    )
+    monkeypatch.setenv("XDG_STATE_HOME", str(upstream_state))
+    runner = FakeRunner("│    current-skill\n")
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "install",
+            "--reset",
+            "--global",
+            "--package",
+            "remote",
+        ),
+        runner,
+    )
+
+    assert result == 0
+    assert runner.calls[1] == (
+        ["skills", "remove", "deleted-skill", "--global", "--yes"],
+        None,
+    )
+    assert runner.calls[2][0][0:3] == [
+        "skills",
+        "add",
+        "https://example.test/skills.git",
+    ]
+
+
+def test_package_reset_keeps_agent_filter_for_retained_ownership(tmp_path: Path) -> None:
+    shared = tmp_path / "skills.yaml"
+    local = tmp_path / "local.yaml"
+    state = tmp_path / "state/manifest.json"
+    write_config(
+        shared,
+        """\
+sources:
+  remote:
+    url: https://example.test/skills.git
+packages:
+  first:
+    source: remote
+    skills: [shared-skill]
+  second:
+    source: remote
+    skills: [shared-skill]
+installs:
+  - package: first
+    target: global
+    agents: [codex]
+  - package: second
+    target: global
+    agents: [opencode]
+""",
+    )
+    write_config(local, "")
+    state.parent.mkdir()
+    state.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "installations": [
+                    {
+                        "scope": "global",
+                        "project": None,
+                        "agent": agent,
+                        "skill": "shared-skill",
+                        "source": "https://example.test/skills.git",
+                        "origin": "remote",
+                        "package": package,
+                    }
+                    for agent, package in (("codex", "first"), ("opencode", "second"))
+                ],
+            }
+        )
+    )
+    runner = FakeRunner("│    shared-skill\n")
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "install",
+            "--reset",
+            "--global",
+            "--package",
+            "first",
+        ),
+        runner,
+    )
+
+    assert result == 0
+    assert runner.calls[1] == (
+        [
+            "skills",
+            "remove",
+            "shared-skill",
+            "--agent",
+            "codex",
+            "--global",
+            "--yes",
+        ],
+        None,
+    )
