@@ -44,40 +44,10 @@ AI coding agent CLIs are pulled from the [`llm-agents.nix`](https://github.com/n
 
 ### Managed Agent Skills
 
-[`config/dot_config/skills/skills.yaml`](./config/dot_config/skills/skills.yaml)
-declares shared sources, packages, and installations. A source is a remote URL
-or machine-local repository root; a package selects skills from one source; and
-an install places one package at `global` or an absolute local target. Home
-Manager symlinks the shared configuration to
-`~/.config/skills/skills.yaml` and installs the `managed-skills` command.
-
-Machine-specific sources, packages, and installation targets belong in
-`~/.config/skills/local.yaml`, which is deliberately not managed by this
-repository. Start from
-[`config/dot_config/skills/local.example.yaml`](./config/dot_config/skills/local.example.yaml)
-and use absolute paths. The two files' named sources and packages are merged;
-duplicate names are rejected. Packages can use `exclude` to omit named skills
-while selecting the rest of a source.
-
-```sh
-managed-skills install                 # Add/reinstall all declarations
-managed-skills install --global        # Only user-global declarations
-managed-skills install --local         # Only absolute-path targets
-managed-skills install --package my-agent-skills  # Only one named package
-managed-skills install --package my-agent-skills --verbose  # List each skill
-managed-skills install --reset         # Remove managed entries, then reinstall
-managed-skills uninstall               # Remove every manifest-owned entry
-managed-skills status                  # Summarize declarations and tracked state
-```
-
-`install` is additive: removing an entry from YAML does not uninstall it.
-Repeat `--package NAME` to select more than one named package. The same filter
-works with `uninstall` and `status`. Add `--verbose` to `install` to list every
-skill selected from each package.
-`uninstall` reads the ownership manifest at
-`~/.local/state/skills/manifest.json`, so it can remove past installations even
-after their declaration has changed. Use the same scope flags with `uninstall`
-or `install --reset`; add `--dry-run` to either mutating command to preview it.
+Agent Skills are managed through the repository's `managed-skills` policy layer
+over the vercel-labs `skills` CLI. See the
+[`managed-skills` README](./nix/home/llm-agents/managed-skills/README.md) for
+configuration, commands, synchronization semantics, and development guidance.
 
 ## Traditional Dotfiles
 
