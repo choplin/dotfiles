@@ -42,6 +42,7 @@
       "xykong/tap/flux-markdown"
       "azooKey"
       "opendisplay"
+      "jazzyalex/agent-sessions/agent-sessions"
 
       # Apps we let self-update, installed as real writable bundles.
       #
