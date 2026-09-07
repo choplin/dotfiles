@@ -31,7 +31,7 @@ operation.
 | File | Ownership | Purpose |
 |---|---|---|
 | `~/.config/skills/skills.yaml` | This repository | Shared remote sources, packages, global installations, and default agents |
-| `~/.config/skills/local.yaml` | Machine-local and untracked | Local repository paths and project-specific installation targets |
+| `~/.config/skills/local.yaml` | Machine-local and untracked | Local repository paths, development checkouts, and project-specific installation targets |
 
 The shared file is sourced from
 [`config/dot_config/skills/skills.yaml`](../../../../config/dot_config/skills/skills.yaml).
@@ -72,8 +72,9 @@ installs:
     target: global
 ```
 
-Shared and local `sources` and `packages` are merged by name. A name may appear
-in only one file; shadowing is rejected.
+Shared and local `packages` are merged by name. A package name may appear in
+only one file; shadowing is rejected. A local source may reuse the name of a
+shared URL source to attach its development `checkout`.
 
 ### Sources
 
@@ -83,6 +84,12 @@ A source contains exactly one of these fields:
   belong in the shared file.
 - `path`: an existing absolute directory on the current machine. Local paths
   belong in `local.yaml`; `~` and relative paths are rejected.
+- `checkout`: an existing local clone of a shared remote source. Checkouts
+  belong in `local.yaml` under the same source name as the shared `url`.
+
+When the same source has `url` in `skills.yaml` and `checkout` in `local.yaml`,
+normal installation uses the URL and `managed-skills run` uses the checkout. A
+local-only source uses its path for both operations.
 
 ### Packages
 
@@ -113,22 +120,39 @@ An install requires a package and target:
 
 Duplicate package-and-target pairs are rejected.
 
+### Development checkouts
+
+Add a local path to the same source name that contains the remote URL:
+
+```yaml
+sources:
+  explainer-studio:
+    checkout: /absolute/path/to/explainer-studio
+  document-writing-skills:
+    checkout: /absolute/path/to/document-writing-skills
+```
+
+Checkout paths are machine-local, must be absolute, and belong in
+`local.yaml`. If the checkout contains a `skills/` directory, that directory is
+used as the discovery root. Otherwise the checkout root is used.
+
 ## Commands
 
 ```sh
 managed-skills install
 managed-skills uninstall
 managed-skills status
+managed-skills run --package explainer-studio --agent codex
 ```
 
-All commands accept scope filters:
+Install, uninstall, and status accept scope filters:
 
 ```sh
 managed-skills install --global
 managed-skills install --local
 ```
 
-They also accept repeatable package filters:
+Those commands also accept repeatable package filters:
 
 ```sh
 managed-skills install --package vercel-skills
@@ -203,6 +227,39 @@ managed-skills status --package vercel-skills
 Status reports declared install units and tracked manifest entries by scope. It
 does not inspect installed files, compare remote revisions, or detect drift from
 manual changes.
+
+### Run a local checkout
+
+Launch Claude Code or Codex with the current, possibly uncommitted contents of
+a development checkout:
+
+```sh
+managed-skills run --package explainer-studio --agent claude
+managed-skills run --package document-writing-skills --agent codex
+managed-skills run --package explainer-studio --agent codex -- --search
+managed-skills run --package explainer-studio --agent claude -- --resume
+managed-skills run --package explainer-studio --agent codex -- resume --last
+```
+
+The command loads the package selection from `skills.yaml` and resolves it
+against the checkout configured in `local.yaml`. It does not install anything
+or update the ownership manifest.
+
+For Claude Code, the command copies the selected checkout skills into a
+temporary plugin and passes it through `--plugin-dir`. The plugin exists only
+for the launched process.
+
+Codex CLI has no option for adding an arbitrary skill discovery root. Its
+`--add-dir` option grants workspace access but does not register skills. The
+command therefore passes the checkout through `--add-dir` and injects the
+selected skill names, descriptions, and `SKILL.md` paths through the temporary
+`developer_instructions` configuration. This works for new and resumed
+sessions and leaves the prompt free for the actual task. The skills do not
+appear in Codex's `/skills` picker.
+
+Arguments after `--` are passed directly to the selected agent. Claude Code
+therefore uses `--resume` or `--continue`, while Codex uses its `resume`
+subcommand.
 
 ## Ownership manifest
 

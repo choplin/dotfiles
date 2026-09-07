@@ -12,6 +12,9 @@ from managed_skills.cli import CommandRunner, load_install_units, run
 class FakeRunner(CommandRunner):
     def __init__(self, list_output: str = "") -> None:
         self.calls: list[tuple[list[str], str | None]] = []
+        self.interactive_calls: list[tuple[list[str], str | None]] = []
+        self.claude_manifest: dict[str, object] | None = None
+        self.claude_skill_contents: dict[str, str] = {}
         self.list_output = list_output
 
     def run(self, argv: Sequence[str], cwd: str | None = None) -> str:
@@ -19,6 +22,20 @@ class FakeRunner(CommandRunner):
         if "--list" in argv:
             return self.list_output
         return ""
+
+    def run_interactive(self, argv: Sequence[str], cwd: str | None = None) -> int:
+        command = list(argv)
+        self.interactive_calls.append((command, cwd))
+        if command[:2] == ["claude", "--plugin-dir"]:
+            plugin = Path(command[2])
+            self.claude_manifest = json.loads(
+                (plugin / ".claude-plugin/plugin.json").read_text()
+            )
+            self.claude_skill_contents = {
+                path.name: (path / "SKILL.md").read_text()
+                for path in (plugin / "skills").iterdir()
+            }
+        return 0
 
 
 def write_skill(root: Path, name: str) -> None:
@@ -128,7 +145,7 @@ sources:
 """,
     )
 
-    with pytest.raises(Exception, match="duplicate sources definitions: duplicate"):
+    with pytest.raises(Exception, match="may add only 'checkout'"):
         load_install_units(shared, local)
 
 
@@ -573,6 +590,149 @@ def test_install_rejects_unknown_package_before_mutation(tmp_path: Path) -> None
     assert result == 1
     assert runner.calls == []
     assert not state.exists()
+
+
+def development_files(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
+    checkout = tmp_path / "checkout"
+    write_skill(checkout / "skills", "one")
+    write_skill(checkout / "skills", "two")
+    shared = tmp_path / "skills.yaml"
+    local = tmp_path / "local.yaml"
+    state = tmp_path / "state/manifest.json"
+    write_config(
+        shared,
+        """\
+defaults:
+  agents: [claude-code, codex]
+sources:
+  remote:
+    url: https://example.test/skills.git
+packages:
+  remote:
+    source: remote
+    exclude: [two]
+installs:
+  - package: remote
+    target: global
+""",
+    )
+    write_config(
+        local,
+        f"""\
+sources:
+  remote:
+    checkout: {checkout}
+""",
+    )
+    return shared, local, state, checkout
+
+
+def test_local_checkout_augments_remote_without_changing_install_source(
+    tmp_path: Path,
+) -> None:
+    shared, local, _, checkout = development_files(tmp_path)
+
+    units = load_install_units(shared, local)
+
+    assert units[0].source == "https://example.test/skills.git"
+    assert units[0].local_source is False
+    assert checkout.is_dir()
+
+
+def test_run_launches_claude_with_temporary_checkout_plugin(tmp_path: Path) -> None:
+    shared, local, state, checkout = development_files(tmp_path)
+    runner = FakeRunner()
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "run",
+            "--package",
+            "remote",
+            "--agent",
+            "claude",
+            "--",
+            "--resume",
+            "test-session",
+        ),
+        runner,
+    )
+
+    assert result == 0
+    command = runner.interactive_calls[0][0]
+    assert command[:2] == ["claude", "--plugin-dir"]
+    assert command[3:] == ["--resume", "test-session"]
+    assert runner.claude_manifest == {
+        "name": "managed-skills-dev-remote",
+        "version": "0.0.0",
+        "description": "Temporary local checkout of remote",
+        "author": {"name": "managed-skills"},
+        "skills": ["./skills/one/"],
+    }
+    assert runner.claude_skill_contents == {
+        "one": (checkout / "skills/one/SKILL.md").read_text()
+    }
+    assert not state.exists()
+
+
+def test_run_launches_codex_resume_with_checkout_instructions(tmp_path: Path) -> None:
+    shared, local, state, checkout = development_files(tmp_path)
+    runner = FakeRunner()
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "run",
+            "--package",
+            "remote",
+            "--agent",
+            "codex",
+            "--",
+            "resume",
+            "--last",
+        ),
+        runner,
+    )
+
+    assert result == 0
+    command = runner.interactive_calls[0][0]
+    assert command[:3] == ["codex", "--add-dir", str(checkout / "skills")]
+    assert command[3] == "--config"
+    key, raw_instructions = command[4].split("=", 1)
+    assert key == "developer_instructions"
+    instructions = json.loads(raw_instructions)
+    assert "- one: Test" in instructions
+    assert str(checkout / "skills/one/SKILL.md") in instructions
+    assert "- two:" not in instructions
+    assert command[5:] == ["resume", "--last"]
+    assert not state.exists()
+
+
+def test_run_requires_configured_checkout(tmp_path: Path) -> None:
+    shared, local, state, _ = development_files(tmp_path)
+    write_config(local, "")
+    runner = FakeRunner()
+
+    result = run(
+        cli_args(
+            shared,
+            local,
+            state,
+            "run",
+            "--package",
+            "remote",
+            "--agent",
+            "codex",
+        ),
+        runner,
+    )
+
+    assert result == 1
+    assert runner.interactive_calls == []
 
 
 def test_reset_only_removes_selected_package(tmp_path: Path) -> None:

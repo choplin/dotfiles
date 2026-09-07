@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -49,6 +50,7 @@ class SourceDefinition:
     name: str
     location: str
     local: bool
+    checkout: str | None = None
 
 
 @dataclass(frozen=True)
@@ -75,6 +77,15 @@ class ManifestEntry:
     package: str | None = None
 
 
+@dataclass(frozen=True)
+class SkillDefinition:
+    """One local skill available to a temporary agent session."""
+
+    name: str
+    description: str
+    path: Path
+
+
 class CommandRunner:
     """Run the upstream skills CLI."""
 
@@ -94,6 +105,10 @@ class CommandRunner:
             message = f"skills CLI failed with exit code {result.returncode}{detail}"
             raise ManagedSkillsError(message)
         return result.stdout
+
+    def run_interactive(self, argv: Sequence[str], cwd: str | None = None) -> int:
+        """Run an interactive agent attached to the current terminal."""
+        return subprocess.run(argv, cwd=cwd, check=False).returncode
 
 
 def default_paths() -> tuple[Path, Path, Path]:
@@ -191,21 +206,49 @@ def merged_definitions(
 def parse_sources(
     shared: dict[str, Any], local: dict[str, Any]
 ) -> dict[str, SourceDefinition]:
-    """Parse and merge named remote and machine-local sources."""
+    """Parse sources, augmenting shared URLs with machine-local checkouts."""
     sources: dict[str, SourceDefinition] = {}
-    for raw_name, raw_settings, section in merged_definitions(shared, local, "sources"):
-        name = validate_name(raw_name, f"{section} name")
-        label = f"{section}.{name}"
+    shared_sources = require_mapping(shared.get("sources", {}), "sources")
+    local_sources = require_mapping(local.get("sources", {}), "local sources")
+    for raw_name, raw_settings in shared_sources.items():
+        name = validate_name(raw_name, "sources name")
+        label = f"sources.{name}"
         settings = require_mapping(raw_settings, label)
-        if set(settings) not in ({"url"}, {"path"}):
-            raise ManagedSkillsError(f"{label} must contain exactly one of 'url' or 'path'")
-        if "path" in settings:
-            if section == "sources":
+        if set(settings) != {"url"}:
+            if "path" in settings:
                 raise ManagedSkillsError(
                     f"{label}.path is machine-local and belongs in local.yaml"
                 )
+            raise ManagedSkillsError(f"{label} must contain exactly 'url'")
+        url = settings["url"]
+        if not isinstance(url, str) or not url:
+            raise ManagedSkillsError(f"{label}.url must be a non-empty string")
+        sources[name] = SourceDefinition(name=name, location=url, local=False)
+
+    for raw_name, raw_settings in local_sources.items():
+        name = validate_name(raw_name, "local sources name")
+        label = f"local sources.{name}"
+        settings = require_mapping(raw_settings, label)
+        if name in sources:
+            if set(settings) != {"checkout"}:
+                raise ManagedSkillsError(
+                    f"duplicate sources definition {name} may add only 'checkout'"
+                )
+            checkout = str(
+                absolute_directory(settings["checkout"], f"{label}.checkout")
+            )
+            sources[name] = replace(sources[name], checkout=checkout)
+            continue
+        if set(settings) not in ({"url"}, {"path"}):
+            raise ManagedSkillsError(f"{label} must contain exactly one of 'url' or 'path'")
+        if "path" in settings:
             location = str(absolute_directory(settings["path"], f"{label}.path"))
-            sources[name] = SourceDefinition(name=name, location=location, local=True)
+            sources[name] = SourceDefinition(
+                name=name,
+                location=location,
+                local=True,
+                checkout=location,
+            )
             continue
         url = settings["url"]
         if not isinstance(url, str) or not url:
@@ -427,7 +470,12 @@ def load_install_units(shared_path: Path, local_path: Path) -> list[InstallUnit]
 
 def discover_local_skills(source: Path) -> tuple[str, ...]:
     """Read skill names directly from a local package."""
-    names: list[str] = []
+    return tuple(skill.name for skill in discover_local_skill_definitions(source))
+
+
+def discover_local_skill_definitions(source: Path) -> tuple[SkillDefinition, ...]:
+    """Read local skill metadata and source directories."""
+    definitions: list[SkillDefinition] = []
     for skill_file in sorted(source.rglob("SKILL.md")):
         try:
             text = skill_file.read_text()
@@ -446,10 +494,21 @@ def discover_local_skills(source: Path) -> tuple[str, ...]:
         name = frontmatter.get("name") if isinstance(frontmatter, dict) else None
         if not isinstance(name, str) or not name:
             raise ManagedSkillsError(f"SKILL.md has no valid name: {skill_file}")
-        names.append(name)
-    if not names:
+        description = frontmatter.get("description")
+        if not isinstance(description, str) or not description:
+            raise ManagedSkillsError(f"SKILL.md has no valid description: {skill_file}")
+        definitions.append(
+            SkillDefinition(name=name, description=description, path=skill_file.parent)
+        )
+    if not definitions:
         raise ManagedSkillsError(f"no SKILL.md files found under {source}")
-    return tuple(dict.fromkeys(names))
+    names = [definition.name for definition in definitions]
+    duplicates = sorted(name for name in set(names) if names.count(name) > 1)
+    if duplicates:
+        raise ManagedSkillsError(
+            f"duplicate local skill names under {source}: {', '.join(duplicates)}"
+        )
+    return tuple(definitions)
 
 
 def parse_listed_skills(output: str, source: str) -> tuple[str, ...]:
@@ -1018,6 +1077,149 @@ def handle_status(
         print(f"  {label}: {count}")
 
 
+def load_run_units(
+    shared_path: Path,
+    local_path: Path,
+    package_name: str,
+    agent: str,
+) -> list[InstallUnit]:
+    """Resolve one package against its machine-local development checkout."""
+    load_install_units(shared_path, local_path)
+    shared = load_yaml(shared_path, required=True)
+    local = load_yaml(local_path, required=False)
+    sources = parse_sources(shared, local)
+    packages = parse_packages(shared, local, sources)
+    if package_name not in packages:
+        raise ManagedSkillsError(f"unknown package: {package_name}")
+    package = packages[package_name]
+    source_definition = sources[package.source]
+    if source_definition.checkout is None:
+        raise ManagedSkillsError(
+            f"package {package_name} has no local checkout for source {package.source}"
+        )
+
+    checkout = Path(source_definition.checkout)
+    relative_paths = package.paths
+    if relative_paths is None:
+        relative_paths = ("skills",) if (checkout / "skills").is_dir() else (".",)
+    units = []
+    for index, relative in enumerate(relative_paths):
+        source = resolve_local_source(
+            checkout,
+            relative,
+            f"sources.{package.source}.paths[{index}]",
+        )
+        units.append(
+            InstallUnit(
+                package=package.name,
+                source=str(source),
+                origin=f"checkout:{package.source}:{relative}",
+                scope="global",
+                project=None,
+                agents=(agent,),
+                skills=package.skills,
+                excluded_skills=package.excluded_skills,
+                local_source=True,
+            )
+        )
+    return materialize_units(units, CommandRunner(), verify_explicit=True)
+
+
+def selected_skill_definitions(units: Sequence[InstallUnit]) -> tuple[SkillDefinition, ...]:
+    """Return metadata for the exact skills selected by materialized units."""
+    selected: list[SkillDefinition] = []
+    for unit in units:
+        wanted = set(unit.skills or ())
+        selected.extend(
+            definition
+            for definition in discover_local_skill_definitions(Path(unit.source))
+            if definition.name in wanted
+        )
+    names = [definition.name for definition in selected]
+    duplicates = sorted(name for name in set(names) if names.count(name) > 1)
+    if duplicates:
+        raise ManagedSkillsError(
+            f"package {units[0].package} selects duplicate skill names: "
+            f"{', '.join(duplicates)}"
+        )
+    expected = {skill for unit in units for skill in unit.skills or ()}
+    missing = sorted(expected - set(names))
+    if missing:
+        raise ManagedSkillsError(f"local checkout does not contain skills: {', '.join(missing)}")
+    return tuple(selected)
+
+
+def create_claude_plugin(
+    root: Path, package_name: str, skills: Sequence[SkillDefinition]
+) -> Path:
+    """Build a temporary Claude plugin whose skills point at the checkout."""
+    plugin = root / "plugin"
+    plugin_skills = plugin / "skills"
+    manifest_directory = plugin / ".claude-plugin"
+    plugin_skills.mkdir(parents=True)
+    manifest_directory.mkdir()
+    skill_paths = []
+    for skill in skills:
+        shutil.copytree(skill.path, plugin_skills / skill.name)
+        skill_paths.append(f"./skills/{skill.name}/")
+    manifest = {
+        "name": f"managed-skills-dev-{package_name}",
+        "version": "0.0.0",
+        "description": f"Temporary local checkout of {package_name}",
+        "author": {"name": "managed-skills"},
+        "skills": skill_paths,
+    }
+    (manifest_directory / "plugin.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    return plugin
+
+
+def codex_skill_prompt(package_name: str, skills: Sequence[SkillDefinition]) -> str:
+    """Describe temporary skills to Codex without installing persistent files."""
+    lines = [
+        f"A temporary local checkout of the {package_name} skill package is available.",
+        "Prefer these authoring copies over installed skills with the same names.",
+        "For the user's next request, match explicit skill names and descriptions. Read the "
+        "matching SKILL.md completely from its listed path before acting.",
+        "",
+    ]
+    for skill in skills:
+        description = " ".join(skill.description.split())
+        lines.append(f"- {skill.name}: {description} ({skill.path / 'SKILL.md'})")
+    return "\n".join(lines)
+
+
+def handle_run(
+    args: argparse.Namespace,
+    shared_path: Path,
+    local_path: Path,
+    runner: CommandRunner,
+) -> int:
+    """Launch an agent with a package loaded from its local checkout."""
+    units = load_run_units(shared_path, local_path, args.package, args.agent)
+    skills = selected_skill_definitions(units)
+    checkout_directories = tuple(dict.fromkeys(str(Path(unit.source)) for unit in units))
+    report(
+        f"RUN      {args.package} · {counted(len(skills), 'skill')} → {args.agent}"
+    )
+    agent_args = list(args.agent_args)
+    if agent_args[:1] == ["--"]:
+        agent_args = agent_args[1:]
+    if args.agent == "claude":
+        with tempfile.TemporaryDirectory(prefix="managed-skills-") as temporary:
+            plugin = create_claude_plugin(Path(temporary), args.package, skills)
+            return runner.run_interactive(
+                ["claude", "--plugin-dir", str(plugin), *agent_args]
+            )
+
+    command = ["codex"]
+    for directory in checkout_directories:
+        command.extend(["--add-dir", directory])
+    instructions = json.dumps(codex_skill_prompt(args.package, skills))
+    command.extend(["--config", f"developer_instructions={instructions}"])
+    command.extend(agent_args)
+    return runner.run_interactive(command)
+
+
 def add_scope_arguments(parser: argparse.ArgumentParser) -> None:
     """Add the common mutually exclusive scope filters."""
     group = parser.add_mutually_exclusive_group()
@@ -1066,6 +1268,22 @@ def build_parser() -> argparse.ArgumentParser:
     status = subparsers.add_parser("status", help="show declarations and tracked state")
     add_scope_arguments(status)
     add_package_arguments(status)
+
+    launch = subparsers.add_parser(
+        "run", help="launch an agent with a package's local checkout"
+    )
+    launch.add_argument("--package", required=True, help="package to load")
+    launch.add_argument(
+        "--agent",
+        required=True,
+        choices=("claude", "codex"),
+        help="agent to launch",
+    )
+    launch.add_argument(
+        "agent_args",
+        nargs=argparse.REMAINDER,
+        help="arguments passed to the agent after '--'",
+    )
     return parser
 
 
@@ -1084,8 +1302,10 @@ def run(argv: Sequence[str] | None = None, runner: CommandRunner | None = None) 
                 args.state,
                 command_runner,
             )
-        else:
+        elif args.command == "status":
             handle_status(args, args.config, args.local_config, args.state)
+        else:
+            return handle_run(args, args.config, args.local_config, command_runner)
     except ManagedSkillsError as error:
         print(f"managed-skills: {error}", file=sys.stderr)
         return 1

@@ -3,6 +3,12 @@
 sources:
   my-agent-skills:
     path: /absolute/path/to/my-agent-skills
+  # These augment matching remote sources in skills.yaml. Normal installs use
+  # their URLs; `managed-skills run` uses these local checkouts.
+  explainer-studio:
+    checkout: /absolute/path/to/explainer-studio
+  document-writing-skills:
+    checkout: /absolute/path/to/document-writing-skills
 
 packages:
   project-structure-tools:
