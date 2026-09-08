@@ -26,6 +26,9 @@ sources:
   document-writing-skills:
     url: https://github.com/choplin/document-writing-skills
 
+  octa:
+    url: https://github.com/choplin/octa
+
 packages:
   my-agent-skills:
     source: my-agent-skills
@@ -64,6 +67,10 @@ packages:
     source: document-writing-skills
     skills: ["*"]
 
+  octa:
+    source: octa
+    skills: ["octa"]
+
 installs:
   - package: my-agent-skills
     target: global
@@ -87,4 +94,7 @@ installs:
     target: global
 
   - package: document-writing-skills
+    target: global
+
+  - package: octa
     target: global
