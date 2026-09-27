@@ -2,7 +2,61 @@
 
 set -eu
 
-herdr_bin=${HERDR_BIN_PATH:-herdr}
+resolve_herdr_bin() (
+  socket_path=${HERDR_SOCKET_PATH:-}
+
+  # Prefer the server's loaded binary so its private CLI protocol stays compatible.
+  if [ -n "$socket_path" ] && command -v lsof >/dev/null 2>&1; then
+    cache_path=${socket_path}.herdr-open-bin
+    cached_pid=
+    cached_bin=
+    if [ -r "$cache_path" ] && [ "$cache_path" -nt "$socket_path" ] && {
+      IFS= read -r cached_pid &&
+        IFS= read -r cached_bin
+    } <"$cache_path"; then
+      case "$cached_pid" in
+        '' | *[!0-9]*) ;;
+        *)
+          if kill -0 "$cached_pid" 2>/dev/null &&
+            [ "${cached_bin##*/}" = herdr ] && [ -x "$cached_bin" ]; then
+            printf '%s\n' "$cached_bin"
+            return
+          fi
+          ;;
+      esac
+    fi
+
+    server_pid=$(lsof -n -t "$socket_path" 2>/dev/null | sed -n '1p')
+    if [ -n "$server_pid" ]; then
+      server_bin=$(
+        lsof -n -a -p "$server_pid" -d txt -F n 2>/dev/null |
+          sed -n 's/^n//p' |
+          while IFS= read -r candidate; do
+            if [ "${candidate##*/}" = herdr ] && [ -x "$candidate" ]; then
+              printf '%s\n' "$candidate"
+              break
+            fi
+          done
+      )
+      if [ -n "$server_bin" ]; then
+        cache_tmp=${cache_path}.$$
+        if (umask 077; printf '%s\n%s\n' "$server_pid" "$server_bin" >"$cache_tmp") 2>/dev/null; then
+          mv -f "$cache_tmp" "$cache_path" 2>/dev/null || {
+            rm -f "$cache_tmp" 2>/dev/null || :
+          }
+        else
+          rm -f "$cache_tmp" 2>/dev/null || :
+        fi
+        printf '%s\n' "$server_bin"
+        return
+      fi
+    fi
+  fi
+
+  printf '%s\n' "${HERDR_BIN_PATH:-herdr}"
+)
+
+herdr_bin=$(resolve_herdr_bin)
 target_pane_id=${HERDR_ACTIVE_PANE_ID:-${HERDR_PANE_ID:-}}
 workspace_id=${HERDR_ACTIVE_WORKSPACE_ID:-${HERDR_WORKSPACE_ID:-}}
 
