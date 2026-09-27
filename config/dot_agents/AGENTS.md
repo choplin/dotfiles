@@ -25,7 +25,7 @@
 
 ## Skills and Tools
 
-- Use an installed skill when the task clearly matches it. Use the matching `lang-reference-*` skill for supported programming languages.
+- Use an installed skill when the task clearly matches it. For a supported programming language, load the matching `lang-reference-*` skill before the first relevant turn in each agent session, then retain and apply it without rereading the file. Read it again only when the file changed, its contents are no longer available in context, or a different agent needs the reference.
 - Use the `wtm-worktree` skill for worktree operations instead of invoking `git worktree` or `wtm` directly.
 - Prefer `rg` to `grep` and `fd` to `find` for interactive repository search.
 - Account for BSD/GNU command differences on macOS. Prefer portable syntax or a more suitable tool when behavior differs across platforms.
