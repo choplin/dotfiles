@@ -21,6 +21,7 @@
     ./neovim.nix
     ./pen-cli
     ./programs.nix
+    ./self-tools.nix
     ./zed.nix
     ./zed-agent-sessions.nix
   ];

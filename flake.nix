@@ -61,6 +61,11 @@
       url = "github:choplin/skill-validator";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Self-authored tools. Their repositories own the package definitions;
+    # this flake only selects and installs their default packages.
+    octa.url = "github:choplin/octa";
+    revia.url = "github:choplin/revia";
   };
 
   outputs = inputs:
