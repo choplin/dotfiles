@@ -63,9 +63,10 @@
     };
 
     # Self-authored tools. Their repositories own the package definitions;
-    # this flake only selects and installs their default packages.
+    # this flake selects their prebuilt release binaries.
     octa.url = "github:choplin/octa";
     revia.url = "github:choplin/revia";
+    yomu.url = "github:choplin/yomu";
   };
 
   outputs = inputs:
